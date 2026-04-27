@@ -18,9 +18,25 @@ export function useAuth(): AuthState {
       const role = (data.session?.user?.app_metadata?.role as string | undefined) ?? null;
       setState({ loading: false, session: data.session, user: data.session?.user ?? null, role });
     });
+    // Supabase fires `SIGNED_IN` on every visibility change (window refocus,
+    // tab switch, etc.) when it recovers the cached session. Re-publishing a
+    // new `user` reference on every such event causes downstream hooks
+    // (`useCurrentProfile`, page effects) to re-run their loaders, which
+    // overwrites unsaved form state on the profile / knowledge pages.
+    // Only update state when something that callers care about actually
+    // changed (user id, role, or access token).
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
       const role = (session?.user?.app_metadata?.role as string | undefined) ?? null;
-      setState({ loading: false, session, user: session?.user ?? null, role });
+      setState((prev) => {
+        const sameUser = (prev.user?.id ?? null) === (session?.user?.id ?? null);
+        const sameRole = prev.role === role;
+        const sameToken =
+          (prev.session?.access_token ?? null) === (session?.access_token ?? null);
+        if (!prev.loading && sameUser && sameRole && sameToken) {
+          return prev;
+        }
+        return { loading: false, session, user: session?.user ?? null, role };
+      });
     });
     return () => {
       mounted = false;

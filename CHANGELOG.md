@@ -44,6 +44,15 @@ provision and deploy.
   the admin model assignments UI (the router already falls back to the
   default when no assignment exists).
 
+### Fixed — unsaved form state cleared on window refocus
+
+- `useAuth` (`apps/frontend/src/lib/auth.ts`) now ignores benign
+  `onAuthStateChange` events that don't change the user id, role, or
+  access token. Supabase-js fires `SIGNED_IN` every time the tab regains
+  visibility, which previously caused `useCurrentProfile.reload()` to
+  re-run and overwrite unsaved edits on the profile and knowledge-base
+  pages whenever the user switched apps and came back.
+
 ### Changed — Clearer rejection for legacy `.doc` uploads
 
 - Legacy Microsoft Word `.doc` files are not extractable in our edge runtime
