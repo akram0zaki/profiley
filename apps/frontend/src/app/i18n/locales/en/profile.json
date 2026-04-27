@@ -40,6 +40,12 @@
     "description": "Control what recruiters can see and do",
     "url": "Profile URL",
     "copy": "Copy Link",
+    "privateNote": "Your profile is private. Turn on Public Profile Visibility above to claim a public URL and share it.",
+    "slug": {
+      "label": "Profile username",
+      "save": "Save",
+      "hint": "3–40 characters. Lowercase letters, digits, and hyphens. Must be unique."
+    },
     "visibility": {
       "title": "Public Profile Visibility",
       "description": "Anyone with the link can view your profile"
@@ -69,6 +75,10 @@
     "saveFailed": "Save failed",
     "linkCopied": "Profile link copied",
     "copyFailed": "Copy failed",
+    "slugUpdated": "Profile username updated",
+    "slugTaken": "That username is already taken",
+    "slugFormat": "Use lowercase letters, digits, or hyphens (no leading or trailing hyphen).",
+    "slugLength": "Username must be 3–40 characters long.",
     "cvFilled": "Filled from {filename}. Review the fields and click Save Changes.",
     "cvFillNoCv": "No processed CV yet. Upload a CV on the Documents page first.",
     "cvFillEmpty": "Your CV has no extractable text. Try a different file.",

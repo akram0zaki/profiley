@@ -22,6 +22,10 @@ import { useLanguage } from '../contexts/language-context';
 
 const SKILLS_QUESTION_KEY = 'skills';
 
+// Mirrors `SLUG_REGEX` in supabase/functions/_shared/validation/schemas.ts.
+// Lowercase letters, digits, internal hyphens; no leading/trailing hyphen.
+const SLUG_REGEX = /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+
 export default function ProfilePage() {
   const { t } = useLanguage();
   const { appUser, profile, preferences, loading, error, reload } = useCurrentProfile();
@@ -40,6 +44,10 @@ export default function ProfilePage() {
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [fillingFromCv, setFillingFromCv] = useState(false);
 
+  // Slug editing — only meaningful while the profile is published.
+  const [slugDraft, setSlugDraft] = useState('');
+  const [savingSlug, setSavingSlug] = useState(false);
+
   useEffect(() => {
     if (profile) {
       setForm({
@@ -50,6 +58,7 @@ export default function ProfilePage() {
         location: profile.current_location ?? '',
         photoPath: profile.profile_photo_path,
       });
+      setSlugDraft(profile.slug ?? '');
     }
   }, [profile]);
 
@@ -228,6 +237,44 @@ export default function ProfilePage() {
       toast.success(t('profile.feedback.linkCopied'));
     } catch {
       toast.error(t('profile.feedback.copyFailed'));
+    }
+  };
+
+  const slugInvalidReason = (() => {
+    const v = slugDraft.trim().toLowerCase();
+    if (v.length < 3 || v.length > 40) return 'length';
+    if (!SLUG_REGEX.test(v)) return 'format';
+    return null;
+  })();
+  const slugDirty = profile ? slugDraft.trim().toLowerCase() !== (profile.slug ?? '') : false;
+
+  const handleSaveSlug = async () => {
+    if (!profile || savingSlug) return;
+    const next = slugDraft.trim().toLowerCase();
+    if (!slugDirty) return;
+    if (slugInvalidReason) {
+      toast.error(
+        slugInvalidReason === 'length'
+          ? t('profile.feedback.slugLength')
+          : t('profile.feedback.slugFormat'),
+      );
+      return;
+    }
+    setSavingSlug(true);
+    try {
+      await api.updateProfileSlug({ newSlug: next });
+      toast.success(t('profile.feedback.slugUpdated'));
+      await reload();
+    } catch (e) {
+      const code = e instanceof ApiError ? e.code : null;
+      if (code === 'SLUG_TAKEN') {
+        toast.error(t('profile.feedback.slugTaken'));
+      } else {
+        const msg = e instanceof ApiError ? e.message : t('profile.feedback.saveFailed');
+        toast.error(msg);
+      }
+    } finally {
+      setSavingSlug(false);
     }
   };
 
@@ -425,17 +472,6 @@ export default function ProfilePage() {
             <CardDescription>{t('profile.publicSettings.description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="space-y-0.5">
-                <Label>{t('profile.publicSettings.url')}</Label>
-                <p className="text-sm text-muted-foreground">
-                  {window.location.origin}/public/{profile.slug}
-                </p>
-              </div>
-              <Button variant="outline" size="sm" onClick={copyShareLink}>
-                {t('profile.publicSettings.copy')}
-              </Button>
-            </div>
             <div className="flex items-center justify-between p-4 rounded-lg border">
               <div className="space-y-0.5">
                 <p className="font-medium">{t('profile.publicSettings.visibility.title')}</p>
@@ -443,6 +479,69 @@ export default function ProfilePage() {
               </div>
               <Switch checked={profile.public_visibility} onCheckedChange={togglePublic} />
             </div>
+
+            {profile.public_visibility ? (
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="profileSlug">{t('profile.publicSettings.slug.label')}</Label>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-sm text-muted-foreground shrink-0">
+                      {window.location.origin}/public/
+                    </span>
+                    <Input
+                      id="profileSlug"
+                      className="flex-1 min-w-[8rem]"
+                      value={slugDraft}
+                      onChange={(e) => setSlugDraft(e.target.value)}
+                      autoCapitalize="none"
+                      autoCorrect="off"
+                      spellCheck={false}
+                      disabled={savingSlug}
+                      maxLength={40}
+                    />
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={handleSaveSlug}
+                      disabled={savingSlug || !slugDirty || slugInvalidReason !== null}
+                    >
+                      {savingSlug ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        t('profile.publicSettings.slug.save')
+                      )}
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {t('profile.publicSettings.slug.hint')}
+                  </p>
+                  {slugDirty && slugInvalidReason && (
+                    <p className="text-xs text-destructive">
+                      {slugInvalidReason === 'length'
+                        ? t('profile.feedback.slugLength')
+                        : t('profile.feedback.slugFormat')}
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex items-center justify-between gap-4">
+                  <div className="space-y-0.5 min-w-0">
+                    <Label>{t('profile.publicSettings.url')}</Label>
+                    <p className="text-sm text-muted-foreground truncate">
+                      {window.location.origin}/public/{profile.slug}
+                    </p>
+                  </div>
+                  <Button variant="outline" size="sm" onClick={copyShareLink}>
+                    {t('profile.publicSettings.copy')}
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                {t('profile.publicSettings.privateNote')}
+              </p>
+            )}
+
             <div className="flex items-center justify-between p-4 rounded-lg border">
               <div className="space-y-0.5">
                 <p className="font-medium">{t('profile.publicSettings.chat.title')}</p>

@@ -40,6 +40,12 @@
     "description": "Bepaal wat recruiters kunnen zien en doen",
     "url": "Profiel-URL",
     "copy": "Link Kopiëren",
+    "privateNote": "Uw profiel is privé. Schakel hierboven Zichtbaarheid Openbaar Profiel in om een openbare URL te claimen en te delen.",
+    "slug": {
+      "label": "Profielgebruikersnaam",
+      "save": "Opslaan",
+      "hint": "3–40 tekens. Kleine letters, cijfers en koppeltekens. Moet uniek zijn."
+    },
     "visibility": {
       "title": "Zichtbaarheid Openbaar Profiel",
       "description": "Iedereen met de link kan uw profiel bekijken"
@@ -69,6 +75,10 @@
     "saveFailed": "Opslaan mislukt",
     "linkCopied": "Profiellink gekopieerd",
     "copyFailed": "Kopiëren mislukt",
+    "slugUpdated": "Gebruikersnaam bijgewerkt",
+    "slugTaken": "Die gebruikersnaam is al in gebruik",
+    "slugFormat": "Gebruik kleine letters, cijfers of koppeltekens (geen koppelteken aan begin of einde).",
+    "slugLength": "Gebruikersnaam moet 3–40 tekens lang zijn.",
     "cvFilled": "Ingevuld vanuit {filename}. Controleer de velden en klik op Wijzigingen Opslaan.",
     "cvFillNoCv": "Nog geen verwerkt CV. Upload eerst een CV op de pagina Documenten.",
     "cvFillEmpty": "Uw CV bevat geen leesbare tekst. Probeer een ander bestand.",

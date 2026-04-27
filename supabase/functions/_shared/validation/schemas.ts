@@ -40,6 +40,34 @@ export const PublishProfileSchema = z.object({
   publicVisibility: z.boolean(),
 });
 
+// Lowercased, must start and end with [a-z0-9], allows internal hyphens.
+// Length 3..40 keeps URLs readable and aligns with `baseSlug` cap (40).
+export const SLUG_REGEX = /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+
+// Slugs we never let users claim — these can collide with current or future
+// app routes, generic admin/system handles, or the public profile URL prefix.
+export const RESERVED_SLUGS = new Set<string>([
+  "admin", "administrator", "api", "auth", "authentication",
+  "dashboard", "settings", "profile", "profiles", "public",
+  "login", "logout", "signin", "signup", "register",
+  "onboarding", "uploads", "upload", "documents", "system",
+  "support", "help", "about", "privacy", "terms",
+  "root", "user", "users", "me", "account", "accounts",
+  "static", "assets", "favicon", "robots", "sitemap",
+  "profiley", "www",
+]);
+
+export const UpdateProfileSlugSchema = z.object({
+  newSlug: z.string()
+    .min(3)
+    .max(40)
+    .transform((s) => s.trim().toLowerCase())
+    .refine((s) => SLUG_REGEX.test(s), {
+      message: "Slug must be lowercase letters, digits, or hyphens (no leading/trailing hyphen).",
+    })
+    .refine((s) => !RESERVED_SLUGS.has(s), { message: "This slug is reserved." }),
+});
+
 // ----- Uploads -----
 export const CreateUploadUrlSchema = z.object({
   filename: z.string().min(1).max(255),

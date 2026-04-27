@@ -123,6 +123,8 @@ export const api = {
     callFn('update-user-locale', b),
   completeOnboarding: (b: unknown) => callFn('complete-onboarding', b),
   publishProfile: (b: { publicVisibility: boolean }) => callFn('publish-profile', b),
+  updateProfileSlug: (b: { newSlug: string }) =>
+    callFn<{ id: string; slug: string; changed: boolean }>('update-profile-slug', b),
   createUploadUrl: (b: { filename: string; mimeType: string; bucket?: 'user_uploads' | 'avatars' | 'documents' }) =>
     callFn<{ bucket: string; path: string; signedUrl: string; token: string }>('create-upload-url', b),
   finalizeUpload: (b: unknown) => callFn<{ documentId: string }>('finalize-upload', b),

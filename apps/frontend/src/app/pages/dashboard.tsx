@@ -168,7 +168,7 @@ export default function DashboardPage() {
               {t('dashboard.subtitle', { name: firstName })}
             </p>
           </div>
-          {profile?.slug && (
+          {profile?.slug && profile?.public_visibility && (
             <Link to={`/public/${profile.slug}`} target="_blank" rel="noreferrer">
               <Button className="gap-2">
                 <ExternalLink className="h-4 w-4" />

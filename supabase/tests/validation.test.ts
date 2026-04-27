@@ -11,8 +11,10 @@ import {
   GetPublicProfileSchema,
   InitializeUserProfileSchema,
   PublishProfileSchema,
+  RESERVED_SLUGS,
   SubmitRecruiterContactSchema,
   TrackRecruiterEventSchema,
+  UpdateProfileSlugSchema,
   UpdateUserLocaleSchema,
 } from "../functions/_shared/validation/schemas.ts";
 
@@ -55,6 +57,31 @@ Deno.test("PublishProfileSchema: requires boolean", () => {
   assert(PublishProfileSchema.safeParse({ publicVisibility: true }).success);
   assert(!PublishProfileSchema.safeParse({}).success);
   assert(!PublishProfileSchema.safeParse({ publicVisibility: "yes" }).success);
+});
+
+Deno.test("UpdateProfileSlugSchema: lowercases, enforces format and length", () => {
+  const ok = UpdateProfileSlugSchema.safeParse({ newSlug: "Akram-Z" });
+  assert(ok.success);
+  assertEquals(ok.data!.newSlug, "akram-z");
+
+  // Too short
+  assert(!UpdateProfileSlugSchema.safeParse({ newSlug: "ab" }).success);
+  // Too long
+  assert(!UpdateProfileSlugSchema.safeParse({ newSlug: "a".repeat(41) }).success);
+  // Leading hyphen
+  assert(!UpdateProfileSlugSchema.safeParse({ newSlug: "-akram" }).success);
+  // Trailing hyphen
+  assert(!UpdateProfileSlugSchema.safeParse({ newSlug: "akram-" }).success);
+  // Disallowed characters
+  assert(!UpdateProfileSlugSchema.safeParse({ newSlug: "akram zaki" }).success);
+  assert(!UpdateProfileSlugSchema.safeParse({ newSlug: "akram_zaki" }).success);
+});
+
+Deno.test("UpdateProfileSlugSchema: rejects reserved slugs (case-insensitive)", () => {
+  assert(RESERVED_SLUGS.has("admin"));
+  assert(!UpdateProfileSlugSchema.safeParse({ newSlug: "Admin" }).success);
+  assert(!UpdateProfileSlugSchema.safeParse({ newSlug: "api" }).success);
+  assert(!UpdateProfileSlugSchema.safeParse({ newSlug: "settings" }).success);
 });
 
 Deno.test("CreateUploadUrlSchema: defaults bucket to user_uploads, restricts enum", () => {

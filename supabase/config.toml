@@ -107,6 +107,32 @@ inspector_port = 8083
 [functions.process-document]
 verify_jwt = false
 
+# `get-public-profile` serves anonymous visitors viewing a shared profile
+# link. The frontend cannot attach a user JWT for unauthenticated visitors,
+# and the new `sb_publishable_*` API key format is rejected by the platform's
+# JWT verifier with UNAUTHORIZED_INVALID_JWT_FORMAT. Disable verification at
+# the gateway so the function (which already enforces public-visibility via
+# the sanitized view) handles requests directly.
+[functions.get-public-profile]
+verify_jwt = false
+
+# The remaining public profile interactions (chat, job-fit analysis, contact
+# form, visit/event tracking) are also invoked by anonymous recruiter
+# visitors. Same rationale as `get-public-profile` — the platform JWT check
+# rejects publishable keys, so we disable it here and rely on per-function
+# checks (Turnstile, profile preferences, rate limits).
+[functions.chat-persona]
+verify_jwt = false
+
+[functions.analyze-job-fit]
+verify_jwt = false
+
+[functions.submit-recruiter-contact]
+verify_jwt = false
+
+[functions.track-recruiter-event]
+verify_jwt = false
+
 [analytics]
 enabled = false
 port = 54327

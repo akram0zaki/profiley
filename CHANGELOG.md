@@ -11,6 +11,28 @@ no Supabase project has been created yet. Follow
 [`docs/concept/profiley-init-guide.md`](docs/concept/profiley-init-guide.md) to
 provision and deploy.
 
+### Added — Public profile sharing UX + custom slug
+
+- New edge function `update-profile-slug` lets a signed-in user rename their
+  own profile slug (the path segment used in the public URL
+  `/public/<slug>`). Slugs must be 3–40 lowercase letters/digits/hyphens, can
+  not start or end with a hyphen, and can not be one of the route-conflict
+  reserved words listed in `RESERVED_SLUGS`. Returns `409 SLUG_TAKEN` when
+  another user already owns the slug. The matching `public_pages.slug` mirror
+  is updated in the same call.
+- Profile page: the public URL, "Copy link" button, and new editable username
+  field are now hidden until the user toggles **Public Profile Visibility** on
+  — replacing the previous always-on URL row that pointed at an unreachable
+  link. When public, users can claim a different slug inline.
+- Dashboard: the "View public profile" CTA now only renders when the profile
+  is public, matching the new gating on the profile page.
+- Public-facing edge functions (`get-public-profile`, `chat-persona`,
+  `analyze-job-fit`, `submit-recruiter-contact`, `track-recruiter-event`) are
+  now deployed with `--no-verify-jwt` and flagged in `supabase/config.toml`
+  so the platform gateway no longer rejects anonymous visitors with
+  `UNAUTHORIZED_INVALID_JWT_FORMAT` when the frontend uses an
+  `sb_publishable_*` API key.
+
 ### Added — "Fill from CV" on the profile page
 
 - New edge function `extract-profile-from-cv` reads the user's most recent
