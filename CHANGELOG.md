@@ -13,16 +13,17 @@ provision and deploy.
 
 ### Fixed — Edge function authentication
 
-- `supabase/functions/_shared/auth/requireUser.ts` now extracts the bearer JWT
-  from the request `Authorization` header and passes it explicitly to
-  `supabase.auth.getUser(token)`. supabase-js's auth client manages its own
-  Authorization header and ignores `global.headers`, so the previous
-  `auth.getUser()` call hit `/auth/v1/user` without the user's JWT and every
-  authenticated edge function returned `UNAUTHORIZED` for signed-in users
-  (observed on `initialize-user-profile`, `list-user-documents`,
-  `create-upload-url`, etc.). New tests in
-  `supabase/tests/requireUser.test.ts` cover the missing-header, success, and
-  invalid-token paths.
+- `supabase/functions/_shared/auth/requireUser.ts` no longer relies on
+  supabase-js to validate the caller. It now extracts the bearer JWT from the
+  request `Authorization` header and calls `GET /auth/v1/user` directly with
+  explicit `apikey` + `Authorization` headers. supabase-js's auth client
+  manages its own Authorization header (ignoring the `global.headers` we set)
+  and exhibits intermittent issues with the new `sb_publishable_*` API key
+  format — both effects caused every authenticated edge function to return
+  `UNAUTHORIZED` for valid signed-in users (observed on
+  `initialize-user-profile`, `list-user-documents`, `create-upload-url`).
+  New tests in `supabase/tests/requireUser.test.ts` cover the missing-header,
+  success (asserts JWT + apikey are forwarded), and invalid-token paths.
 
 ### Added — Internationalization
 

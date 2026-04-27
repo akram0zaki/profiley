@@ -1,7 +1,6 @@
 // Auth helpers: extract the authenticated user from a request.
 
 import { AppError } from "../utils/errors.ts";
-import { getUserClient } from "../db/userClient.ts";
 
 export type AuthedUser = {
   id: string;
@@ -9,25 +8,64 @@ export type AuthedUser = {
   role: string;
 };
 
-export async function requireUser(req: Request): Promise<AuthedUser> {
-  const supabase = getUserClient(req);
-  // Pass the JWT explicitly: supabase-js's auth client manages its own
-  // Authorization header and does not consult the `global.headers` value we
-  // set in `getUserClient`, so calling `getUser()` without an argument hits
-  // /auth/v1/user with the anon key only and returns no user.
+function bearerToken(req: Request): string {
   const authHeader = req.headers.get("authorization") ?? "";
-  const token = authHeader.toLowerCase().startsWith("bearer ")
+  return authHeader.toLowerCase().startsWith("bearer ")
     ? authHeader.slice(7).trim()
     : "";
+}
+
+export async function requireUser(req: Request): Promise<AuthedUser> {
+  const token = bearerToken(req);
   if (!token) {
     throw new AppError("UNAUTHORIZED", "Authentication required", 401);
   }
-  const { data, error } = await supabase.auth.getUser(token);
-  if (error || !data?.user) {
+
+  const supabaseUrl = Deno.env.get("SUPABASE_URL");
+  const anonKey = Deno.env.get("SUPABASE_ANON_KEY");
+  if (!supabaseUrl || !anonKey) {
+    throw new Error("SUPABASE_URL or SUPABASE_ANON_KEY is not set");
+  }
+
+  // Hit the GoTrue /auth/v1/user endpoint directly. We avoid supabase-js's
+  // auth client here because (a) it ignores `global.headers.authorization`
+  // (it manages its own session header) and (b) the new `sb_publishable_*`
+  // API key format has shown intermittent issues going through the SDK.
+  // Both `apikey` and the user JWT must be sent.
+  let res: Response;
+  try {
+    res = await fetch(`${supabaseUrl}/auth/v1/user`, {
+      method: "GET",
+      headers: {
+        apikey: anonKey,
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (_err) {
     throw new AppError("UNAUTHORIZED", "Authentication required", 401);
   }
-  const role = (data.user.app_metadata?.role as string | undefined) ?? "user";
-  return { id: data.user.id, email: data.user.email ?? null, role };
+
+  if (!res.ok) {
+    throw new AppError("UNAUTHORIZED", "Authentication required", 401);
+  }
+
+  let user: {
+    id?: string;
+    email?: string | null;
+    app_metadata?: { role?: string };
+  };
+  try {
+    user = await res.json();
+  } catch {
+    throw new AppError("UNAUTHORIZED", "Authentication required", 401);
+  }
+
+  if (!user?.id) {
+    throw new AppError("UNAUTHORIZED", "Authentication required", 401);
+  }
+
+  const role = user.app_metadata?.role ?? "user";
+  return { id: user.id, email: user.email ?? null, role };
 }
 
 export async function requireAdmin(req: Request): Promise<AuthedUser> {

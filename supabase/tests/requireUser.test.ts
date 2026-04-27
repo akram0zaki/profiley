@@ -1,6 +1,6 @@
 // Tests for the shared requireUser auth helper.
-// We stub getUserClient via env + a mocked fetch to ensure the user JWT
-// is forwarded explicitly to supabase.auth.getUser().
+// We stub fetch to ensure the user JWT and apikey are forwarded to
+// /auth/v1/user, regardless of supabase-js's auth client behavior.
 
 import { assert, assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts";
 import { AppError } from "../functions/_shared/utils/errors.ts";
@@ -63,6 +63,7 @@ Deno.test("requireUser: forwards bearer JWT to /auth/v1/user", async () => {
     assert(userCall, "expected a call to /auth/v1/user");
     const auth = userCall!.headers.get("authorization") ?? "";
     assert(auth.includes("Bearer user-jwt-token"), `expected bearer JWT in Authorization, got: ${auth}`);
+    assertEquals(userCall!.headers.get("apikey"), "sb_publishable_test");
   } finally {
     mock.restore();
   }
