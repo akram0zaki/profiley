@@ -1,0 +1,282 @@
+{
+  "lastUpdated": "Laatst bijgewerkt: 27 april 2026",
+  "effectiveDate": "Van kracht: 27 april 2026",
+  "backToHome": "Terug naar Home",
+  "operator": {
+    "name": "Akram Zaki",
+    "role": "Enige beheerder (privépersoon)",
+    "country": "Nederland",
+    "contactEmail": "privacy@profiley.app"
+  },
+  "footer": {
+    "title": "Juridisch",
+    "terms": "Algemene Voorwaarden",
+    "privacy": "Privacybeleid",
+    "cookies": "Cookiebeleid"
+  },
+  "terms": {
+    "title": "Algemene Voorwaarden",
+    "lead": "Deze Algemene Voorwaarden regelen uw toegang tot en gebruik van Profiley. Door een account aan te maken of de dienst te gebruiken, gaat u akkoord met deze voorwaarden.",
+    "operator": {
+      "title": "1. Beheerder van de dienst",
+      "body": "Profiley wordt als persoonlijk project beheerd door Akram Zaki, een privépersoon woonachtig in Nederland. Verwijzingen naar “wij”, “ons” of “Profiley” verwijzen naar deze beheerder. U kunt ons bereiken via privacy@profiley.app."
+    },
+    "service": {
+      "title": "2. De dienst",
+      "body": "Met Profiley kunt u een AI-gedreven professioneel profiel opbouwen waarmee recruiters en andere bezoekers kunnen interacteren. Functies omvatten het uploaden van professionele documenten, het genereren van een AI-persona op basis daarvan, het delen van een openbare profielpagina en het uitvoeren van functie-fitanalyses. De dienst wordt aangeboden “as is” en “as available”, zonder enige garantie."
+    },
+    "accounts": {
+      "title": "3. Accounts en toegankelijkheid",
+      "body": "U moet minstens 16 jaar oud zijn om Profiley te gebruiken. U bent verantwoordelijk voor het veilig houden van uw inloggegevens en voor alle activiteit op uw account. Wij kunnen accounts opschorten of beëindigen die deze voorwaarden of het toepasselijke recht schenden."
+    },
+    "userContent": {
+      "title": "4. Uw inhoud",
+      "body": "U behoudt het eigendom van de documenten en informatie die u uploadt (“Gebruikersinhoud”). U verleent Profiley een wereldwijde, niet-exclusieve, royaltyvrije licentie om uw Gebruikersinhoud te hosten, verwerken, transformeren en weer te geven, uitsluitend om de dienst voor u te leveren (inclusief AI-verwerking, indexering en weergave op uw openbare profiel als u dat publiceert).",
+      "warranty": "U bevestigt dat u de rechten heeft om uw Gebruikersinhoud te uploaden en dat deze geen rechten van derden of toepasselijk recht schendt."
+    },
+    "acceptableUse": {
+      "title": "5. Aanvaardbaar gebruik",
+      "intro": "U stemt ermee in om niet:",
+      "items": [
+        "Inhoud te uploaden die illegaal, lasterlijk, haatzaaiend is of rechten van derden schendt;",
+        "Iemand anders te imiteren of uw professionele geschiedenis verkeerd weer te geven;",
+        "Authenticatie, rate limits, moderatie of andere technische beveiligingen te omzeilen;",
+        "Profiley te gebruiken om concurrerende AI-modellen te scrapen, trainen of bouwen;",
+        "Spam of malware te versturen of de dienst of andere gebruikers anderszins te verstoren."
+      ]
+    },
+    "ai": {
+      "title": "6. AI-gegenereerde uitvoer",
+      "body": "Profiley gebruikt grote taalmodellen van derden om antwoorden te genereren op basis van uw geüploade materialen. AI-uitvoer kan fouten bevatten en mag niet worden beschouwd als juridisch, medisch, financieel of carrièreadvies. U bent verantwoordelijk voor het controleren van de antwoorden die uw AI-persona op uw openbare profiel geeft."
+    },
+    "thirdParties": {
+      "title": "7. Diensten van derden",
+      "body": "Profiley vertrouwt op verwerkers van derden om de dienst te leveren (hosting, AI-inferentie, e-mail, analyse). Een volledige lijst — inclusief de verwerkte gegevens en de rechtsgrondslag — staat in ons Privacybeleid."
+    },
+    "termination": {
+      "title": "8. Beëindiging",
+      "body": "U kunt uw account op elk moment verwijderen via de instellingenpagina. Wij kunnen uw toegang beëindigen of opschorten als u deze voorwaarden schendt. Beëindiging tast geen rechten aan die vóór de beëindiging zijn ontstaan. Na verwijdering bewaren wij back-ups en wettelijk vereiste logs alleen voor de in het Privacybeleid vermelde periodes."
+    },
+    "liability": {
+      "title": "9. Beperking van aansprakelijkheid",
+      "body": "Voor zover toegestaan door Nederlands recht, zijn Profiley en de beheerder niet aansprakelijk voor indirecte, incidentele, bijzondere of gevolgschade, gederfde winst of gegevensverlies voortvloeiend uit uw gebruik van de dienst. Niets in deze voorwaarden beperkt aansprakelijkheid die niet bij dwingend recht kan worden uitgesloten (bijv. fraude of opzet)."
+    },
+    "changes": {
+      "title": "10. Wijzigingen van deze voorwaarden",
+      "body": "Wij kunnen deze voorwaarden van tijd tot tijd bijwerken. Wezenlijke wijzigingen worden ten minste 14 dagen voor inwerkingtreding aangekondigd in de app of per e-mail. Voortgezet gebruik na de ingangsdatum vormt aanvaarding van de bijgewerkte voorwaarden."
+    },
+    "law": {
+      "title": "11. Toepasselijk recht en geschillen",
+      "body": "Op deze voorwaarden is Nederlands recht van toepassing. Geschillen worden uitsluitend voorgelegd aan de bevoegde rechter in Amsterdam, tenzij dwingend consumentenrecht u een ander forum biedt."
+    },
+    "contact": {
+      "title": "12. Contact",
+      "body": "Vragen over deze voorwaarden? Mail naar privacy@profiley.app."
+    }
+  },
+  "privacy": {
+    "title": "Privacybeleid",
+    "lead": "Dit Privacybeleid legt uit hoe Profiley uw persoonsgegevens verwerkt overeenkomstig de Algemene Verordening Gegevensbescherming (AVG) en de Uitvoeringswet AVG (UAVG).",
+    "controller": {
+      "title": "1. Verwerkingsverantwoordelijke",
+      "body": "De verwerkingsverantwoordelijke voor Profiley is Akram Zaki, een privépersoon woonachtig in Nederland, die in persoonlijke hoedanigheid optreedt. Profiley is niet groot genoeg om een Functionaris voor Gegevensbescherming te vereisen onder artikel 37 AVG. Privacyvragen en rechtenverzoeken kunnen worden gestuurd naar privacy@profiley.app."
+    },
+    "scope": {
+      "title": "2. Reikwijdte",
+      "body": "Dit beleid betreft de Profiley-webapplicatie, de openbare profielpagina's en de ondersteunende backendservices. Het dekt geen externe sites die u eventueel vanuit uw profiel linkt."
+    },
+    "categories": {
+      "title": "3. Persoonsgegevens die wij verwerken",
+      "intro": "Wij verwerken de volgende categorieën persoonsgegevens:",
+      "items": [
+        "Accountgegevens: e-mailadres, authenticatie-identifiers, taalvoorkeur en admin-/rolvlaggen;",
+        "Profielgegevens: naam, professionele headline, bio, vaardigheden, werkervaring, projecten, foto en eventuele aangepaste slug;",
+        "Geüploade inhoud: cv's, motivatiebrieven, portfolio's, transcripten en vergelijkbare bestanden, plus de eruit geëxtraheerde tekst en embeddings;",
+        "Conversatiegegevens: berichten tussen bezoekers en uw AI-persona, functie-fitanalyses en recruiter-contactaanvragen;",
+        "Stemgegevens: korte audiofragmenten die u opneemt voor transcriptie, uitsluitend gebruikt om een tekstuele transcriptie te maken en daarna verwijderd;",
+        "Technische gegevens: IP-adres (waar mogelijk verkort), user agent, requestlogs, foutlogs en feature-flagstatus;",
+        "Operationele gegevens: AI-aanroeplogs (provider, model, tokenaantallen, timing) gebruikt voor kostenmonitoring en misbruikdetectie."
+      ]
+    },
+    "purposes": {
+      "title": "4. Doeleinden en rechtsgrondslagen",
+      "intro": "Wij verwerken persoonsgegevens voor de volgende doeleinden, elk gekoppeld aan een grondslag uit artikel 6 AVG:",
+      "items": [
+        "Levering van de dienst (accountaanmaak, documentverwerking, AI-persona, openbaar profiel, recruiterchats) — uitvoering van een overeenkomst (art. 6 lid 1 sub b);",
+        "Beveiliging van de dienst, voorkoming van misbruik en naleving van wettelijke verplichtingen zoals fiscale bewaarplichten — wettelijke verplichting en gerechtvaardigd belang (art. 6 lid 1 sub c en f);",
+        "Verbetering van betrouwbaarheid via geaggregeerde, niet-identificerende analyses — gerechtvaardigd belang (art. 6 lid 1 sub f);",
+        "Versturen van essentiële service-e-mails (inloglinks, beveiligingsmeldingen, wezenlijke wijzigingen) — uitvoering van een overeenkomst (art. 6 lid 1 sub b);",
+        "Optionele productcommunicatie en enquêtes — toestemming, te allen tijde intrekbaar (art. 6 lid 1 sub a);",
+        "Contentmoderatie en veiligheidsclassificatie van gegenereerde tekst — gerechtvaardigd belang om de dienst veilig te houden (art. 6 lid 1 sub f)."
+      ],
+      "noSpecial": "Wij verwerken bewust geen bijzondere categorieën persoonsgegevens (artikel 9 AVG). Vermijd het uploaden van documenten met gegevens over gezondheid, religie, politieke overtuiging of biometrie."
+    },
+    "automatedDecisions": {
+      "title": "5. AI-verwerking en geautomatiseerde besluiten",
+      "body": "AI-functies (persona-chat, functie-fitanalyses, documentextractie) worden aangedreven door grote taalmodellen van derden. De uitvoer is informatief en heeft geen rechtsgevolg of vergelijkbaar aanmerkelijk gevolg in de zin van artikel 22 AVG; recruiters die uw profiel gebruiken blijven verantwoordelijk voor elk wervingsbesluit dat zij nemen."
+    },
+    "processors": {
+      "title": "6. Ontvangers en verwerkers",
+      "intro": "Wij delen gegevens uitsluitend met geverifieerde verwerkers onder schriftelijke verwerkersovereenkomsten. De onderstaande tabel vermeldt elke actieve externe verwerker, de gegevens die zij ontvangen en het doel. Voor providers buiten de EER vertrouwen wij op Standaardcontractbepalingen (SCC's) en aanvullende maatregelen.",
+      "columns": {
+        "name": "Verwerker",
+        "purpose": "Doel",
+        "data": "Verwerkte gegevens",
+        "location": "Hostingregio",
+        "transfer": "Doorgiftemechanisme"
+      },
+      "items": {
+        "supabase": {
+          "name": "Supabase (Supabase Inc., VS)",
+          "purpose": "Primaire backend: Postgres-database, authenticatie, bestandsopslag, edge functions, geplande taken en auditlogs.",
+          "data": "Alle hierboven beschreven account-, profiel-, geüploade document-, conversatie-, stem- (tijdelijk) en operationele gegevens.",
+          "location": "EU (Frankfurt / Ierland) voor de productiedatabase; controlevlak van Supabase Inc. in de VS.",
+          "transfer": "EU-SCC's (controller-naar-processor) ondertekend via Supabase's DPA, plus encryptie tijdens transport en opslag."
+        },
+        "cloudflare": {
+          "name": "Cloudflare (Cloudflare, Inc., VS)",
+          "purpose": "DNS, CDN, DDoS-bescherming en hosting van de statische frontend en Pages Functions die metadata van openbare profielen renderen.",
+          "data": "IP-adres, user agent, request-URL's en headers, en de openbaar getoonde profielinhoud.",
+          "location": "Wereldwijd edgenetwerk met voorkeur voor EU-datacenters voor EU-verkeer.",
+          "transfer": "EU-SCC's en het EU–US Data Privacy Framework waar van toepassing."
+        },
+        "openai": {
+          "name": "OpenAI (OpenAI, OpCo, VS)",
+          "purpose": "Inferentie van grote taalmodellen voor persona-chat, embeddings voor het ophalen van uw kennisfragmenten, contentmoderatie, spraak-naar-tekst en optioneel tekst-naar-spraak.",
+          "data": "Prompts met uw naam, profielfragmenten en relevante geüploade kennisfragmenten; recruiterberichten; tijdelijke audiofragmenten; en de antwoorden van het model.",
+          "location": "VS (met EU-regio-inferentie waar beschikbaar).",
+          "transfer": "EU-SCC's via OpenAI's Data Processing Addendum. Wij gebruiken de API; OpenAI traint zijn publieke modellen niet op deze gegevens volgens de API-voorwaarden."
+        },
+        "gemini": {
+          "name": "Google AI / Gemini (Google Ireland Ltd. + Google LLC, VS)",
+          "purpose": "Alternatieve inferentie van grote taalmodellen, configureerbaar voor chat en gestructureerde analyses.",
+          "data": "Dezelfde promptinhoud als bij OpenAI wanneer Gemini de actieve provider is.",
+          "location": "EU-endpoints waar beschikbaar, anders VS.",
+          "transfer": "EU-SCC's en het EU–US Data Privacy Framework via Google's Cloud DPA."
+        },
+        "mistral": {
+          "name": "Mistral AI (Mistral AI SAS, Frankrijk)",
+          "purpose": "Alternatieve Europese aanbieder van grote taalmodellen voor chat en gestructureerde analyses.",
+          "data": "Dezelfde promptinhoud als bij OpenAI wanneer Mistral de actieve provider is.",
+          "location": "EU (Frankrijk).",
+          "transfer": "Verwerking blijft binnen de EER; geen doorgiftemechanisme nodig."
+        }
+      },
+      "outro": "Wij verkopen uw persoonsgegevens niet en delen ze niet met advertentienetwerken."
+    },
+    "international": {
+      "title": "7. Internationale doorgiften",
+      "body": "Wanneer gegevens de Europese Economische Ruimte verlaten, vertrouwen wij op de Standaardcontractbepalingen van de Europese Commissie (2021/914) gecombineerd met aanvullende technische maatregelen zoals encryptie tijdens transport en opslag, toegangslogging en least-privilege secrets. Kopieën van de relevante SCC's zijn op verzoek beschikbaar."
+    },
+    "retention": {
+      "title": "8. Bewaartermijnen",
+      "intro": "Wij bewaren persoonsgegevens niet langer dan nodig voor het doel waarvoor ze zijn verzameld:",
+      "items": [
+        "Account, profiel en geüploade documenten: tot u ze verwijdert of uw account sluit;",
+        "Conversatiegeschiedenis en functie-fitanalyses: tot u ze verwijdert of uw account sluit;",
+        "Stemopnames: verwijderd zodra de transcriptie is gemaakt (doorgaans binnen enkele minuten);",
+        "Operationele en beveiligingslogs: tot 90 dagen;",
+        "AI-aanroeplogs (kosten- en misbruikmonitoring): tot 180 dagen;",
+        "Back-ups: roterende, versleutelde back-ups bewaard tot 30 dagen na verwijdering;",
+        "Wettelijk vereiste registraties (bijv. financiële administratie indien van toepassing): de door Nederlands recht voorgeschreven termijn."
+      ]
+    },
+    "rights": {
+      "title": "9. Uw rechten",
+      "intro": "Onder de AVG heeft u recht op:",
+      "items": [
+        "Inzage in de persoonsgegevens die wij over u bewaren (art. 15);",
+        "Rectificatie van onjuiste gegevens (art. 16);",
+        "Wissing van uw gegevens (art. 17);",
+        "Beperking van de verwerking (art. 18);",
+        "Gegevensoverdraagbaarheid — ontvangst van uw gegevens in een machineleesbaar formaat (art. 20);",
+        "Bezwaar tegen verwerking op basis van gerechtvaardigd belang (art. 21);",
+        "Toestemming op elk moment in te trekken, zonder eerdere verwerking aan te tasten (art. 7);",
+        "Klacht in te dienen bij de Autoriteit Persoonsgegevens (www.autoriteitpersoonsgegevens.nl)."
+      ],
+      "howToExercise": "Stuur rechtenverzoeken naar privacy@profiley.app vanaf het e-mailadres dat aan uw account is gekoppeld. Wij reageren binnen één kalendermaand en kunnen redelijke identiteitsbewijzen verlangen."
+    },
+    "security": {
+      "title": "10. Beveiliging",
+      "body": "Wij beschermen uw gegevens met TLS tijdens transport, encryptie at rest, row-level security in Postgres, ondertekende upload-URL's, server-side invoervalidatie, contentmoderatie, auditlogs en regelmatige dependency-updates. Ondanks deze maatregelen kan geen enkele internetdienst 100% veilig worden gegarandeerd."
+    },
+    "children": {
+      "title": "11. Kinderen",
+      "body": "Profiley is niet bedoeld voor gebruikers onder de 16. Als wij vernemen dat wij persoonsgegevens van een kind hebben verzameld zonder geverifieerde ouderlijke toestemming, verwijderen wij deze direct."
+    },
+    "changes": {
+      "title": "12. Wijzigingen van dit beleid",
+      "body": "Wij werken dit beleid bij wanneer onze praktijken of verwerkers veranderen. De datum “Laatst bijgewerkt” bovenaan weerspiegelt de meest recente herziening. Wezenlijke wijzigingen worden minimaal 14 dagen vooraf per e-mail of in-app gecommuniceerd."
+    },
+    "contact": {
+      "title": "13. Contact",
+      "body": "Neem voor privacyvragen, rechtenverzoeken of zorgen contact op via privacy@profiley.app."
+    }
+  },
+  "cookies": {
+    "title": "Cookiebeleid",
+    "lead": "Profiley gebruikt een minimale set cookies en gelijkwaardige browseropslag om u ingelogd te houden en uw voorkeuren te onthouden. Wij gebruiken geen advertentie- of cross-site tracking-cookies.",
+    "what": {
+      "title": "1. Wat zijn cookies?",
+      "body": "Cookies zijn kleine tekstbestanden die uw browser opslaat wanneer u een website bezoekt. Hiermee kan de site uw apparaat bij latere bezoeken herkennen. Vergelijkbare technologieën zijn localStorage, sessionStorage en IndexedDB; wij behandelen deze onder dezelfde regels als cookies."
+    },
+    "categories": {
+      "title": "2. Categorieën cookies die wij gebruiken",
+      "intro": "Wij vertrouwen op de volgende categorieën. Strikt noodzakelijke opslag wordt automatisch ingesteld; al het andere alleen met uw toestemming.",
+      "columns": {
+        "name": "Naam",
+        "purpose": "Doel",
+        "type": "Type",
+        "duration": "Duur"
+      },
+      "items": {
+        "auth": {
+          "name": "sb-access-token / sb-refresh-token",
+          "purpose": "Houdt uw geverifieerde sessie met Supabase Auth in stand.",
+          "type": "Strikt noodzakelijk (eerste partij)",
+          "duration": "Sessie + glijdende refresh, tot 30 dagen"
+        },
+        "language": {
+          "name": "profiley-language",
+          "purpose": "Slaat de door u gekozen taal op (Engels, Nederlands of Arabisch).",
+          "type": "Strikt noodzakelijk (eerste partij, localStorage)",
+          "duration": "Totdat u uw browseropslag wist"
+        },
+        "theme": {
+          "name": "profiley-theme",
+          "purpose": "Slaat uw voorkeur voor licht/donker thema op.",
+          "type": "Strikt noodzakelijk (eerste partij, localStorage)",
+          "duration": "Totdat u uw browseropslag wist"
+        },
+        "cf": {
+          "name": "__cf_bm / cf_clearance",
+          "purpose": "Cloudflare-botbeperking, ingesteld bij het laden van Profiley-pagina's.",
+          "type": "Strikt noodzakelijk (derde partij, Cloudflare)",
+          "duration": "Tot 30 minuten (__cf_bm) / 30 dagen (cf_clearance)"
+        }
+      }
+    },
+    "consent": {
+      "title": "3. Toestemming",
+      "body": "Strikt noodzakelijke cookies zijn vrijgesteld van voorafgaande toestemming op grond van artikel 11.7a van de Telecommunicatiewet en artikel 5(3) van de ePrivacyrichtlijn. Wij plaatsen momenteel geen niet-essentiële cookies. Mochten wij in de toekomst analyse- of marketingcookies toevoegen, dan vragen wij vooraf om uw toestemming via een cookiebanner met granulaire keuzes."
+    },
+    "control": {
+      "title": "4. Cookies beheren",
+      "intro": "U kunt cookies en opslag beheren via uw browser:",
+      "items": [
+        "Cookies en sitegegevens wissen via uw browserinstellingen;",
+        "Cookies van derden blokkeren in de privacyinstellingen van uw browser;",
+        "Privé-/incognitomodus gebruiken om persistente opslag te vermijden."
+      ],
+      "outro": "Strikt noodzakelijke cookies uitschakelen voorkomt dat u kunt inloggen of uw taalvoorkeur wordt onthouden."
+    },
+    "changes": {
+      "title": "5. Wijzigingen van dit beleid",
+      "body": "Voegen wij nieuwe cookiecategorieën toe, dan werken wij dit beleid bij en vragen wij waar nodig om uw toestemming."
+    },
+    "contact": {
+      "title": "6. Contact",
+      "body": "Vragen over cookies? Mail naar privacy@profiley.app."
+    }
+  }
+}

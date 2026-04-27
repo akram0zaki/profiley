@@ -89,6 +89,38 @@ export function translate(
   return key;
 }
 
+function lookupArray(dict: LangDict, key: string): string[] | undefined {
+  const segments = key.split('.');
+  if (segments.length < 2) return undefined;
+  const [namespace, ...rest] = segments;
+  let node: unknown = dict[namespace];
+  for (const segment of rest) {
+    if (node === null || typeof node !== 'object' || Array.isArray(node)) return undefined;
+    node = (node as Record<string, unknown>)[segment];
+  }
+  if (Array.isArray(node) && node.every((v) => typeof v === 'string')) return node as string[];
+  return undefined;
+}
+
+/**
+ * Resolves a translation key to an array of strings, falling back to English
+ * when missing. Returns an empty array if the key is missing in both locales.
+ * Use for bulleted lists where the order is meaningful.
+ */
+export function translateList(
+  lang: Language,
+  key: string,
+  params?: Record<string, string | number>,
+): string[] {
+  const primary = lookupArray(dictionaries[lang], key);
+  if (primary !== undefined) return primary.map((v) => interpolate(v, params));
+  if (lang !== DEFAULT_LANGUAGE) {
+    const fallback = lookupArray(dictionaries[DEFAULT_LANGUAGE], key);
+    if (fallback !== undefined) return fallback.map((v) => interpolate(v, params));
+  }
+  return [];
+}
+
 /**
  * Best-effort language detection. Resolution order:
  *   1. `localStorage['profiley-language']` if it names a supported locale.

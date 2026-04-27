@@ -1,0 +1,282 @@
+{
+  "lastUpdated": "Last updated: 27 April 2026",
+  "effectiveDate": "Effective: 27 April 2026",
+  "backToHome": "Back to Home",
+  "operator": {
+    "name": "Akram Zaki",
+    "role": "Sole operator (private individual)",
+    "country": "The Netherlands",
+    "contactEmail": "privacy@profiley.app"
+  },
+  "footer": {
+    "title": "Legal",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookie Policy"
+  },
+  "terms": {
+    "title": "Terms & Conditions",
+    "lead": "These Terms & Conditions govern your access to and use of Profiley. By creating an account or otherwise using the service, you agree to these terms.",
+    "operator": {
+      "title": "1. Service operator",
+      "body": "Profiley is operated as a personal project by Akram Zaki, a private individual residing in the Netherlands. References to “we”, “us”, or “Profiley” refer to this operator. You can reach us at privacy@profiley.app."
+    },
+    "service": {
+      "title": "2. The service",
+      "body": "Profiley lets you build an AI-powered professional profile that recruiters and other visitors can interact with. Features include uploading professional documents, generating an AI persona based on those documents, sharing a public profile page, and running job-fit analyses. The service is provided on an “as is” and “as available” basis without warranties of any kind."
+    },
+    "accounts": {
+      "title": "3. Accounts and eligibility",
+      "body": "You must be at least 16 years old to use Profiley. You are responsible for keeping your sign-in credentials secure and for all activity on your account. We may suspend or terminate accounts that violate these terms or applicable law."
+    },
+    "userContent": {
+      "title": "4. Your content",
+      "body": "You retain ownership of the documents and information you upload (“User Content”). You grant Profiley a worldwide, non-exclusive, royalty-free licence to host, process, transform, and serve your User Content for the sole purpose of operating the service for you (including AI processing, indexing, and rendering it on your public profile when you publish one).",
+      "warranty": "You confirm that you have the rights to upload your User Content and that it does not infringe third-party rights or applicable law."
+    },
+    "acceptableUse": {
+      "title": "5. Acceptable use",
+      "intro": "You agree not to:",
+      "items": [
+        "Upload content that is illegal, defamatory, hateful, or that infringes third-party rights;",
+        "Impersonate another person or misrepresent your professional history;",
+        "Attempt to bypass authentication, rate limits, moderation, or other technical safeguards;",
+        "Use Profiley to scrape, train, or build competing AI models;",
+        "Send spam, malware, or otherwise interfere with the service or other users."
+      ]
+    },
+    "ai": {
+      "title": "6. AI-generated output",
+      "body": "Profiley uses third-party large language models to generate responses based on your uploaded materials. AI output may contain errors and should not be treated as legal, medical, financial, or career advice. You are responsible for reviewing the answers your AI persona provides on your public profile."
+    },
+    "thirdParties": {
+      "title": "7. Third-party services",
+      "body": "Profiley relies on third-party processors to deliver the service (hosting, AI inference, email, analytics). A complete list — including the data processed and the legal basis — is published in our Privacy Policy."
+    },
+    "termination": {
+      "title": "8. Termination",
+      "body": "You may delete your account at any time from the settings page. We may terminate or suspend your access if you breach these terms. Termination does not affect rights that accrued before termination. After deletion we retain backups and required logs only for the periods listed in the Privacy Policy."
+    },
+    "liability": {
+      "title": "9. Limitation of liability",
+      "body": "To the maximum extent permitted by Dutch law, Profiley and its operator are not liable for indirect, incidental, special, or consequential damages, lost profits, or loss of data arising from your use of the service. Nothing in these terms limits liability that cannot be excluded under mandatory law (e.g. fraud or intentional misconduct)."
+    },
+    "changes": {
+      "title": "10. Changes to these terms",
+      "body": "We may update these terms from time to time. Material changes will be announced in-app or by email at least 14 days before they take effect. Continued use of Profiley after the effective date constitutes acceptance of the updated terms."
+    },
+    "law": {
+      "title": "11. Governing law and disputes",
+      "body": "These terms are governed by the laws of the Netherlands. Disputes will be submitted exclusively to the competent courts of Amsterdam, the Netherlands, unless mandatory consumer-protection rules grant you a different forum."
+    },
+    "contact": {
+      "title": "12. Contact",
+      "body": "Questions about these terms? Email privacy@profiley.app."
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lead": "This Privacy Policy explains how Profiley processes your personal data in line with the EU General Data Protection Regulation (GDPR) and the Dutch implementing law (UAVG).",
+    "controller": {
+      "title": "1. Data controller",
+      "body": "The data controller for Profiley is Akram Zaki, a private individual residing in the Netherlands, acting in a personal capacity. Profiley is not large enough to require a Data Protection Officer under Article 37 GDPR. Privacy questions and rights requests can be sent to privacy@profiley.app."
+    },
+    "scope": {
+      "title": "2. Scope",
+      "body": "This policy covers the Profiley web application, its public profile pages, and the supporting backend services. It does not cover external sites that you might link to from your profile."
+    },
+    "categories": {
+      "title": "3. Personal data we process",
+      "intro": "We process the following categories of personal data:",
+      "items": [
+        "Account data: email address, authentication identifiers, language preference, and admin/role flags;",
+        "Profile data: name, professional headline, bio, skills, work history, projects, photo, and any custom slug you choose;",
+        "Uploaded content: CVs, cover letters, portfolios, transcripts, and similar files you upload, plus the text and embeddings extracted from them;",
+        "Conversation data: messages exchanged between visitors and your AI persona, job-fit analyses, and recruiter contact submissions;",
+        "Voice data: short audio clips you record for transcription, used only to produce a text transcript and then deleted;",
+        "Technical data: IP address (truncated where possible), user agent, request logs, error logs, and feature-flag state;",
+        "Operational data: AI call logs (provider, model, token counts, timing) used for cost monitoring and abuse detection."
+      ]
+    },
+    "purposes": {
+      "title": "4. Purposes and legal bases",
+      "intro": "We process personal data for the following purposes, each linked to a legal basis under Article 6 GDPR:",
+      "items": [
+        "Providing the service (account creation, document processing, AI persona, public profile, recruiter chats) — performance of a contract (Art. 6(1)(b));",
+        "Securing the service, preventing abuse, and meeting legal obligations such as tax retention — legal obligation and legitimate interest (Art. 6(1)(c) and (f));",
+        "Improving reliability through aggregated, non-identifying analytics — legitimate interest (Art. 6(1)(f));",
+        "Sending essential service emails (sign-in links, security notices, material changes) — performance of a contract (Art. 6(1)(b));",
+        "Optional product communications and surveys — consent, withdrawable at any time (Art. 6(1)(a));",
+        "Content moderation and safety classification of generated text — legitimate interest in keeping the service safe (Art. 6(1)(f))."
+      ],
+      "noSpecial": "We do not knowingly process special categories of personal data (Article 9 GDPR). Please avoid uploading documents that contain health, religious, political, or biometric data."
+    },
+    "automatedDecisions": {
+      "title": "5. AI processing and automated decisions",
+      "body": "AI features (persona chat, job-fit analyses, document extraction) are powered by third-party large language models. The output is informational and does not produce a legal or similarly significant effect on you under Article 22 GDPR; recruiters using your profile remain responsible for any hiring decision they make."
+    },
+    "processors": {
+      "title": "6. Recipients and processors",
+      "intro": "We share data only with vetted processors under written data-processing agreements. The table below lists every active third-party processor, the data they receive, and the purpose. Where a provider is outside the EEA, we rely on Standard Contractual Clauses (SCCs) and supplementary measures.",
+      "columns": {
+        "name": "Processor",
+        "purpose": "Purpose",
+        "data": "Data processed",
+        "location": "Hosting region",
+        "transfer": "Transfer mechanism"
+      },
+      "items": {
+        "supabase": {
+          "name": "Supabase (Supabase Inc., USA)",
+          "purpose": "Primary backend: Postgres database, authentication, file storage, edge functions, scheduled jobs, and audit logs.",
+          "data": "All account, profile, uploaded document, conversation, voice (transient), and operational data described above.",
+          "location": "EU (Frankfurt / Ireland project) for the production database; control-plane services run by Supabase Inc. in the USA.",
+          "transfer": "EU SCCs (controller-to-processor) signed via Supabase's DPA, plus encryption in transit and at rest."
+        },
+        "cloudflare": {
+          "name": "Cloudflare (Cloudflare, Inc., USA)",
+          "purpose": "DNS, CDN, DDoS protection, and hosting of the static frontend and Pages Functions used to render public profile metadata.",
+          "data": "IP address, user agent, request URLs and headers, and the rendered profile content shown publicly.",
+          "location": "Global edge network with EU data centres preferred for EU traffic.",
+          "transfer": "EU SCCs and the EU–US Data Privacy Framework where applicable."
+        },
+        "openai": {
+          "name": "OpenAI (OpenAI, OpCo, USA)",
+          "purpose": "Large language model inference for persona chat, embeddings used to retrieve your knowledge chunks, content moderation, speech-to-text transcription, and optional text-to-speech.",
+          "data": "Prompts containing your name, profile excerpts, and relevant uploaded knowledge chunks; recruiter messages; transient voice clips; and the model's responses.",
+          "location": "USA (with EU regional inference where available).",
+          "transfer": "EU SCCs via OpenAI's Data Processing Addendum. We use the API tier; OpenAI does not train its public models on this data per the API terms."
+        },
+        "gemini": {
+          "name": "Google AI / Gemini (Google Ireland Ltd. + Google LLC, USA)",
+          "purpose": "Alternative large language model inference offered as a configurable provider for chat and structured analyses.",
+          "data": "Same prompt content as listed for OpenAI when Gemini is selected as the active provider.",
+          "location": "EU regional endpoints when available, otherwise USA.",
+          "transfer": "EU SCCs and the EU–US Data Privacy Framework via Google's Cloud DPA."
+        },
+        "mistral": {
+          "name": "Mistral AI (Mistral AI SAS, France)",
+          "purpose": "Alternative European large language model provider for chat and structured analyses.",
+          "data": "Same prompt content as listed for OpenAI when Mistral is selected as the active provider.",
+          "location": "EU (France).",
+          "transfer": "Processing remains within the EEA; no transfer mechanism required."
+        }
+      },
+      "outro": "We do not sell your personal data and we do not share it with advertising networks."
+    },
+    "international": {
+      "title": "7. International transfers",
+      "body": "Where data leaves the European Economic Area, we rely on the European Commission's Standard Contractual Clauses (2021/914) together with supplementary technical measures such as in-transit and at-rest encryption, access logging, and least-privilege secrets. Copies of the relevant SCCs are available on request."
+    },
+    "retention": {
+      "title": "8. Retention",
+      "intro": "We keep personal data only as long as necessary for the purpose for which it was collected:",
+      "items": [
+        "Account, profile, and uploaded documents: until you delete them or close your account;",
+        "Conversation history and job-fit analyses: until you delete them or close your account;",
+        "Voice recordings: deleted as soon as the transcript is produced (typically within minutes);",
+        "Operational and security logs: up to 90 days;",
+        "AI call logs (cost and abuse monitoring): up to 180 days;",
+        "Backups: rolling encrypted backups retained for up to 30 days after deletion;",
+        "Records required by law (e.g. financial records when applicable): the period imposed by Dutch law."
+      ]
+    },
+    "rights": {
+      "title": "9. Your rights",
+      "intro": "Under the GDPR you have the right to:",
+      "items": [
+        "Access the personal data we hold about you (Art. 15);",
+        "Rectify inaccurate data (Art. 16);",
+        "Erase your data (Art. 17);",
+        "Restrict processing (Art. 18);",
+        "Data portability — receive your data in a machine-readable format (Art. 20);",
+        "Object to processing based on legitimate interest (Art. 21);",
+        "Withdraw consent at any time, without affecting prior processing (Art. 7);",
+        "Lodge a complaint with the Dutch Data Protection Authority (Autoriteit Persoonsgegevens, www.autoriteitpersoonsgegevens.nl)."
+      ],
+      "howToExercise": "Send rights requests to privacy@profiley.app from the email address linked to your account. We respond within one calendar month and may request reasonable proof of identity."
+    },
+    "security": {
+      "title": "10. Security",
+      "body": "We protect your data with TLS in transit, encryption at rest, row-level security in Postgres, signed upload URLs, server-side input validation, content moderation, audit logs, and regular dependency updates. Despite these measures, no internet service can be guaranteed 100% secure."
+    },
+    "children": {
+      "title": "11. Children",
+      "body": "Profiley is not intended for users under 16. If we learn that we have collected personal data from a child without verified parental consent, we delete it promptly."
+    },
+    "changes": {
+      "title": "12. Changes to this policy",
+      "body": "We will update this policy when our practices or processors change. The “Last updated” date at the top reflects the most recent revision. Material changes will be communicated by email or in-app at least 14 days in advance."
+    },
+    "contact": {
+      "title": "13. Contact",
+      "body": "For privacy questions, rights requests, or concerns, contact privacy@profiley.app."
+    }
+  },
+  "cookies": {
+    "title": "Cookie Policy",
+    "lead": "Profiley uses a minimal set of cookies and equivalent browser storage to keep you signed in and to remember your preferences. We do not use advertising or cross-site tracking cookies.",
+    "what": {
+      "title": "1. What are cookies?",
+      "body": "Cookies are small text files stored by your browser when you visit a website. They allow the site to recognise your device on later visits. Similar technologies include localStorage, sessionStorage, and IndexedDB, all of which we treat under the same rules as cookies."
+    },
+    "categories": {
+      "title": "2. Categories of cookies we use",
+      "intro": "We rely on the following categories. Strictly necessary storage is set automatically; everything else only with your consent.",
+      "columns": {
+        "name": "Name",
+        "purpose": "Purpose",
+        "type": "Type",
+        "duration": "Duration"
+      },
+      "items": {
+        "auth": {
+          "name": "sb-access-token / sb-refresh-token",
+          "purpose": "Maintains your authenticated session with Supabase Auth.",
+          "type": "Strictly necessary (first-party)",
+          "duration": "Session + sliding refresh, up to 30 days"
+        },
+        "language": {
+          "name": "profiley-language",
+          "purpose": "Stores the language you selected (English, Dutch, or Arabic).",
+          "type": "Strictly necessary (first-party, localStorage)",
+          "duration": "Until you clear your browser storage"
+        },
+        "theme": {
+          "name": "profiley-theme",
+          "purpose": "Stores your light/dark theme preference.",
+          "type": "Strictly necessary (first-party, localStorage)",
+          "duration": "Until you clear your browser storage"
+        },
+        "cf": {
+          "name": "__cf_bm / cf_clearance",
+          "purpose": "Cloudflare bot mitigation, set when you load Profiley pages.",
+          "type": "Strictly necessary (third-party, Cloudflare)",
+          "duration": "Up to 30 minutes (__cf_bm) / 30 days (cf_clearance)"
+        }
+      }
+    },
+    "consent": {
+      "title": "3. Consent",
+      "body": "Strictly necessary cookies are exempt from prior consent under Article 11.7a of the Dutch Telecommunications Act and Article 5(3) of the ePrivacy Directive. We do not currently set non-essential cookies. If we add analytics or marketing cookies in the future, we will request your prior consent through a cookie banner with granular controls."
+    },
+    "control": {
+      "title": "4. How to control cookies",
+      "intro": "You can manage cookies and storage through your browser:",
+      "items": [
+        "Clear cookies and site data from your browser settings;",
+        "Block third-party cookies in your browser's privacy settings;",
+        "Use private/incognito mode to avoid persistent storage."
+      ],
+      "outro": "Disabling strictly necessary cookies will prevent you from signing in or remembering your language preference."
+    },
+    "changes": {
+      "title": "5. Changes to this policy",
+      "body": "If we add new categories of cookies, we will update this policy and request your consent where required."
+    },
+    "contact": {
+      "title": "6. Contact",
+      "body": "Questions about cookies? Email privacy@profiley.app."
+    }
+  }
+}

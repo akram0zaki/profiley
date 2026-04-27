@@ -20,6 +20,9 @@ import SettingsAIPage from './pages/settings-ai';
 import SettingsAvatarPage from './pages/settings-avatar';
 import AdminPage from './pages/admin';
 import AuthCallbackPage from './pages/auth-callback';
+import TermsPage from './pages/terms';
+import PrivacyPage from './pages/privacy';
+import CookiesPage from './pages/cookies';
 
 export default function App() {
   return (
@@ -42,6 +45,9 @@ export default function App() {
           <Route path="/settings/ai" element={<RequireAuth><SettingsAIPage /></RequireAuth>} />
           <Route path="/settings/avatar" element={<RequireAuth><SettingsAvatarPage /></RequireAuth>} />
           <Route path="/admin" element={<RequireAdmin><AdminPage /></RequireAdmin>} />
+          <Route path="/legal/terms" element={<TermsPage />} />
+          <Route path="/legal/privacy" element={<PrivacyPage />} />
+          <Route path="/legal/cookies" element={<CookiesPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
           <Toaster />

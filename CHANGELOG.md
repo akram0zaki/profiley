@@ -11,6 +11,29 @@ no Supabase project has been created yet. Follow
 [`docs/concept/profiley-init-guide.md`](docs/concept/profiley-init-guide.md) to
 provision and deploy.
 
+### Added — Mandatory legal documents (Terms, Privacy, Cookies)
+
+- New routes `/legal/terms`, `/legal/privacy`, and `/legal/cookies` rendered
+  with a shared `LegalLayout` that follows the design system (gradient
+  header, glassy card, prose typography, RTL-safe back arrow).
+- The Privacy Policy is GDPR/UAVG compliant for an operator hosted in the
+  Netherlands by Akram Zaki acting in a personal capacity. It enumerates
+  every active third-party processor with the data they receive and the
+  legal transfer mechanism: Supabase, Cloudflare, OpenAI, Google Gemini,
+  and Mistral AI. It also documents data subject rights, retention, AI
+  automated processing scope under Article 22, and the path to lodge a
+  complaint with the Autoriteit Persoonsgegevens.
+- The Cookie Policy lists the four storage entries Profiley actually uses
+  (`sb-access-token`/`sb-refresh-token`, `profiley-language`,
+  `profiley-theme`, Cloudflare bot mitigation).
+- Footer links added on the landing page and the login page; cross-links
+  between the three documents on every legal page.
+- All three documents are translated for `en`, `nl`, and `ar`. Locale parity
+  is enforced by a Vitest test that asserts the same processor IDs are
+  declared in every language.
+- New i18n helper `translateList` / `tList` returns string arrays for
+  bulleted lists while keeping the existing `t()` semantics.
+
 ### Fixed — Persona chat truncated retrieved CV/cover-letter chunks
 
 - `_shared/rag/buildContext.ts` raised the default `maxChars` budget from

@@ -138,6 +138,23 @@ export default function LoginPage() {
           {t('login.footer.firstTime')}
         </p>
 
+        <nav
+          aria-label={t('legal.footer.title')}
+          className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-muted-foreground"
+        >
+          <Link to="/legal/terms" className="hover:text-foreground transition-colors">
+            {t('legal.footer.terms')}
+          </Link>
+          <span aria-hidden="true">·</span>
+          <Link to="/legal/privacy" className="hover:text-foreground transition-colors">
+            {t('legal.footer.privacy')}
+          </Link>
+          <span aria-hidden="true">·</span>
+          <Link to="/legal/cookies" className="hover:text-foreground transition-colors">
+            {t('legal.footer.cookies')}
+          </Link>
+        </nav>
+
         <div className="text-center">
           <Link to="/">
             <Button variant="ghost" size="sm">

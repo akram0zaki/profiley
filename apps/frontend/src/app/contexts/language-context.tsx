@@ -4,6 +4,7 @@ import {
   directionFor,
   isSupportedLanguage,
   translate,
+  translateList,
   type Language,
   SUPPORTED_LANGUAGES,
 } from '../i18n/loader';
@@ -14,6 +15,7 @@ interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: (key: string, params?: Record<string, string | number>) => string;
+  tList: (key: string, params?: Record<string, string | number>) => string[];
   dir: 'ltr' | 'rtl';
   supportedLanguages: readonly Language[];
 }
@@ -51,11 +53,17 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     [language],
   );
 
+  const tList = useCallback(
+    (key: string, params?: Record<string, string | number>) =>
+      translateList(language, key, params),
+    [language],
+  );
+
   const dir = directionFor(language);
 
   const value = useMemo<LanguageContextType>(
-    () => ({ language, setLanguage, t, dir, supportedLanguages: SUPPORTED_LANGUAGES }),
-    [language, setLanguage, t, dir],
+    () => ({ language, setLanguage, t, tList, dir, supportedLanguages: SUPPORTED_LANGUAGES }),
+    [language, setLanguage, t, tList, dir],
   );
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
