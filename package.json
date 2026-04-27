@@ -1,6 +1,7 @@
 {
   "name": "profiley",
   "private": true,
+  "license": "AGPL-3.0-or-later",
   "scripts": {
     "dev": "pnpm --filter @profiley/frontend dev",
     "build": "pnpm --filter @profiley/frontend build -- --mode=development",

@@ -1,0 +1,34 @@
+Profiley repository licensing
+
+Copyright (c) 2026 Akram Zaki
+
+Unless otherwise noted in a specific file or directory:
+
+1. Source code and other software files in this repository are licensed under
+   the GNU Affero General Public License, version 3 or, at your option, any
+   later version (AGPL-3.0-or-later).
+
+2. Documentation and other written content in this repository are licensed
+   under the Creative Commons Attribution 4.0 International License
+   (CC BY 4.0).
+
+3. The Profiley name, logo, domain names, screenshots, branding assets, and
+   other brand identifiers are not licensed under the AGPL or CC BY 4.0.
+   Those rights are reserved except as expressly stated in TRADEMARKS.md.
+
+AGPL-3.0-or-later summary
+
+You may use, modify, and redistribute the covered software under the AGPL.
+If you modify and run the software for users over a network, you must make the
+corresponding source code of that modified service available to those users
+under the AGPL.
+
+Canonical license texts:
+
+- GNU Affero General Public License v3.0:
+  https://www.gnu.org/licenses/agpl-3.0.html
+- Creative Commons Attribution 4.0 International:
+  https://creativecommons.org/licenses/by/4.0/
+
+See NOTICE for repository-level notices and ATTRIBUTIONS.md for third-party
+attributions.

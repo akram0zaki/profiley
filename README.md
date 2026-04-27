@@ -242,6 +242,18 @@ For production use with real user data:
 - UI component foundations: Radix UI and shadcn/ui patterns
 - Styling: Tailwind CSS v4
 
+## License
+
+Profiley source code is licensed under the GNU Affero General Public License v3.0 or later.
+
+Copyright (c) 2026 Akram Zaki.
+
+You may use, modify, and redistribute this software under the terms of the AGPLv3. If you modify and run this software as a network service, you must make the corresponding source code available to users of that service.
+
+The Profiley name, logo, and branding are not licensed for reuse except with written permission.
+
+Documentation and other written content in this repository are licensed under CC BY 4.0 unless otherwise noted. See [LICENSE](LICENSE), [NOTICE](NOTICE), and [TRADEMARKS.md](TRADEMARKS.md) for the repository policy.
+
 ---
 
 Last updated: April 27, 2026
