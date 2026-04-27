@@ -3,7 +3,7 @@
 ## Product Requirements Document (PRD)
 
 ### 1. Overview
-The AI Interactive CV Platform enables individuals to create an interactive AI-powered representation of their professional identity. Instead of static resumes, users upload documents and structured data which are transformed into a knowledge base that an AI agent can use to answer recruiter questions, analyze job descriptions, and represent the user professionally.
+Profiley is an AI Interactive CV Platform that enables individuals to create an interactive AI-powered representation of their professional identity. Instead of static resumes, users upload documents and structured data which are transformed into a knowledge base that an AI agent can use to answer recruiter questions, analyze job descriptions, and represent the user professionally.
 
 The platform is designed to be AI‑model agnostic and allows administrators to switch models per capability (chat, STT, TTS). It also lays the foundation for future AI avatars capable of participating in video conversations.
 
@@ -23,7 +23,8 @@ Primary objectives:
 3. Privacy-first architecture
 4. Model-agnostic AI infrastructure
 5. Recruiter-first usability
-6. Global multilingual support
+6. Global multilingual support with English, Dutch, and Arabic support from day 1
+7. More cool, vibrant, and elegant UI. Much less corporate yet still professional.
 
 
 ---
@@ -31,7 +32,7 @@ Primary objectives:
 # User Roles
 
 ### Candidate (Primary user)
-Creates and manages AI profile.
+Creates and manages the profile which will be used by AI.
 Uploads CV and other information.
 
 ### Recruiter / Visitor
