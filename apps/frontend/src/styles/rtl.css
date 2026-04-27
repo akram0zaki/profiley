@@ -1,0 +1,213 @@
+/* RTL (Right-to-Left) Support */
+
+[dir="rtl"] {
+  direction: rtl;
+}
+
+/* Flip margins and padding */
+[dir="rtl"] .mr-2 {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+[dir="rtl"] .ml-2 {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+[dir="rtl"] .mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+[dir="rtl"] .mr-4 {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
+[dir="rtl"] .ml-4 {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+/* Flip padding */
+[dir="rtl"] .pr-2 {
+  padding-right: 0;
+  padding-left: 0.5rem;
+}
+
+[dir="rtl"] .pl-2 {
+  padding-left: 0;
+  padding-right: 0.5rem;
+}
+
+[dir="rtl"] .pr-4 {
+  padding-right: 0;
+  padding-left: 1rem;
+}
+
+[dir="rtl"] .pl-4 {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+/* Flip text alignment */
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+/* Flip flex directions */
+[dir="rtl"] .flex-row-reverse {
+  flex-direction: row;
+}
+
+/* Flip borders */
+[dir="rtl"] .border-l {
+  border-left: 0;
+  border-right: var(--tw-border-width, 1px);
+}
+
+[dir="rtl"] .border-r {
+  border-right: 0;
+  border-left: var(--tw-border-width, 1px);
+}
+
+/* Flip rounded corners */
+[dir="rtl"] .rounded-l {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: var(--tw-border-radius, 0.25rem);
+  border-bottom-right-radius: var(--tw-border-radius, 0.25rem);
+}
+
+[dir="rtl"] .rounded-r {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: var(--tw-border-radius, 0.25rem);
+  border-bottom-left-radius: var(--tw-border-radius, 0.25rem);
+}
+
+/* Flip transforms */
+[dir="rtl"] .translate-x-full {
+  transform: translateX(-100%);
+}
+
+[dir="rtl"] .-translate-x-full {
+  transform: translateX(100%);
+}
+
+/* Dropdown and popover positioning */
+[dir="rtl"] [data-side="left"] {
+  --radix-popper-anchor-width: auto;
+  left: auto !important;
+  right: 0 !important;
+}
+
+[dir="rtl"] [data-side="right"] {
+  --radix-popper-anchor-width: auto;
+  right: auto !important;
+  left: 0 !important;
+}
+
+/* Icon positioning in buttons */
+[dir="rtl"] button svg:first-child {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+[dir="rtl"] button svg:last-child {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/* Specific component fixes */
+[dir="rtl"] .justify-start {
+  justify-content: flex-start;
+}
+
+[dir="rtl"] .justify-end {
+  justify-content: flex-end;
+}
+
+/* Fix gradient directions */
+[dir="rtl"] .bg-gradient-to-r {
+  background-image: linear-gradient(to left, var(--tw-gradient-stops));
+}
+
+[dir="rtl"] .bg-gradient-to-l {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+[dir="rtl"] .bg-gradient-to-br {
+  background-image: linear-gradient(to bottom left, var(--tw-gradient-stops));
+}
+
+[dir="rtl"] .bg-gradient-to-bl {
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+
+/* Table RTL support */
+[dir="rtl"] table {
+  direction: rtl;
+}
+
+/* Form elements */
+[dir="rtl"] input[type="checkbox"],
+[dir="rtl"] input[type="radio"] {
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+/* Dropdown menu items */
+[dir="rtl"] [data-slot="dropdown-menu-item"] {
+  text-align: right;
+}
+
+/* Navigation */
+[dir="rtl"] nav {
+  direction: rtl;
+}
+
+/* Sidebar */
+[dir="rtl"] aside {
+  left: auto;
+  right: 0;
+}
+
+/* Better Arabic font rendering */
+[dir="rtl"] {
+  font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+  letter-spacing: normal;
+}
+
+/* Fix for checkmarks and icons in RTL */
+[dir="rtl"] .rtl\:order-first {
+  order: -9999;
+}
+
+[dir="rtl"] .rtl\:order-last {
+  order: 9999;
+}
+
+/* Ensure numbers stay LTR even in RTL context */
+[dir="rtl"] .ltr-numbers {
+  direction: ltr;
+  unicode-bidi: embed;
+  display: inline-block;
+}
+
+/* Apply LTR to all numbers */
+[dir="rtl"] .text-2xl,
+[dir="rtl"] .text-xl,
+[dir="rtl"] .font-bold:has(*[class*="text-"]) {
+  unicode-bidi: plaintext;
+}
+
+/* Progress bars should fill from right to left in RTL */
+[dir="rtl"] [data-slot="progress-indicator"] {
+  transform-origin: right !important;
+}
