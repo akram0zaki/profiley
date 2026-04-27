@@ -34,6 +34,14 @@ provision and deploy.
   `pg_net.http_post` to the `process-document` edge function with
   `X-Cron-Secret`.
 
+### Changed
+
+- Added `0024_runtime_settings.sql` so cron/runtime config is stored in
+  `public.runtime_settings` instead of custom `ALTER DATABASE ... SET`
+  GUCs, which Supabase-managed Postgres rejected for this project.
+- Updated the init guide and env example so the manual post-deploy step is
+  an `insert ... on conflict` into `public.runtime_settings`.
+
 ### Added — Edge functions (`supabase/functions/`)
 
 - `_shared/`: CORS, error envelope, structured logger, locale helpers,

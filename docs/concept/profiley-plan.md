@@ -60,7 +60,7 @@ clear the bring-up doesn't exercise them.
 - **TTS** (`_shared/ai/capabilities/tts.ts` → OpenAI `tts-1`): no edge function
   wraps it; intended for the post-MVP avatar speech path.
 - **Per-user model override** (spec calls for `user_model_assignments`): table
-  not in the 23 migrations; `settings-ai.tsx` will be read-only until added.
+  not in the current migrations; `settings-ai.tsx` will be read-only until added.
   When implemented, the router resolution order becomes
   `user_model_assignments` → `feature_model_assignments` →
   `ai_provider_configs.is_default` → `FALLBACKS`.
@@ -91,7 +91,7 @@ sparse:
   the two in §B run end-to-end against real providers and persist to real
   tables.
 - The pg_cron → `process-document` pipeline is real (depends on §4 of the
-  init guide setting the two `app.settings.*` GUCs).
+  init guide inserting the two `public.runtime_settings` rows).
 - RAG retrieval (`_shared/rag/retrieveKnowledge.ts`) calls the real pgvector
   RPC `match_knowledge_chunks` — not a placeholder.
 - hCaptcha verification + Resend email in `submit-recruiter-contact` are
@@ -151,10 +151,11 @@ sparse:
 9. Migration `0021_storage.sql` — buckets `user_uploads`, `avatars`, `documents`; storage RLS limiting object access to owner.
 10. Migration `0022_seed_ai_configs.sql` — seed `ai_provider_configs` rows for OpenAI/Gemini/Mistral and `feature_model_assignments` per specs §10.5.
 11. Migration `0023_pg_cron_ingestion.sql` — schedule `process_pending_documents()` every 30s, which calls `pg_net.http_post` to `process-document` for the next pending row.
+12. Migration `0024_runtime_settings.sql` — store cron runtime settings in `public.runtime_settings` instead of custom `app.settings.*` GUCs, which managed Supabase Postgres may block.
 
 ### P1
-12. Migration — partial indexes for `processing_status in ('pending','running')` to keep cron query fast.
-13. SQL test fixtures + `pgTAP` smoke for RLS (a few scenarios: owner-read, foreign-read, anon-read of public_profile_view).
+13. Migration — partial indexes for `processing_status in ('pending','running')` to keep cron query fast.
+14. SQL test fixtures + `pgTAP` smoke for RLS (a few scenarios: owner-read, foreign-read, anon-read of public_profile_view).
 
 ---
 

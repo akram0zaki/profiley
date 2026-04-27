@@ -86,7 +86,7 @@ the right and fill in the values you collected in §2–§3.
 | hCaptcha **server** secret | `supabase/functions/.env.{development,production}` | `HCAPTCHA_SECRET` |
 | Resend API key | `supabase/functions/.env.{development,production}` | `RESEND_API_KEY` |
 | Resend verified sender | `supabase/functions/.env.{development,production}` | `RECRUITER_EMAIL_FROM`, `RECRUITER_EMAIL_FROM_NAME` |
-| `CRON_SECRET` | `supabase/functions/.env.{development,production}` | `CRON_SECRET` (also set as DB GUC, see §4) |
+| `CRON_SECRET` | `supabase/functions/.env.{development,production}` | `CRON_SECRET` (also insert into `public.runtime_settings`, see §4) |
 | `VISITOR_SESSION_HMAC_SECRET` | `supabase/functions/.env.{development,production}` | `VISITOR_SESSION_HMAC_SECRET` |
 | Service role key (auto-injected in prod; for local serve only) | `supabase/functions/.env.{development,production}` | `SUPABASE_SERVICE_ROLE_KEY` |
 | hCaptcha **public** site key | `apps/frontend/.env.development` / `.env.production` | `VITE_CAPTCHA_SITE_KEY` |
@@ -123,23 +123,29 @@ supabase login
 supabase link --project-ref <YOUR_PROJECT_REF>
 ```
 
-Apply all 23 migrations:
+Apply all 24 migrations:
 
 ```bash
 supabase db push --password '<DB_PASSWORD>'
 ```
 
-Set DB-level GUCs that `pg_cron` reads when calling `process-document`. Run
-this SQL in the Supabase SQL editor (one-time, persists across reboots):
+Set the runtime settings that `pg_cron` reads when calling
+`process-document`. Run this SQL in the Supabase SQL editor after migrations
+have been applied:
 
 ```sql
-alter database postgres set app.settings.process_document_url = 'https://<YOUR_PROJECT_REF>.supabase.co/functions/v1/process-document';
-alter database postgres set app.settings.cron_secret = '<CRON_SECRET>';
+insert into public.runtime_settings (key, value)
+values
+  ('process_document_url', 'https://<YOUR_PROJECT_REF>.supabase.co/functions/v1/process-document'),
+  ('cron_secret', '<CRON_SECRET>')
+on conflict (key) do update
+set value = excluded.value,
+    updated_at = timezone('utc', now());
 ```
 
-> The cron job in `0023_pg_cron_ingestion.sql` reads these via
-> `current_setting('app.settings.…', true)` so the values must be set before
-> cron will fire.
+> Migration `0024_runtime_settings.sql` stores these in
+> `public.runtime_settings` because Supabase-managed Postgres can reject
+> `ALTER DATABASE ... SET` for custom GUC names.
 
 Promote your own user to admin once you've signed in once (see §7):
 
@@ -408,8 +414,8 @@ loader + `useState`, surface `ApiError` in the existing toast/alert UI.
 
 | Symptom | First thing to check |
 |---------|----------------------|
-| `process-document` never runs | `select * from cron.job;` should list one row; `select * from cron.job_run_details order by start_time desc limit 5;` for errors. Confirm GUCs in §4 are set. |
-| Cron returns 401 | `app.settings.cron_secret` mismatches `CRON_SECRET` function secret. |
+| `process-document` never runs | `select * from cron.job;` should list one row; `select * from cron.job_run_details order by start_time desc limit 5;` for errors. Confirm the two `public.runtime_settings` rows from §4 exist. |
+| Cron returns 401 | `public.runtime_settings.key = 'cron_secret'` mismatches the `CRON_SECRET` function secret. |
 | Public chat returns `RATE_LIMITED` immediately | `rate_limit_buckets` row leaked from a prior visitor; either wait an hour or `delete from rate_limit_buckets where bucket_key like 'chat:%';`. |
 | Recruiter email never arrives | Resend dashboard → Logs. Most failures are SPF/DKIM not yet verified. |
 | OAuth loop | Redirect URL not on the allow-list (§5). |
@@ -420,7 +426,7 @@ loader + `useState`, surface `ApiError` in the existing toast/alert UI.
 
 ## 12. Where to look in the code
 
-- Schema: `supabase/migrations/0001_*.sql` … `0023_pg_cron_ingestion.sql`
+- Schema: `supabase/migrations/0001_*.sql` … `0024_runtime_settings.sql`
 - Edge function shared lib: `supabase/functions/_shared/`
 - Edge functions: `supabase/functions/<endpoint>/index.ts`
 - Frontend API client: `apps/frontend/src/lib/{supabase,api,auth}.ts`

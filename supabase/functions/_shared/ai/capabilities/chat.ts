@@ -1,11 +1,11 @@
 // Chat capability façade: resolve provider, call adapter, log usage.
 
-import { resolveModel } from "./router.ts";
-import { ChatMessage, ChatSettings } from "./types.ts";
-import { openaiChat } from "./providers/openai.ts";
-import { geminiChat } from "./providers/gemini.ts";
-import { mistralChat } from "./providers/mistral.ts";
-import { logCall } from "./log.ts";
+import { resolveModel } from "../router.ts";
+import { ChatMessage, ChatSettings } from "../types.ts";
+import { openaiChat } from "../providers/openai.ts";
+import { geminiChat } from "../providers/gemini.ts";
+import { mistralChat } from "../providers/mistral.ts";
+import { logCall } from "../log.ts";
 
 function adapterFor(provider: string) {
   switch (provider) {
