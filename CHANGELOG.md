@@ -11,6 +11,34 @@ no Supabase project has been created yet. Follow
 [`docs/concept/profiley-init-guide.md`](docs/concept/profiley-init-guide.md) to
 provision and deploy.
 
+### Fixed — Document ingestion stuck in `running`
+
+- `process-document` is invoked by `pg_cron` via `pg_net` with an
+  `X-Cron-Secret` header — but the Supabase Edge Functions gateway was
+  rejecting every call with 401 `UNAUTHORIZED_NO_AUTH_HEADER` before the
+  handler ran, because JWT verification was on. Each cron tick still flipped
+  rows from `pending` → `running`, so they were trapped in `running` forever
+  (the cron only picks up `pending`).
+- `supabase/config.toml` now declares
+  `[functions.process-document] verify_jwt = false`. The function must be
+  deployed with `supabase functions deploy --no-verify-jwt process-document`
+  (CLI v2.72.x doesn't honor the config-toml flag at deploy time yet).
+- Migration 0025 hardens `public.process_pending_documents()` to also reclaim
+  rows stuck in `running` for more than 5 minutes (incrementing
+  `retry_count`), so transient gateway/network failures no longer require a
+  manual reset.
+- Migration 0026 is a one-off recovery that resets rows currently stuck in
+  `running` so the JWT-disabled function can pick them up.
+
+### Fixed — Uploads page polling flicker
+
+- `apps/frontend/src/app/pages/uploads.tsx` now polls in the background without
+  toggling the page-level `loading` flag, so the "Your Documents" card no
+  longer unmounts/remounts (and the section no longer flickers) every 5
+  seconds. The list state is also only swapped when a poll detects a real
+  change (status, retry count, error, or timestamp), and chunk-count updates
+  are skipped when the new map is identical to the previous one.
+
 ### Fixed — Edge function authentication
 
 - `supabase/functions/_shared/auth/requireUser.ts` no longer relies on

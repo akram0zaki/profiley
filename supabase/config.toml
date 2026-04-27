@@ -100,6 +100,13 @@ enabled = true
 policy = "oneshot"
 inspector_port = 8083
 
+# `process-document` is invoked by pg_cron via pg_net with an X-Cron-Secret
+# header (verified inside the function). It is never called from a browser, so
+# we disable the platform-level JWT verification — otherwise the gateway
+# returns 401 UNAUTHORIZED_NO_AUTH_HEADER before our handler runs.
+[functions.process-document]
+verify_jwt = false
+
 [analytics]
 enabled = false
 port = 54327

@@ -63,12 +63,35 @@ export default function UploadsPage() {
   const [uploading, setUploading] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const reload = async () => {
-    setLoading(true);
+  const reload = async (opts: { silent?: boolean } = {}) => {
+    if (!opts.silent) setLoading(true);
     try {
       const res = await api.listUserDocuments();
       const docs = (res.documents ?? []) as DocRow[];
-      setDocuments(docs);
+      setDocuments((prev) => {
+        // Avoid replacing the array reference (and re-rendering the list)
+        // when nothing meaningful changed during a silent poll.
+        if (prev.length === docs.length) {
+          let same = true;
+          for (let i = 0; i < docs.length; i++) {
+            const a = prev[i];
+            const b = docs[i];
+            if (
+              a.id !== b.id ||
+              a.processing_status !== b.processing_status ||
+              a.extracted_text_status !== b.extracted_text_status ||
+              a.retry_count !== b.retry_count ||
+              a.last_error !== b.last_error ||
+              a.updated_at !== b.updated_at
+            ) {
+              same = false;
+              break;
+            }
+          }
+          if (same) return prev;
+        }
+        return docs;
+      });
       // Fetch chunk counts (RLS lets owner read their own).
       const ids = docs.map((d) => d.id);
       if (ids.length) {
@@ -83,28 +106,39 @@ export default function UploadsPage() {
             if (!row.document_id) continue;
             counts[row.document_id] = (counts[row.document_id] ?? 0) + 1;
           }
-          setChunkCounts(counts);
+          setChunkCounts((prev) => {
+            const prevKeys = Object.keys(prev);
+            const nextKeys = Object.keys(counts);
+            if (prevKeys.length === nextKeys.length && nextKeys.every((k) => prev[k] === counts[k])) {
+              return prev;
+            }
+            return counts;
+          });
         }
       } else {
-        setChunkCounts({});
+        setChunkCounts((prev) => (Object.keys(prev).length === 0 ? prev : {}));
       }
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : t('uploads.feedback.loadFailed');
-      toast.error(msg);
+      // Don't toast on silent polls — only on the user-initiated initial load.
+      if (!opts.silent) {
+        const msg = e instanceof ApiError ? e.message : t('uploads.feedback.loadFailed');
+        toast.error(msg);
+      }
     } finally {
-      setLoading(false);
+      if (!opts.silent) setLoading(false);
     }
   };
 
   useEffect(() => {
     void reload();
-    // Poll while there are pending/running docs.
+    // Poll while there are pending/running docs. Silent refresh — no spinner,
+    // and the list keeps its current reference when nothing changed.
     const interval = setInterval(() => {
       setDocuments((curr) => {
         const hasInFlight = curr.some((d) =>
           ['pending', 'running'].includes(d.processing_status),
         );
-        if (hasInFlight) void reload();
+        if (hasInFlight) void reload({ silent: true });
         return curr;
       });
     }, 5000);
