@@ -1,10 +1,46 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+const authMocks = vi.hoisted(() => {
+  let authListener: ((event: string, session: any) => void) | null = null;
+  const onAuthStateChange = vi.fn();
+
+  const installOnAuthStateChange = () => {
+    onAuthStateChange.mockImplementation((callback) => {
+      authListener = callback;
+      return {
+        data: {
+          subscription: {
+            unsubscribe: vi.fn(() => {
+              authListener = null;
+            }),
+          },
+        },
+      };
+    });
+  };
+
+  installOnAuthStateChange();
+
+  return {
+    getSession: vi.fn().mockResolvedValue({ data: { session: null } }),
+    onAuthStateChange,
+    emitAuthState: (event: string, session: any) => {
+      authListener?.(event, session);
+    },
+    reset: () => {
+      authListener = null;
+      onAuthStateChange.mockReset();
+      installOnAuthStateChange();
+    },
+  };
+});
+
 vi.mock('../supabase', () => ({
   FUNCTIONS_BASE: 'http://test.local/functions/v1',
   supabase: {
     auth: {
-      getSession: vi.fn().mockResolvedValue({ data: { session: null } }),
+      getSession: authMocks.getSession,
+      onAuthStateChange: authMocks.onAuthStateChange,
     },
   },
 }));
@@ -18,7 +54,9 @@ describe('callFn', () => {
   beforeEach(() => {
     globalThis.fetch = fetchMock as any;
     fetchMock.mockReset();
-    (supabase.auth.getSession as any).mockResolvedValue({ data: { session: null } });
+    authMocks.reset();
+    authMocks.getSession.mockReset();
+    authMocks.getSession.mockResolvedValue({ data: { session: { access_token: 'jwt-default' } } });
     localStorage.clear();
   });
 
@@ -34,6 +72,9 @@ describe('callFn', () => {
   }
 
   it('returns data from a success envelope', async () => {
+    (supabase.auth.getSession as any).mockResolvedValue({
+      data: { session: { access_token: 'jwt-123' } },
+    });
     fetchMock.mockResolvedValue(
       jsonResponse({ success: true, data: { ok: 1 }, error: null }),
     );
@@ -47,8 +88,7 @@ describe('callFn', () => {
     expect(headers['Content-Type']).toBe('application/json');
     expect(headers['X-Visitor-Session']).toBeTruthy();
     expect(headers['apikey']).toBe('test-anon-key');
-    // No session → falls back to anon Bearer.
-    expect(headers['Authorization']).toBe('Bearer test-anon-key');
+    expect(headers['Authorization']).toBe('Bearer jwt-123');
   });
 
   it('uses session bearer token when authenticated', async () => {
@@ -59,6 +99,38 @@ describe('callFn', () => {
     await callFn('bar', {});
     const headers = (fetchMock.mock.calls[0][1] as RequestInit).headers as Record<string, string>;
     expect(headers['Authorization']).toBe('Bearer jwt-123');
+  });
+
+  it('waits briefly for auth hydration before calling protected functions', async () => {
+    (supabase.auth.getSession as any).mockResolvedValue({ data: { session: null } });
+    fetchMock.mockResolvedValue(jsonResponse({ success: true, data: { ok: true }, error: null }));
+
+    const pending = callFn<{ ok: boolean }>('late-auth', {});
+    expect(fetchMock).not.toHaveBeenCalled();
+
+    authMocks.emitAuthState('SIGNED_IN', { access_token: 'jwt-late' });
+
+    await expect(pending).resolves.toEqual({ ok: true });
+    const headers = (fetchMock.mock.calls[0][1] as RequestInit).headers as Record<string, string>;
+    expect(headers['Authorization']).toBe('Bearer jwt-late');
+  });
+
+  it('throws when a protected call has no authenticated session', async () => {
+    (supabase.auth.getSession as any).mockResolvedValue({ data: { session: null } });
+    vi.useFakeTimers();
+    try {
+      const pending = callFn('needs-auth', {});
+      const rejection = expect(pending).rejects.toMatchObject({
+        code: 'UNAUTHORIZED',
+        message: 'Authentication required',
+        status: 401,
+      });
+      await vi.advanceTimersByTimeAsync(800);
+      await rejection;
+      expect(fetchMock).not.toHaveBeenCalled();
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it('throws ApiError when envelope reports an error', async () => {

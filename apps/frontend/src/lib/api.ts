@@ -9,6 +9,8 @@ export type Envelope<T> = {
   meta?: Record<string, unknown>;
 };
 
+const AUTH_SESSION_WAIT_MS = 750;
+
 let _visitorSessionId: string | null = null;
 function visitorSessionId(): string {
   if (_visitorSessionId) return _visitorSessionId;
@@ -22,6 +24,45 @@ function visitorSessionId(): string {
   if (typeof localStorage !== 'undefined') localStorage.setItem(KEY, id);
   _visitorSessionId = id;
   return id;
+}
+
+async function waitForAccessToken(): Promise<string | null> {
+  return await new Promise<string | null>((resolve) => {
+    let unsubscribe = () => {};
+    let settled = false;
+    const finish = (accessToken: string | null) => {
+      if (settled) return;
+      settled = true;
+      globalThis.clearTimeout(timer);
+      unsubscribe();
+      resolve(accessToken);
+    };
+    const timer = globalThis.setTimeout(() => {
+      finish(null);
+    }, AUTH_SESSION_WAIT_MS);
+
+    const authChange = supabase.auth.onAuthStateChange?.((_event, nextSession) => {
+      if (!nextSession?.access_token) return;
+      finish(nextSession.access_token);
+    });
+    unsubscribe = authChange?.data?.subscription?.unsubscribe?.bind(authChange.data.subscription) ?? (() => {});
+
+    supabase.auth.getSession()
+      .then(({ data: { session } }) => {
+        if (session?.access_token) {
+          finish(session.access_token);
+          return;
+        }
+        if (!supabase.auth.onAuthStateChange) {
+          finish(null);
+        }
+      })
+      .catch(() => {
+        if (!supabase.auth.onAuthStateChange) {
+          finish(null);
+        }
+      });
+  });
 }
 
 export async function callFn<T>(
@@ -38,12 +79,11 @@ export async function callFn<T>(
   if (anon) headers['apikey'] = anon;
 
   if (opts.auth !== false) {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session?.access_token) {
-      headers['Authorization'] = `Bearer ${session.access_token}`;
-    } else if (anon) {
-      headers['Authorization'] = `Bearer ${anon}`;
+    const accessToken = await waitForAccessToken();
+    if (!accessToken) {
+      throw new ApiError('UNAUTHORIZED', 'Authentication required', 401);
     }
+    headers['Authorization'] = `Bearer ${accessToken}`;
   } else if (anon) {
     headers['Authorization'] = `Bearer ${anon}`;
   }

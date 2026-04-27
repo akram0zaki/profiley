@@ -3,6 +3,16 @@
 This file is read by AI coding assistants (Copilot, Claude, etc.) when working
 in this repository. Keep it short, factual, and current.
 
+## Non-negotiable rules
+
+- Create unit tests for all new functionality
+- Update unit tests for changed existing functionality
+- Write Supabase changes to the workspace before deploying them
+- Use the Supabase CLI for Edge Functions and database access
+- Do not rely on the currently logged-in Supabase CLI user; load the correct env file and use that environment's `SUPABASE_ACCESS_TOKEN`
+- Update `CHANGELOG.md` after meaningful changes
+- Update supporting documentation when changes are worth documenting
+
 ## Supabase CLI authentication (IMPORTANT)
 
 The operator's globally logged-in `supabase` CLI account is **different** from
