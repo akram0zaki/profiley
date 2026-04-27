@@ -132,6 +132,8 @@ export const api = {
     callFn<{
       sourceDocumentId: string;
       sourceFilename: string;
+      sourceDocumentIds?: string[];
+      cvCount?: number;
       language: string;
       profile: {
         fullName: string;

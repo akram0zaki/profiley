@@ -14,12 +14,27 @@ provision and deploy.
 ### Added — "Fill from CV" on the profile page
 
 - New edge function `extract-profile-from-cv` reads the user's most recent
-  successfully-processed CV (or a specific `documentId`), pulls the stored
+  successfully-processed CVs (or a specific `documentId`), pulls the stored
   text from `document_extractions`, and returns a structured profile object
   (`fullName`, `headline`, `location`, `shortBio`, `longBio`, `skills[]`)
   via `chatStructured` against `PROFILE_EXTRACT_JSON_SCHEMA`. It does not
   persist anything — the frontend prefills the profile form for the user to
   review and save.
+
+### Changed — multi-CV recency merge in `extract-profile-from-cv`
+
+- When no specific `documentId` is provided, the function now feeds up to
+  the 5 most recently uploaded processed CVs to the model (newest-first,
+  per-CV and total character caps) instead of only the latest upload. Each
+  CV is wrapped in its own `<CV index filename uploaded_at>` block.
+- `PROFILE_EXTRACT_SYSTEM` instructs the model to determine recency from
+  CV content (latest end date in Work Experience / Education) with upload
+  date as tiebreaker, prefer values from the most recent CV for mutable
+  fields (`fullName`, `headline`, `location`, `shortBio`, `longBio`), and
+  merge `skills` across all versions. This fixes cases where uploading
+  older CVs after a newer one caused stale name / location / role to
+  override current values.
+- Response now also includes `cvCount` and `sourceDocumentIds`.
 - The profile page (`apps/frontend/src/app/pages/profile.tsx`) gains a
   "Fill from CV" button in the Basic Information card. Skills are merged
   case-insensitively with whatever the user already had. Surfaces specific

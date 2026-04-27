@@ -84,9 +84,39 @@ Deno.test("PROFILE_EXTRACT_SYSTEM: per-language label + data-not-instructions gu
   }
 });
 
-Deno.test("profileExtractUserMessage: wraps text in <CV> block", () => {
+Deno.test("PROFILE_EXTRACT_SYSTEM: instructs multi-CV recency merge", () => {
+  const sys = PROFILE_EXTRACT_SYSTEM("en");
+  assertStringIncludes(sys, "MULTIPLE <CV> blocks");
+  assertStringIncludes(sys, "newest-first");
+  assertStringIncludes(sys, "MOST RECENT CV");
+  assertStringIncludes(sys, "skills");
+});
+
+Deno.test("profileExtractUserMessage: wraps single string in <CV> block", () => {
   const out = profileExtractUserMessage("Akram Zaki — Senior Engineer");
   assertStringIncludes(out, "<CV>\nAkram Zaki — Senior Engineer\n</CV>");
+});
+
+Deno.test("profileExtractUserMessage: emits one block per CV with attributes, newest-first", () => {
+  const out = profileExtractUserMessage([
+    { filename: "cv-2025.pdf", uploadedAt: "2025-09-01T00:00:00Z", text: "NEW CV" },
+    { filename: "cv-2016.pdf", uploadedAt: "2016-01-01T00:00:00Z", text: "OLD CV" },
+  ]);
+  assertStringIncludes(out, `<CV index="1" filename="cv-2025.pdf" uploaded_at="2025-09-01T00:00:00Z">`);
+  assertStringIncludes(out, "NEW CV");
+  assertStringIncludes(out, `<CV index="2" filename="cv-2016.pdf" uploaded_at="2016-01-01T00:00:00Z">`);
+  assertStringIncludes(out, "OLD CV");
+  // Newest block must come before older block.
+  const newIdx = out.indexOf("NEW CV");
+  const oldIdx = out.indexOf("OLD CV");
+  assert(newIdx >= 0 && oldIdx >= 0 && newIdx < oldIdx);
+});
+
+Deno.test("profileExtractUserMessage: escapes attribute values to prevent injection", () => {
+  const out = profileExtractUserMessage([
+    { filename: `evil"file<.pdf`, uploadedAt: "2025-01-01", text: "x" },
+  ]);
+  assertStringIncludes(out, `filename="evil&quot;file&lt;.pdf"`);
 });
 
 Deno.test("PROFILE_EXTRACT_JSON_SCHEMA: required fields + closed object", () => {
