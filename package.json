@@ -1,0 +1,9 @@
+{
+  "name": "profiley",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter @profiley/frontend dev",
+    "build": "pnpm --filter @profiley/frontend build",
+    "preview": "pnpm --filter @profiley/frontend preview"
+  }
+}

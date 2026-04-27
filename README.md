@@ -48,38 +48,42 @@ Profiley enables professionals to create an AI persona that recruiters can chat 
 ## Project Structure
 
 ```
-src/
-├── app/
-│   ├── components/
-│   │   ├── ui/              # shadcn/ui components
-│   │   ├── app-layout.tsx   # Main app layout wrapper
-│   │   ├── chat-interface.tsx  # Reusable chat component
-│   │   └── theme-provider.tsx  # Dark mode provider
-│   ├── pages/
-│   │   ├── landing.tsx      # Public landing page
-│   │   ├── login.tsx        # Authentication
-│   │   ├── onboarding.tsx   # Multi-step onboarding
-│   │   ├── dashboard.tsx    # User dashboard
-│   │   ├── profile.tsx      # Profile editor
-│   │   ├── uploads.tsx      # Document manager
-│   │   ├── knowledge.tsx    # Knowledge base viewer
-│   │   ├── chat-preview.tsx # Test AI chat
-│   │   ├── job-fit-preview.tsx  # Test job analyzer
-│   │   ├── public-profile.tsx   # Recruiter view
-│   │   ├── settings.tsx     # General settings
-│   │   ├── settings-ai.tsx  # AI model config
-│   │   ├── settings-avatar.tsx  # Avatar settings
-│   │   └── admin.tsx        # Admin panel
-│   └── App.tsx              # Root component with router
-├── styles/
-│   ├── index.css            # Global styles
-│   ├── theme.css            # Design tokens
-│   ├── fonts.css            # Font imports
-│   └── tailwind.css         # Tailwind directives
-└── imports/
-    └── profiley-prd.md      # Product requirements
+apps/
+└── frontend/
+   ├── src/
+   │   ├── app/
+   │   │   ├── components/
+   │   │   │   ├── ui/              # shadcn/ui components
+   │   │   │   ├── app-layout.tsx   # Main app layout wrapper
+   │   │   │   ├── chat-interface.tsx  # Reusable chat component
+   │   │   │   └── theme-provider.tsx  # Dark mode provider
+   │   │   ├── pages/
+   │   │   │   ├── landing.tsx      # Public landing page
+   │   │   │   ├── login.tsx        # Authentication
+   │   │   │   ├── onboarding.tsx   # Multi-step onboarding
+   │   │   │   ├── dashboard.tsx    # User dashboard
+   │   │   │   ├── profile.tsx      # Profile editor
+   │   │   │   ├── uploads.tsx      # Document manager
+   │   │   │   ├── knowledge.tsx    # Knowledge base viewer
+   │   │   │   ├── chat-preview.tsx # Test AI chat
+   │   │   │   ├── job-fit-preview.tsx  # Test job analyzer
+   │   │   │   ├── public-profile.tsx   # Recruiter view
+   │   │   │   ├── settings.tsx     # General settings
+   │   │   │   ├── settings-ai.tsx  # AI model config
+   │   │   │   ├── settings-avatar.tsx  # Avatar settings
+   │   │   │   └── admin.tsx        # Admin panel
+   │   │   └── App.tsx              # Root component with router
+   │   ├── styles/
+   │   │   ├── index.css            # Global styles
+   │   │   ├── theme.css            # Design tokens
+   │   │   ├── fonts.css            # Font imports
+   │   │   └── tailwind.css         # Tailwind directives
+   │   └── imports/
+   │       └── profiley-prd.md      # Product requirements
+   ├── package.json
+   └── vite.config.ts
 
-DESIGN_SYSTEM.md             # Complete design system guide
+docs/DESIGN_SYSTEM.md        # Complete design system guide
 README.md                    # This file
 ```
 
@@ -104,7 +108,7 @@ README.md                    # This file
 
 ## Design System
 
-The complete design system is documented in `DESIGN_SYSTEM.md`. Key highlights:
+The complete design system is documented in `docs/DESIGN_SYSTEM.md`. Key highlights:
 
 ### Visual Style
 - **Modern & Futuristic** - Clean with subtle tech aesthetics
@@ -183,18 +187,31 @@ To make this production-ready:
 ## Development
 
 ### Running Locally
-The Vite dev server is already running in the Make environment.
+From the repository root:
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Or run the frontend package directly:
+
+```bash
+cd apps/frontend
+pnpm install
+pnpm dev
+```
 
 ### Key Files to Edit
-- `src/app/pages/*.tsx` - Page components
-- `src/app/components/*.tsx` - Reusable components
-- `src/styles/theme.css` - Design tokens
-- `DESIGN_SYSTEM.md` - Design documentation
+- `apps/frontend/src/app/pages/*.tsx` - Page components
+- `apps/frontend/src/app/components/*.tsx` - Reusable components
+- `apps/frontend/src/styles/theme.css` - Design tokens
+- `docs/DESIGN_SYSTEM.md` - Design documentation
 
 ### Adding New Pages
-1. Create page component in `src/app/pages/`
-2. Add route in `src/app/App.tsx`
-3. Add navigation link in `src/app/components/app-layout.tsx`
+1. Create page component in `apps/frontend/src/app/pages/`
+2. Add route in `apps/frontend/src/app/App.tsx`
+3. Add navigation link in `apps/frontend/src/app/components/app-layout.tsx`
 
 ### Styling Guidelines
 - Use Tailwind utility classes
