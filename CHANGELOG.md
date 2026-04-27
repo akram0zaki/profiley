@@ -66,6 +66,17 @@ provision and deploy.
   the admin model assignments UI (the router already falls back to the
   default when no assignment exists).
 
+### Fixed — Job-fit analysis 400 from OpenAI structured outputs
+
+- `JOB_FIT_JSON_SCHEMA` (`supabase/functions/_shared/prompts/jobFit.ts`) now
+  sets `additionalProperties: false` on the nested `citations[].items` object
+  schema. OpenAI's `response_format: { type: "json_schema", strict: true }`
+  rejects any nested object that omits this flag, which previously caused
+  `analyze-job-fit` to fail with `Invalid schema for response_format 'result':
+  In context=('properties', 'citations', 'items'), 'additionalProperties' is
+  required to be supplied and to be false.` Public visitors hitting the
+  job-fit analyzer on a public profile now get a successful response.
+
 ### Fixed — unsaved form state cleared on window refocus
 
 - `useAuth` (`apps/frontend/src/lib/auth.ts`) now ignores benign

@@ -29,6 +29,7 @@ export const JOB_FIT_JSON_SCHEMA = {
           label: { type: "string" },
           chunkId: { type: "string" },
         },
+        additionalProperties: false,
       },
       maxItems: 8,
     },

@@ -72,6 +72,9 @@ Deno.test("JOB_FIT_JSON_SCHEMA: required fields + enums match runtime contract",
   );
   assertEquals(JOB_FIT_JSON_SCHEMA.properties.fitBand.enum.length, 4);
   assertEquals(JOB_FIT_JSON_SCHEMA.additionalProperties, false);
+  // OpenAI structured outputs require additionalProperties:false on every nested object,
+  // including array item schemas (e.g. citations[].items).
+  assertEquals(JOB_FIT_JSON_SCHEMA.properties.citations.items.additionalProperties, false);
 });
 
 Deno.test("PROFILE_EXTRACT_SYSTEM: per-language label + data-not-instructions guard", () => {
