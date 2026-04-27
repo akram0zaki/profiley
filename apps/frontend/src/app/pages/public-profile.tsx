@@ -192,6 +192,7 @@ export default function PublicProfilePage() {
 
             <Card className="h-[600px] flex flex-col">
               <ChatInterface
+                profileSlug={username}
                 userName="You"
                 botName={`${mockProfile.name.split(' ')[0]} AI`}
                 placeholder="Ask about experience, skills, projects, or qualifications..."

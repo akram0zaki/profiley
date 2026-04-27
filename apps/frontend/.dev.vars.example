@@ -1,0 +1,20 @@
+# =============================================================================
+# Cloudflare Pages Functions — server-side env (SSR for /public/:slug SEO)
+# =============================================================================
+# Set in Cloudflare Pages → Settings → Environment variables for both
+# Production and Preview. These are accessed at runtime via the Pages
+# Functions `context.env` binding (NOT bundled into the SPA).
+#
+# For local development with `wrangler pages dev`, copy this file to
+# apps/frontend/.dev.vars (which wrangler reads automatically).
+# =============================================================================
+
+# --- Supabase (used to call get-public-profile during SSR) ---
+SUPABASE_URL=https://YOUR-PROJECT-REF.supabase.co
+SUPABASE_ANON_KEY=eyJhbGciOi...
+
+# --- Public origin for OG / canonical tags ---
+PUBLIC_APP_ORIGIN=https://profiley.app
+
+# --- Optional: Cloudflare Image Resizing prefix for og:image ---
+CF_IMAGE_RESIZING_PREFIX=https://profiley.app/cdn-cgi/image

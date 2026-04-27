@@ -4,12 +4,16 @@ import { Input } from './ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Card } from './ui/card';
 import { Send, Bot, User } from 'lucide-react';
+import { api, ApiError } from '../../lib/api';
+
+interface Citation { chunkId: string; documentId?: string | null; similarity?: number }
 
 interface Message {
   id: number;
   role: 'user' | 'assistant';
   content: string;
   timestamp: Date;
+  citations?: Citation[];
 }
 
 interface ChatInterfaceProps {
@@ -17,32 +21,33 @@ interface ChatInterfaceProps {
   userName?: string;
   botName?: string;
   placeholder?: string;
+  /** When provided, calls public chat-persona endpoint. */
+  profileSlug?: string;
+  /** When true (and no profileSlug), uses authenticated test-persona-chat preview. */
+  ownerMode?: boolean;
 }
-
-const mockResponses = [
-  "I'm a Senior Software Engineer with 10+ years of experience in full-stack development. I specialize in AI/ML systems, cloud architecture, and distributed systems. I've led the development of platforms serving millions of users.",
-  "I've worked extensively with React, Node.js, Python, and TypeScript. I'm particularly skilled in building scalable microservices architectures using Kubernetes and Docker.",
-  "One of my key projects is RepCue, a comprehensive healthcare SaaS platform that includes video consultations, appointment scheduling, and AI-powered symptom checking.",
-  "I hold AWS Certified Solutions Architect - Professional and Google Cloud Professional Cloud Architect certifications. I have deep expertise in cloud infrastructure and DevOps practices.",
-  "I've successfully mentored 15+ junior engineers and established engineering best practices across multiple teams. I'm passionate about knowledge sharing and technical documentation.",
-];
 
 export function ChatInterface({
   userAvatar = 'https://api.dicebear.com/7.x/avataaars/svg?seed=Recruiter',
   userName = 'Recruiter',
-  botName = 'Akram AI',
+  botName = 'Profiley AI',
   placeholder = 'Ask me anything about my experience, skills, or projects...',
+  profileSlug,
+  ownerMode,
 }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
       role: 'assistant',
-      content: `Hello! I'm ${botName}, an AI representation of Akram's professional profile. I can answer questions about his experience, skills, projects, and qualifications. What would you like to know?`,
+      content: `Hello! I'm ${botName}, an AI persona. Ask me about experience, skills, projects, or qualifications.`,
       timestamp: new Date(),
     },
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [cooldownSec, setCooldownSec] = useState<number | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -53,30 +58,57 @@ export function ChatInterface({
     scrollToBottom();
   }, [messages, isTyping]);
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+  useEffect(() => {
+    if (!cooldownSec) return;
+    const t = setInterval(() => setCooldownSec((s) => (s && s > 1 ? s - 1 : null)), 1000);
+    return () => clearInterval(t);
+  }, [cooldownSec]);
+
+  const handleSend = async () => {
+    if (!input.trim() || isTyping) return;
+    const text = input.trim();
 
     const userMessage: Message = {
       id: messages.length + 1,
       role: 'user',
-      content: input,
+      content: text,
       timestamp: new Date(),
     };
-
-    setMessages([...messages, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setIsTyping(true);
+    setError(null);
 
-    setTimeout(() => {
+    try {
+      const payload: Record<string, unknown> = { message: text, conversationId };
+      let res;
+      if (profileSlug) {
+        res = await api.chatPersona({ ...payload, slug: profileSlug });
+      } else if (ownerMode) {
+        res = await api.testPersonaChat(payload);
+      } else {
+        throw new Error('chat-interface: profileSlug or ownerMode required');
+      }
+      setConversationId(res.conversationId ?? null);
       const botMessage: Message = {
         id: messages.length + 2,
         role: 'assistant',
-        content: mockResponses[Math.floor(Math.random() * mockResponses.length)],
+        content: res.message,
         timestamp: new Date(),
+        citations: res.citations,
       };
       setMessages((prev) => [...prev, botMessage]);
+    } catch (e) {
+      const err = e as ApiError;
+      if (err.status === 429) {
+        setCooldownSec(60);
+        setError('Too many messages — please wait a minute before sending again.');
+      } else {
+        setError(err.message ?? 'Failed to get a response');
+      }
+    } finally {
       setIsTyping(false);
-    }, 1000 + Math.random() * 1000);
+    }
   };
 
   return (
@@ -121,6 +153,19 @@ export function ChatInterface({
                 }`}
               >
                 <p className="text-sm leading-relaxed">{message.content}</p>
+                {message.citations && message.citations.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {message.citations.map((c, i) => (
+                      <span
+                        key={c.chunkId}
+                        title={`chunk ${c.chunkId}`}
+                        className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
+                      >
+                        ref #{i + 1}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </Card>
               <span className="text-xs text-muted-foreground">
                 {message.timestamp.toLocaleTimeString([], {
@@ -155,6 +200,12 @@ export function ChatInterface({
 
       {/* Input */}
       <div className="border-t border-border/40 p-4 bg-background/95 backdrop-blur">
+        {error && (
+          <div className="mb-2 text-xs text-destructive">{error}</div>
+        )}
+        {cooldownSec && (
+          <div className="mb-2 text-xs text-amber-500">Cooldown: {cooldownSec}s</div>
+        )}
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -167,8 +218,9 @@ export function ChatInterface({
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className="flex-1"
+            disabled={!!cooldownSec}
           />
-          <Button type="submit" size="icon" disabled={!input.trim() || isTyping}>
+          <Button type="submit" size="icon" disabled={!input.trim() || isTyping || !!cooldownSec}>
             <Send className="h-4 w-4" />
           </Button>
         </form>

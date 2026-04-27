@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
 import { ThemeProvider } from './components/theme-provider';
 import { LanguageProvider } from './contexts/language-context';
 import { Toaster } from './components/ui/sonner';
+import { RequireAuth, RequireAdmin } from './components/auth-guards';
 
 // Pages
 import LandingPage from './pages/landing';
@@ -18,6 +19,7 @@ import SettingsPage from './pages/settings';
 import SettingsAIPage from './pages/settings-ai';
 import SettingsAvatarPage from './pages/settings-avatar';
 import AdminPage from './pages/admin';
+import AuthCallbackPage from './pages/auth-callback';
 
 export default function App() {
   return (
@@ -27,18 +29,19 @@ export default function App() {
           <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/onboarding" element={<OnboardingPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/uploads" element={<UploadsPage />} />
-          <Route path="/knowledge" element={<KnowledgePage />} />
-          <Route path="/chat-preview" element={<ChatPreviewPage />} />
-          <Route path="/job-fit-preview" element={<JobFitPreviewPage />} />
+          <Route path="/auth/callback" element={<AuthCallbackPage />} />
+          <Route path="/onboarding" element={<RequireAuth><OnboardingPage /></RequireAuth>} />
+          <Route path="/dashboard" element={<RequireAuth><DashboardPage /></RequireAuth>} />
+          <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
+          <Route path="/uploads" element={<RequireAuth><UploadsPage /></RequireAuth>} />
+          <Route path="/knowledge" element={<RequireAuth><KnowledgePage /></RequireAuth>} />
+          <Route path="/chat-preview" element={<RequireAuth><ChatPreviewPage /></RequireAuth>} />
+          <Route path="/job-fit-preview" element={<RequireAuth><JobFitPreviewPage /></RequireAuth>} />
           <Route path="/public/:username" element={<PublicProfilePage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="/settings/ai" element={<SettingsAIPage />} />
-          <Route path="/settings/avatar" element={<SettingsAvatarPage />} />
-          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/settings" element={<RequireAuth><SettingsPage /></RequireAuth>} />
+          <Route path="/settings/ai" element={<RequireAuth><SettingsAIPage /></RequireAuth>} />
+          <Route path="/settings/avatar" element={<RequireAuth><SettingsAvatarPage /></RequireAuth>} />
+          <Route path="/admin" element={<RequireAdmin><AdminPage /></RequireAdmin>} />
           <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
           <Toaster />

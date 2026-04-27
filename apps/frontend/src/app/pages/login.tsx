@@ -4,17 +4,41 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../co
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Separator } from '../components/ui/separator';
-import { Mail, Chrome, Apple } from 'lucide-react';
+import { Mail, Chrome, Github } from 'lucide-react';
 import { useState } from 'react';
+import { signInWithEmail, signInWithProvider } from '../../lib/auth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [magicLinkSent, setMagicLinkSent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
 
-  const handleMagicLink = (e: React.FormEvent) => {
+  const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault();
-    setMagicLinkSent(true);
-    setTimeout(() => setMagicLinkSent(false), 5000);
+    setError(null);
+    setBusy(true);
+    try {
+      const { error } = await signInWithEmail(email);
+      if (error) throw error;
+      setMagicLinkSent(true);
+    } catch (err) {
+      setError((err as Error).message ?? 'Failed to send magic link');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const handleProvider = async (provider: 'google' | 'github') => {
+    setError(null);
+    setBusy(true);
+    try {
+      const { error } = await signInWithProvider(provider);
+      if (error) throw error;
+    } catch (err) {
+      setError((err as Error).message ?? 'OAuth sign-in failed');
+      setBusy(false);
+    }
   };
 
   return (
@@ -47,7 +71,8 @@ export default function LoginPage() {
               <Button
                 variant="outline"
                 className="w-full gap-2"
-                onClick={() => window.location.href = '/dashboard'}
+                disabled={busy}
+                onClick={() => handleProvider('google')}
               >
                 <Chrome className="h-5 w-5" />
                 Continue with Google
@@ -55,10 +80,11 @@ export default function LoginPage() {
               <Button
                 variant="outline"
                 className="w-full gap-2"
-                onClick={() => window.location.href = '/dashboard'}
+                disabled={busy}
+                onClick={() => handleProvider('github')}
               >
-                <Apple className="h-5 w-5" />
-                Continue with Apple
+                <Github className="h-5 w-5" />
+                Continue with GitHub
               </Button>
             </div>
 
@@ -84,7 +110,7 @@ export default function LoginPage() {
                   required
                 />
               </div>
-              <Button type="submit" className="w-full gap-2" disabled={magicLinkSent}>
+              <Button type="submit" className="w-full gap-2" disabled={busy || magicLinkSent}>
                 <Mail className="h-4 w-4" />
                 {magicLinkSent ? 'Check your email!' : 'Send Magic Link'}
               </Button>
@@ -93,6 +119,11 @@ export default function LoginPage() {
             {magicLinkSent && (
               <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-sm text-green-400">
                 We've sent a sign-in link to {email}. Check your inbox!
+              </div>
+            )}
+            {error && (
+              <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-sm text-destructive">
+                {error}
               </div>
             )}
           </CardContent>

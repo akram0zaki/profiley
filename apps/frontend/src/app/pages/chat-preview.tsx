@@ -31,6 +31,7 @@ export default function ChatPreviewPage() {
         {/* Chat Card */}
         <Card className="h-[600px] flex flex-col">
           <ChatInterface
+            ownerMode
             userName="You (Testing)"
             botName="Your AI Persona"
             placeholder="Test a question (e.g., 'What is your experience with AI?')"
