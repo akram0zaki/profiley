@@ -13,8 +13,10 @@ import { useEffect, useState } from 'react';
 import { useCurrentProfile, updatePreferences } from '../../lib/profile';
 import { api, ApiError } from '../../lib/api';
 import { signOut } from '../../lib/auth';
+import { useLanguage } from '../contexts/language-context';
 
 export default function SettingsPage() {
+  const { t, setLanguage: setUiLanguage } = useLanguage();
   const { appUser, profile, preferences, loading, reload } = useCurrentProfile();
   const [language, setLanguage] = useState('en');
   const [savingLocale, setSavingLocale] = useState(false);
@@ -28,10 +30,13 @@ export default function SettingsPage() {
     setSavingLocale(true);
     try {
       await api.updateUserLocale({ preferredLanguage: next });
-      toast.success('Language preference saved');
+      if (next === 'en' || next === 'nl' || next === 'ar') {
+        setUiLanguage(next);
+      }
+      toast.success(t('settings.feedback.languageSaved'));
       await reload();
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : 'Update failed';
+      const msg = e instanceof ApiError ? e.message : t('settings.feedback.updateFailed');
       toast.error(msg);
     } finally {
       setSavingLocale(false);
@@ -51,17 +56,17 @@ export default function SettingsPage() {
       await updatePreferences(appUser.id, { [key]: value });
       await reload();
     } catch (e: any) {
-      toast.error(e?.message ?? 'Update failed');
+      toast.error(e?.message ?? t('settings.feedback.updateFailed'));
     }
   };
 
   const togglePublic = async (next: boolean) => {
     try {
       await api.publishProfile({ publicVisibility: next });
-      toast.success(next ? 'Profile published' : 'Profile unpublished');
+      toast.success(next ? t('settings.feedback.languageSaved') : t('settings.feedback.languageSaved'));
       await reload();
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : 'Update failed';
+      const msg = e instanceof ApiError ? e.message : t('settings.feedback.updateFailed');
       toast.error(msg);
     }
   };
@@ -70,7 +75,7 @@ export default function SettingsPage() {
     return (
       <AppLayout>
         <div className="flex items-center justify-center py-24 text-muted-foreground">
-          <Loader2 className="h-6 w-6 animate-spin mr-2" /> Loading settings…
+          <Loader2 className="h-6 w-6 animate-spin mr-2" /> {t('settings.loading')}
         </div>
       </AppLayout>
     );
@@ -80,8 +85,8 @@ export default function SettingsPage() {
     <AppLayout>
       <div className="max-w-4xl mx-auto space-y-6">
         <div>
-          <h1 className="text-3xl font-bold">Settings</h1>
-          <p className="text-muted-foreground">Manage your account and preferences</p>
+          <h1 className="text-3xl font-bold">{t('settings.title')}</h1>
+          <p className="text-muted-foreground">{t('settings.subtitle')}</p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
@@ -93,8 +98,8 @@ export default function SettingsPage() {
                     <Bot className="h-5 w-5 text-purple-400" />
                   </div>
                   <div>
-                    <CardTitle className="text-base">AI Configuration</CardTitle>
-                    <CardDescription className="text-sm">Model and persona settings</CardDescription>
+                    <CardTitle className="text-base">{t('settings.links.ai.title')}</CardTitle>
+                    <CardDescription className="text-sm">{t('settings.links.ai.description')}</CardDescription>
                   </div>
                 </div>
                 <ChevronRight className="h-5 w-5 text-muted-foreground" />
@@ -110,8 +115,8 @@ export default function SettingsPage() {
                     <User className="h-5 w-5 text-blue-400" />
                   </div>
                   <div>
-                    <CardTitle className="text-base">Avatar Settings</CardTitle>
-                    <CardDescription className="text-sm">Future AI avatar config</CardDescription>
+                    <CardTitle className="text-base">{t('settings.links.avatar.title')}</CardTitle>
+                    <CardDescription className="text-sm">{t('settings.links.avatar.description')}</CardDescription>
                   </div>
                 </div>
                 <ChevronRight className="h-5 w-5 text-muted-foreground" />
@@ -122,23 +127,23 @@ export default function SettingsPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Account Information</CardTitle>
-            <CardDescription>Your authenticated account details</CardDescription>
+            <CardTitle>{t('settings.account.title')}</CardTitle>
+            <CardDescription>{t('settings.account.description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t('settings.account.email')}</Label>
               <Input id="email" type="email" value={appUser?.email ?? ''} disabled />
               <p className="text-xs text-muted-foreground">
-                Contact support to change your email address
+                {t('settings.account.emailNote')}
               </p>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="timezone">Timezone</Label>
+              <Label htmlFor="timezone">{t('settings.account.timezone')}</Label>
               <Input id="timezone" value={appUser?.timezone ?? ''} disabled />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="locale">Browser Locale</Label>
+              <Label htmlFor="locale">{t('settings.account.browserLocale')}</Label>
               <Input id="locale" value={appUser?.browser_locale ?? ''} disabled />
             </div>
           </CardContent>
@@ -146,28 +151,24 @@ export default function SettingsPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Language & Region</CardTitle>
-            <CardDescription>Configure your language preferences</CardDescription>
+            <CardTitle>{t('settings.language.title')}</CardTitle>
+            <CardDescription>{t('settings.language.description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="preferredLanguage">Preferred Language</Label>
+              <Label htmlFor="preferredLanguage">{t('settings.language.preferred')}</Label>
               <Select value={language} onValueChange={handleLanguageChange} disabled={savingLocale}>
                 <SelectTrigger id="preferredLanguage">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="ar">Arabic</SelectItem>
-                  <SelectItem value="es">Spanish</SelectItem>
-                  <SelectItem value="fr">French</SelectItem>
-                  <SelectItem value="de">German</SelectItem>
-                  <SelectItem value="zh">Chinese</SelectItem>
-                  <SelectItem value="ja">Japanese</SelectItem>
+                  <SelectItem value="nl">Nederlands</SelectItem>
+                  <SelectItem value="ar">العربية</SelectItem>
                 </SelectContent>
               </Select>
               <p className="text-xs text-muted-foreground">
-                AI will prefer this language when responding to ambiguous requests
+                {t('settings.language.preferredHint')}
               </p>
             </div>
           </CardContent>
@@ -175,17 +176,17 @@ export default function SettingsPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Privacy & Visibility</CardTitle>
+            <CardTitle>{t('settings.privacy.title')}</CardTitle>
             <CardDescription>
-              Control who can see your profile and interact with your AI
+              {t('settings.privacy.description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <Label>Public Profile</Label>
+                <Label>{t('settings.privacy.publicProfile.title')}</Label>
                 <p className="text-sm text-muted-foreground">
-                  Make your profile visible to anyone with the link
+                  {t('settings.privacy.publicProfile.description')}
                 </p>
               </div>
               <Switch
@@ -197,8 +198,8 @@ export default function SettingsPage() {
             <Separator />
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <Label>Allow AI Chat</Label>
-                <p className="text-sm text-muted-foreground">Let visitors chat with your AI persona</p>
+                <Label>{t('settings.privacy.chat.title')}</Label>
+                <p className="text-sm text-muted-foreground">{t('settings.privacy.chat.description')}</p>
               </div>
               <Switch
                 checked={preferences?.allow_public_chat ?? true}
@@ -208,9 +209,9 @@ export default function SettingsPage() {
             <Separator />
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <Label>Allow Job-Fit Analysis</Label>
+                <Label>{t('settings.privacy.jobFit.title')}</Label>
                 <p className="text-sm text-muted-foreground">
-                  Let recruiters analyze job descriptions against your profile
+                  {t('settings.privacy.jobFit.description')}
                 </p>
               </div>
               <Switch
@@ -221,9 +222,9 @@ export default function SettingsPage() {
             <Separator />
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <Label>Allow Contact Form</Label>
+                <Label>{t('settings.privacy.contact.title')}</Label>
                 <p className="text-sm text-muted-foreground">
-                  Let recruiters send you direct messages
+                  {t('settings.privacy.contact.description')}
                 </p>
               </div>
               <Switch
@@ -234,9 +235,9 @@ export default function SettingsPage() {
             <Separator />
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <Label>Show Document Citations</Label>
+                <Label>{t('settings.privacy.citations.title')}</Label>
                 <p className="text-sm text-muted-foreground">
-                  Display source references in AI responses
+                  {t('settings.privacy.citations.description')}
                 </p>
               </div>
               <Switch
@@ -249,15 +250,15 @@ export default function SettingsPage() {
 
         <Card className="border-destructive/50">
           <CardHeader>
-            <CardTitle className="text-destructive">Sign Out</CardTitle>
-            <CardDescription>End your current session</CardDescription>
+            <CardTitle className="text-destructive">{t('settings.signOut.title')}</CardTitle>
+            <CardDescription>{t('settings.signOut.description')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between p-4 rounded-lg border">
               <div>
-                <p className="font-medium">Sign out of Profiley</p>
+                <p className="font-medium">{t('settings.signOut.button')}</p>
                 <p className="text-sm text-muted-foreground">
-                  You will be redirected to the login page
+                  {t('settings.signOut.redirectNote')}
                 </p>
               </div>
               <Button
@@ -267,7 +268,7 @@ export default function SettingsPage() {
                   void signOut();
                 }}
               >
-                Sign Out
+                {t('settings.signOut.title')}
               </Button>
             </div>
           </CardContent>

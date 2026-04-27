@@ -133,19 +133,22 @@ export default function DashboardPage() {
   const formatRelative = (iso: string): string => {
     const diffMs = Date.now() - new Date(iso).getTime();
     const m = Math.round(diffMs / 60000);
-    if (m < 1) return 'just now';
-    if (m < 60) return `${m} min ago`;
+    if (m < 1) return t('dashboard.time.justNow');
+    if (m < 60) return t('dashboard.time.minutesAgo', { count: m });
     const h = Math.round(m / 60);
-    if (h < 24) return `${h} h ago`;
+    if (h < 24) return t('dashboard.time.hoursAgo', { count: h });
     const d = Math.round(h / 24);
-    return `${d} day${d > 1 ? 's' : ''} ago`;
+    return t('dashboard.time.daysAgo', {
+      count: d,
+      unit: d > 1 ? t('dashboard.time.daysUnit') : t('dashboard.time.dayUnit'),
+    });
   };
 
   const eventLabel = (e: string) => {
-    if (e === 'profile_view') return 'View';
-    if (e === 'chat_started' || e === 'chat_message') return 'Chat';
-    if (e === 'job_fit_run' || e === 'job_fit_analyze') return 'Job-fit';
-    if (e === 'tab_view') return 'Tab view';
+    if (e === 'profile_view') return t('dashboard.activity.viewed');
+    if (e === 'chat_started' || e === 'chat_message') return t('dashboard.activity.chatted');
+    if (e === 'job_fit_run' || e === 'job_fit_analyze') return t('dashboard.activity.jobFit');
+    if (e === 'tab_view') return t('dashboard.activity.viewed');
     return e;
   };
 
@@ -162,7 +165,7 @@ export default function DashboardPage() {
           <div>
             <h1 className="text-3xl font-bold">{t('dashboard.title')}</h1>
             <p className="text-muted-foreground">
-              {t('dashboard.subtitle').replace('{name}', firstName)}
+              {t('dashboard.subtitle', { name: firstName })}
             </p>
           </div>
           {profile?.slug && (
@@ -184,10 +187,7 @@ export default function DashboardPage() {
                   <div>
                     <h3 className="font-medium">{t('dashboard.completeProfile')}</h3>
                     <p className="text-sm text-muted-foreground">
-                      {t('dashboard.profileProgress').replace(
-                        '{percent}',
-                        profileCompletion.toString(),
-                      )}
+                      {t('dashboard.profileProgress', { percent: profileCompletion })}
                     </p>
                   </div>
                   <Progress value={profileCompletion} className="h-2" />
@@ -211,7 +211,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats.visits.toLocaleString()}</div>
-              <p className="text-xs text-muted-foreground">All time</p>
+              <p className="text-xs text-muted-foreground">{t('dashboard.stats.allTime')}</p>
             </CardContent>
           </Card>
 
@@ -222,7 +222,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats.conversations.toLocaleString()}</div>
-              <p className="text-xs text-muted-foreground">Total chat sessions</p>
+              <p className="text-xs text-muted-foreground">{t('dashboard.stats.totalChatSessions')}</p>
             </CardContent>
           </Card>
 
@@ -235,7 +235,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stats.jobFits.toLocaleString()}</div>
-              <p className="text-xs text-muted-foreground">Analyses run</p>
+              <p className="text-xs text-muted-foreground">{t('dashboard.stats.analysesRun')}</p>
             </CardContent>
           </Card>
 
@@ -255,7 +255,7 @@ export default function DashboardPage() {
                   : 0}
                 %
               </div>
-              <p className="text-xs text-muted-foreground">Visits → action</p>
+              <p className="text-xs text-muted-foreground">{t('dashboard.stats.visitsToAction')}</p>
             </CardContent>
           </Card>
         </div>
@@ -269,11 +269,11 @@ export default function DashboardPage() {
             <CardContent>
               {statsLoading ? (
                 <div className="flex items-center justify-center py-8 text-muted-foreground">
-                  <Loader2 className="h-5 w-5 animate-spin mr-2" /> Loading…
+                  <Loader2 className="h-5 w-5 animate-spin mr-2" /> {t('dashboard.loading')}
                 </div>
               ) : activity.length === 0 ? (
                 <p className="text-sm text-muted-foreground py-6 text-center">
-                  No recruiter activity yet.
+                  {t('dashboard.activity.empty')}
                 </p>
               ) : (
                 <div className="space-y-4">

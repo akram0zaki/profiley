@@ -1,0 +1,21 @@
+{
+  "title": "Kennisbank",
+  "subtitle": "Verken de gestructureerde kennisfragmenten die uw AI-persona aandrijven",
+  "stats": {
+    "totalChunks": "Totaal Fragmenten",
+    "acrossDocuments": "Verspreid over {count} documenten",
+    "sourceDocuments": "Brondocumenten",
+    "uploadedFiles": "Geüploade bestanden",
+    "sections": "Secties",
+    "differentCategories": "Verschillende categorieën"
+  },
+  "searchPlaceholder": "Doorzoek uw kennisbank…",
+  "list": {
+    "title": "Kennisfragmenten",
+    "description": "Semantische fragmenten geëxtraheerd uit uw documenten voor AI-retrieval",
+    "loading": "Laden…",
+    "empty": "Nog geen kennisfragmenten. Upload documenten om uw kennisbank te vullen.",
+    "noMatches": "Geen fragmenten komen overeen met uw zoekopdracht.",
+    "unknownSource": "Onbekende bron"
+  }
+}

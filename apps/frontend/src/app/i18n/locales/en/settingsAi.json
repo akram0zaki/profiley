@@ -1,0 +1,39 @@
+{
+  "title": "AI Configuration",
+  "subtitle": "View available AI models and configure persona behavior",
+  "info": "Per-user model overrides are not yet available. The models below are administered by your workspace admin and applied to all users automatically based on the active feature assignments.",
+  "tone": {
+    "title": "Persona Tone",
+    "description": "Customize how your AI responds to recruiters",
+    "label": "Tone",
+    "save": "Save Tone",
+    "options": {
+      "professional": "Professional & Precise",
+      "friendly": "Friendly & Approachable",
+      "technical": "Technical & Detailed",
+      "concise": "Concise & Direct"
+    }
+  },
+  "customPrompt": {
+    "title": "Custom System Prompt (Advanced)",
+    "comingSoon": "Per-user system prompt overrides are coming soon.",
+    "disabled": "Advanced overrides are not yet enabled."
+  },
+  "activeModels": {
+    "title": "Active Models",
+    "description": "Models currently enabled for the platform (read-only)",
+    "loading": "Loading models…",
+    "empty": "No active models configured.",
+    "default": "Default",
+    "inactive": "Inactive"
+  },
+  "assignments": {
+    "title": "Feature Assignments",
+    "description": "Which model handles which feature (read-only)",
+    "loading": "Loading assignments…",
+    "empty": "No feature assignments configured."
+  },
+  "feedback": {
+    "toneSaved": "Persona tone saved"
+  }
+}

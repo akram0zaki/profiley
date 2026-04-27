@@ -1,0 +1,25 @@
+{
+  "save": "Opslaan",
+  "cancel": "Annuleren",
+  "delete": "Verwijderen",
+  "edit": "Bewerken",
+  "upload": "Uploaden",
+  "loading": "Laden…",
+  "search": "Zoeken",
+  "filter": "Filter",
+  "actions": "Acties",
+  "status": "Status",
+  "active": "Actief",
+  "inactive": "Inactief",
+  "default": "Standaard",
+  "languages": {
+    "english": "Engels",
+    "dutch": "Nederlands",
+    "arabic": "Arabisch",
+    "spanish": "Spaans",
+    "french": "Frans",
+    "german": "Duits",
+    "chinese": "Chinees",
+    "japanese": "Japans"
+  }
+}

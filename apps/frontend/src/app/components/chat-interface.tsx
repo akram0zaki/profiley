@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Card } from './ui/card';
 import { Send, Bot, User } from 'lucide-react';
 import { api, ApiError } from '../../lib/api';
+import { useLanguage } from '../contexts/language-context';
 
 interface Citation { chunkId: string; documentId?: string | null; similarity?: number }
 
@@ -29,17 +30,21 @@ interface ChatInterfaceProps {
 
 export function ChatInterface({
   userAvatar = 'https://api.dicebear.com/7.x/avataaars/svg?seed=Recruiter',
-  userName = 'Recruiter',
-  botName = 'Profiley AI',
-  placeholder = 'Ask me anything about my experience, skills, or projects...',
+  userName,
+  botName,
+  placeholder,
   profileSlug,
   ownerMode,
 }: ChatInterfaceProps) {
+  const { t } = useLanguage();
+  const resolvedUserName = userName ?? 'Recruiter';
+  const resolvedBotName = botName ?? 'Profiley AI';
+  const resolvedPlaceholder = placeholder ?? t('chat.placeholder');
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
       role: 'assistant',
-      content: `Hello! I'm ${botName}, an AI persona. Ask me about experience, skills, projects, or qualifications.`,
+      content: t('chat.greeting', { botName: resolvedBotName }),
       timestamp: new Date(),
     },
   ]);
@@ -102,9 +107,9 @@ export function ChatInterface({
       const err = e as ApiError;
       if (err.status === 429) {
         setCooldownSec(60);
-        setError('Too many messages — please wait a minute before sending again.');
+        setError(t('chat.rateLimit'));
       } else {
-        setError(err.message ?? 'Failed to get a response');
+        setError(err.message ?? t('chat.errors.noResponse'));
       }
     } finally {
       setIsTyping(false);
@@ -143,7 +148,7 @@ export function ChatInterface({
               }`}
             >
               <span className="text-xs text-muted-foreground">
-                {message.role === 'assistant' ? botName : userName}
+                {message.role === 'assistant' ? resolvedBotName : resolvedUserName}
               </span>
               <Card
                 className={`p-3 ${
@@ -204,7 +209,7 @@ export function ChatInterface({
           <div className="mb-2 text-xs text-destructive">{error}</div>
         )}
         {cooldownSec && (
-          <div className="mb-2 text-xs text-amber-500">Cooldown: {cooldownSec}s</div>
+          <div className="mb-2 text-xs text-amber-500">{t('chat.errors.cooldown', { seconds: cooldownSec })}</div>
         )}
         <form
           onSubmit={(e) => {
@@ -214,7 +219,7 @@ export function ChatInterface({
           className="flex gap-2"
         >
           <Input
-            placeholder={placeholder}
+            placeholder={resolvedPlaceholder}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className="flex-1"

@@ -1,0 +1,63 @@
+{
+  "title": "Settings",
+  "subtitle": "Manage your account and preferences",
+  "loading": "Loading settings…",
+  "links": {
+    "ai": {
+      "title": "AI Configuration",
+      "description": "Model and persona settings"
+    },
+    "avatar": {
+      "title": "Avatar Settings",
+      "description": "Future AI avatar config"
+    }
+  },
+  "account": {
+    "title": "Account Information",
+    "description": "Your authenticated account details",
+    "email": "Email",
+    "emailNote": "Contact support to change your email address",
+    "timezone": "Timezone",
+    "browserLocale": "Browser Locale"
+  },
+  "language": {
+    "title": "Language & Region",
+    "description": "Configure your language preferences",
+    "preferred": "Preferred Language",
+    "preferredHint": "AI will prefer this language when responding to ambiguous requests"
+  },
+  "privacy": {
+    "title": "Privacy & Visibility",
+    "description": "Control who can see your profile and interact with your AI",
+    "publicProfile": {
+      "title": "Public Profile",
+      "description": "Make your profile visible to anyone with the link"
+    },
+    "chat": {
+      "title": "Allow AI Chat",
+      "description": "Let visitors chat with your AI persona"
+    },
+    "jobFit": {
+      "title": "Allow Job-Fit Analysis",
+      "description": "Let recruiters analyze job descriptions against your profile"
+    },
+    "contact": {
+      "title": "Allow Contact Form",
+      "description": "Let recruiters send you direct messages"
+    },
+    "citations": {
+      "title": "Show Document Citations",
+      "description": "Display source references in AI responses"
+    }
+  },
+  "signOut": {
+    "title": "Sign Out",
+    "description": "End your current session",
+    "button": "Sign out of Profiley",
+    "redirectNote": "You will be redirected to the login page"
+  },
+  "feedback": {
+    "languageSaved": "Language preference saved",
+    "updateFailed": "Update failed"
+  }
+}

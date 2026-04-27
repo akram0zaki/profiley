@@ -1,0 +1,85 @@
+{
+  "title": "Maak Uw AI-Profiel",
+  "stepLabel": "Stap {step} van {total}: {stepName}",
+  "steps": {
+    "welcome": "Welkom",
+    "basics": "Profielbasis",
+    "professional": "Professionele Info",
+    "preferences": "Voorkeuren",
+    "complete": "Voltooid"
+  },
+  "welcome": {
+    "title": "Welkom bij Profiley!",
+    "intro": "Laten we uw AI-aangedreven professionele profiel opzetten. Dit duurt slechts enkele minuten.",
+    "youWillDo": "Wat u gaat doen:",
+    "items": {
+      "basics": "Stel uw basisprofielinformatie in",
+      "professional": "Definieer uw professionele sterke punten en doelen",
+      "preferences": "Configureer taal- en tijdzonevoorkeuren",
+      "documents": "Upload uw CV en ondersteunende documenten"
+    },
+    "captured": "Uw gegevens zijn vastgelegd vanuit uw browser:",
+    "locale": "Locale:",
+    "timezone": "Tijdzone:"
+  },
+  "basics": {
+    "title": "Profielbasis",
+    "description": "Vertel ons over uzelf",
+    "fullName": "Volledige Naam",
+    "fullNamePlaceholder": "Akram Fares",
+    "headline": "Professionele Titel",
+    "headlinePlaceholder": "Senior Software Engineer | AI & Cloud-architectuur",
+    "bio": "Korte Bio",
+    "bioPlaceholder": "Vertel recruiters over uw achtergrond en wat u uniek maakt…",
+    "location": "Locatie (Optioneel)",
+    "locationPlaceholder": "Amsterdam, NL"
+  },
+  "professional": {
+    "title": "Professionele Informatie",
+    "description": "Help AI uw expertise te begrijpen",
+    "strengths": "Sterke Punten",
+    "strengthsPlaceholder": "Voeg een sterk punt toe (bijv. Full-Stack Development)",
+    "add": "Toevoegen",
+    "seniority": "Senioriteitsniveau",
+    "seniorityPlaceholder": "Selecteer senioriteitsniveau",
+    "seniorityLevels": {
+      "junior": "Junior (0-2 jaar)",
+      "mid": "Mid-Level (3-5 jaar)",
+      "senior": "Senior (6-10 jaar)",
+      "staff": "Staff/Principal (10+ jaar)",
+      "lead": "Lead/Manager",
+      "executive": "Executive"
+    },
+    "workingStyle": "Werkstijl",
+    "workingStylePlaceholder": "Beschrijf hoe u graag werkt (op afstand, hybride, samenwerkend, enz.)"
+  },
+  "preferences": {
+    "title": "Taal- en Regiovoorkeuren",
+    "description": "Configureer hoe uw AI-persona communiceert",
+    "language": "Voorkeurstaal",
+    "timezone": "Tijdzone",
+    "timezoneAuto": "Automatisch gedetecteerd vanuit uw browser",
+    "browserLocale": "Browser Locale"
+  },
+  "complete": {
+    "title": "Profiel Aangemaakt!",
+    "description": "Uw basisprofiel is ingesteld. Upload vervolgens uw CV en documenten om uw AI-kennisbank te voltooien.",
+    "nextSteps": "Volgende Stappen:",
+    "items": {
+      "upload": "Upload uw CV en portfoliodocumenten",
+      "review": "Bekijk uw openbare profielpagina",
+      "test": "Test uw AI-persona in chatvoorbeeld",
+      "share": "Deel uw profiellink met recruiters"
+    }
+  },
+  "nav": {
+    "previous": "Vorige",
+    "finish": "Voltooien & Doorgaan",
+    "next": "Volgende",
+    "goDashboard": "Ga naar Dashboard"
+  },
+  "feedback": {
+    "saved": "Onboarding opgeslagen",
+    "saveFailed": "Opslaan mislukt"
+  }
+}

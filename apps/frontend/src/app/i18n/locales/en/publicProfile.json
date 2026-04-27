@@ -1,0 +1,59 @@
+{
+  "brand": "Profiley",
+  "verified": "AI-Verified Profile",
+  "createCta": "Create Your Profile",
+  "loading": "Loading profile…",
+  "error": {
+    "title": "Profile unavailable",
+    "notFound": "Profile not found",
+    "back": "Back to home"
+  },
+  "tabs": {
+    "about": "About",
+    "chat": "AI Chat",
+    "jobFit": "Job Fit"
+  },
+  "about": {
+    "title": "About",
+    "skills": "Skills"
+  },
+  "chat": {
+    "title": "Chat with {firstName}'s AI",
+    "description": "This AI can answer questions about {firstName}'s experience, skills, and projects. All responses are based on verified profile data and uploaded documents.",
+    "userName": "You",
+    "placeholder": "Ask about experience, skills, projects, or qualifications…"
+  },
+  "jobFit": {
+    "title": "Job-Fit Analysis",
+    "description": "Paste a job description to get an instant AI-powered analysis of how well {firstName} matches the role.",
+    "input": "Paste Job Description",
+    "jobTitle": "Job title (optional)",
+    "company": "Company name (optional)",
+    "placeholder": "Paste the job description here…",
+    "analyze": "Analyze Job Fit",
+    "analyzing": "Analyzing…",
+    "fitScore": "Fit Score: {score}% ({band})",
+    "strengths": "Strengths",
+    "gaps": "Gaps",
+    "transferable": "Transferable Strengths"
+  },
+  "contact": {
+    "title": "Send a message",
+    "description": "The profile owner will receive your message via email.",
+    "name": "Your name",
+    "email": "Your email",
+    "company": "Company (optional)",
+    "message": "Your message",
+    "send": "Send Message",
+    "captcha": "Please complete the captcha"
+  },
+  "footer": {
+    "poweredBy": "This profile is powered by Profiley AI. All responses are evidence-based and verified.",
+    "createCta": "Create Your AI Profile"
+  },
+  "feedback": {
+    "messageSent": "Message sent — we will forward it to the profile owner.",
+    "sendFailed": "Send failed",
+    "analysisFailed": "Analysis failed"
+  }
+}

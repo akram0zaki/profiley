@@ -1,0 +1,53 @@
+{
+  "title": "لوحة التحكم",
+  "subtitle": "مرحبًا بعودتك، {name}. إليك ما يحدث مع ملفك الذكي.",
+  "viewPublicProfile": "عرض الملف العام",
+  "completeProfile": "أكمل ملفك الشخصي",
+  "profileProgress": "ملفك الشخصي مكتمل بنسبة {percent}%. حمّل المستندات لتحسين شخصيتك الذكية.",
+  "uploadDocuments": "تحميل المستندات",
+  "loading": "جارٍ التحميل…",
+  "stats": {
+    "profileViews": "مشاهدات الملف",
+    "conversations": "محادثات ذكية",
+    "jobFitAnalyses": "تحليلات مطابقة الوظيفة",
+    "engagementRate": "معدل التفاعل",
+    "fromLastMonth": "مقارنة بالشهر الماضي",
+    "allTime": "منذ البداية",
+    "totalChatSessions": "إجمالي جلسات الدردشة",
+    "analysesRun": "التحليلات المنفذة",
+    "visitsToAction": "الزيارات ← الإجراء"
+  },
+  "recentActivity": "نشاط المجندين الأخير",
+  "activitySubtitle": "أحدث التفاعلات مع ملفك الذكي",
+  "activity": {
+    "viewed": "تمت المشاهدة",
+    "chatted": "تمت المحادثة",
+    "jobFit": "مطابقة الوظيفة",
+    "empty": "لا يوجد نشاط للمجندين بعد."
+  },
+  "quickActions": "إجراءات سريعة",
+  "quickActionsSubtitle": "إدارة وتحسين ملفك الشخصي",
+  "action": {
+    "editProfile": "تعديل معلومات الملف",
+    "uploadDocs": "تحميل مستندات جديدة",
+    "testPersona": "اختبار الشخصية الذكية",
+    "testJobFit": "اختبار محلل مطابقة الوظيفة",
+    "configureAI": "تهيئة إعدادات الذكاء الاصطناعي"
+  },
+  "knowledgeBase": "قاعدة المعرفة",
+  "knowledgeBaseSubtitle": "بيانات تدريب الذكاء الاصطناعي بنظرة واحدة",
+  "kb": {
+    "documents": "المستندات",
+    "chunks": "أجزاء المعرفة",
+    "processing": "قيد المعالجة",
+    "complete": "مكتمل"
+  },
+  "time": {
+    "justNow": "الآن",
+    "minutesAgo": "منذ {count} دقيقة",
+    "hoursAgo": "منذ {count} ساعة",
+    "daysAgo": "منذ {count} {unit}",
+    "dayUnit": "يوم",
+    "daysUnit": "أيام"
+  }
+}

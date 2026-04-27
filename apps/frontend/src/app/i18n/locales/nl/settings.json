@@ -1,0 +1,63 @@
+{
+  "title": "Instellingen",
+  "subtitle": "Beheer uw account en voorkeuren",
+  "loading": "Instellingen laden…",
+  "links": {
+    "ai": {
+      "title": "AI-Configuratie",
+      "description": "Model- en persona-instellingen"
+    },
+    "avatar": {
+      "title": "Avatar Instellingen",
+      "description": "Toekomstige AI-avatarconfiguratie"
+    }
+  },
+  "account": {
+    "title": "Accountinformatie",
+    "description": "Uw geauthenticeerde accountgegevens",
+    "email": "E-mail",
+    "emailNote": "Neem contact op met support om uw e-mailadres te wijzigen",
+    "timezone": "Tijdzone",
+    "browserLocale": "Browser Locale"
+  },
+  "language": {
+    "title": "Taal & Regio",
+    "description": "Configureer uw taalvoorkeuren",
+    "preferred": "Voorkeurstaal",
+    "preferredHint": "AI gebruikt deze taal bij dubbelzinnige verzoeken"
+  },
+  "privacy": {
+    "title": "Privacy & Zichtbaarheid",
+    "description": "Bepaal wie uw profiel kan zien en met uw AI kan interacteren",
+    "publicProfile": {
+      "title": "Openbaar Profiel",
+      "description": "Maak uw profiel zichtbaar voor iedereen met de link"
+    },
+    "chat": {
+      "title": "Sta AI-Chat Toe",
+      "description": "Laat bezoekers chatten met uw AI-persona"
+    },
+    "jobFit": {
+      "title": "Sta Functie-Match Analyse Toe",
+      "description": "Laat recruiters functiebeschrijvingen tegen uw profiel analyseren"
+    },
+    "contact": {
+      "title": "Sta Contactformulier Toe",
+      "description": "Laat recruiters u rechtstreekse berichten sturen"
+    },
+    "citations": {
+      "title": "Toon Documentcitaties",
+      "description": "Geef bronvermeldingen weer in AI-antwoorden"
+    }
+  },
+  "signOut": {
+    "title": "Uitloggen",
+    "description": "Beëindig uw huidige sessie",
+    "button": "Uitloggen bij Profiley",
+    "redirectNote": "U wordt doorgestuurd naar de inlogpagina"
+  },
+  "feedback": {
+    "languageSaved": "Taalvoorkeur opgeslagen",
+    "updateFailed": "Bijwerken mislukt"
+  }
+}

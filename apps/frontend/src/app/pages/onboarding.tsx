@@ -11,10 +11,17 @@ import { Badge } from '../components/ui/badge';
 import { Loader2, X } from 'lucide-react';
 import { api, ApiError } from '../../lib/api';
 import { toast } from 'sonner';
-
-const STEPS = ['Welcome', 'Profile Basics', 'Professional Info', 'Preferences', 'Complete'];
+import { useLanguage } from '../contexts/language-context';
 
 export default function OnboardingPage() {
+  const { t } = useLanguage();
+  const STEPS = [
+    t('onboarding.steps.welcome'),
+    t('onboarding.steps.basics'),
+    t('onboarding.steps.professional'),
+    t('onboarding.steps.preferences'),
+    t('onboarding.steps.complete'),
+  ];
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
@@ -100,9 +107,9 @@ export default function OnboardingPage() {
         },
       });
       setSubmitted(true);
-      toast.success('Onboarding saved');
+      toast.success(t('onboarding.feedback.saved'));
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : 'Save failed';
+      const msg = e instanceof ApiError ? e.message : t('onboarding.feedback.saveFailed');
       toast.error(msg);
       throw e;
     } finally {
@@ -139,9 +146,9 @@ export default function OnboardingPage() {
               <span className="text-xl font-bold text-white">P</span>
             </div>
           </Link>
-          <h1 className="text-2xl font-bold">Create Your AI Profile</h1>
+          <h1 className="text-2xl font-bold">{t('onboarding.title')}</h1>
           <p className="text-muted-foreground">
-            Step {currentStep + 1} of {STEPS.length}: {STEPS[currentStep]}
+            {t('onboarding.stepLabel', { step: currentStep + 1, total: STEPS.length, stepName: STEPS[currentStep] })}
           </p>
         </div>
 
@@ -164,25 +171,25 @@ export default function OnboardingPage() {
             {currentStep === 0 && (
               <div className="space-y-6 text-center">
                 <div className="space-y-2">
-                  <h2 className="text-xl font-semibold">Welcome to Profiley!</h2>
+                  <h2 className="text-xl font-semibold">{t('onboarding.welcome.title')}</h2>
                   <p className="text-muted-foreground">
-                    Let's set up your AI-powered professional profile. This will only take a few minutes.
+                    {t('onboarding.welcome.intro')}
                   </p>
                 </div>
                 <div className="grid gap-4 text-left">
                   <div className="p-4 rounded-lg bg-purple-500/10 border border-purple-500/20">
-                    <h3 className="font-medium mb-1">What you'll do:</h3>
+                    <h3 className="font-medium mb-1">{t('onboarding.welcome.youWillDo')}</h3>
                     <ul className="text-sm text-muted-foreground space-y-1">
-                      <li>• Set up your basic profile information</li>
-                      <li>• Define your professional strengths and goals</li>
-                      <li>• Configure language and timezone preferences</li>
-                      <li>• Upload your CV and supporting documents</li>
+                      <li>• {t('onboarding.welcome.items.basics')}</li>
+                      <li>• {t('onboarding.welcome.items.professional')}</li>
+                      <li>• {t('onboarding.welcome.items.preferences')}</li>
+                      <li>• {t('onboarding.welcome.items.documents')}</li>
                     </ul>
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Your data is captured from your browser: <br />
-                  <strong>Locale:</strong> {navigator.language} | <strong>Timezone:</strong>{' '}
+                  {t('onboarding.welcome.captured')} <br />
+                  <strong>{t('onboarding.welcome.locale')}</strong> {navigator.language} | <strong>{t('onboarding.welcome.timezone')}</strong>{' '}
                   {Intl.DateTimeFormat().resolvedOptions().timeZone}
                 </p>
               </div>
@@ -192,42 +199,42 @@ export default function OnboardingPage() {
             {currentStep === 1 && (
               <div className="space-y-4">
                 <CardHeader className="px-0 pt-0">
-                  <CardTitle>Profile Basics</CardTitle>
-                  <CardDescription>Tell us about yourself</CardDescription>
+                  <CardTitle>{t('onboarding.basics.title')}</CardTitle>
+                  <CardDescription>{t('onboarding.basics.description')}</CardDescription>
                 </CardHeader>
                 <div className="space-y-2">
-                  <Label htmlFor="fullName">Full Name</Label>
+                  <Label htmlFor="fullName">{t('onboarding.basics.fullName')}</Label>
                   <Input
                     id="fullName"
-                    placeholder="Akram Fares"
+                    placeholder={t('onboarding.basics.fullNamePlaceholder')}
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="headline">Professional Headline</Label>
+                  <Label htmlFor="headline">{t('onboarding.basics.headline')}</Label>
                   <Input
                     id="headline"
-                    placeholder="Senior Software Engineer | AI & Cloud Architecture"
+                    placeholder={t('onboarding.basics.headlinePlaceholder')}
                     value={formData.headline}
                     onChange={(e) => setFormData({ ...formData, headline: e.target.value })}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="bio">Short Bio</Label>
+                  <Label htmlFor="bio">{t('onboarding.basics.bio')}</Label>
                   <Textarea
                     id="bio"
-                    placeholder="Tell recruiters about your background and what makes you unique..."
+                    placeholder={t('onboarding.basics.bioPlaceholder')}
                     rows={4}
                     value={formData.bio}
                     onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="location">Location (Optional)</Label>
+                  <Label htmlFor="location">{t('onboarding.basics.location')}</Label>
                   <Input
                     id="location"
-                    placeholder="San Francisco, CA"
+                    placeholder={t('onboarding.basics.locationPlaceholder')}
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                   />
@@ -239,21 +246,21 @@ export default function OnboardingPage() {
             {currentStep === 2 && (
               <div className="space-y-4">
                 <CardHeader className="px-0 pt-0">
-                  <CardTitle>Professional Information</CardTitle>
-                  <CardDescription>Help AI understand your expertise</CardDescription>
+                  <CardTitle>{t('onboarding.professional.title')}</CardTitle>
+                  <CardDescription>{t('onboarding.professional.description')}</CardDescription>
                 </CardHeader>
                 <div className="space-y-2">
-                  <Label htmlFor="strengths">Key Strengths</Label>
+                  <Label htmlFor="strengths">{t('onboarding.professional.strengths')}</Label>
                   <div className="flex gap-2">
                     <Input
                       id="strengths"
-                      placeholder="Add a strength (e.g., Full-Stack Development)"
+                      placeholder={t('onboarding.professional.strengthsPlaceholder')}
                       value={strengthInput}
                       onChange={(e) => setStrengthInput(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addStrength())}
                     />
                     <Button type="button" onClick={addStrength}>
-                      Add
+                      {t('onboarding.professional.add')}
                     </Button>
                   </div>
                   <div className="flex flex-wrap gap-2 mt-2">
@@ -269,29 +276,29 @@ export default function OnboardingPage() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="seniority">Seniority Level</Label>
+                  <Label htmlFor="seniority">{t('onboarding.professional.seniority')}</Label>
                   <Select
                     value={formData.seniority}
                     onValueChange={(value) => setFormData({ ...formData, seniority: value })}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Select seniority level" />
+                      <SelectValue placeholder={t('onboarding.professional.seniorityPlaceholder')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="junior">Junior (0-2 years)</SelectItem>
-                      <SelectItem value="mid">Mid-Level (3-5 years)</SelectItem>
-                      <SelectItem value="senior">Senior (6-10 years)</SelectItem>
-                      <SelectItem value="staff">Staff/Principal (10+ years)</SelectItem>
-                      <SelectItem value="lead">Lead/Manager</SelectItem>
-                      <SelectItem value="executive">Executive</SelectItem>
+                      <SelectItem value="junior">{t('onboarding.professional.seniorityLevels.junior')}</SelectItem>
+                      <SelectItem value="mid">{t('onboarding.professional.seniorityLevels.mid')}</SelectItem>
+                      <SelectItem value="senior">{t('onboarding.professional.seniorityLevels.senior')}</SelectItem>
+                      <SelectItem value="staff">{t('onboarding.professional.seniorityLevels.staff')}</SelectItem>
+                      <SelectItem value="lead">{t('onboarding.professional.seniorityLevels.lead')}</SelectItem>
+                      <SelectItem value="executive">{t('onboarding.professional.seniorityLevels.executive')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="workingStyle">Working Style</Label>
+                  <Label htmlFor="workingStyle">{t('onboarding.professional.workingStyle')}</Label>
                   <Textarea
                     id="workingStyle"
-                    placeholder="Describe how you prefer to work (remote, hybrid, collaborative, etc.)"
+                    placeholder={t('onboarding.professional.workingStylePlaceholder')}
                     rows={3}
                     value={formData.workingStyle}
                     onChange={(e) => setFormData({ ...formData, workingStyle: e.target.value })}
@@ -304,11 +311,11 @@ export default function OnboardingPage() {
             {currentStep === 3 && (
               <div className="space-y-4">
                 <CardHeader className="px-0 pt-0">
-                  <CardTitle>Language & Regional Preferences</CardTitle>
-                  <CardDescription>Configure how your AI persona interacts</CardDescription>
+                  <CardTitle>{t('onboarding.preferences.title')}</CardTitle>
+                  <CardDescription>{t('onboarding.preferences.description')}</CardDescription>
                 </CardHeader>
                 <div className="space-y-2">
-                  <Label htmlFor="preferredLanguage">Preferred Language</Label>
+                  <Label htmlFor="preferredLanguage">{t('onboarding.preferences.language')}</Label>
                   <Select
                     value={formData.preferredLanguage}
                     onValueChange={(value) =>
@@ -320,27 +327,23 @@ export default function OnboardingPage() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="en">English</SelectItem>
-                      <SelectItem value="ar">Arabic</SelectItem>
-                      <SelectItem value="es">Spanish</SelectItem>
-                      <SelectItem value="fr">French</SelectItem>
-                      <SelectItem value="de">German</SelectItem>
-                      <SelectItem value="zh">Chinese</SelectItem>
-                      <SelectItem value="ja">Japanese</SelectItem>
+                      <SelectItem value="nl">Nederlands</SelectItem>
+                      <SelectItem value="ar">العربية</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label>Timezone</Label>
+                  <Label>{t('onboarding.preferences.timezone')}</Label>
                   <Input value={formData.timezone} disabled />
                   <p className="text-xs text-muted-foreground">
-                    Automatically detected from your browser
+                    {t('onboarding.preferences.timezoneAuto')}
                   </p>
                 </div>
                 <div className="space-y-2">
-                  <Label>Browser Locale</Label>
+                  <Label>{t('onboarding.preferences.browserLocale')}</Label>
                   <Input value={navigator.language} disabled />
                   <p className="text-xs text-muted-foreground">
-                    Automatically detected from your browser
+                    {t('onboarding.preferences.timezoneAuto')}
                   </p>
                 </div>
               </div>
@@ -365,19 +368,18 @@ export default function OnboardingPage() {
                   </svg>
                 </div>
                 <div className="space-y-2">
-                  <h2 className="text-xl font-semibold">Profile Created!</h2>
+                  <h2 className="text-xl font-semibold">{t('onboarding.complete.title')}</h2>
                   <p className="text-muted-foreground">
-                    Your basic profile is set up. Next, upload your CV and documents to complete your
-                    AI knowledge base.
+                    {t('onboarding.complete.description')}
                   </p>
                 </div>
                 <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/20 text-sm text-left">
-                  <h3 className="font-medium mb-2">Next Steps:</h3>
+                  <h3 className="font-medium mb-2">{t('onboarding.complete.nextSteps')}</h3>
                   <ul className="space-y-1 text-muted-foreground">
-                    <li>• Upload your CV and portfolio documents</li>
-                    <li>• Review your public profile page</li>
-                    <li>• Test your AI persona in chat preview</li>
-                    <li>• Share your profile link with recruiters</li>
+                    <li>• {t('onboarding.complete.items.upload')}</li>
+                    <li>• {t('onboarding.complete.items.review')}</li>
+                    <li>• {t('onboarding.complete.items.test')}</li>
+                    <li>• {t('onboarding.complete.items.share')}</li>
                   </ul>
                 </div>
               </div>
@@ -392,14 +394,14 @@ export default function OnboardingPage() {
             onClick={prevStep}
             disabled={currentStep === 0}
           >
-            Previous
+            {t('onboarding.nav.previous')}
           </Button>
           {currentStep < STEPS.length - 1 ? (
             <Button onClick={() => void nextStep()} disabled={submitting} className="gap-2">
               {submitting && currentStep === STEPS.length - 2 ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : null}
-              {currentStep === STEPS.length - 2 ? 'Finish & Continue' : 'Next'}
+              {currentStep === STEPS.length - 2 ? t('onboarding.nav.finish') : t('onboarding.nav.next')}
             </Button>
           ) : (
             <Button onClick={() => navigate('/dashboard')}>Go to Dashboard</Button>

@@ -1,0 +1,9 @@
+{
+  "greeting": "Hello! I'm {botName}, an AI persona. Ask me about experience, skills, projects, or qualifications.",
+  "placeholder": "Ask me anything about my experience, skills, or projects…",
+  "rateLimit": "Too many messages — please wait a minute before sending again.",
+  "errors": {
+    "noResponse": "Failed to get a response",
+    "cooldown": "Cooldown: {seconds}s"
+  }
+}

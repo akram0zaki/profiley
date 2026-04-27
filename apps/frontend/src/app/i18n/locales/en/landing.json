@@ -1,0 +1,73 @@
+{
+  "brand": "Profiley",
+  "imageAlt": "AI Technology Visualization",
+  "nav": {
+    "signIn": "Sign In",
+    "getStarted": "Get Started"
+  },
+  "hero": {
+    "badge": "Your AI-Powered Professional Identity",
+    "title": "Replace Your CV with an",
+    "titleHighlight": "Interactive AI",
+    "description": "Let recruiters have real conversations with your AI persona. Get instant job-fit analyses. Stand out with a living, breathing professional profile.",
+    "cta": "Create Your AI Profile",
+    "viewExample": "See Example Profile"
+  },
+  "features": {
+    "title": "Why Profiley?",
+    "subtitle": "Go beyond static resumes. Let AI tell your professional story."
+  },
+  "feature": {
+    "aiChat": {
+      "title": "AI Conversations",
+      "description": "Recruiters chat with your AI persona to learn about your experience, skills, and working style"
+    },
+    "jobFit": {
+      "title": "Instant Job-Fit Analysis",
+      "description": "AI analyzes job descriptions against your profile and provides structured fit scores, strengths, and gaps"
+    },
+    "evidence": {
+      "title": "Evidence-Based Answers",
+      "description": "AI only answers from your uploaded documents and data. No hallucinations, no false claims."
+    },
+    "multilingual": {
+      "title": "Multilingual Support",
+      "description": "AI responds in the recruiter's language. Perfect for global job searches and international teams."
+    },
+    "privacy": {
+      "title": "Privacy-First",
+      "description": "Your data is yours. Control what's public, what's private, and who can access your AI profile."
+    },
+    "avatar": {
+      "title": "Future: Live AI Avatar",
+      "description": "Soon: Let your AI avatar join video calls and represent you in real-time conversations with recruiters."
+    }
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "subtitle": "Three simple steps to create your AI professional identity"
+  },
+  "step1": {
+    "title": "Upload Your Materials",
+    "description": "Add your CV, portfolio, project descriptions, and any other professional documents"
+  },
+  "step2": {
+    "title": "AI Learns Your Profile",
+    "description": "Our AI processes your documents and creates a knowledge base that represents your professional identity"
+  },
+  "step3": {
+    "title": "Share & Connect",
+    "description": "Share your public profile link. Recruiters can chat with your AI and analyze job fit instantly"
+  },
+  "cta": {
+    "title": "Ready to Stand Out?",
+    "description": "Join the future of professional profiles. Create your AI persona today.",
+    "button": "Get Started Free",
+    "noCreditCard": "No credit card required",
+    "quickSetup": "5-minute setup",
+    "privacyFirst": "Privacy-first"
+  },
+  "footer": {
+    "copyright": "© 2026 Profiley. Your AI-powered professional identity."
+  }
+}

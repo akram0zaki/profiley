@@ -11,6 +11,46 @@ no Supabase project has been created yet. Follow
 [`docs/concept/profiley-init-guide.md`](docs/concept/profiley-init-guide.md) to
 provision and deploy.
 
+### Added — Internationalization
+
+- Per-locale JSON namespaces under
+  `apps/frontend/src/app/i18n/locales/{en,nl,ar}/*.json` (19 namespaces × 3
+  languages = 57 files), bundled at build time via Vite's
+  `import.meta.glob` — no runtime fetch.
+- Build-time loader at `apps/frontend/src/app/i18n/loader.ts` exposing
+  `SUPPORTED_LANGUAGES`, `RTL_LANGUAGES`, `directionFor`,
+  `isSupportedLanguage`, `translate`, and `detectLanguage`.
+- Auto-detection of the user's language from `localStorage['profiley-language']`
+  → `navigator.languages` → `navigator.language` → English fallback. Detection
+  runs synchronously on first render so the initial paint is correct.
+- `{param}` interpolation in `t(key, params?)` (e.g.
+  `t('dashboard.subtitle', { name })`). Missing placeholders are preserved as
+  `{name}` for visibility in development.
+- Full Dutch (`nl`) and Arabic (`ar`) translations of every page: landing,
+  dashboard, login, auth callback, onboarding, profile, uploads, knowledge,
+  chat preview, job-fit, settings, AI settings, avatar settings, admin, and
+  the public profile.
+- RTL layout for Arabic: the language provider applies
+  `document.documentElement.dir` / `lang` on every change, and `rtl.css`
+  flips margins, alignment, and dropdown positioning.
+- Test coverage for detection (stored value, navigator base subtag, fallback,
+  unsupported codes), translate fallback chain, `{param}` interpolation,
+  unknown-placeholder preservation, RTL flag application, and rejection of
+  unsupported codes via `setLanguage`.
+
+### Changed — Internationalization
+
+- Migrated from a single in-context flat translation map in
+  `language-context.tsx` to the per-namespace JSON loader; the context now
+  delegates to `translate()` and accepts a `params` object for placeholders.
+- Reduced the user-facing language picker on the settings and onboarding pages
+  from seven options (en/ar/es/fr/de/zh/ja) to the three supported UI locales
+  (en/nl/ar). Saving a preferred language on Settings now also updates the
+  active UI language.
+- Rewrote `docs/I18N_RTL_GUIDE.md` to document the new file layout, the
+  `t(key, params)` API, the auto-detection chain, and the
+  per-language-folder workflow for adding translations.
+
 ### Added — Testing
 
 - Frontend unit test harness in `apps/frontend/` using Vitest + jsdom +

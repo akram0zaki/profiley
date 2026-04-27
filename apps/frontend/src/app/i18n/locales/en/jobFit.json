@@ -1,0 +1,28 @@
+{
+  "title": "Job-Fit Analyzer",
+  "subtitle": "See how AI analyzes job descriptions against your profile",
+  "input": {
+    "title": "Job Description",
+    "description": "Paste a job description to see how well it matches your profile",
+    "jobTitle": "Job title (optional)",
+    "company": "Company name (optional)",
+    "placeholder": "Paste the job description here…",
+    "analyze": "Analyze Job Fit",
+    "analyzing": "Analyzing…",
+    "completeOnboarding": "Complete onboarding to enable job-fit analysis on your profile."
+  },
+  "result": {
+    "title": "Overall Fit Score",
+    "subtitle": "Based on your profile and the job requirements",
+    "confidence": "confidence",
+    "strengths": "Strengths",
+    "gaps": "Gaps to Address",
+    "transferable": "Transferable Strengths",
+    "transferableSubtitle": "Relevant skills and experiences that add value",
+    "concerns": "Potential Concerns"
+  },
+  "disclaimer": "Note: This AI-generated analysis is based solely on the candidate's submitted materials and is advisory only. It does not constitute a verified employment assessment. Actual job fit should be determined through comprehensive interviews and reference checks.",
+  "feedback": {
+    "analysisFailed": "Analysis failed"
+  }
+}

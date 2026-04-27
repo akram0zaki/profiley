@@ -1,0 +1,85 @@
+{
+  "title": "Create Your AI Profile",
+  "stepLabel": "Step {step} of {total}: {stepName}",
+  "steps": {
+    "welcome": "Welcome",
+    "basics": "Profile Basics",
+    "professional": "Professional Info",
+    "preferences": "Preferences",
+    "complete": "Complete"
+  },
+  "welcome": {
+    "title": "Welcome to Profiley!",
+    "intro": "Let's set up your AI-powered professional profile. This will only take a few minutes.",
+    "youWillDo": "What you'll do:",
+    "items": {
+      "basics": "Set up your basic profile information",
+      "professional": "Define your professional strengths and goals",
+      "preferences": "Configure language and timezone preferences",
+      "documents": "Upload your CV and supporting documents"
+    },
+    "captured": "Your data is captured from your browser:",
+    "locale": "Locale:",
+    "timezone": "Timezone:"
+  },
+  "basics": {
+    "title": "Profile Basics",
+    "description": "Tell us about yourself",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Akram Fares",
+    "headline": "Professional Headline",
+    "headlinePlaceholder": "Senior Software Engineer | AI & Cloud Architecture",
+    "bio": "Short Bio",
+    "bioPlaceholder": "Tell recruiters about your background and what makes you unique…",
+    "location": "Location (Optional)",
+    "locationPlaceholder": "San Francisco, CA"
+  },
+  "professional": {
+    "title": "Professional Information",
+    "description": "Help AI understand your expertise",
+    "strengths": "Key Strengths",
+    "strengthsPlaceholder": "Add a strength (e.g., Full-Stack Development)",
+    "add": "Add",
+    "seniority": "Seniority Level",
+    "seniorityPlaceholder": "Select seniority level",
+    "seniorityLevels": {
+      "junior": "Junior (0-2 years)",
+      "mid": "Mid-Level (3-5 years)",
+      "senior": "Senior (6-10 years)",
+      "staff": "Staff/Principal (10+ years)",
+      "lead": "Lead/Manager",
+      "executive": "Executive"
+    },
+    "workingStyle": "Working Style",
+    "workingStylePlaceholder": "Describe how you prefer to work (remote, hybrid, collaborative, etc.)"
+  },
+  "preferences": {
+    "title": "Language & Regional Preferences",
+    "description": "Configure how your AI persona interacts",
+    "language": "Preferred Language",
+    "timezone": "Timezone",
+    "timezoneAuto": "Automatically detected from your browser",
+    "browserLocale": "Browser Locale"
+  },
+  "complete": {
+    "title": "Profile Created!",
+    "description": "Your basic profile is set up. Next, upload your CV and documents to complete your AI knowledge base.",
+    "nextSteps": "Next Steps:",
+    "items": {
+      "upload": "Upload your CV and portfolio documents",
+      "review": "Review your public profile page",
+      "test": "Test your AI persona in chat preview",
+      "share": "Share your profile link with recruiters"
+    }
+  },
+  "nav": {
+    "previous": "Previous",
+    "finish": "Finish & Continue",
+    "next": "Next",
+    "goDashboard": "Go to Dashboard"
+  },
+  "feedback": {
+    "saved": "Onboarding saved",
+    "saveFailed": "Save failed"
+  }
+}

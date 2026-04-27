@@ -11,6 +11,7 @@ import { Sparkles, TrendingUp, TrendingDown, AlertTriangle, CheckCircle2, Loader
 import { toast } from 'sonner';
 import { api, ApiError } from '../../lib/api';
 import { useCurrentProfile } from '../../lib/profile';
+import { useLanguage } from '../contexts/language-context';
 
 type JobFitResult = {
   fitBand: string;
@@ -26,6 +27,7 @@ type JobFitResult = {
 };
 
 export default function JobFitPreviewPage() {
+  const { t } = useLanguage();
   const { profile, loading } = useCurrentProfile();
   const [jobTitle, setJobTitle] = useState('');
   const [companyName, setCompanyName] = useState('');
@@ -35,7 +37,7 @@ export default function JobFitPreviewPage() {
 
   const handleAnalyze = async () => {
     if (!profile?.slug) {
-      toast.error('Your profile is not ready yet');
+      toast.error(t('jobFit.input.completeOnboarding'));
       return;
     }
     setAnalyzing(true);
@@ -49,7 +51,7 @@ export default function JobFitPreviewPage() {
       })) as JobFitResult;
       setResult(res);
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : 'Analysis failed';
+      const msg = e instanceof ApiError ? e.message : t('jobFit.feedback.analysisFailed');
       toast.error(msg);
     } finally {
       setAnalyzing(false);
@@ -60,34 +62,34 @@ export default function JobFitPreviewPage() {
     <AppLayout>
       <div className="max-w-4xl mx-auto space-y-6">
         <div>
-          <h1 className="text-3xl font-bold">Job-Fit Analyzer</h1>
+          <h1 className="text-3xl font-bold">{t('jobFit.title')}</h1>
           <p className="text-muted-foreground">
-            See how AI analyzes job descriptions against your profile
+            {t('jobFit.subtitle')}
           </p>
         </div>
 
         <Card>
           <CardHeader>
-            <CardTitle>Job Description</CardTitle>
+            <CardTitle>{t('jobFit.input.title')}</CardTitle>
             <CardDescription>
-              Paste a job description to see how well it matches your profile
+              {t('jobFit.input.description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
               <Input
-                placeholder="Job title (optional)"
+                placeholder={t('jobFit.input.jobTitle')}
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
               />
               <Input
-                placeholder="Company name (optional)"
+                placeholder={t('jobFit.input.company')}
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
               />
             </div>
             <Textarea
-              placeholder="Paste the job description here..."
+              placeholder={t('jobFit.input.placeholder')}
               rows={12}
               value={jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
@@ -103,12 +105,12 @@ export default function JobFitPreviewPage() {
                 ) : (
                   <Sparkles className="h-4 w-4" />
                 )}
-                {analyzing ? 'Analyzing…' : 'Analyze Job Fit'}
+                {analyzing ? t('jobFit.input.analyzing') : t('jobFit.input.analyze')}
               </Button>
             </div>
             {!loading && !profile?.slug && (
               <p className="text-xs text-muted-foreground">
-                Complete onboarding to enable job-fit analysis on your profile.
+                {t('jobFit.input.completeOnboarding')}
               </p>
             )}
           </CardContent>
@@ -120,14 +122,14 @@ export default function JobFitPreviewPage() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle>Overall Fit Score</CardTitle>
-                    <CardDescription>Based on your profile and the job requirements</CardDescription>
+                    <CardTitle>{t('jobFit.result.title')}</CardTitle>
+                    <CardDescription>{t('jobFit.result.subtitle')}</CardDescription>
                   </div>
                   <Badge
                     variant="secondary"
                     className="bg-green-500/10 text-green-400 border-green-500/20"
                   >
-                    {result.confidenceLabel} confidence
+                    {result.confidenceLabel} {t('jobFit.result.confidence')}
                   </Badge>
                 </div>
               </CardHeader>
@@ -155,7 +157,7 @@ export default function JobFitPreviewPage() {
                 <CardHeader>
                   <div className="flex items-center gap-2">
                     <CheckCircle2 className="h-5 w-5 text-green-400" />
-                    <CardTitle>Strengths</CardTitle>
+                    <CardTitle>{t('jobFit.result.strengths')}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -176,7 +178,7 @@ export default function JobFitPreviewPage() {
                 <CardHeader>
                   <div className="flex items-center gap-2">
                     <TrendingDown className="h-5 w-5 text-orange-400" />
-                    <CardTitle>Gaps to Address</CardTitle>
+                    <CardTitle>{t('jobFit.result.gaps')}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -195,8 +197,8 @@ export default function JobFitPreviewPage() {
             {result.transferableStrengths?.length > 0 && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Transferable Strengths</CardTitle>
-                  <CardDescription>Relevant skills and experiences that add value</CardDescription>
+                  <CardTitle>{t('jobFit.result.transferable')}</CardTitle>
+                  <CardDescription>{t('jobFit.result.transferableSubtitle')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3">
@@ -218,7 +220,7 @@ export default function JobFitPreviewPage() {
                 <CardHeader>
                   <div className="flex items-center gap-2">
                     <AlertTriangle className="h-5 w-5 text-yellow-400" />
-                    <CardTitle>Potential Concerns</CardTitle>
+                    <CardTitle>{t('jobFit.result.concerns')}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -239,10 +241,7 @@ export default function JobFitPreviewPage() {
             <Card className="border-muted">
               <CardContent className="pt-6">
                 <p className="text-sm text-muted-foreground">
-                  <strong>Note:</strong> This AI-generated analysis is based solely on the candidate's
-                  submitted materials and is advisory only. It does not constitute a verified
-                  employment assessment. Actual job fit should be determined through comprehensive
-                  interviews and reference checks.
+                  {t('jobFit.disclaimer')}
                 </p>
               </CardContent>
             </Card>

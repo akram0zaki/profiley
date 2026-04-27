@@ -1,0 +1,52 @@
+{
+  "title": "Document Uploads",
+  "subtitle": "Upload your CV, portfolio, and other professional documents to train your AI persona",
+  "drop": {
+    "title": "Drag and drop files here",
+    "subtitle": "or click to browse your computer",
+    "choose": "Choose Files",
+    "supported": "Supported: PDF, DOCX, TXT, MD. Max 10MB per file.",
+    "uploading": "Uploading {filename}…"
+  },
+  "stats": {
+    "totalDocuments": "Total Documents",
+    "knowledgeChunks": "Knowledge Chunks",
+    "processingStatus": "Processing Status"
+  },
+  "list": {
+    "title": "Your Documents",
+    "description": "All uploaded files are processed and converted into knowledge chunks for your AI",
+    "uploadedOn": "Uploaded {date}",
+    "chunksCount": "{count} knowledge chunks",
+    "unknownType": "unknown",
+    "loading": "Loading…",
+    "empty": "No documents yet. Upload your CV to get started.",
+    "deleteAria": "Delete document"
+  },
+  "status": {
+    "processed": "Processed",
+    "processing": "Processing",
+    "queued": "Queued",
+    "quarantined": "Quarantined",
+    "failed": "Failed"
+  },
+  "feedback": {
+    "tooLarge": "{filename}: too large (max 10MB)",
+    "unsupported": "{filename}: unsupported type ({mimeType})",
+    "uploaded": "{filename} uploaded — processing in background",
+    "uploadError": "{filename}: {message}",
+    "deleted": "Document deleted",
+    "deleteFailed": "Delete failed",
+    "loadFailed": "Failed to load documents"
+  },
+  "confirmDelete": "Delete this document and its chunks?",
+  "info": {
+    "title": "How Document Processing Works",
+    "items": {
+      "extract": "Documents are extracted and converted to plain text",
+      "chunk": "Content is chunked semantically for better AI retrieval",
+      "embed": "Embeddings are generated and stored in pgvector",
+      "use": "Your AI persona uses these chunks to answer recruiter questions accurately"
+    }
+  }
+}

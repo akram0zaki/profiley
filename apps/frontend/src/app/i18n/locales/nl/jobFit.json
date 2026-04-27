@@ -1,0 +1,28 @@
+{
+  "title": "Functie-Match Analysator",
+  "subtitle": "Zie hoe AI functiebeschrijvingen tegen uw profiel analyseert",
+  "input": {
+    "title": "Functiebeschrijving",
+    "description": "Plak een functiebeschrijving om te zien hoe goed deze bij uw profiel past",
+    "jobTitle": "Functietitel (optioneel)",
+    "company": "Bedrijfsnaam (optioneel)",
+    "placeholder": "Plak hier de functiebeschrijving…",
+    "analyze": "Analyseer Functie-Match",
+    "analyzing": "Analyseren…",
+    "completeOnboarding": "Voltooi onboarding om functie-match analyse op uw profiel in te schakelen."
+  },
+  "result": {
+    "title": "Algemene Match-Score",
+    "subtitle": "Gebaseerd op uw profiel en de functievereisten",
+    "confidence": "vertrouwen",
+    "strengths": "Sterke Punten",
+    "gaps": "Aandachtspunten",
+    "transferable": "Overdraagbare Sterke Punten",
+    "transferableSubtitle": "Relevante vaardigheden en ervaringen die waarde toevoegen",
+    "concerns": "Mogelijke Zorgen"
+  },
+  "disclaimer": "Opmerking: Deze AI-gegenereerde analyse is uitsluitend gebaseerd op de door de kandidaat ingediende materialen en is alleen adviserend. Het vormt geen geverifieerde werkgelegenheidsbeoordeling. De werkelijke geschiktheid moet worden bepaald via uitgebreide interviews en referentiecontroles.",
+  "feedback": {
+    "analysisFailed": "Analyse mislukt"
+  }
+}

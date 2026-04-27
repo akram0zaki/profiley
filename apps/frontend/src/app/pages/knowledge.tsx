@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useCurrentProfile } from '../../lib/profile';
 import { supabase } from '../../lib/supabase';
 import { toast } from 'sonner';
+import { useLanguage } from '../contexts/language-context';
 
 type Chunk = {
   id: string;
@@ -19,6 +20,7 @@ type Chunk = {
 };
 
 export default function KnowledgePage() {
+  const { t } = useLanguage();
   const { appUser, loading: authLoading } = useCurrentProfile();
   const [chunks, setChunks] = useState<Chunk[]>([]);
   const [loading, setLoading] = useState(true);
@@ -40,7 +42,7 @@ export default function KnowledgePage() {
         .limit(500);
       if (cancelled) return;
       if (error) {
-        toast.error(error.message ?? 'Failed to load knowledge');
+        toast.error(error.message ?? t('knowledge.list.loading'));
         setChunks([]);
       } else {
         setChunks((data ?? []) as unknown as Chunk[]);
@@ -80,41 +82,41 @@ export default function KnowledgePage() {
     <AppLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold">Knowledge Base</h1>
+          <h1 className="text-3xl font-bold">{t('knowledge.title')}</h1>
           <p className="text-muted-foreground">
-            Explore the structured knowledge chunks that power your AI persona
+            {t('knowledge.subtitle')}
           </p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Chunks</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('knowledge.stats.totalChunks')}</CardTitle>
               <Database className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{chunks.length}</div>
-              <p className="text-xs text-muted-foreground">Across {docCount} documents</p>
+              <p className="text-xs text-muted-foreground">{t('knowledge.stats.acrossDocuments', { count: docCount })}</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Source Documents</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('knowledge.stats.sourceDocuments')}</CardTitle>
               <Database className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{docCount}</div>
-              <p className="text-xs text-muted-foreground">Uploaded files</p>
+              <p className="text-xs text-muted-foreground">{t('knowledge.stats.uploadedFiles')}</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Sections</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('knowledge.stats.sections')}</CardTitle>
               <Database className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{sectionCount}</div>
-              <p className="text-xs text-muted-foreground">Different categories</p>
+              <p className="text-xs text-muted-foreground">{t('knowledge.stats.differentCategories')}</p>
             </CardContent>
           </Card>
         </div>
@@ -124,7 +126,7 @@ export default function KnowledgePage() {
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search your knowledge base..."
+                placeholder={t('knowledge.searchPlaceholder')}
                 className="pl-10"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -135,27 +137,27 @@ export default function KnowledgePage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Knowledge Chunks</CardTitle>
+            <CardTitle>{t('knowledge.list.title')}</CardTitle>
             <CardDescription>
-              Semantic chunks extracted from your documents for AI retrieval
+              {t('knowledge.list.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             {authLoading || loading ? (
               <div className="flex items-center justify-center py-12 text-muted-foreground">
-                <Loader2 className="h-5 w-5 animate-spin mr-2" /> Loading…
+                <Loader2 className="h-5 w-5 animate-spin mr-2" /> {t('knowledge.list.loading')}
               </div>
             ) : filtered.length === 0 ? (
               <p className="text-sm text-muted-foreground py-8 text-center">
                 {chunks.length === 0
-                  ? 'No knowledge chunks yet. Upload documents to populate your knowledge base.'
-                  : 'No chunks match your search.'}
+                  ? t('knowledge.list.empty')
+                  : t('knowledge.list.noMatches')}
               </p>
             ) : (
               <div className="space-y-4">
                 {filtered.map((chunk) => {
                   const section = (chunk.metadata as any)?.section ?? chunk.source_kind ?? 'general';
-                  const filename = chunk.uploaded_documents?.original_filename ?? 'Unknown source';
+                  const filename = chunk.uploaded_documents?.original_filename ?? t('knowledge.list.unknownSource');
                   return (
                     <div
                       key={chunk.id}

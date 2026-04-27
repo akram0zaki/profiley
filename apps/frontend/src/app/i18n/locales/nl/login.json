@@ -1,0 +1,33 @@
+{
+  "header": {
+    "title": "Welkom bij Profiley",
+    "subtitle": "Log in om uw AI professionele identiteit te creëren"
+  },
+  "card": {
+    "title": "Inloggen of Account Aanmaken",
+    "description": "Kies uw voorkeursauthenticatiemethode"
+  },
+  "form": {
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "u@voorbeeld.nl",
+    "submit": "Stuur Magische Link"
+  },
+  "oauth": {
+    "google": "Doorgaan met Google",
+    "github": "Doorgaan met GitHub",
+    "divider": "Of ga verder met e-mail"
+  },
+  "magicLink": {
+    "sent": "Bekijk uw e-mail!",
+    "sentDescription": "We hebben een inloglink gestuurd naar {email}. Controleer uw inbox!"
+  },
+  "footer": {
+    "terms": "Door verder te gaan, gaat u akkoord met onze Servicevoorwaarden en Privacybeleid.",
+    "firstTime": "Voor het eerst inloggen? Uw account wordt automatisch aangemaakt.",
+    "back": "Terug naar Home"
+  },
+  "errors": {
+    "magicLinkFailed": "Verzenden van magische link mislukt",
+    "oauthFailed": "OAuth-aanmelding mislukt"
+  }
+}

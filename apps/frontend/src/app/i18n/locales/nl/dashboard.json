@@ -1,0 +1,53 @@
+{
+  "title": "Dashboard",
+  "subtitle": "Welkom terug, {name}. Dit is wat er gebeurt met uw AI-profiel.",
+  "viewPublicProfile": "Bekijk Openbaar Profiel",
+  "completeProfile": "Voltooi Uw Profiel",
+  "profileProgress": "Uw profiel is {percent}% compleet. Upload documenten om uw AI-persona te verbeteren.",
+  "uploadDocuments": "Upload Documenten",
+  "loading": "Laden…",
+  "stats": {
+    "profileViews": "Profielweergaven",
+    "conversations": "AI Gesprekken",
+    "jobFitAnalyses": "Functie-Match Analyses",
+    "engagementRate": "Betrokkenheidsgraad",
+    "fromLastMonth": "ten opzichte van vorige maand",
+    "allTime": "Sinds altijd",
+    "totalChatSessions": "Totaal aantal chatsessies",
+    "analysesRun": "Uitgevoerde analyses",
+    "visitsToAction": "Bezoeken → actie"
+  },
+  "recentActivity": "Recente Recruiter Activiteit",
+  "activitySubtitle": "Laatste interacties met uw AI-profiel",
+  "activity": {
+    "viewed": "Bekeken",
+    "chatted": "Gechat",
+    "jobFit": "Functie Match",
+    "empty": "Nog geen recruiteractiviteit."
+  },
+  "quickActions": "Snelle Acties",
+  "quickActionsSubtitle": "Beheer en optimaliseer uw profiel",
+  "action": {
+    "editProfile": "Bewerk Profielinformatie",
+    "uploadDocs": "Upload Nieuwe Documenten",
+    "testPersona": "Test AI-Persona",
+    "testJobFit": "Test Functie-Match Analysator",
+    "configureAI": "Configureer AI-Instellingen"
+  },
+  "knowledgeBase": "Kennisbank",
+  "knowledgeBaseSubtitle": "Uw AI-trainingsgegevens in één oogopslag",
+  "kb": {
+    "documents": "Documenten",
+    "chunks": "Kennisfragmenten",
+    "processing": "Verwerken",
+    "complete": "Compleet"
+  },
+  "time": {
+    "justNow": "zojuist",
+    "minutesAgo": "{count} min geleden",
+    "hoursAgo": "{count} u geleden",
+    "daysAgo": "{count} {unit} geleden",
+    "dayUnit": "dag",
+    "daysUnit": "dagen"
+  }
+}

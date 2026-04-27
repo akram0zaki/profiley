@@ -1,0 +1,7 @@
+{
+  "loading": "Bezig met inloggen…",
+  "error": {
+    "title": "Aanmelding niet voltooid. Probeer het opnieuw.",
+    "back": "Terug naar inloggen"
+  }
+}

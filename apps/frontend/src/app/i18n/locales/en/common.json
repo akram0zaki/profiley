@@ -1,0 +1,25 @@
+{
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "edit": "Edit",
+  "upload": "Upload",
+  "loading": "Loading…",
+  "search": "Search",
+  "filter": "Filter",
+  "actions": "Actions",
+  "status": "Status",
+  "active": "Active",
+  "inactive": "Inactive",
+  "default": "Default",
+  "languages": {
+    "english": "English",
+    "dutch": "Dutch",
+    "arabic": "Arabic",
+    "spanish": "Spanish",
+    "french": "French",
+    "german": "German",
+    "chinese": "Chinese",
+    "japanese": "Japanese"
+  }
+}

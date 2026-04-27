@@ -1,0 +1,56 @@
+{
+  "title": "Avatar Instellingen",
+  "subtitle": "Configureer uw AI-avatar voor toekomstige live sessies",
+  "comingSoon": {
+    "title": "Live AI Avatar - Binnenkort Beschikbaar",
+    "phase": "Fase 3",
+    "description": "Binnenkort kunt u een live AI-avatar maken die kan deelnemen aan videogesprekken en u kan vertegenwoordigen in realtime gesprekken met recruiters. Uw avatar gebruikt uw geüploade foto, gesynthetiseerde stem en kennisbank om natuurlijke gesprekken te voeren.",
+    "plannedTitle": "Geplande Functies:",
+    "planned": {
+      "photo": "Foto-realistische avatargeneratie vanuit uw geüploade foto",
+      "voice": "Realtime stemsynthese met uw gekozen stemmodel",
+      "video": "Live videostreaming via HeyGen of Synthesia",
+      "lipsync": "Natuurlijke gespreksstroom met lip-sync",
+      "transcripts": "Sessieopname en transcripten"
+    }
+  },
+  "photo": {
+    "title": "Avatar Bronfoto",
+    "description": "Upload een hoogwaardige foto voor uw AI-avatar",
+    "upload": "Upload Avatar Foto",
+    "comingSoon": "Binnenkort Beschikbaar",
+    "tips": {
+      "frontFacing": "Gebruik een duidelijke foto van voren",
+      "headshot": "Aanbevolen: Professionele headshot",
+      "resolution": "Hoge resolutie (minimaal 1024x1024px)",
+      "lighting": "Goede belichting en neutrale achtergrond"
+    }
+  },
+  "provider": {
+    "title": "Avatar Provider",
+    "description": "Kies het platform voor het genereren van uw live avatar",
+    "planned": "Gepland",
+    "heygen": {
+      "name": "HeyGen",
+      "description": "Hoogwaardige AI-avatars met realtime streamingmogelijkheden"
+    },
+    "synthesia": {
+      "name": "Synthesia",
+      "description": "Professionele AI-avatargeneratie voor zakelijk gebruik"
+    }
+  },
+  "voice": {
+    "title": "Avatar Stem",
+    "description": "Uw avatar gebruikt de steminstellingen geconfigureerd in AI-Instellingen",
+    "currentModel": "Huidig TTS-model: ElevenLabs",
+    "style": "Stemstijl: Professioneel",
+    "configure": "Configureer Steminstellingen"
+  },
+  "sessions": {
+    "title": "Sessiebeheer",
+    "description": "Toekomstige avatarsessies verschijnen hier",
+    "empty": "Nog geen avatarsessies",
+    "phaseNote": "Deze functie wordt beschikbaar in Fase 3"
+  },
+  "back": "Terug naar Instellingen"
+}

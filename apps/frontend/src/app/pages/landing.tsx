@@ -8,9 +8,9 @@ import { useLanguage } from '../contexts/language-context';
 import { useTheme } from '../components/theme-provider';
 
 const languages = [
-  { code: 'en' as const, name: 'English', nativeName: 'English' },
-  { code: 'nl' as const, name: 'Nederlands', nativeName: 'Nederlands' },
-  { code: 'ar' as const, name: 'العربية', nativeName: 'العربية' },
+  { code: 'en' as const, nativeName: 'English' },
+  { code: 'nl' as const, nativeName: 'Nederlands' },
+  { code: 'ar' as const, nativeName: 'العربية' },
 ];
 
 export default function LandingPage() {
@@ -26,7 +26,7 @@ export default function LandingPage() {
               <span className="text-xl font-bold text-white">P</span>
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-              Profiley
+              {t('landing.brand')}
             </span>
           </div>
           <nav className="flex items-center gap-2">
@@ -121,7 +121,7 @@ export default function LandingPage() {
           <div className="relative rounded-xl border border-border/50 bg-card/50 backdrop-blur p-4 shadow-2xl">
             <img
               src="https://images.unsplash.com/photo-1770210217380-d78a69acdc77?q=80&w=2000&auto=format&fit=crop"
-              alt="AI Technology Visualization"
+              alt={t('landing.imageAlt')}
               className="aspect-video rounded-lg object-cover w-full"
             />
           </div>
@@ -301,7 +301,7 @@ export default function LandingPage() {
               <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
                 <span className="font-bold text-white">P</span>
               </div>
-              <span className="font-semibold">Profiley</span>
+              <span className="font-semibold">{t('landing.brand')}</span>
             </div>
             <p className="text-sm text-muted-foreground">
               {t('landing.footer.copyright')}

@@ -1,0 +1,68 @@
+{
+  "title": "Edit Profile",
+  "subtitle": "Manage your public professional identity",
+  "save": "Save Changes",
+  "saveAll": "Save All Changes",
+  "loading": "Loading profile…",
+  "notReady": {
+    "title": "Profile not ready",
+    "description": "We couldn't find your profile yet. Please complete onboarding first."
+  },
+  "photo": {
+    "title": "Profile Photo",
+    "description": "Your photo appears on your public profile",
+    "upload": "Upload New Photo",
+    "hint": "JPG, PNG or GIF. Max 2MB. Recommended 400x400px."
+  },
+  "basics": {
+    "title": "Basic Information",
+    "description": "Your core professional details",
+    "fullName": "Full Name",
+    "location": "Location",
+    "headline": "Professional Headline",
+    "bio": "Bio",
+    "shortBio": "Short Bio"
+  },
+  "skills": {
+    "title": "Skills & Expertise",
+    "description": "Key skills that define your professional identity",
+    "placeholder": "Add a skill (e.g., React, Python, AI/ML)",
+    "add": "Add",
+    "empty": "No skills yet. Add a few above."
+  },
+  "publicSettings": {
+    "title": "Public Profile Settings",
+    "description": "Control what recruiters can see and do",
+    "url": "Profile URL",
+    "copy": "Copy Link",
+    "visibility": {
+      "title": "Public Profile Visibility",
+      "description": "Anyone with the link can view your profile"
+    },
+    "chat": {
+      "title": "Allow AI Chat",
+      "description": "Let recruiters chat with your AI persona"
+    },
+    "jobFit": {
+      "title": "Allow Job-Fit Analysis",
+      "description": "Let recruiters analyze job descriptions against your profile"
+    },
+    "contact": {
+      "title": "Allow Contact Form",
+      "description": "Let recruiters send you direct messages"
+    },
+    "citations": {
+      "title": "Show Document Citations",
+      "description": "Display source references in AI responses"
+    }
+  },
+  "feedback": {
+    "photoTooLarge": "Photo must be 2MB or less",
+    "photoUpdated": "Photo updated",
+    "photoUploadFailed": "Photo upload failed",
+    "profileUpdated": "Profile updated",
+    "saveFailed": "Save failed",
+    "linkCopied": "Profile link copied",
+    "copyFailed": "Copy failed"
+  }
+}

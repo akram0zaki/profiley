@@ -1,0 +1,25 @@
+{
+  "save": "حفظ",
+  "cancel": "إلغاء",
+  "delete": "حذف",
+  "edit": "تعديل",
+  "upload": "تحميل",
+  "loading": "جارٍ التحميل…",
+  "search": "بحث",
+  "filter": "تصفية",
+  "actions": "الإجراءات",
+  "status": "الحالة",
+  "active": "نشط",
+  "inactive": "غير نشط",
+  "default": "افتراضي",
+  "languages": {
+    "english": "الإنجليزية",
+    "dutch": "الهولندية",
+    "arabic": "العربية",
+    "spanish": "الإسبانية",
+    "french": "الفرنسية",
+    "german": "الألمانية",
+    "chinese": "الصينية",
+    "japanese": "اليابانية"
+  }
+}

@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { useCurrentProfile, updatePreferences } from '../../lib/profile';
 import { supabase } from '../../lib/supabase';
+import { useLanguage } from '../contexts/language-context';
 
 type ProviderConfig = {
   id: string;
@@ -35,13 +36,14 @@ type FeatureAssignment = {
 };
 
 const TONE_OPTIONS = [
-  { value: 'professional', label: 'Professional & Precise' },
-  { value: 'friendly', label: 'Friendly & Approachable' },
-  { value: 'technical', label: 'Technical & Detailed' },
-  { value: 'concise', label: 'Concise & Direct' },
+  { value: 'professional', labelKey: 'settingsAi.tone.options.professional' },
+  { value: 'friendly', labelKey: 'settingsAi.tone.options.friendly' },
+  { value: 'technical', labelKey: 'settingsAi.tone.options.technical' },
+  { value: 'concise', labelKey: 'settingsAi.tone.options.concise' },
 ];
 
 export default function SettingsAIPage() {
+  const { t } = useLanguage();
   const { appUser, preferences, loading: profileLoading, reload } = useCurrentProfile();
   const [configs, setConfigs] = useState<ProviderConfig[]>([]);
   const [assignments, setAssignments] = useState<FeatureAssignment[]>([]);
@@ -83,7 +85,7 @@ export default function SettingsAIPage() {
     setSaving(true);
     try {
       await updatePreferences(appUser.id, { ai_persona_tone: tone });
-      toast.success('Persona tone saved');
+      toast.success(t('settingsAi.feedback.toneSaved'));
       await reload();
     } catch (e: any) {
       toast.error(e?.message ?? 'Save failed');
@@ -114,49 +116,47 @@ export default function SettingsAIPage() {
             </Button>
           </Link>
           <div>
-            <h1 className="text-3xl font-bold">AI Configuration</h1>
-            <p className="text-muted-foreground">View available AI models and configure persona behavior</p>
+            <h1 className="text-3xl font-bold">{t('settingsAi.title')}</h1>
+            <p className="text-muted-foreground">{t('settingsAi.subtitle')}</p>
           </div>
         </div>
 
         <Card className="border-blue-500/40 bg-blue-500/5">
           <CardContent className="pt-6 text-sm text-muted-foreground">
-            Per-user model overrides are not yet available. The models below are administered by your
-            workspace admin and applied to all users automatically based on the active feature
-            assignments.
+            {t('settingsAi.info')}
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader>
-            <CardTitle>Persona Tone</CardTitle>
-            <CardDescription>Customize how your AI responds to recruiters</CardDescription>
+            <CardTitle>{t('settingsAi.tone.title')}</CardTitle>
+            <CardDescription>{t('settingsAi.tone.description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="personaTone">Tone</Label>
+              <Label htmlFor="personaTone">{t('settingsAi.tone.label')}</Label>
               <Select value={tone} onValueChange={setTone}>
                 <SelectTrigger id="personaTone">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {TONE_OPTIONS.map((t) => (
-                    <SelectItem key={t.value} value={t.value}>
-                      {t.label}
+                  {TONE_OPTIONS.map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value}>
+                      {t(opt.labelKey)}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
             <div className="space-y-2">
-              <Label>Custom System Prompt (Advanced)</Label>
+              <Label>{t('settingsAi.customPrompt.title')}</Label>
               <Textarea
                 rows={5}
-                placeholder="Per-user system prompt overrides are coming soon."
+                placeholder={t('settingsAi.customPrompt.comingSoon')}
                 className="font-mono text-sm"
                 disabled
               />
-              <p className="text-xs text-muted-foreground">Advanced overrides are not yet enabled.</p>
+              <p className="text-xs text-muted-foreground">{t('settingsAi.customPrompt.disabled')}</p>
             </div>
             <div className="flex justify-end">
               <Button
@@ -165,7 +165,7 @@ export default function SettingsAIPage() {
                 className="gap-2"
               >
                 {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-                Save Tone
+                {t('settingsAi.tone.save')}
               </Button>
             </div>
           </CardContent>
@@ -175,17 +175,17 @@ export default function SettingsAIPage() {
           <CardHeader>
             <div className="flex items-center gap-2">
               <Bot className="h-5 w-5 text-purple-400" />
-              <CardTitle>Active Models</CardTitle>
+              <CardTitle>{t('settingsAi.activeModels.title')}</CardTitle>
             </div>
-            <CardDescription>Models currently enabled for the platform (read-only)</CardDescription>
+            <CardDescription>{t('settingsAi.activeModels.description')}</CardDescription>
           </CardHeader>
           <CardContent>
             {loading ? (
               <div className="flex items-center justify-center py-12 text-muted-foreground">
-                <Loader2 className="h-5 w-5 animate-spin mr-2" /> Loading models…
+                <Loader2 className="h-5 w-5 animate-spin mr-2" /> {t('settingsAi.activeModels.loading')}
               </div>
             ) : configs.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No active models configured.</p>
+              <p className="text-sm text-muted-foreground">{t('settingsAi.activeModels.empty')}</p>
             ) : (
               <div className="space-y-6">
                 {Object.entries(grouped).map(([capability, items]) => (
@@ -206,12 +206,12 @@ export default function SettingsAIPage() {
                           <div className="flex gap-2">
                             {m.is_default && (
                               <Badge variant="secondary" className="text-xs">
-                                Default
+                                {t('settingsAi.activeModels.default')}
                               </Badge>
                             )}
                             {!m.is_active && (
                               <Badge variant="outline" className="text-xs">
-                                Inactive
+                                {t('settingsAi.activeModels.inactive')}
                               </Badge>
                             )}
                           </div>
@@ -227,16 +227,16 @@ export default function SettingsAIPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Feature Assignments</CardTitle>
-            <CardDescription>Which model handles which feature (read-only)</CardDescription>
+            <CardTitle>{t('settingsAi.assignments.title')}</CardTitle>
+            <CardDescription>{t('settingsAi.assignments.description')}</CardDescription>
           </CardHeader>
           <CardContent>
             {loading ? (
               <div className="flex items-center justify-center py-8 text-muted-foreground">
-                <Loader2 className="h-5 w-5 animate-spin mr-2" /> Loading assignments…
+                <Loader2 className="h-5 w-5 animate-spin mr-2" /> {t('settingsAi.assignments.loading')}
               </div>
             ) : assignments.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No feature assignments configured.</p>
+              <p className="text-sm text-muted-foreground">{t('settingsAi.assignments.empty')}</p>
             ) : (
               <div className="space-y-3 text-sm">
                 {assignments.map((a) => {

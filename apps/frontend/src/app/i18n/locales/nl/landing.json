@@ -1,0 +1,73 @@
+{
+  "brand": "Profiley",
+  "imageAlt": "AI-Technologie Visualisatie",
+  "nav": {
+    "signIn": "Inloggen",
+    "getStarted": "Aan de Slag"
+  },
+  "hero": {
+    "badge": "Uw AI-Aangedreven Professionele Identiteit",
+    "title": "Vervang Uw CV met een",
+    "titleHighlight": "Interactieve AI",
+    "description": "Laat recruiters echte gesprekken voeren met uw AI-persona. Krijg directe functie-match analyses. Val op met een levend, ademend professioneel profiel.",
+    "cta": "Maak Uw AI-Profiel",
+    "viewExample": "Bekijk Voorbeeldprofiel"
+  },
+  "features": {
+    "title": "Waarom Profiley?",
+    "subtitle": "Ga verder dan statische cv's. Laat AI uw professionele verhaal vertellen."
+  },
+  "feature": {
+    "aiChat": {
+      "title": "AI Gesprekken",
+      "description": "Recruiters chatten met uw AI-persona om meer te weten te komen over uw ervaring, vaardigheden en werkstijl"
+    },
+    "jobFit": {
+      "title": "Directe Functie-Match Analyse",
+      "description": "AI analyseert functiebeschrijvingen tegen uw profiel en biedt gestructureerde match-scores, sterke punten en hiaten"
+    },
+    "evidence": {
+      "title": "Bewijs-Gebaseerde Antwoorden",
+      "description": "AI antwoordt alleen uit uw geüploade documenten en gegevens. Geen hallucinaties, geen valse beweringen."
+    },
+    "multilingual": {
+      "title": "Meertalige Ondersteuning",
+      "description": "AI reageert in de taal van de recruiter. Perfect voor wereldwijde functies en internationale teams."
+    },
+    "privacy": {
+      "title": "Privacy-First",
+      "description": "Uw gegevens zijn van u. Bepaal wat openbaar is, wat privé is en wie toegang heeft tot uw AI-profiel."
+    },
+    "avatar": {
+      "title": "Toekomst: Live AI Avatar",
+      "description": "Binnenkort: Laat uw AI-avatar deelnemen aan videogesprekken en u vertegenwoordigen in realtime gesprekken met recruiters."
+    }
+  },
+  "howItWorks": {
+    "title": "Hoe Het Werkt",
+    "subtitle": "Drie eenvoudige stappen om uw AI professionele identiteit te creëren"
+  },
+  "step1": {
+    "title": "Upload Uw Materialen",
+    "description": "Voeg uw CV, portfolio, projectbeschrijvingen en andere professionele documenten toe"
+  },
+  "step2": {
+    "title": "AI Leert Uw Profiel",
+    "description": "Onze AI verwerkt uw documenten en creëert een kennisbank die uw professionele identiteit vertegenwoordigt"
+  },
+  "step3": {
+    "title": "Delen & Verbinden",
+    "description": "Deel uw openbare profiellink. Recruiters kunnen chatten met uw AI en direct functie-match analyseren"
+  },
+  "cta": {
+    "title": "Klaar om Op te Vallen?",
+    "description": "Sluit je aan bij de toekomst van professionele profielen. Creëer vandaag nog uw AI-persona.",
+    "button": "Gratis Beginnen",
+    "noCreditCard": "Geen creditcard vereist",
+    "quickSetup": "5 minuten setup",
+    "privacyFirst": "Privacy-first"
+  },
+  "footer": {
+    "copyright": "© 2026 Profiley. Uw AI-aangedreven professionele identiteit."
+  }
+}

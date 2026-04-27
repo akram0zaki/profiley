@@ -40,6 +40,7 @@ import {
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { api, ApiError } from '../../lib/api';
+import { useLanguage } from '../contexts/language-context';
 
 type ProviderConfig = {
   id: string;
@@ -72,6 +73,7 @@ type HealthRow = {
 const CAPABILITIES = ['chat', 'embeddings', 'moderation', 'stt', 'tts'];
 
 export default function AdminPage() {
+  const { t } = useLanguage();
   const [configs, setConfigs] = useState<ProviderConfig[]>([]);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [health, setHealth] = useState<HealthRow[]>([]);
@@ -95,7 +97,7 @@ export default function AdminPage() {
       setConfigs((res.configs ?? []) as ProviderConfig[]);
       setAssignments((res.assignments ?? []) as Assignment[]);
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : 'Failed to load models';
+      const msg = e instanceof ApiError ? e.message : t('admin.feedback.loadModelsFailed');
       toast.error(msg);
     } finally {
       setLoading(false);
@@ -108,7 +110,7 @@ export default function AdminPage() {
       const res = await api.adminProviderHealth(24);
       setHealth((res.summary ?? []) as HealthRow[]);
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : 'Failed to load health';
+      const msg = e instanceof ApiError ? e.message : t('admin.feedback.loadHealthFailed');
       toast.error(msg);
     } finally {
       setHealthLoading(false);
@@ -123,17 +125,17 @@ export default function AdminPage() {
   const handleToggle = async (id: string, field: 'isActive' | 'isDefault', value: boolean) => {
     try {
       await api.adminToggleModel({ id, [field]: value });
-      toast.success('Model updated');
+      toast.success(t('admin.feedback.modelUpdated'));
       await reloadModels();
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : 'Update failed';
+      const msg = e instanceof ApiError ? e.message : t('admin.feedback.updateFailed');
       toast.error(msg);
     }
   };
 
   const handleAdd = async () => {
     if (!addProvider.trim() || !addModelKey.trim()) {
-      toast.error('Provider and model key required');
+      toast.error(t('admin.feedback.providerRequired'));
       return;
     }
     setAdding(true);
@@ -146,7 +148,7 @@ export default function AdminPage() {
         isActive: addActive,
         isDefault: addDefault,
       });
-      toast.success('Model added');
+      toast.success(t('admin.feedback.modelUpdated'));
       setAddOpen(false);
       setAddProvider('');
       setAddModelKey('');
@@ -155,7 +157,7 @@ export default function AdminPage() {
       setAddDefault(false);
       await reloadModels();
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : 'Create failed';
+      const msg = e instanceof ApiError ? e.message : t('admin.feedback.createFailed');
       toast.error(msg);
     } finally {
       setAdding(false);
@@ -169,10 +171,10 @@ export default function AdminPage() {
   ) => {
     try {
       await api.adminSetFeatureModel({ featureKey, capability, providerConfigId });
-      toast.success('Feature assignment saved');
+      toast.success(t('admin.feedback.assignmentSaved'));
       await reloadModels();
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : 'Update failed';
+      const msg = e instanceof ApiError ? e.message : t('admin.feedback.updateFailed');
       toast.error(msg);
     }
   };
@@ -192,19 +194,19 @@ export default function AdminPage() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold">Admin Panel</h1>
-            <p className="text-muted-foreground">Manage AI models and platform configuration</p>
+            <h1 className="text-3xl font-bold">{t('admin.title')}</h1>
+            <p className="text-muted-foreground">{t('admin.subtitle')}</p>
           </div>
           <Badge variant="secondary" className="gap-1">
             <Settings className="h-3 w-3" />
-            Admin Access
+            {t('admin.badge')}
           </Badge>
         </div>
 
         <div className="grid gap-4 md:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Models</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('admin.stats.activeModels')}</CardTitle>
               <Bot className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -214,7 +216,7 @@ export default function AdminPage() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Avg p50 Latency</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('admin.stats.avgLatency')}</CardTitle>
               <Clock className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -224,7 +226,7 @@ export default function AdminPage() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Error Rate (24h)</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('admin.stats.errorRate')}</CardTitle>
               <AlertCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -234,12 +236,12 @@ export default function AdminPage() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Health Status</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('admin.stats.healthStatus')}</CardTitle>
               <CheckCircle2 className="h-4 w-4 text-green-400" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-400">
-                {overallErrorRate < 5 ? 'Healthy' : 'Degraded'}
+                {overallErrorRate < 5 ? t('admin.stats.healthy') : t('admin.stats.degraded')}
               </div>
             </CardContent>
           </Card>
@@ -247,9 +249,9 @@ export default function AdminPage() {
 
         <Tabs defaultValue="providers">
           <TabsList>
-            <TabsTrigger value="providers">Model Registry</TabsTrigger>
-            <TabsTrigger value="features">Feature Assignments</TabsTrigger>
-            <TabsTrigger value="health">Provider Health</TabsTrigger>
+            <TabsTrigger value="providers">{t('admin.tabs.registry')}</TabsTrigger>
+            <TabsTrigger value="features">{t('admin.tabs.assignments')}</TabsTrigger>
+            <TabsTrigger value="health">{t('admin.tabs.health')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="providers" className="space-y-4">
@@ -257,25 +259,25 @@ export default function AdminPage() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle>Model Registry</CardTitle>
+                    <CardTitle>{t('admin.registry.title')}</CardTitle>
                     <CardDescription>
-                      Configure available AI models for each capability
+                      {t('admin.registry.description')}
                     </CardDescription>
                   </div>
                   <Dialog open={addOpen} onOpenChange={setAddOpen}>
                     <DialogTrigger asChild>
-                      <Button>Add New Model</Button>
+                      <Button>{t('admin.registry.addNew')}</Button>
                     </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
-                        <DialogTitle>Add Provider Model</DialogTitle>
+                        <DialogTitle>{t('admin.registry.dialog.title')}</DialogTitle>
                         <DialogDescription>
-                          Register a new model in <code>ai_provider_configs</code>.
+                          {t('admin.registry.dialog.description')}
                         </DialogDescription>
                       </DialogHeader>
                       <div className="space-y-3">
                         <div className="space-y-2">
-                          <Label>Capability</Label>
+                          <Label>{t('admin.registry.dialog.capability')}</Label>
                           <Select value={addCapability} onValueChange={setAddCapability}>
                             <SelectTrigger>
                               <SelectValue />
@@ -290,23 +292,23 @@ export default function AdminPage() {
                           </Select>
                         </div>
                         <div className="space-y-2">
-                          <Label>Provider</Label>
+                          <Label>{t('admin.registry.dialog.provider')}</Label>
                           <Input
-                            placeholder="e.g. openai, gemini, mistral"
+                            placeholder={t('admin.registry.dialog.providerPlaceholder')}
                             value={addProvider}
                             onChange={(e) => setAddProvider(e.target.value)}
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label>Model Key</Label>
+                          <Label>{t('admin.registry.dialog.modelKey')}</Label>
                           <Input
-                            placeholder="e.g. gpt-4o-mini"
+                            placeholder={t('admin.registry.dialog.modelKeyPlaceholder')}
                             value={addModelKey}
                             onChange={(e) => setAddModelKey(e.target.value)}
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label>Display Name (optional)</Label>
+                          <Label>{t('admin.registry.dialog.displayName')}</Label>
                           <Input
                             value={addDisplayName}
                             onChange={(e) => setAddDisplayName(e.target.value)}
@@ -319,7 +321,7 @@ export default function AdminPage() {
                               checked={addActive}
                               onChange={(e) => setAddActive(e.target.checked)}
                             />
-                            Active
+                            {t('admin.registry.dialog.active')}
                           </label>
                           <label className="inline-flex items-center gap-2 text-sm">
                             <input
@@ -327,17 +329,17 @@ export default function AdminPage() {
                               checked={addDefault}
                               onChange={(e) => setAddDefault(e.target.checked)}
                             />
-                            Default
+                            {t('admin.registry.dialog.default')}
                           </label>
                         </div>
                       </div>
                       <DialogFooter>
                         <Button variant="outline" onClick={() => setAddOpen(false)}>
-                          Cancel
+                          {t('admin.registry.dialog.cancel')}
                         </Button>
                         <Button onClick={() => void handleAdd()} disabled={adding} className="gap-2">
                           {adding && <Loader2 className="h-4 w-4 animate-spin" />}
-                          Add Model
+                          {t('admin.registry.dialog.submit')}
                         </Button>
                       </DialogFooter>
                     </DialogContent>
@@ -347,20 +349,20 @@ export default function AdminPage() {
               <CardContent>
                 {loading ? (
                   <div className="flex items-center justify-center py-12 text-muted-foreground">
-                    <Loader2 className="h-5 w-5 animate-spin mr-2" /> Loading…
+                    <Loader2 className="h-5 w-5 animate-spin mr-2" /> {t('admin.registry.loading')}
                   </div>
                 ) : configs.length === 0 ? (
-                  <p className="text-sm text-muted-foreground py-8 text-center">No models registered.</p>
+                  <p className="text-sm text-muted-foreground py-8 text-center">{t('admin.registry.empty')}</p>
                 ) : (
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Capability</TableHead>
-                        <TableHead>Provider</TableHead>
-                        <TableHead>Model</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Default</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
+                        <TableHead>{t('admin.registry.headers.capability')}</TableHead>
+                        <TableHead>{t('admin.registry.headers.provider')}</TableHead>
+                        <TableHead>{t('admin.registry.headers.model')}</TableHead>
+                        <TableHead>{t('admin.registry.headers.status')}</TableHead>
+                        <TableHead>{t('admin.registry.headers.default')}</TableHead>
+                        <TableHead className="text-right">{t('admin.registry.headers.actions')}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -380,17 +382,17 @@ export default function AdminPage() {
                                   : 'bg-gray-500/10 text-gray-400 border-gray-500/20'
                               }
                             >
-                              {p.is_active ? 'Active' : 'Inactive'}
+                              {p.is_active ? t('admin.registry.actions.active') : t('admin.registry.actions.inactive')}
                             </Badge>
                           </TableCell>
-                          <TableCell>{p.is_default && <Badge variant="secondary">Default</Badge>}</TableCell>
+                          <TableCell>{p.is_default && <Badge variant="secondary">{t('admin.registry.dialog.default')}</Badge>}</TableCell>
                           <TableCell className="text-right space-x-2">
                             <Button
                               variant="ghost"
                               size="sm"
                               onClick={() => handleToggle(p.id, 'isActive', !p.is_active)}
                             >
-                              {p.is_active ? 'Disable' : 'Enable'}
+                              {p.is_active ? t('admin.registry.actions.disable') : t('admin.registry.actions.enable')}
                             </Button>
                             <Button
                               variant="ghost"
@@ -398,7 +400,7 @@ export default function AdminPage() {
                               disabled={p.is_default}
                               onClick={() => handleToggle(p.id, 'isDefault', true)}
                             >
-                              Make Default
+                              {t('admin.registry.actions.makeDefault')}
                             </Button>
                           </TableCell>
                         </TableRow>
@@ -413,16 +415,16 @@ export default function AdminPage() {
           <TabsContent value="features" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Feature Model Assignments</CardTitle>
-                <CardDescription>Assign specific models to each platform feature</CardDescription>
+                <CardTitle>{t('admin.assignments.title')}</CardTitle>
+                <CardDescription>{t('admin.assignments.description')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {loading ? (
                   <div className="flex items-center justify-center py-8 text-muted-foreground">
-                    <Loader2 className="h-5 w-5 animate-spin mr-2" /> Loading…
+                    <Loader2 className="h-5 w-5 animate-spin mr-2" /> {t('admin.assignments.loading')}
                   </div>
                 ) : assignments.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">No assignments yet.</p>
+                  <p className="text-sm text-muted-foreground">{t('admin.assignments.empty')}</p>
                 ) : (
                   assignments.map((a) => (
                     <div
@@ -432,7 +434,7 @@ export default function AdminPage() {
                       <div className="space-y-1">
                         <p className="font-medium">{a.feature_key}</p>
                         <p className="text-sm text-muted-foreground capitalize">
-                          Capability: {a.capability}
+                          {t('admin.assignments.capability', { capability: a.capability })}
                         </p>
                       </div>
                       <Select
@@ -440,7 +442,7 @@ export default function AdminPage() {
                         onValueChange={(v) => void handleSetFeatureModel(a.feature_key, a.capability, v)}
                       >
                         <SelectTrigger className="w-[260px]">
-                          <SelectValue placeholder="(use default)" />
+                          <SelectValue placeholder={t('admin.assignments.useDefault')} />
                         </SelectTrigger>
                         <SelectContent>
                           {configs
@@ -464,35 +466,35 @@ export default function AdminPage() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle>Provider Health Dashboard</CardTitle>
-                    <CardDescription>Last 24 hours of AI provider call metrics</CardDescription>
+                    <CardTitle>{t('admin.health.title')}</CardTitle>
+                    <CardDescription>{t('admin.health.description')}</CardDescription>
                   </div>
                   <Button variant="outline" size="sm" onClick={() => void reloadHealth()}>
-                    Refresh
+                    {t('admin.health.refresh')}
                   </Button>
                 </div>
               </CardHeader>
               <CardContent>
                 {healthLoading ? (
                   <div className="flex items-center justify-center py-12 text-muted-foreground">
-                    <Loader2 className="h-5 w-5 animate-spin mr-2" /> Loading…
+                    <Loader2 className="h-5 w-5 animate-spin mr-2" /> {t('admin.health.loading')}
                   </div>
                 ) : health.length === 0 ? (
                   <p className="text-sm text-muted-foreground py-8 text-center">
-                    No provider call logs in the last 24h.
+                    {t('admin.health.empty')}
                   </p>
                 ) : (
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>Provider</TableHead>
-                        <TableHead>Capability</TableHead>
-                        <TableHead>Calls</TableHead>
-                        <TableHead>p50</TableHead>
-                        <TableHead>p95</TableHead>
-                        <TableHead>Error Rate</TableHead>
-                        <TableHead>Fallback Rate</TableHead>
-                        <TableHead>Tokens</TableHead>
+                        <TableHead>{t('admin.health.headers.provider')}</TableHead>
+                        <TableHead>{t('admin.health.headers.capability')}</TableHead>
+                        <TableHead>{t('admin.health.headers.calls')}</TableHead>
+                        <TableHead>{t('admin.health.headers.p50')}</TableHead>
+                        <TableHead>{t('admin.health.headers.p95')}</TableHead>
+                        <TableHead>{t('admin.health.headers.errorRate')}</TableHead>
+                        <TableHead>{t('admin.health.headers.fallbackRate')}</TableHead>
+                        <TableHead>{t('admin.health.headers.tokens')}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>

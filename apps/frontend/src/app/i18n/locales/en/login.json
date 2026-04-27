@@ -1,0 +1,33 @@
+{
+  "header": {
+    "title": "Welcome to Profiley",
+    "subtitle": "Sign in to create your AI professional identity"
+  },
+  "card": {
+    "title": "Sign in or Create Account",
+    "description": "Choose your preferred authentication method"
+  },
+  "form": {
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "submit": "Send Magic Link"
+  },
+  "oauth": {
+    "google": "Continue with Google",
+    "github": "Continue with GitHub",
+    "divider": "Or continue with email"
+  },
+  "magicLink": {
+    "sent": "Check your email!",
+    "sentDescription": "We've sent a sign-in link to {email}. Check your inbox!"
+  },
+  "footer": {
+    "terms": "By continuing, you agree to our Terms of Service and Privacy Policy.",
+    "firstTime": "First time signing in? Your account will be created automatically.",
+    "back": "Back to Home"
+  },
+  "errors": {
+    "magicLinkFailed": "Failed to send magic link",
+    "oauthFailed": "OAuth sign-in failed"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "title": "AI-Configuratie",
+  "subtitle": "Bekijk beschikbare AI-modellen en configureer persona-gedrag",
+  "info": "Per-gebruiker model-overrides zijn nog niet beschikbaar. De onderstaande modellen worden beheerd door uw werkruimtebeheerder en automatisch toegepast op alle gebruikers op basis van de actieve functietoewijzingen.",
+  "tone": {
+    "title": "Persona Toon",
+    "description": "Pas aan hoe uw AI op recruiters reageert",
+    "label": "Toon",
+    "save": "Toon Opslaan",
+    "options": {
+      "professional": "Professioneel & Precies",
+      "friendly": "Vriendelijk & Toegankelijk",
+      "technical": "Technisch & Gedetailleerd",
+      "concise": "Beknopt & Direct"
+    }
+  },
+  "customPrompt": {
+    "title": "Aangepaste Systeemprompt (Geavanceerd)",
+    "comingSoon": "Per-gebruiker systeemprompt-overrides komen binnenkort.",
+    "disabled": "Geavanceerde overrides zijn nog niet ingeschakeld."
+  },
+  "activeModels": {
+    "title": "Actieve Modellen",
+    "description": "Modellen die momenteel zijn ingeschakeld voor het platform (alleen-lezen)",
+    "loading": "Modellen laden…",
+    "empty": "Geen actieve modellen geconfigureerd.",
+    "default": "Standaard",
+    "inactive": "Inactief"
+  },
+  "assignments": {
+    "title": "Functietoewijzingen",
+    "description": "Welk model elke functie afhandelt (alleen-lezen)",
+    "loading": "Toewijzingen laden…",
+    "empty": "Geen functietoewijzingen geconfigureerd."
+  },
+  "feedback": {
+    "toneSaved": "Persona-toon opgeslagen"
+  }
+}

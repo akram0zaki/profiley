@@ -6,8 +6,10 @@ import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { Badge } from '../components/ui/badge';
 import { Link } from 'react-router';
 import { ArrowLeft, Upload, Video, Sparkles } from 'lucide-react';
+import { useLanguage } from '../contexts/language-context';
 
 export default function SettingsAvatarPage() {
+  const { t } = useLanguage();
   return (
     <AppLayout>
       <div className="max-w-4xl mx-auto space-y-6">
@@ -19,9 +21,9 @@ export default function SettingsAvatarPage() {
             </Button>
           </Link>
           <div>
-            <h1 className="text-3xl font-bold">Avatar Settings</h1>
+            <h1 className="text-3xl font-bold">{t('settingsAvatar.title')}</h1>
             <p className="text-muted-foreground">
-              Configure your AI avatar for future live sessions
+              {t('settingsAvatar.subtitle')}
             </p>
           </div>
         </div>
@@ -35,22 +37,20 @@ export default function SettingsAvatarPage() {
               </div>
               <div className="flex-1 space-y-2">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-xl font-semibold">Live AI Avatar - Coming Soon</h3>
-                  <Badge variant="secondary">Phase 3</Badge>
+                  <h3 className="text-xl font-semibold">{t('settingsAvatar.comingSoon.title')}</h3>
+                  <Badge variant="secondary">{t('settingsAvatar.comingSoon.phase')}</Badge>
                 </div>
                 <p className="text-muted-foreground">
-                  Soon you'll be able to create a live AI avatar that can join video calls and represent
-                  you in real-time conversations with recruiters. Your avatar will use your uploaded
-                  photo, synthesized voice, and knowledge base to conduct natural conversations.
+                  {t('settingsAvatar.comingSoon.description')}
                 </p>
                 <div className="pt-2">
-                  <h4 className="font-medium mb-2">Planned Features:</h4>
+                  <h4 className="font-medium mb-2">{t('settingsAvatar.comingSoon.plannedTitle')}</h4>
                   <ul className="space-y-1 text-sm text-muted-foreground">
-                    <li>• Photo-realistic avatar generation from your uploaded photo</li>
-                    <li>• Real-time voice synthesis with your chosen voice model</li>
-                    <li>• Live video streaming via HeyGen or Synthesia</li>
-                    <li>• Natural conversation flow with lip-sync</li>
-                    <li>• Session recording and transcripts</li>
+                    <li>• {t('settingsAvatar.comingSoon.planned.photo')}</li>
+                    <li>• {t('settingsAvatar.comingSoon.planned.voice')}</li>
+                    <li>• {t('settingsAvatar.comingSoon.planned.video')}</li>
+                    <li>• {t('settingsAvatar.comingSoon.planned.lipsync')}</li>
+                    <li>• {t('settingsAvatar.comingSoon.planned.transcripts')}</li>
                   </ul>
                 </div>
               </div>
@@ -63,10 +63,10 @@ export default function SettingsAvatarPage() {
           <CardHeader>
             <div className="flex items-center gap-2">
               <Video className="h-5 w-5 text-blue-400" />
-              <CardTitle>Avatar Source Photo</CardTitle>
+              <CardTitle>{t('settingsAvatar.photo.title')}</CardTitle>
             </div>
             <CardDescription>
-              Upload a high-quality photo for your AI avatar
+              {t('settingsAvatar.photo.description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -79,15 +79,15 @@ export default function SettingsAvatarPage() {
                 <div>
                   <Button variant="outline" className="gap-2" disabled>
                     <Upload className="h-4 w-4" />
-                    Upload Avatar Photo
+                    {t('settingsAvatar.photo.upload')}
                   </Button>
-                  <Badge variant="secondary" className="ml-2">Coming Soon</Badge>
+                  <Badge variant="secondary" className="ml-2">{t('settingsAvatar.photo.comingSoon')}</Badge>
                 </div>
                 <ul className="text-xs text-muted-foreground space-y-1">
-                  <li>• Use a clear, front-facing photo</li>
-                  <li>• Recommended: Professional headshot</li>
-                  <li>• High resolution (at least 1024x1024px)</li>
-                  <li>• Good lighting and neutral background</li>
+                  <li>• {t('settingsAvatar.photo.tips.frontFacing')}</li>
+                  <li>• {t('settingsAvatar.photo.tips.headshot')}</li>
+                  <li>• {t('settingsAvatar.photo.tips.resolution')}</li>
+                  <li>• {t('settingsAvatar.photo.tips.lighting')}</li>
                 </ul>
               </div>
             </div>
@@ -97,29 +97,29 @@ export default function SettingsAvatarPage() {
         {/* Avatar Provider */}
         <Card>
           <CardHeader>
-            <CardTitle>Avatar Provider</CardTitle>
+            <CardTitle>{t('settingsAvatar.provider.title')}</CardTitle>
             <CardDescription>
-              Choose the platform for generating your live avatar
+              {t('settingsAvatar.provider.description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
               <div className="p-4 rounded-lg border border-border/50 opacity-50">
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-medium">HeyGen</h4>
-                  <Badge variant="outline">Planned</Badge>
+                  <h4 className="font-medium">{t('settingsAvatar.provider.heygen.name')}</h4>
+                  <Badge variant="outline">{t('settingsAvatar.provider.planned')}</Badge>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  High-quality AI avatars with real-time streaming capabilities
+                  {t('settingsAvatar.provider.heygen.description')}
                 </p>
               </div>
               <div className="p-4 rounded-lg border border-border/50 opacity-50">
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-medium">Synthesia</h4>
-                  <Badge variant="outline">Planned</Badge>
+                  <h4 className="font-medium">{t('settingsAvatar.provider.synthesia.name')}</h4>
+                  <Badge variant="outline">{t('settingsAvatar.provider.planned')}</Badge>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Professional AI avatar generation for enterprise use
+                  {t('settingsAvatar.provider.synthesia.description')}
                 </p>
               </div>
             </div>
@@ -129,21 +129,21 @@ export default function SettingsAvatarPage() {
         {/* Voice Configuration */}
         <Card>
           <CardHeader>
-            <CardTitle>Avatar Voice</CardTitle>
+            <CardTitle>{t('settingsAvatar.voice.title')}</CardTitle>
             <CardDescription>
-              Your avatar will use the voice settings configured in AI Settings
+              {t('settingsAvatar.voice.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="p-4 rounded-lg border border-border/50 bg-muted/50">
               <p className="text-sm">
-                Current TTS Model: <strong>ElevenLabs</strong>
+                {t('settingsAvatar.voice.currentModel')}
                 <br />
-                Voice Style: <strong>Professional</strong>
+                {t('settingsAvatar.voice.style')}
               </p>
               <Link to="/settings/ai" className="inline-block mt-3">
                 <Button variant="outline" size="sm">
-                  Configure Voice Settings
+                  {t('settingsAvatar.voice.configure')}
                 </Button>
               </Link>
             </div>
@@ -153,16 +153,16 @@ export default function SettingsAvatarPage() {
         {/* Future Sessions */}
         <Card>
           <CardHeader>
-            <CardTitle>Session Management</CardTitle>
+            <CardTitle>{t('settingsAvatar.sessions.title')}</CardTitle>
             <CardDescription>
-              Future avatar sessions will appear here
+              {t('settingsAvatar.sessions.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="text-center py-12 text-muted-foreground">
               <Video className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p>No avatar sessions yet</p>
-              <p className="text-sm">This feature will be available in Phase 3</p>
+              <p>{t('settingsAvatar.sessions.empty')}</p>
+              <p className="text-sm">{t('settingsAvatar.sessions.phaseNote')}</p>
             </div>
           </CardContent>
         </Card>
@@ -170,7 +170,7 @@ export default function SettingsAvatarPage() {
         {/* Back Button */}
         <div className="flex justify-start">
           <Link to="/settings">
-            <Button variant="outline">Back to Settings</Button>
+            <Button variant="outline">{t('settingsAvatar.back')}</Button>
           </Link>
         </div>
       </div>

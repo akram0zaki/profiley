@@ -26,19 +26,10 @@ interface AppLayoutProps {
   children: ReactNode;
 }
 
-const navigation = [
-  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Profile', href: '/profile', icon: User },
-  { name: 'Uploads', href: '/uploads', icon: Upload },
-  { name: 'Knowledge', href: '/knowledge', icon: Database },
-  { name: 'Chat Preview', href: '/chat-preview', icon: MessageSquare },
-  { name: 'Job Fit', href: '/job-fit-preview', icon: Briefcase },
-];
-
 const languages = [
-  { code: 'en' as const, name: 'English', nativeName: 'English' },
-  { code: 'nl' as const, name: 'Nederlands', nativeName: 'Nederlands' },
-  { code: 'ar' as const, name: 'العربية', nativeName: 'العربية' },
+  { code: 'en' as const, nativeName: 'English' },
+  { code: 'nl' as const, nativeName: 'Nederlands' },
+  { code: 'ar' as const, nativeName: 'العربية' },
 ];
 
 export function AppLayout({ children }: AppLayoutProps) {
@@ -71,7 +62,7 @@ export function AppLayout({ children }: AppLayoutProps) {
               <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
                 <span className="font-bold text-white">P</span>
               </div>
-              <span className="hidden font-semibold sm:inline-block">Profiley</span>
+              <span className="hidden font-semibold sm:inline-block">{t('layout.brand')}</span>
             </Link>
 
             {/* Desktop Navigation */}

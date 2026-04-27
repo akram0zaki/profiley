@@ -1,0 +1,88 @@
+{
+  "title": "لوحة المسؤول",
+  "subtitle": "إدارة نماذج الذكاء الاصطناعي وتكوين المنصة",
+  "badge": "صلاحيات المسؤول",
+  "stats": {
+    "activeModels": "النماذج النشطة",
+    "avgLatency": "متوسط زمن الاستجابة p50",
+    "errorRate": "معدل الأخطاء (24 ساعة)",
+    "healthStatus": "حالة الصحة",
+    "healthy": "سليم",
+    "degraded": "متدهور"
+  },
+  "tabs": {
+    "registry": "سجل النماذج",
+    "assignments": "تعيينات الميزات",
+    "health": "صحة الموفر"
+  },
+  "registry": {
+    "title": "سجل النماذج",
+    "description": "تكوين نماذج الذكاء الاصطناعي المتاحة لكل قدرة",
+    "addNew": "إضافة نموذج جديد",
+    "loading": "جارٍ التحميل…",
+    "empty": "لا توجد نماذج مسجلة.",
+    "headers": {
+      "capability": "القدرة",
+      "provider": "الموفر",
+      "model": "النموذج",
+      "status": "الحالة",
+      "default": "افتراضي",
+      "actions": "الإجراءات"
+    },
+    "actions": {
+      "disable": "تعطيل",
+      "enable": "تمكين",
+      "makeDefault": "جعله افتراضيًا",
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "dialog": {
+      "title": "إضافة نموذج موفر",
+      "description": "تسجيل نموذج جديد في ai_provider_configs.",
+      "capability": "القدرة",
+      "provider": "الموفر",
+      "providerPlaceholder": "مثلاً: openai، gemini، mistral",
+      "modelKey": "مفتاح النموذج",
+      "modelKeyPlaceholder": "مثلاً: gpt-4o-mini",
+      "displayName": "اسم العرض (اختياري)",
+      "active": "نشط",
+      "default": "افتراضي",
+      "cancel": "إلغاء",
+      "submit": "إضافة النموذج"
+    }
+  },
+  "assignments": {
+    "title": "تعيينات نماذج الميزات",
+    "description": "تعيين نماذج محددة لكل ميزة من ميزات المنصة",
+    "loading": "جارٍ التحميل…",
+    "empty": "لا توجد تعيينات بعد.",
+    "capability": "القدرة: {capability}",
+    "useDefault": "(استخدم الافتراضي)"
+  },
+  "health": {
+    "title": "لوحة صحة الموفر",
+    "description": "آخر 24 ساعة من مقاييس مكالمات موفري الذكاء الاصطناعي",
+    "refresh": "تحديث",
+    "loading": "جارٍ التحميل…",
+    "empty": "لا توجد سجلات مكالمات للموفر في آخر 24 ساعة.",
+    "headers": {
+      "provider": "الموفر",
+      "capability": "القدرة",
+      "calls": "المكالمات",
+      "p50": "p50",
+      "p95": "p95",
+      "errorRate": "معدل الأخطاء",
+      "fallbackRate": "معدل الاحتياطي",
+      "tokens": "الرموز"
+    }
+  },
+  "feedback": {
+    "modelUpdated": "تم تحديث النموذج",
+    "updateFailed": "فشل التحديث",
+    "createFailed": "فشل الإنشاء",
+    "assignmentSaved": "تم حفظ تعيين الميزة",
+    "loadModelsFailed": "فشل تحميل النماذج",
+    "loadHealthFailed": "فشل تحميل الصحة",
+    "providerRequired": "الموفر ومفتاح النموذج مطلوبان"
+  }
+}

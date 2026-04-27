@@ -7,8 +7,10 @@ import { Separator } from '../components/ui/separator';
 import { Mail, Chrome, Github } from 'lucide-react';
 import { useState } from 'react';
 import { signInWithEmail, signInWithProvider } from '../../lib/auth';
+import { useLanguage } from '../contexts/language-context';
 
 export default function LoginPage() {
+  const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [magicLinkSent, setMagicLinkSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -23,7 +25,7 @@ export default function LoginPage() {
       if (error) throw error;
       setMagicLinkSent(true);
     } catch (err) {
-      setError((err as Error).message ?? 'Failed to send magic link');
+      setError((err as Error).message ?? t('login.errors.magicLinkFailed'));
     } finally {
       setBusy(false);
     }
@@ -36,7 +38,7 @@ export default function LoginPage() {
       const { error } = await signInWithProvider(provider);
       if (error) throw error;
     } catch (err) {
-      setError((err as Error).message ?? 'OAuth sign-in failed');
+      setError((err as Error).message ?? t('login.errors.oauthFailed'));
       setBusy(false);
     }
   };
@@ -51,18 +53,18 @@ export default function LoginPage() {
               <span className="text-2xl font-bold text-white">P</span>
             </div>
           </Link>
-          <h1 className="text-2xl font-bold">Welcome to Profiley</h1>
+          <h1 className="text-2xl font-bold">{t('login.header.title')}</h1>
           <p className="text-muted-foreground">
-            Sign in to create your AI professional identity
+            {t('login.header.subtitle')}
           </p>
         </div>
 
         {/* Auth Card */}
         <Card className="border-border/50 bg-card/50 backdrop-blur">
           <CardHeader>
-            <CardTitle>Sign in or Create Account</CardTitle>
+            <CardTitle>{t('login.card.title')}</CardTitle>
             <CardDescription>
-              Choose your preferred authentication method
+              {t('login.card.description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -75,7 +77,7 @@ export default function LoginPage() {
                 onClick={() => handleProvider('google')}
               >
                 <Chrome className="h-5 w-5" />
-                Continue with Google
+                {t('login.oauth.google')}
               </Button>
               <Button
                 variant="outline"
@@ -84,7 +86,7 @@ export default function LoginPage() {
                 onClick={() => handleProvider('github')}
               >
                 <Github className="h-5 w-5" />
-                Continue with GitHub
+                {t('login.oauth.github')}
               </Button>
             </div>
 
@@ -93,18 +95,18 @@ export default function LoginPage() {
                 <Separator />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-card px-2 text-muted-foreground">Or continue with email</span>
+                <span className="bg-card px-2 text-muted-foreground">{t('login.oauth.divider')}</span>
               </div>
             </div>
 
             {/* Magic Link Form */}
             <form onSubmit={handleMagicLink} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t('login.form.emailLabel')}</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="you@example.com"
+                  placeholder={t('login.form.emailPlaceholder')}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -112,13 +114,13 @@ export default function LoginPage() {
               </div>
               <Button type="submit" className="w-full gap-2" disabled={busy || magicLinkSent}>
                 <Mail className="h-4 w-4" />
-                {magicLinkSent ? 'Check your email!' : 'Send Magic Link'}
+                {magicLinkSent ? t('login.magicLink.sent') : t('login.form.submit')}
               </Button>
             </form>
 
             {magicLinkSent && (
               <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-sm text-green-400">
-                We've sent a sign-in link to {email}. Check your inbox!
+                {t('login.magicLink.sentDescription', { email })}
               </div>
             )}
             {error && (
@@ -131,15 +133,15 @@ export default function LoginPage() {
 
         {/* Footer */}
         <p className="text-center text-sm text-muted-foreground">
-          By continuing, you agree to our Terms of Service and Privacy Policy.
+          {t('login.footer.terms')}
           <br />
-          First time signing in? Your account will be created automatically.
+          {t('login.footer.firstTime')}
         </p>
 
         <div className="text-center">
           <Link to="/">
             <Button variant="ghost" size="sm">
-              Back to Home
+              {t('login.footer.back')}
             </Button>
           </Link>
         </div>

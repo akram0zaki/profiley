@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { api, ApiError } from '../../lib/api';
 import { supabase } from '../../lib/supabase';
+import { useLanguage } from '../contexts/language-context';
 
 type DocRow = {
   id: string;
@@ -54,6 +55,7 @@ async function sha256Hex(buf: ArrayBuffer): Promise<string> {
 }
 
 export default function UploadsPage() {
+  const { t } = useLanguage();
   const [documents, setDocuments] = useState<DocRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [chunkCounts, setChunkCounts] = useState<Record<string, number>>({});
@@ -87,7 +89,7 @@ export default function UploadsPage() {
         setChunkCounts({});
       }
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : 'Failed to load documents';
+      const msg = e instanceof ApiError ? e.message : t('uploads.feedback.loadFailed');
       toast.error(msg);
     } finally {
       setLoading(false);
@@ -112,11 +114,11 @@ export default function UploadsPage() {
 
   const uploadFile = async (file: File) => {
     if (file.size > MAX_BYTES) {
-      toast.error(`${file.name}: too large (max 10MB)`);
+      toast.error(t('uploads.feedback.tooLarge', { filename: file.name }));
       return;
     }
     if (file.type && !ACCEPTED_MIMES.has(file.type)) {
-      toast.error(`${file.name}: unsupported type (${file.type})`);
+      toast.error(t('uploads.feedback.unsupported', { filename: file.name, mimeType: file.type }));
       return;
     }
     setUploading(file.name);
@@ -143,11 +145,11 @@ export default function UploadsPage() {
         fileSize: file.size,
         checksumSha256: checksum,
       });
-      toast.success(`${file.name} uploaded — processing in background`);
+      toast.success(t('uploads.feedback.uploaded', { filename: file.name }));
       await reload();
     } catch (e: any) {
       const msg = e instanceof ApiError ? e.message : (e?.message ?? 'Upload failed');
-      toast.error(`${file.name}: ${msg}`);
+      toast.error(t('uploads.feedback.uploadError', { filename: file.name, message: msg }));
     } finally {
       setUploading(null);
     }
@@ -169,13 +171,13 @@ export default function UploadsPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Delete this document and its chunks?')) return;
+    if (!confirm(t('uploads.confirmDelete'))) return;
     try {
       await api.deleteDocument({ documentId: id });
-      toast.success('Document deleted');
+      toast.success(t('uploads.feedback.deleted'));
       setDocuments((curr) => curr.filter((d) => d.id !== id));
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : 'Delete failed';
+      const msg = e instanceof ApiError ? e.message : t('uploads.feedback.deleteFailed');
       toast.error(msg);
     }
   };
@@ -184,24 +186,24 @@ export default function UploadsPage() {
     if (s === 'completed')
       return (
         <Badge variant="secondary" className="bg-green-500/10 text-green-400 border-green-500/20">
-          Processed
+          {t('uploads.status.processed')}
         </Badge>
       );
     if (s === 'pending' || s === 'running')
       return (
         <Badge variant="secondary" className="bg-blue-500/10 text-blue-400 border-blue-500/20">
-          {s === 'running' ? 'Processing' : 'Queued'}
+          {s === 'running' ? t('uploads.status.processing') : t('uploads.status.queued')}
         </Badge>
       );
     if (s === 'quarantined')
       return (
         <Badge variant="secondary" className="bg-yellow-500/10 text-yellow-400 border-yellow-500/20">
-          Quarantined
+          {t('uploads.status.quarantined')}
         </Badge>
       );
     return (
       <Badge variant="secondary" className="bg-red-500/10 text-red-400 border-red-500/20">
-        Failed
+        {t('uploads.status.failed')}
       </Badge>
     );
   };
@@ -219,9 +221,9 @@ export default function UploadsPage() {
     <AppLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold">Document Uploads</h1>
+          <h1 className="text-3xl font-bold">{t('uploads.title')}</h1>
           <p className="text-muted-foreground">
-            Upload your CV, portfolio, and other professional documents to train your AI persona
+            {t('uploads.subtitle')}
           </p>
         </div>
 
@@ -244,8 +246,8 @@ export default function UploadsPage() {
                 <Upload className="h-8 w-8 text-purple-400" />
               </div>
               <div className="space-y-2">
-                <h3 className="font-medium">Drag and drop files here</h3>
-                <p className="text-sm text-muted-foreground">or click to browse your computer</p>
+                <h3 className="font-medium">{t('uploads.drop.title')}</h3>
+                <p className="text-sm text-muted-foreground">{t('uploads.drop.subtitle')}</p>
               </div>
               <input
                 ref={inputRef}
@@ -268,10 +270,10 @@ export default function UploadsPage() {
                 ) : (
                   <Upload className="h-4 w-4" />
                 )}
-                {uploading ? `Uploading ${uploading}…` : 'Choose Files'}
+                {uploading ? t('uploads.drop.uploading', { filename: uploading }) : t('uploads.drop.choose')}
               </Button>
               <p className="text-xs text-muted-foreground">
-                Supported: PDF, DOCX, TXT, MD. Max 10MB per file.
+                {t('uploads.drop.supported')}
               </p>
             </div>
           </CardContent>
@@ -280,7 +282,7 @@ export default function UploadsPage() {
         <div className="grid gap-4 md:grid-cols-3">
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium">Total Documents</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('uploads.stats.totalDocuments')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{documents.length}</div>
@@ -288,7 +290,7 @@ export default function UploadsPage() {
           </Card>
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium">Knowledge Chunks</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('uploads.stats.knowledgeChunks')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{totalChunks}</div>
@@ -296,7 +298,7 @@ export default function UploadsPage() {
           </Card>
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium">Processing Status</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('uploads.stats.processingStatus')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-400">
@@ -308,19 +310,19 @@ export default function UploadsPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Your Documents</CardTitle>
+            <CardTitle>{t('uploads.list.title')}</CardTitle>
             <CardDescription>
-              All uploaded files are processed and converted into knowledge chunks for your AI
+              {t('uploads.list.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             {loading ? (
               <div className="flex items-center justify-center py-12 text-muted-foreground">
-                <Loader2 className="h-5 w-5 animate-spin mr-2" /> Loading…
+                <Loader2 className="h-5 w-5 animate-spin mr-2" /> {t('uploads.list.loading')}
               </div>
             ) : documents.length === 0 ? (
               <p className="text-sm text-muted-foreground py-8 text-center">
-                No documents yet. Upload your CV to get started.
+                {t('uploads.list.empty')}
               </p>
             ) : (
               <div className="space-y-4">
@@ -341,11 +343,11 @@ export default function UploadsPage() {
                         <div className="space-y-1">
                           <p className="font-medium">{doc.original_filename}</p>
                           <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                            <span>{doc.mime_type ?? 'unknown'}</span>
+                            <span>{doc.mime_type ?? t('uploads.list.unknownType')}</span>
                             <span>•</span>
                             <span>{formatBytes(doc.file_size)}</span>
                             <span>•</span>
-                            <span>Uploaded {formatDate(doc.created_at)}</span>
+                            <span>{t('uploads.list.uploadedOn', { date: formatDate(doc.created_at) })}</span>
                           </div>
                         </div>
                         <Button
@@ -353,7 +355,7 @@ export default function UploadsPage() {
                           size="icon"
                           className="text-destructive"
                           onClick={() => handleDelete(doc.id)}
-                          aria-label="Delete"
+                          aria-label={t('uploads.list.deleteAria')}
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -363,7 +365,7 @@ export default function UploadsPage() {
                         {getStatusBadge(doc.processing_status)}
                         {doc.processing_status === 'completed' && (
                           <span className="text-sm text-muted-foreground">
-                            {chunkCounts[doc.id] ?? 0} knowledge chunks
+                            {t('uploads.list.chunksCount', { count: chunkCounts[doc.id] ?? 0 })}
                           </span>
                         )}
                         {(doc.processing_status === 'pending' ||
@@ -391,12 +393,12 @@ export default function UploadsPage() {
             <div className="flex gap-4">
               <AlertCircle className="h-5 w-5 text-blue-400 mt-0.5 flex-shrink-0" />
               <div className="space-y-2">
-                <h3 className="font-medium">How Document Processing Works</h3>
+                <h3 className="font-medium">{t('uploads.info.title')}</h3>
                 <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• Documents are extracted and converted to plain text</li>
-                  <li>• Content is chunked semantically for better AI retrieval</li>
-                  <li>• Embeddings are generated and stored in pgvector</li>
-                  <li>• Your AI persona uses these chunks to answer recruiter questions accurately</li>
+                  <li>• {t('uploads.info.items.extract')}</li>
+                  <li>• {t('uploads.info.items.chunk')}</li>
+                  <li>• {t('uploads.info.items.embed')}</li>
+                  <li>• {t('uploads.info.items.use')}</li>
                 </ul>
               </div>
             </div>

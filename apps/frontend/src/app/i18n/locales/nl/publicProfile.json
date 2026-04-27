@@ -1,0 +1,59 @@
+{
+  "brand": "Profiley",
+  "verified": "AI-Geverifieerd Profiel",
+  "createCta": "Maak Uw Profiel",
+  "loading": "Profiel laden…",
+  "error": {
+    "title": "Profiel niet beschikbaar",
+    "notFound": "Profiel niet gevonden",
+    "back": "Terug naar home"
+  },
+  "tabs": {
+    "about": "Over",
+    "chat": "AI Chat",
+    "jobFit": "Functie Match"
+  },
+  "about": {
+    "title": "Over",
+    "skills": "Vaardigheden"
+  },
+  "chat": {
+    "title": "Chat met de AI van {firstName}",
+    "description": "Deze AI kan vragen beantwoorden over de ervaring, vaardigheden en projecten van {firstName}. Alle antwoorden zijn gebaseerd op geverifieerde profielgegevens en geüploade documenten.",
+    "userName": "U",
+    "placeholder": "Vraag naar ervaring, vaardigheden, projecten of kwalificaties…"
+  },
+  "jobFit": {
+    "title": "Functie-Match Analyse",
+    "description": "Plak een functiebeschrijving om direct een AI-aangedreven analyse te krijgen van hoe goed {firstName} bij de rol past.",
+    "input": "Plak Functiebeschrijving",
+    "jobTitle": "Functietitel (optioneel)",
+    "company": "Bedrijfsnaam (optioneel)",
+    "placeholder": "Plak hier de functiebeschrijving…",
+    "analyze": "Analyseer Functie-Match",
+    "analyzing": "Analyseren…",
+    "fitScore": "Match-Score: {score}% ({band})",
+    "strengths": "Sterke Punten",
+    "gaps": "Hiaten",
+    "transferable": "Overdraagbare Sterke Punten"
+  },
+  "contact": {
+    "title": "Stuur een bericht",
+    "description": "De profieleigenaar ontvangt uw bericht via e-mail.",
+    "name": "Uw naam",
+    "email": "Uw e-mail",
+    "company": "Bedrijf (optioneel)",
+    "message": "Uw bericht",
+    "send": "Bericht Verzenden",
+    "captcha": "Voltooi de captcha"
+  },
+  "footer": {
+    "poweredBy": "Dit profiel wordt aangedreven door Profiley AI. Alle antwoorden zijn op bewijs gebaseerd en geverifieerd.",
+    "createCta": "Maak Uw AI-Profiel"
+  },
+  "feedback": {
+    "messageSent": "Bericht verzonden — we sturen het door naar de profieleigenaar.",
+    "sendFailed": "Verzenden mislukt",
+    "analysisFailed": "Analyse mislukt"
+  }
+}

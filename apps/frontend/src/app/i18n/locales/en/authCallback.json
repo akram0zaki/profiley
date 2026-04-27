@@ -1,0 +1,7 @@
+{
+  "loading": "Signing you in…",
+  "error": {
+    "title": "Sign-in did not complete. Please try again.",
+    "back": "Back to sign in"
+  }
+}

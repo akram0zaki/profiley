@@ -1,0 +1,53 @@
+{
+  "title": "Dashboard",
+  "subtitle": "Welcome back, {name}. Here's what's happening with your AI profile.",
+  "viewPublicProfile": "View Public Profile",
+  "completeProfile": "Complete Your Profile",
+  "profileProgress": "Your profile is {percent}% complete. Upload documents to improve your AI persona.",
+  "uploadDocuments": "Upload Documents",
+  "loading": "Loading…",
+  "stats": {
+    "profileViews": "Profile Views",
+    "conversations": "AI Conversations",
+    "jobFitAnalyses": "Job-Fit Analyses",
+    "engagementRate": "Engagement Rate",
+    "fromLastMonth": "from last month",
+    "allTime": "All time",
+    "totalChatSessions": "Total chat sessions",
+    "analysesRun": "Analyses run",
+    "visitsToAction": "Visits → action"
+  },
+  "recentActivity": "Recent Recruiter Activity",
+  "activitySubtitle": "Latest interactions with your AI profile",
+  "activity": {
+    "viewed": "Viewed",
+    "chatted": "Chatted",
+    "jobFit": "Job Fit",
+    "empty": "No recruiter activity yet."
+  },
+  "quickActions": "Quick Actions",
+  "quickActionsSubtitle": "Manage and optimize your profile",
+  "action": {
+    "editProfile": "Edit Profile Information",
+    "uploadDocs": "Upload New Documents",
+    "testPersona": "Test AI Persona",
+    "testJobFit": "Test Job-Fit Analyzer",
+    "configureAI": "Configure AI Settings"
+  },
+  "knowledgeBase": "Knowledge Base",
+  "knowledgeBaseSubtitle": "Your AI's training data at a glance",
+  "kb": {
+    "documents": "Documents",
+    "chunks": "Knowledge Chunks",
+    "processing": "Processing",
+    "complete": "Complete"
+  },
+  "time": {
+    "justNow": "just now",
+    "minutesAgo": "{count} min ago",
+    "hoursAgo": "{count} h ago",
+    "daysAgo": "{count} {unit} ago",
+    "dayUnit": "day",
+    "daysUnit": "days"
+  }
+}

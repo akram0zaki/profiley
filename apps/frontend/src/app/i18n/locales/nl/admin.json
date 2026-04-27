@@ -1,0 +1,88 @@
+{
+  "title": "Adminpaneel",
+  "subtitle": "Beheer AI-modellen en platformconfiguratie",
+  "badge": "Adminrechten",
+  "stats": {
+    "activeModels": "Actieve Modellen",
+    "avgLatency": "Gem. p50 Latentie",
+    "errorRate": "Foutpercentage (24u)",
+    "healthStatus": "Gezondheidsstatus",
+    "healthy": "Gezond",
+    "degraded": "Verminderd"
+  },
+  "tabs": {
+    "registry": "Modelregister",
+    "assignments": "Functietoewijzingen",
+    "health": "Provider Gezondheid"
+  },
+  "registry": {
+    "title": "Modelregister",
+    "description": "Configureer beschikbare AI-modellen voor elke capability",
+    "addNew": "Nieuw Model Toevoegen",
+    "loading": "Laden…",
+    "empty": "Geen modellen geregistreerd.",
+    "headers": {
+      "capability": "Capability",
+      "provider": "Provider",
+      "model": "Model",
+      "status": "Status",
+      "default": "Standaard",
+      "actions": "Acties"
+    },
+    "actions": {
+      "disable": "Uitschakelen",
+      "enable": "Inschakelen",
+      "makeDefault": "Standaard Maken",
+      "active": "Actief",
+      "inactive": "Inactief"
+    },
+    "dialog": {
+      "title": "Provider Model Toevoegen",
+      "description": "Registreer een nieuw model in ai_provider_configs.",
+      "capability": "Capability",
+      "provider": "Provider",
+      "providerPlaceholder": "bijv. openai, gemini, mistral",
+      "modelKey": "Model-sleutel",
+      "modelKeyPlaceholder": "bijv. gpt-4o-mini",
+      "displayName": "Weergavenaam (optioneel)",
+      "active": "Actief",
+      "default": "Standaard",
+      "cancel": "Annuleren",
+      "submit": "Model Toevoegen"
+    }
+  },
+  "assignments": {
+    "title": "Functie Modeltoewijzingen",
+    "description": "Wijs specifieke modellen toe aan elke platformfunctie",
+    "loading": "Laden…",
+    "empty": "Nog geen toewijzingen.",
+    "capability": "Capability: {capability}",
+    "useDefault": "(gebruik standaard)"
+  },
+  "health": {
+    "title": "Provider Gezondheidsdashboard",
+    "description": "Laatste 24 uur AI-providercall-metrics",
+    "refresh": "Vernieuwen",
+    "loading": "Laden…",
+    "empty": "Geen providercall-logs in de laatste 24u.",
+    "headers": {
+      "provider": "Provider",
+      "capability": "Capability",
+      "calls": "Aanroepen",
+      "p50": "p50",
+      "p95": "p95",
+      "errorRate": "Foutpercentage",
+      "fallbackRate": "Fallback-percentage",
+      "tokens": "Tokens"
+    }
+  },
+  "feedback": {
+    "modelUpdated": "Model bijgewerkt",
+    "updateFailed": "Bijwerken mislukt",
+    "createFailed": "Aanmaken mislukt",
+    "assignmentSaved": "Functietoewijzing opgeslagen",
+    "loadModelsFailed": "Modellen laden mislukt",
+    "loadHealthFailed": "Gezondheid laden mislukt",
+    "providerRequired": "Provider en model-sleutel zijn verplicht"
+  }
+}

@@ -18,10 +18,12 @@ import {
 } from '../../lib/profile';
 import { api, ApiError } from '../../lib/api';
 import { supabase } from '../../lib/supabase';
+import { useLanguage } from '../contexts/language-context';
 
 const SKILLS_QUESTION_KEY = 'skills';
 
 export default function ProfilePage() {
+  const { t } = useLanguage();
   const { appUser, profile, preferences, loading, error, reload } = useCurrentProfile();
 
   const [form, setForm] = useState({
@@ -96,7 +98,7 @@ export default function ProfilePage() {
   const handlePhotoUpload = async (file: File) => {
     if (!appUser) return;
     if (file.size > 2 * 1024 * 1024) {
-      toast.error('Photo must be 2MB or less');
+      toast.error(t('profile.feedback.photoTooLarge'));
       return;
     }
     setUploadingPhoto(true);
@@ -109,9 +111,9 @@ export default function ProfilePage() {
       if (upErr) throw upErr;
       await updateProfile(appUser.id, { profile_photo_path: path });
       setForm((f) => ({ ...f, photoPath: path }));
-      toast.success('Photo updated');
+      toast.success(t('profile.feedback.photoUpdated'));
     } catch (e: any) {
-      toast.error(e?.message ?? 'Photo upload failed');
+      toast.error(e?.message ?? t('profile.feedback.photoUploadFailed'));
     } finally {
       setUploadingPhoto(false);
     }
@@ -138,10 +140,10 @@ export default function ProfilePage() {
         },
         { onConflict: 'user_id,question_key' },
       );
-      toast.success('Profile updated');
+      toast.success(t('profile.feedback.profileUpdated'));
       await reload();
     } catch (e: any) {
-      toast.error(e?.message ?? 'Save failed');
+      toast.error(e?.message ?? t('profile.feedback.saveFailed'));
     } finally {
       setSaving(false);
     }
@@ -156,17 +158,17 @@ export default function ProfilePage() {
       await updatePreferences(appUser.id, { [key]: value });
       await reload();
     } catch (e: any) {
-      toast.error(e?.message ?? 'Update failed');
+      toast.error(e?.message ?? t('profile.feedback.saveFailed'));
     }
   };
 
   const togglePublic = async (next: boolean) => {
     try {
       await api.publishProfile({ publicVisibility: next });
-      toast.success(next ? 'Profile published' : 'Profile unpublished');
+      toast.success(next ? t('profile.feedback.profileUpdated') : t('profile.feedback.profileUpdated'));
       await reload();
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : 'Update failed';
+      const msg = e instanceof ApiError ? e.message : t('profile.feedback.saveFailed');
       toast.error(msg);
     }
   };
@@ -176,9 +178,9 @@ export default function ProfilePage() {
     const url = `${window.location.origin}/public/${profile.slug}`;
     try {
       await navigator.clipboard.writeText(url);
-      toast.success('Profile link copied');
+      toast.success(t('profile.feedback.linkCopied'));
     } catch {
-      toast.error('Copy failed');
+      toast.error(t('profile.feedback.copyFailed'));
     }
   };
 
@@ -186,7 +188,7 @@ export default function ProfilePage() {
     return (
       <AppLayout>
         <div className="flex items-center justify-center py-24 text-muted-foreground">
-          <Loader2 className="h-6 w-6 animate-spin mr-2" /> Loading profile…
+          <Loader2 className="h-6 w-6 animate-spin mr-2" /> {t('profile.loading')}
         </div>
       </AppLayout>
     );
@@ -196,9 +198,9 @@ export default function ProfilePage() {
     return (
       <AppLayout>
         <div className="max-w-2xl mx-auto py-12 space-y-4">
-          <h1 className="text-2xl font-bold">Profile not ready</h1>
+          <h1 className="text-2xl font-bold">{t('profile.notReady.title')}</h1>
           <p className="text-muted-foreground">
-            {error ?? "We couldn't find your profile yet. Please complete onboarding first."}
+            {error ?? t('profile.notReady.description')}
           </p>
         </div>
       </AppLayout>
@@ -210,19 +212,19 @@ export default function ProfilePage() {
       <div className="max-w-4xl mx-auto space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold">Edit Profile</h1>
-            <p className="text-muted-foreground">Manage your public professional identity</p>
+            <h1 className="text-3xl font-bold">{t('profile.title')}</h1>
+            <p className="text-muted-foreground">{t('profile.subtitle')}</p>
           </div>
           <Button onClick={handleSave} disabled={saving} className="gap-2">
             {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-            Save Changes
+            {t('profile.save')}
           </Button>
         </div>
 
         <Card>
           <CardHeader>
-            <CardTitle>Profile Photo</CardTitle>
-            <CardDescription>Your photo appears on your public profile</CardDescription>
+            <CardTitle>{t('profile.photo.title')}</CardTitle>
+            <CardDescription>{t('profile.photo.description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center gap-6">
@@ -249,12 +251,12 @@ export default function ProfilePage() {
                       ) : (
                         <Upload className="h-4 w-4" />
                       )}
-                      Upload New Photo
+                      {t('profile.photo.upload')}
                     </span>
                   </Button>
                 </label>
                 <p className="text-xs text-muted-foreground">
-                  JPG, PNG or GIF. Max 2MB. Recommended 400x400px.
+                  {t('profile.photo.hint')}
                 </p>
               </div>
             </div>
@@ -263,13 +265,13 @@ export default function ProfilePage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Basic Information</CardTitle>
-            <CardDescription>Your core professional details</CardDescription>
+            <CardTitle>{t('profile.basics.title')}</CardTitle>
+            <CardDescription>{t('profile.basics.description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="fullName">Full Name</Label>
+                <Label htmlFor="fullName">{t('profile.basics.fullName')}</Label>
                 <Input
                   id="fullName"
                   value={form.fullName}
@@ -277,7 +279,7 @@ export default function ProfilePage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="location">Location</Label>
+                <Label htmlFor="location">{t('profile.basics.location')}</Label>
                 <Input
                   id="location"
                   value={form.location}
@@ -286,7 +288,7 @@ export default function ProfilePage() {
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="headline">Professional Headline</Label>
+              <Label htmlFor="headline">{t('profile.basics.headline')}</Label>
               <Input
                 id="headline"
                 value={form.headline}
@@ -294,7 +296,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="shortBio">Short Bio</Label>
+              <Label htmlFor="shortBio">{t('profile.basics.shortBio')}</Label>
               <Textarea
                 id="shortBio"
                 rows={3}
@@ -303,7 +305,7 @@ export default function ProfilePage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="longBio">Bio</Label>
+              <Label htmlFor="longBio">{t('profile.basics.bio')}</Label>
               <Textarea
                 id="longBio"
                 rows={6}
@@ -316,13 +318,13 @@ export default function ProfilePage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Skills & Expertise</CardTitle>
-            <CardDescription>Key skills that define your professional identity</CardDescription>
+            <CardTitle>{t('profile.skills.title')}</CardTitle>
+            <CardDescription>{t('profile.skills.description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex gap-2">
               <Input
-                placeholder="Add a skill (e.g., React, Python, AI/ML)"
+                placeholder={t('profile.skills.placeholder')}
                 value={newSkill}
                 onChange={(e) => setNewSkill(e.target.value)}
                 onKeyDown={(e) => {
@@ -332,7 +334,7 @@ export default function ProfilePage() {
                   }
                 }}
               />
-              <Button onClick={addSkill}>Add</Button>
+              <Button onClick={addSkill}>{t('profile.skills.add')}</Button>
             </div>
             <div className="flex flex-wrap gap-2">
               {skills.map((s) => (
@@ -342,7 +344,7 @@ export default function ProfilePage() {
                 </Badge>
               ))}
               {skills.length === 0 && (
-                <p className="text-sm text-muted-foreground">No skills yet. Add a few above.</p>
+                <p className="text-sm text-muted-foreground">{t('profile.skills.empty')}</p>
               )}
             </div>
           </CardContent>
@@ -350,32 +352,32 @@ export default function ProfilePage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Public Profile Settings</CardTitle>
-            <CardDescription>Control what recruiters can see and do</CardDescription>
+            <CardTitle>{t('profile.publicSettings.title')}</CardTitle>
+            <CardDescription>{t('profile.publicSettings.description')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
-                <Label>Profile URL</Label>
+                <Label>{t('profile.publicSettings.url')}</Label>
                 <p className="text-sm text-muted-foreground">
                   {window.location.origin}/public/{profile.slug}
                 </p>
               </div>
               <Button variant="outline" size="sm" onClick={copyShareLink}>
-                Copy Link
+                {t('profile.publicSettings.copy')}
               </Button>
             </div>
             <div className="flex items-center justify-between p-4 rounded-lg border">
               <div className="space-y-0.5">
-                <p className="font-medium">Public Profile Visibility</p>
-                <p className="text-sm text-muted-foreground">Anyone with the link can view your profile</p>
+                <p className="font-medium">{t('profile.publicSettings.visibility.title')}</p>
+                <p className="text-sm text-muted-foreground">{t('profile.publicSettings.visibility.description')}</p>
               </div>
               <Switch checked={profile.public_visibility} onCheckedChange={togglePublic} />
             </div>
             <div className="flex items-center justify-between p-4 rounded-lg border">
               <div className="space-y-0.5">
-                <p className="font-medium">Allow AI Chat</p>
-                <p className="text-sm text-muted-foreground">Let recruiters chat with your AI persona</p>
+                <p className="font-medium">{t('profile.publicSettings.chat.title')}</p>
+                <p className="text-sm text-muted-foreground">{t('profile.publicSettings.chat.description')}</p>
               </div>
               <Switch
                 checked={preferences?.allow_public_chat ?? true}
@@ -384,9 +386,9 @@ export default function ProfilePage() {
             </div>
             <div className="flex items-center justify-between p-4 rounded-lg border">
               <div className="space-y-0.5">
-                <p className="font-medium">Allow Job-Fit Analysis</p>
+                <p className="font-medium">{t('profile.publicSettings.jobFit.title')}</p>
                 <p className="text-sm text-muted-foreground">
-                  Let recruiters analyze job descriptions against your profile
+                  {t('profile.publicSettings.jobFit.description')}
                 </p>
               </div>
               <Switch
@@ -396,8 +398,8 @@ export default function ProfilePage() {
             </div>
             <div className="flex items-center justify-between p-4 rounded-lg border">
               <div className="space-y-0.5">
-                <p className="font-medium">Allow Contact Form</p>
-                <p className="text-sm text-muted-foreground">Let recruiters send you direct messages</p>
+                <p className="font-medium">{t('profile.publicSettings.contact.title')}</p>
+                <p className="text-sm text-muted-foreground">{t('profile.publicSettings.contact.description')}</p>
               </div>
               <Switch
                 checked={preferences?.allow_contact_form ?? true}
@@ -406,8 +408,8 @@ export default function ProfilePage() {
             </div>
             <div className="flex items-center justify-between p-4 rounded-lg border">
               <div className="space-y-0.5">
-                <p className="font-medium">Show Document Citations</p>
-                <p className="text-sm text-muted-foreground">Display source references in AI responses</p>
+                <p className="font-medium">{t('profile.publicSettings.citations.title')}</p>
+                <p className="text-sm text-muted-foreground">{t('profile.publicSettings.citations.description')}</p>
               </div>
               <Switch
                 checked={preferences?.allow_document_citation ?? true}
@@ -420,7 +422,7 @@ export default function ProfilePage() {
         <div className="flex justify-end">
           <Button onClick={handleSave} size="lg" disabled={saving} className="gap-2">
             {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-            Save All Changes
+            {t('profile.saveAll')}
           </Button>
         </div>
       </div>

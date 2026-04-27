@@ -1,0 +1,52 @@
+{
+  "title": "Documentuploads",
+  "subtitle": "Upload uw CV, portfolio en andere professionele documenten om uw AI-persona te trainen",
+  "drop": {
+    "title": "Sleep bestanden hierheen",
+    "subtitle": "of klik om door uw computer te bladeren",
+    "choose": "Kies Bestanden",
+    "supported": "Ondersteund: PDF, DOCX, TXT, MD. Max 10 MB per bestand.",
+    "uploading": "{filename} uploaden…"
+  },
+  "stats": {
+    "totalDocuments": "Totaal Documenten",
+    "knowledgeChunks": "Kennisfragmenten",
+    "processingStatus": "Verwerkingsstatus"
+  },
+  "list": {
+    "title": "Uw Documenten",
+    "description": "Alle geüploade bestanden worden verwerkt en omgezet in kennisfragmenten voor uw AI",
+    "uploadedOn": "Geüpload op {date}",
+    "chunksCount": "{count} kennisfragmenten",
+    "unknownType": "onbekend",
+    "loading": "Laden…",
+    "empty": "Nog geen documenten. Upload uw CV om te beginnen.",
+    "deleteAria": "Document verwijderen"
+  },
+  "status": {
+    "processed": "Verwerkt",
+    "processing": "In Verwerking",
+    "queued": "In Wachtrij",
+    "quarantined": "In Quarantaine",
+    "failed": "Mislukt"
+  },
+  "feedback": {
+    "tooLarge": "{filename}: te groot (max 10 MB)",
+    "unsupported": "{filename}: niet-ondersteund type ({mimeType})",
+    "uploaded": "{filename} geüpload — wordt op de achtergrond verwerkt",
+    "uploadError": "{filename}: {message}",
+    "deleted": "Document verwijderd",
+    "deleteFailed": "Verwijderen mislukt",
+    "loadFailed": "Documenten laden mislukt"
+  },
+  "confirmDelete": "Dit document en bijbehorende fragmenten verwijderen?",
+  "info": {
+    "title": "Hoe Documentverwerking Werkt",
+    "items": {
+      "extract": "Documenten worden geëxtraheerd en omgezet naar platte tekst",
+      "chunk": "Inhoud wordt semantisch gefragmenteerd voor betere AI-retrieval",
+      "embed": "Embeddings worden gegenereerd en opgeslagen in pgvector",
+      "use": "Uw AI-persona gebruikt deze fragmenten om recruitersvragen nauwkeurig te beantwoorden"
+    }
+  }
+}

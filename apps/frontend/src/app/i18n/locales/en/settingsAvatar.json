@@ -1,0 +1,56 @@
+{
+  "title": "Avatar Settings",
+  "subtitle": "Configure your AI avatar for future live sessions",
+  "comingSoon": {
+    "title": "Live AI Avatar - Coming Soon",
+    "phase": "Phase 3",
+    "description": "Soon you'll be able to create a live AI avatar that can join video calls and represent you in real-time conversations with recruiters. Your avatar will use your uploaded photo, synthesized voice, and knowledge base to conduct natural conversations.",
+    "plannedTitle": "Planned Features:",
+    "planned": {
+      "photo": "Photo-realistic avatar generation from your uploaded photo",
+      "voice": "Real-time voice synthesis with your chosen voice model",
+      "video": "Live video streaming via HeyGen or Synthesia",
+      "lipsync": "Natural conversation flow with lip-sync",
+      "transcripts": "Session recording and transcripts"
+    }
+  },
+  "photo": {
+    "title": "Avatar Source Photo",
+    "description": "Upload a high-quality photo for your AI avatar",
+    "upload": "Upload Avatar Photo",
+    "comingSoon": "Coming Soon",
+    "tips": {
+      "frontFacing": "Use a clear, front-facing photo",
+      "headshot": "Recommended: Professional headshot",
+      "resolution": "High resolution (at least 1024x1024px)",
+      "lighting": "Good lighting and neutral background"
+    }
+  },
+  "provider": {
+    "title": "Avatar Provider",
+    "description": "Choose the platform for generating your live avatar",
+    "planned": "Planned",
+    "heygen": {
+      "name": "HeyGen",
+      "description": "High-quality AI avatars with real-time streaming capabilities"
+    },
+    "synthesia": {
+      "name": "Synthesia",
+      "description": "Professional AI avatar generation for enterprise use"
+    }
+  },
+  "voice": {
+    "title": "Avatar Voice",
+    "description": "Your avatar will use the voice settings configured in AI Settings",
+    "currentModel": "Current TTS Model: ElevenLabs",
+    "style": "Voice Style: Professional",
+    "configure": "Configure Voice Settings"
+  },
+  "sessions": {
+    "title": "Session Management",
+    "description": "Future avatar sessions will appear here",
+    "empty": "No avatar sessions yet",
+    "phaseNote": "This feature will be available in Phase 3"
+  },
+  "back": "Back to Settings"
+}

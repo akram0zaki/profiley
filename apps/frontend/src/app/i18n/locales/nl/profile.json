@@ -1,0 +1,68 @@
+{
+  "title": "Profiel Bewerken",
+  "subtitle": "Beheer uw openbare professionele identiteit",
+  "save": "Wijzigingen Opslaan",
+  "saveAll": "Alle Wijzigingen Opslaan",
+  "loading": "Profiel laden…",
+  "notReady": {
+    "title": "Profiel niet gereed",
+    "description": "We konden uw profiel nog niet vinden. Voltooi eerst de onboarding."
+  },
+  "photo": {
+    "title": "Profielfoto",
+    "description": "Uw foto verschijnt op uw openbare profiel",
+    "upload": "Upload Nieuwe Foto",
+    "hint": "JPG, PNG of GIF. Max 2 MB. Aanbevolen 400x400px."
+  },
+  "basics": {
+    "title": "Basisinformatie",
+    "description": "Uw essentiële professionele gegevens",
+    "fullName": "Volledige Naam",
+    "location": "Locatie",
+    "headline": "Professionele Titel",
+    "bio": "Bio",
+    "shortBio": "Korte Bio"
+  },
+  "skills": {
+    "title": "Vaardigheden & Expertise",
+    "description": "Belangrijkste vaardigheden die uw professionele identiteit definiëren",
+    "placeholder": "Voeg een vaardigheid toe (bijv. React, Python, AI/ML)",
+    "add": "Toevoegen",
+    "empty": "Nog geen vaardigheden. Voeg er hierboven enkele toe."
+  },
+  "publicSettings": {
+    "title": "Openbare Profielinstellingen",
+    "description": "Bepaal wat recruiters kunnen zien en doen",
+    "url": "Profiel-URL",
+    "copy": "Link Kopiëren",
+    "visibility": {
+      "title": "Zichtbaarheid Openbaar Profiel",
+      "description": "Iedereen met de link kan uw profiel bekijken"
+    },
+    "chat": {
+      "title": "Sta AI-Chat Toe",
+      "description": "Laat recruiters chatten met uw AI-persona"
+    },
+    "jobFit": {
+      "title": "Sta Functie-Match Analyse Toe",
+      "description": "Laat recruiters functiebeschrijvingen tegen uw profiel analyseren"
+    },
+    "contact": {
+      "title": "Sta Contactformulier Toe",
+      "description": "Laat recruiters u rechtstreekse berichten sturen"
+    },
+    "citations": {
+      "title": "Toon Documentcitaties",
+      "description": "Geef bronvermeldingen weer in AI-antwoorden"
+    }
+  },
+  "feedback": {
+    "photoTooLarge": "Foto moet 2 MB of kleiner zijn",
+    "photoUpdated": "Foto bijgewerkt",
+    "photoUploadFailed": "Uploaden van foto mislukt",
+    "profileUpdated": "Profiel bijgewerkt",
+    "saveFailed": "Opslaan mislukt",
+    "linkCopied": "Profiellink gekopieerd",
+    "copyFailed": "Kopiëren mislukt"
+  }
+}

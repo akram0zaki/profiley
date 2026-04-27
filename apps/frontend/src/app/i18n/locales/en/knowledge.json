@@ -1,0 +1,21 @@
+{
+  "title": "Knowledge Base",
+  "subtitle": "Explore the structured knowledge chunks that power your AI persona",
+  "stats": {
+    "totalChunks": "Total Chunks",
+    "acrossDocuments": "Across {count} documents",
+    "sourceDocuments": "Source Documents",
+    "uploadedFiles": "Uploaded files",
+    "sections": "Sections",
+    "differentCategories": "Different categories"
+  },
+  "searchPlaceholder": "Search your knowledge base…",
+  "list": {
+    "title": "Knowledge Chunks",
+    "description": "Semantic chunks extracted from your documents for AI retrieval",
+    "loading": "Loading…",
+    "empty": "No knowledge chunks yet. Upload documents to populate your knowledge base.",
+    "noMatches": "No chunks match your search.",
+    "unknownSource": "Unknown source"
+  }
+}

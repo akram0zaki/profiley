@@ -22,6 +22,7 @@ import {
 import { toast } from 'sonner';
 import { api, ApiError } from '../../lib/api';
 import { supabase } from '../../lib/supabase';
+import { useLanguage } from '../contexts/language-context';
 
 type PublicProfile = {
   id: string;
@@ -50,6 +51,7 @@ declare global {
 const CAPTCHA_SITE_KEY = (import.meta as any).env?.VITE_CAPTCHA_SITE_KEY as string | undefined;
 
 export default function PublicProfilePage() {
+  const { t } = useLanguage();
   const { username } = useParams();
   const [activeTab, setActiveTab] = useState('about');
   const [profile, setProfile] = useState<PublicProfile | null>(null);
@@ -108,9 +110,9 @@ export default function PublicProfilePage() {
       } catch (e) {
         if (cancelled) return;
         if (e instanceof ApiError && e.code === 'PROFILE_NOT_FOUND') {
-          setError('Profile not found');
+          setError(t('publicProfile.error.notFound'));
         } else {
-          setError(e instanceof ApiError ? e.message : 'Failed to load profile');
+          setError(e instanceof ApiError ? e.message : t('publicProfile.error.notFound'));
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -179,7 +181,7 @@ export default function PublicProfilePage() {
       });
       setJobFitResult(r);
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : 'Analysis failed';
+      const msg = e instanceof ApiError ? e.message : t('publicProfile.feedback.analysisFailed');
       toast.error(msg);
     } finally {
       setAnalyzing(false);
@@ -196,7 +198,7 @@ export default function PublicProfilePage() {
         /* noop */
       }
       if (!captchaToken) {
-        toast.error('Please complete the captcha');
+        toast.error(t('publicProfile.contact.captcha'));
         return;
       }
     }
@@ -210,7 +212,7 @@ export default function PublicProfilePage() {
         message: contactMessage,
         captchaToken,
       });
-      toast.success('Message sent — we will forward it to the profile owner.');
+      toast.success(t('publicProfile.feedback.messageSent'));
       setContactName('');
       setContactEmail('');
       setContactCompany('');
@@ -224,7 +226,7 @@ export default function PublicProfilePage() {
         }
       }
     } catch (e) {
-      const msg = e instanceof ApiError ? e.message : 'Send failed';
+      const msg = e instanceof ApiError ? e.message : t('publicProfile.feedback.sendFailed');
       toast.error(msg);
     } finally {
       setContactSending(false);
@@ -234,7 +236,7 @@ export default function PublicProfilePage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center text-muted-foreground">
-        <Loader2 className="h-6 w-6 animate-spin mr-2" /> Loading profile…
+        <Loader2 className="h-6 w-6 animate-spin mr-2" /> {t('publicProfile.loading')}
       </div>
     );
   }
@@ -246,13 +248,13 @@ export default function PublicProfilePage() {
           <CardHeader>
             <div className="flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-yellow-400" />
-              <CardTitle>Profile unavailable</CardTitle>
+              <CardTitle>{t('publicProfile.error.title')}</CardTitle>
             </div>
-            <CardDescription>{error ?? 'Profile not found'}</CardDescription>
+            <CardDescription>{error ?? t('publicProfile.error.notFound')}</CardDescription>
           </CardHeader>
           <CardContent>
             <Link to="/">
-              <Button variant="outline">Back to home</Button>
+              <Button variant="outline">{t('publicProfile.error.back')}</Button>
             </Link>
           </CardContent>
         </Card>
@@ -278,16 +280,16 @@ export default function PublicProfilePage() {
             <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
               <span className="font-bold text-white">P</span>
             </div>
-            <span className="font-semibold hidden sm:inline-block">Profiley</span>
+            <span className="font-semibold hidden sm:inline-block">{t('publicProfile.brand')}</span>
           </Link>
           <div className="flex items-center gap-2">
             <Badge variant="secondary" className="gap-1">
               <Shield className="h-3 w-3" />
-              AI-Verified Profile
+              {t('publicProfile.verified')}
             </Badge>
             <Link to="/login">
               <Button variant="outline" size="sm">
-                Create Your Profile
+                {t('publicProfile.createCta')}
               </Button>
             </Link>
           </div>
@@ -329,7 +331,7 @@ export default function PublicProfilePage() {
                 <div className="flex gap-2">
                   <Button className="gap-2" onClick={() => setShowContact((v) => !v)}>
                     <Mail className="h-4 w-4" />
-                    Contact
+                    {t('publicProfile.contact.send')}
                   </Button>
                 </div>
               )}
@@ -342,30 +344,30 @@ export default function PublicProfilePage() {
         <section className="container px-4 max-w-screen-xl pt-6">
           <Card>
             <CardHeader>
-              <CardTitle>Send a message</CardTitle>
-              <CardDescription>The profile owner will receive your message via email.</CardDescription>
+              <CardTitle>{t('publicProfile.contact.title')}</CardTitle>
+              <CardDescription>{t('publicProfile.contact.description')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="grid gap-3 md:grid-cols-2">
                 <Input
-                  placeholder="Your name"
+                  placeholder={t('publicProfile.contact.name')}
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
                 />
                 <Input
                   type="email"
-                  placeholder="Your email"
+                  placeholder={t('publicProfile.contact.email')}
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
                 />
               </div>
               <Input
-                placeholder="Company (optional)"
+                placeholder={t('publicProfile.contact.company')}
                 value={contactCompany}
                 onChange={(e) => setContactCompany(e.target.value)}
               />
               <Textarea
-                placeholder="Your message"
+                placeholder={t('publicProfile.contact.message')}
                 rows={5}
                 value={contactMessage}
                 onChange={(e) => setContactMessage(e.target.value)}
@@ -386,7 +388,7 @@ export default function PublicProfilePage() {
                 ) : (
                   <Send className="h-4 w-4" />
                 )}
-                Send Message
+                {t('publicProfile.contact.send')}
               </Button>
             </CardContent>
           </Card>
@@ -396,14 +398,14 @@ export default function PublicProfilePage() {
       <section className="container px-4 py-8 max-w-screen-xl">
         <Tabs value={activeTab} onValueChange={handleTabChange}>
           <TabsList className="grid w-full max-w-md grid-cols-3">
-            <TabsTrigger value="about">About</TabsTrigger>
+            <TabsTrigger value="about">{t('publicProfile.tabs.about')}</TabsTrigger>
             <TabsTrigger value="chat" className="gap-2" disabled={!profile.allow_public_chat}>
               <MessageSquare className="h-4 w-4" />
-              AI Chat
+              {t('publicProfile.tabs.chat')}
             </TabsTrigger>
             <TabsTrigger value="job-fit" className="gap-2" disabled={!profile.allow_job_fit_analysis}>
               <Briefcase className="h-4 w-4" />
-              Job Fit
+              {t('publicProfile.tabs.jobFit')}
             </TabsTrigger>
           </TabsList>
 
@@ -411,7 +413,7 @@ export default function PublicProfilePage() {
             {(profile.short_bio || profile.long_bio) && (
               <Card>
                 <CardHeader>
-                  <CardTitle>About</CardTitle>
+                  <CardTitle>{t('publicProfile.about.title')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="leading-relaxed whitespace-pre-wrap">
@@ -423,7 +425,7 @@ export default function PublicProfilePage() {
             {skills.length > 0 && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Skills</CardTitle>
+                  <CardTitle>{t('publicProfile.about.skills')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
@@ -443,10 +445,9 @@ export default function PublicProfilePage() {
               <CardHeader className="flex flex-row items-start gap-4">
                 <Sparkles className="h-5 w-5 text-blue-400 mt-1 flex-shrink-0" />
                 <div className="space-y-1">
-                  <CardTitle className="text-base">Chat with {firstName}'s AI</CardTitle>
+                  <CardTitle className="text-base">{t('publicProfile.chat.title', { firstName })}</CardTitle>
                   <CardDescription>
-                    This AI can answer questions about {firstName}'s experience, skills, and projects.
-                    All responses are based on verified profile data and uploaded documents.
+                    {t('publicProfile.chat.description', { firstName })}
                   </CardDescription>
                 </div>
               </CardHeader>
@@ -455,9 +456,9 @@ export default function PublicProfilePage() {
             <Card className="h-[600px] flex flex-col">
               <ChatInterface
                 profileSlug={profile.slug}
-                userName="You"
+                userName={t('publicProfile.chat.userName')}
                 botName={`${firstName} AI`}
-                placeholder="Ask about experience, skills, projects, or qualifications..."
+                placeholder={t('publicProfile.chat.placeholder')}
               />
             </Card>
           </TabsContent>
@@ -467,10 +468,9 @@ export default function PublicProfilePage() {
               <CardHeader className="flex flex-row items-start gap-4">
                 <Briefcase className="h-5 w-5 text-purple-400 mt-1 flex-shrink-0" />
                 <div className="space-y-1">
-                  <CardTitle className="text-base">Job-Fit Analysis</CardTitle>
+                  <CardTitle className="text-base">{t('publicProfile.jobFit.title')}</CardTitle>
                   <CardDescription>
-                    Paste a job description to get an instant AI-powered analysis of how well{' '}
-                    {firstName} matches the role.
+                    {t('publicProfile.jobFit.description', { firstName })}
                   </CardDescription>
                 </div>
               </CardHeader>
@@ -478,23 +478,23 @@ export default function PublicProfilePage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Paste Job Description</CardTitle>
+                <CardTitle>{t('publicProfile.jobFit.input')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid gap-4 md:grid-cols-2">
                   <Input
-                    placeholder="Job title (optional)"
+                    placeholder={t('publicProfile.jobFit.jobTitle')}
                     value={jobTitle}
                     onChange={(e) => setJobTitle(e.target.value)}
                   />
                   <Input
-                    placeholder="Company name (optional)"
+                    placeholder={t('publicProfile.jobFit.company')}
                     value={companyName}
                     onChange={(e) => setCompanyName(e.target.value)}
                   />
                 </div>
                 <Textarea
-                  placeholder="Paste the job description here..."
+                  placeholder={t('publicProfile.jobFit.placeholder')}
                   rows={12}
                   className="font-mono text-sm"
                   value={jobDescription}
@@ -510,7 +510,7 @@ export default function PublicProfilePage() {
                   ) : (
                     <Sparkles className="h-4 w-4" />
                   )}
-                  {analyzing ? 'Analyzing…' : 'Analyze Job Fit'}
+                  {analyzing ? t('publicProfile.jobFit.analyzing') : t('publicProfile.jobFit.analyze')}
                 </Button>
               </CardContent>
             </Card>
@@ -519,14 +519,14 @@ export default function PublicProfilePage() {
               <Card>
                 <CardHeader>
                   <CardTitle>
-                    Fit Score: {jobFitResult.fitScore}% ({jobFitResult.fitBand})
+                    {t('publicProfile.jobFit.fitScore', { score: jobFitResult.fitScore, band: jobFitResult.fitBand })}
                   </CardTitle>
                   <CardDescription>{jobFitResult.reasoningSummary}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4 text-sm">
                   {Array.isArray(jobFitResult.strengths) && jobFitResult.strengths.length > 0 && (
                     <div>
-                      <p className="font-medium mb-1 text-green-400">Strengths</p>
+                      <p className="font-medium mb-1 text-green-400">{t('publicProfile.jobFit.strengths')}</p>
                       <ul className="list-disc ml-5 space-y-1">
                         {jobFitResult.strengths.map((s: string, i: number) => (
                           <li key={i}>{s}</li>
@@ -536,7 +536,7 @@ export default function PublicProfilePage() {
                   )}
                   {Array.isArray(jobFitResult.gaps) && jobFitResult.gaps.length > 0 && (
                     <div>
-                      <p className="font-medium mb-1 text-orange-400">Gaps</p>
+                      <p className="font-medium mb-1 text-orange-400">{t('publicProfile.jobFit.gaps')}</p>
                       <ul className="list-disc ml-5 space-y-1">
                         {jobFitResult.gaps.map((s: string, i: number) => (
                           <li key={i}>{s}</li>
@@ -547,7 +547,7 @@ export default function PublicProfilePage() {
                   {Array.isArray(jobFitResult.transferableStrengths) &&
                     jobFitResult.transferableStrengths.length > 0 && (
                       <div>
-                        <p className="font-medium mb-1 text-blue-400">Transferable Strengths</p>
+                        <p className="font-medium mb-1 text-blue-400">{t('publicProfile.jobFit.transferable')}</p>
                         <ul className="list-disc ml-5 space-y-1">
                           {jobFitResult.transferableStrengths.map((s: string, i: number) => (
                             <li key={i}>{s}</li>
@@ -568,12 +568,12 @@ export default function PublicProfilePage() {
             <div className="flex items-center gap-2">
               <Shield className="h-4 w-4 text-muted-foreground" />
               <p className="text-sm text-muted-foreground">
-                This profile is powered by Profiley AI. All responses are evidence-based and verified.
+                {t('publicProfile.footer.poweredBy')}
               </p>
             </div>
             <Link to="/login">
               <Button variant="outline" size="sm">
-                Create Your AI Profile
+                {t('publicProfile.footer.createCta')}
               </Button>
             </Link>
           </div>

@@ -1,0 +1,88 @@
+{
+  "title": "Admin Panel",
+  "subtitle": "Manage AI models and platform configuration",
+  "badge": "Admin Access",
+  "stats": {
+    "activeModels": "Active Models",
+    "avgLatency": "Avg p50 Latency",
+    "errorRate": "Error Rate (24h)",
+    "healthStatus": "Health Status",
+    "healthy": "Healthy",
+    "degraded": "Degraded"
+  },
+  "tabs": {
+    "registry": "Model Registry",
+    "assignments": "Feature Assignments",
+    "health": "Provider Health"
+  },
+  "registry": {
+    "title": "Model Registry",
+    "description": "Configure available AI models for each capability",
+    "addNew": "Add New Model",
+    "loading": "Loading…",
+    "empty": "No models registered.",
+    "headers": {
+      "capability": "Capability",
+      "provider": "Provider",
+      "model": "Model",
+      "status": "Status",
+      "default": "Default",
+      "actions": "Actions"
+    },
+    "actions": {
+      "disable": "Disable",
+      "enable": "Enable",
+      "makeDefault": "Make Default",
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "dialog": {
+      "title": "Add Provider Model",
+      "description": "Register a new model in ai_provider_configs.",
+      "capability": "Capability",
+      "provider": "Provider",
+      "providerPlaceholder": "e.g. openai, gemini, mistral",
+      "modelKey": "Model Key",
+      "modelKeyPlaceholder": "e.g. gpt-4o-mini",
+      "displayName": "Display Name (optional)",
+      "active": "Active",
+      "default": "Default",
+      "cancel": "Cancel",
+      "submit": "Add Model"
+    }
+  },
+  "assignments": {
+    "title": "Feature Model Assignments",
+    "description": "Assign specific models to each platform feature",
+    "loading": "Loading…",
+    "empty": "No assignments yet.",
+    "capability": "Capability: {capability}",
+    "useDefault": "(use default)"
+  },
+  "health": {
+    "title": "Provider Health Dashboard",
+    "description": "Last 24 hours of AI provider call metrics",
+    "refresh": "Refresh",
+    "loading": "Loading…",
+    "empty": "No provider call logs in the last 24h.",
+    "headers": {
+      "provider": "Provider",
+      "capability": "Capability",
+      "calls": "Calls",
+      "p50": "p50",
+      "p95": "p95",
+      "errorRate": "Error Rate",
+      "fallbackRate": "Fallback Rate",
+      "tokens": "Tokens"
+    }
+  },
+  "feedback": {
+    "modelUpdated": "Model updated",
+    "updateFailed": "Update failed",
+    "createFailed": "Create failed",
+    "assignmentSaved": "Feature assignment saved",
+    "loadModelsFailed": "Failed to load models",
+    "loadHealthFailed": "Failed to load health",
+    "providerRequired": "Provider and model key required"
+  }
+}
