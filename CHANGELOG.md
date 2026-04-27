@@ -11,6 +11,19 @@ no Supabase project has been created yet. Follow
 [`docs/concept/profiley-init-guide.md`](docs/concept/profiley-init-guide.md) to
 provision and deploy.
 
+### Fixed — Edge function authentication
+
+- `supabase/functions/_shared/auth/requireUser.ts` now extracts the bearer JWT
+  from the request `Authorization` header and passes it explicitly to
+  `supabase.auth.getUser(token)`. supabase-js's auth client manages its own
+  Authorization header and ignores `global.headers`, so the previous
+  `auth.getUser()` call hit `/auth/v1/user` without the user's JWT and every
+  authenticated edge function returned `UNAUTHORIZED` for signed-in users
+  (observed on `initialize-user-profile`, `list-user-documents`,
+  `create-upload-url`, etc.). New tests in
+  `supabase/tests/requireUser.test.ts` cover the missing-header, success, and
+  invalid-token paths.
+
 ### Added — Internationalization
 
 - Per-locale JSON namespaces under
