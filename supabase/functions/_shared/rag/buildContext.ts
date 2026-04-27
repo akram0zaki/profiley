@@ -9,7 +9,11 @@ export function buildContext(
   chunks: RetrievedChunk[],
   opts: { maxChars?: number } = {},
 ): ContextBlock {
-  const max = opts.maxChars ?? 6000;
+  // Chunks are produced at ~3200 chars each (see chunkText.ts), and retrieval
+  // returns up to ~8 of them. The default budget must be large enough to fit
+  // most of the top-K, otherwise the model only sees 1–2 chunks and answers
+  // "I don't have that information" even when later chunks contain the fact.
+  const max = opts.maxChars ?? 28000;
   const out: string[] = [];
   const citations: ContextBlock["citations"] = [];
   let used = 0;

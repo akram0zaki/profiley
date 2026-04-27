@@ -35,3 +35,12 @@ Deno.test("buildContext: empty input → empty text + empty citations", () => {
   assertEquals(out.text, "");
   assertEquals(out.citations, []);
 });
+
+Deno.test("buildContext: default budget fits a full top-K of large chunks", () => {
+  // Mirror the worst case from chunkText.ts: ~3200 char chunks, top-K = 8.
+  const big = "x".repeat(3200);
+  const chunks = Array.from({ length: 8 }, (_, i) => chunk(String(i), big));
+  const out = buildContext(chunks);
+  assertEquals(out.citations.length, 8);
+  assert(out.text.includes("[#8] "));
+});

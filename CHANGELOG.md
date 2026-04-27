@@ -11,6 +11,17 @@ no Supabase project has been created yet. Follow
 [`docs/concept/profiley-init-guide.md`](docs/concept/profiley-init-guide.md) to
 provision and deploy.
 
+### Fixed — Persona chat truncated retrieved CV/cover-letter chunks
+
+- `_shared/rag/buildContext.ts` raised the default `maxChars` budget from
+  `6000` to `28000`. Knowledge chunks are produced at ~3200 chars each
+  (`chunkText.ts`) and retrieval returns the top 8, so the previous budget
+  only fit ~2 chunks; if the relevant excerpt (e.g. an "Education" section
+  with the graduation year) was outside that pair, the persona answered
+  "I don't have that information yet" even when the fact was in an uploaded
+  CV. New default fits the full top-K of worst-case-sized chunks. Verified
+  by `supabase/tests/buildContext.test.ts`.
+
 ### Added — Public profile sharing UX + custom slug
 
 - New edge function `update-profile-slug` lets a signed-in user rename their
