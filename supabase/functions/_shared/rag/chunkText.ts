@@ -13,9 +13,13 @@ export type Chunk = {
 
 function splitSentences(text: string): string[] {
   // Conservative: split on punctuation followed by whitespace, keep punctuation.
+  // Punctuation set includes ASCII `.!?`, the Arabic question mark `؟`, and
+  // the CJK full stop `。`. None of these need backslash escapes inside a
+  // character class, and using `\؟` / `\。` is rejected as an invalid escape
+  // under Unicode-mode regexes (`/u`).
   return text
     .replace(/\r\n/g, "\n")
-    .split(/(?<=[\.\!\?\؟\。])\s+/u)
+    .split(/(?<=[.!?؟。])\s+/u)
     .map((s) => s.trim())
     .filter(Boolean);
 }

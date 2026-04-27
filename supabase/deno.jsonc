@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "test": "deno test --allow-env --allow-net --allow-read tests/"
+  },
+  "fmt": {
+    "exclude": ["functions/_shared", "tests"]
+  },
+  "lock": false
+}

@@ -11,6 +11,36 @@ no Supabase project has been created yet. Follow
 [`docs/concept/profiley-init-guide.md`](docs/concept/profiley-init-guide.md) to
 provision and deploy.
 
+### Added — Testing
+
+- Frontend unit test harness in `apps/frontend/` using Vitest + jsdom +
+  Testing Library, with coverage support and setup shims for `localStorage`,
+  `crypto.randomUUID`, and `import.meta.env`.
+- Frontend tests covering `lib/api.ts`, `lib/auth.ts`, `lib/profile.ts`, the
+  `cn()` class helper, and the language context's translation, direction, and
+  persistence behavior.
+- Deno unit test suite in `supabase/tests/` covering shared edge-function
+  utilities: CORS handling, response envelopes, locale helpers, visitor-session
+  and IP hashing helpers, slug normalization, prompt builders, text
+  normalization, RAG chunking/context assembly, and request validation schemas.
+- `supabase/deno.jsonc` task wiring so edge-function shared modules can be
+  tested independently of deployment.
+- Root package test commands: `test`, `test:frontend`,
+  `test:frontend:watch`, `test:frontend:coverage`, `test:edge`, and
+  `test:edge:watch`.
+- `docs/testing.md` documenting the current test strategy, runtime split,
+  coverage scope, deferred integration/e2e work, and contributor conventions
+  for adding new tests.
+
+### Changed
+
+- `_shared/utils/slug.ts` now exports `baseSlug()` so the slug-normalization
+  logic can be tested directly without coupling the suite to the live service
+  client.
+- `_shared/rag/chunkText.ts` now uses a Unicode-safe sentence-splitting regex;
+  the previous escaped Arabic/CJK punctuation pattern was rejected by Deno's
+  stricter regex parser under `/u` mode.
+
 ### Added — Database (`supabase/migrations/0001` … `0023_*.sql`)
 
 - Extensions: `pgcrypto`, `vector`, `citext`, `pg_cron`, `pg_net`.

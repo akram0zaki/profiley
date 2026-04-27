@@ -2,7 +2,8 @@
 
 import { getServiceClient } from "../db/serviceClient.ts";
 
-function baseSlug(name: string): string {
+/** Normalize a free-form name into a URL-safe profile slug fragment. */
+export function baseSlug(name: string): string {
   return name
     .normalize("NFKD")
     .replace(/[\u0300-\u036f]/g, "")
