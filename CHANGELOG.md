@@ -11,6 +11,33 @@ no Supabase project has been created yet. Follow
 [`docs/concept/profiley-init-guide.md`](docs/concept/profiley-init-guide.md) to
 provision and deploy.
 
+### Added — "Fill from CV" on the profile page
+
+- New edge function `extract-profile-from-cv` reads the user's most recent
+  successfully-processed CV (or a specific `documentId`), pulls the stored
+  text from `document_extractions`, and returns a structured profile object
+  (`fullName`, `headline`, `location`, `shortBio`, `longBio`, `skills[]`)
+  via `chatStructured` against `PROFILE_EXTRACT_JSON_SCHEMA`. It does not
+  persist anything — the frontend prefills the profile form for the user to
+  review and save.
+- The profile page (`apps/frontend/src/app/pages/profile.tsx`) gains a
+  "Fill from CV" button in the Basic Information card. Skills are merged
+  case-insensitively with whatever the user already had. Surfaces specific
+  errors for `NO_PROCESSED_CV` and `EMPTY_CV_TEXT`.
+- Migration `0027_seed_profile_extract_assignment.sql` registers the
+  `profile_extract` feature against the default chat model so it shows up in
+  the admin model assignments UI (the router already falls back to the
+  default when no assignment exists).
+
+### Changed — Clearer rejection for legacy `.doc` uploads
+
+- Legacy Microsoft Word `.doc` files are not extractable in our edge runtime
+  (mammoth handles only the modern `.docx` zip-based format). Both the
+  frontend uploads page and `create-upload-url` now detect `.doc` /
+  `application/msword` early and surface a translated, actionable message
+  ("save as `.docx` or PDF") instead of a generic "unsupported type"
+  error.
+
 ### Fixed — Document ingestion stuck in `running`
 
 - `process-document` is invoked by `pg_cron` via `pg_net` with an

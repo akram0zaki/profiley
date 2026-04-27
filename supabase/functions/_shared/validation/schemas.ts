@@ -60,6 +60,11 @@ export const ProcessDocumentSchema = z.object({
   documentId: z.string().uuid(),
 });
 
+export const ExtractProfileFromCvSchema = z.object({
+  documentId: z.string().uuid().optional(),
+  language: z.enum(["en", "nl", "ar"]).optional(),
+}).default({});
+
 // ----- Chat -----
 export const ChatPersonaSchema = z.object({
   slug: z.string().min(1).max(80),

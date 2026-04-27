@@ -6,6 +6,7 @@ import {
   ChatPersonaSchema,
   CompleteOnboardingSchema,
   CreateUploadUrlSchema,
+  ExtractProfileFromCvSchema,
   FinalizeUploadSchema,
   GetPublicProfileSchema,
   InitializeUserProfileSchema,
@@ -179,4 +180,20 @@ Deno.test("Admin schemas enforce capability enum + UUIDs", () => {
     displayName: "GPT-4o mini",
   });
   assert(create.success && create.data.isActive === true && create.data.isDefault === false);
+});
+
+Deno.test("ExtractProfileFromCvSchema: empty body OK, optional documentId UUID, language enum", () => {
+  // Empty body is valid (defaults to {}).
+  const empty = ExtractProfileFromCvSchema.safeParse(undefined);
+  assert(empty.success);
+
+  assert(ExtractProfileFromCvSchema.safeParse({}).success);
+  assert(
+    ExtractProfileFromCvSchema.safeParse({
+      documentId: "11111111-1111-1111-1111-111111111111",
+      language: "ar",
+    }).success,
+  );
+  assert(!ExtractProfileFromCvSchema.safeParse({ documentId: "not-a-uuid" }).success);
+  assert(!ExtractProfileFromCvSchema.safeParse({ language: "fr" }).success);
 });

@@ -28,6 +28,16 @@ Deno.serve(async (req) => {
     if (req.method !== "POST") throw new AppError("METHOD_NOT_ALLOWED", "POST required", 405);
     const user = await requireUser(req);
     const body = await parseJsonBody(req, CreateUploadUrlSchema);
+    const lowerName = body.filename.toLowerCase();
+    const isLegacyDoc =
+      body.mimeType === "application/msword" || lowerName.endsWith(".doc");
+    if (isLegacyDoc) {
+      throw new AppError(
+        "UNSUPPORTED_LEGACY_DOC",
+        "Legacy .doc files are not supported. Please save your document as .docx or PDF and try again.",
+        400,
+      );
+    }
     if (!ALLOWED_MIMES.has(body.mimeType)) {
       throw new AppError("UNSUPPORTED_MIME", `MIME type ${body.mimeType} not allowed`, 400);
     }

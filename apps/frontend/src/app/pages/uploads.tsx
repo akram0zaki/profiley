@@ -151,6 +151,14 @@ export default function UploadsPage() {
       toast.error(t('uploads.feedback.tooLarge', { filename: file.name }));
       return;
     }
+    const lowerName = file.name.toLowerCase();
+    const isLegacyDoc =
+      file.type === 'application/msword' ||
+      (lowerName.endsWith('.doc') && !lowerName.endsWith('.docx'));
+    if (isLegacyDoc) {
+      toast.error(t('uploads.feedback.legacyDoc', { filename: file.name }));
+      return;
+    }
     if (file.type && !ACCEPTED_MIMES.has(file.type)) {
       toast.error(t('uploads.feedback.unsupported', { filename: file.name, mimeType: file.type }));
       return;

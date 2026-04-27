@@ -15,6 +15,7 @@ applyTo: "supabase/**"
   or data — go through a workspace migration applied via `supabase db push`.
   Never run ad-hoc `UPDATE` / `INSERT` / `ALTER` against the remote DB via
   `psql` or any other client.**
+- Track migrations in `supabase/trackers/supabase-changes_yyyyMMdd.md`
 - Read-only diagnostics against the remote DB ARE allowed (and encouraged) via
   `psql` using the session pooler:
   - Source `supabase/.env`, then connect with

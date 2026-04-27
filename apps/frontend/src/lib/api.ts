@@ -128,6 +128,21 @@ export const api = {
   finalizeUpload: (b: unknown) => callFn<{ documentId: string }>('finalize-upload', b),
   listUserDocuments: () => callFn<{ documents: any[] }>('list-user-documents', {}, { method: 'POST' }),
   deleteDocument: (b: { documentId: string }) => callFn('delete-document', b),
+  extractProfileFromCv: (b: { documentId?: string; language?: 'en' | 'nl' | 'ar' } = {}) =>
+    callFn<{
+      sourceDocumentId: string;
+      sourceFilename: string;
+      language: string;
+      profile: {
+        fullName: string;
+        headline: string;
+        location: string;
+        shortBio: string;
+        longBio: string;
+        skills: string[];
+      };
+      modelUsed: string;
+    }>('extract-profile-from-cv', b),
   testPersonaChat: (b: unknown) => callFn<{ conversationId: string | null; message: string; citations: any[]; modelUsed: string; language: string }>('test-persona-chat', b),
   chatPersona: (b: unknown) => callFn<{ conversationId: string | null; message: string; citations: any[]; modelUsed: string; language: string }>('chat-persona', b, { auth: false }),
   analyzeJobFit: (b: unknown) => callFn<any>('analyze-job-fit', b, { auth: false }),

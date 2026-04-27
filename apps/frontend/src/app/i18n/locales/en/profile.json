@@ -21,7 +21,12 @@
     "location": "Location",
     "headline": "Professional Headline",
     "bio": "Bio",
-    "shortBio": "Short Bio"
+    "shortBio": "Short Bio",
+    "fillFromCv": {
+      "label": "Fill from CV",
+      "loading": "Reading your CV…",
+      "hint": "Auto-fill these fields from your most recent uploaded CV. You can edit anything before saving."
+    }
   },
   "skills": {
     "title": "Skills & Expertise",
@@ -63,6 +68,10 @@
     "profileUpdated": "Profile updated",
     "saveFailed": "Save failed",
     "linkCopied": "Profile link copied",
-    "copyFailed": "Copy failed"
+    "copyFailed": "Copy failed",
+    "cvFilled": "Filled from {filename}. Review the fields and click Save Changes.",
+    "cvFillNoCv": "No processed CV yet. Upload a CV on the Documents page first.",
+    "cvFillEmpty": "Your CV has no extractable text. Try a different file.",
+    "cvFillFailed": "Couldn't read your CV. Please try again."
   }
 }

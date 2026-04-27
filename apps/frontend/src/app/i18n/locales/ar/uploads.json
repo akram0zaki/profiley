@@ -33,6 +33,7 @@
   "feedback": {
     "tooLarge": "{filename}: حجم كبير جدًا (الحد الأقصى 10 ميغابايت)",
     "unsupported": "{filename}: نوع غير مدعوم ({mimeType})",
+    "legacyDoc": "{filename}: ملفات .doc القديمة غير مدعومة. يرجى حفظ المستند بصيغة .docx أو PDF ثم المحاولة مجددًا.",
     "uploaded": "تم تحميل {filename} — جارٍ المعالجة في الخلفية",
     "uploadError": "{filename}: {message}",
     "deleted": "تم حذف المستند",

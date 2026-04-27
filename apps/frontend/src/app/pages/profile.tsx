@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { Badge } from '../components/ui/badge';
 import { Switch } from '../components/ui/switch';
 import { useEffect, useState } from 'react';
-import { Save, Upload, X, Loader2 } from 'lucide-react';
+import { Save, Upload, X, Loader2, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   useCurrentProfile,
@@ -38,6 +38,7 @@ export default function ProfilePage() {
   const [newSkill, setNewSkill] = useState('');
   const [saving, setSaving] = useState(false);
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  const [fillingFromCv, setFillingFromCv] = useState(false);
 
   useEffect(() => {
     if (profile) {
@@ -94,6 +95,52 @@ export default function ProfilePage() {
   };
 
   const removeSkill = (s: string) => setSkills(skills.filter((x) => x !== s));
+
+  const handleFillFromCv = async () => {
+    if (!appUser || fillingFromCv) return;
+    setFillingFromCv(true);
+    try {
+      const res = await api.extractProfileFromCv({});
+      const p = res.profile;
+      setForm((f) => ({
+        ...f,
+        fullName: p.fullName?.trim() || f.fullName,
+        headline: p.headline?.trim() || f.headline,
+        location: p.location?.trim() || f.location,
+        shortBio: p.shortBio?.trim() || f.shortBio,
+        longBio: p.longBio?.trim() || f.longBio,
+      }));
+      if (Array.isArray(p.skills) && p.skills.length > 0) {
+        setSkills((prev) => {
+          const seen = new Set(prev.map((s) => s.toLowerCase()));
+          const additions: string[] = [];
+          for (const s of p.skills) {
+            const v = s.trim();
+            if (!v) continue;
+            if (seen.has(v.toLowerCase())) continue;
+            seen.add(v.toLowerCase());
+            additions.push(v);
+          }
+          return [...prev, ...additions];
+        });
+      }
+      toast.success(
+        t('profile.feedback.cvFilled', { filename: res.sourceFilename }),
+      );
+    } catch (e) {
+      const code = e instanceof ApiError ? e.code : null;
+      if (code === 'NO_PROCESSED_CV') {
+        toast.error(t('profile.feedback.cvFillNoCv'));
+      } else if (code === 'EMPTY_CV_TEXT') {
+        toast.error(t('profile.feedback.cvFillEmpty'));
+      } else {
+        const msg = e instanceof ApiError ? e.message : t('profile.feedback.cvFillFailed');
+        toast.error(msg);
+      }
+    } finally {
+      setFillingFromCv(false);
+    }
+  };
 
   const handlePhotoUpload = async (file: File) => {
     if (!appUser) return;
@@ -265,8 +312,30 @@ export default function ProfilePage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>{t('profile.basics.title')}</CardTitle>
-            <CardDescription>{t('profile.basics.description')}</CardDescription>
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-1.5">
+                <CardTitle>{t('profile.basics.title')}</CardTitle>
+                <CardDescription>{t('profile.basics.description')}</CardDescription>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="gap-2 shrink-0"
+                onClick={handleFillFromCv}
+                disabled={fillingFromCv}
+                title={t('profile.basics.fillFromCv.hint')}
+              >
+                {fillingFromCv ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Sparkles className="h-4 w-4" />
+                )}
+                {fillingFromCv
+                  ? t('profile.basics.fillFromCv.loading')
+                  : t('profile.basics.fillFromCv.label')}
+              </Button>
+            </div>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">

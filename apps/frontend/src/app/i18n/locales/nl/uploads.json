@@ -33,6 +33,7 @@
   "feedback": {
     "tooLarge": "{filename}: te groot (max 10 MB)",
     "unsupported": "{filename}: niet-ondersteund type ({mimeType})",
+    "legacyDoc": "{filename}: oude .doc-bestanden worden niet ondersteund. Sla het document op als .docx of PDF en probeer het opnieuw.",
     "uploaded": "{filename} geüpload — wordt op de achtergrond verwerkt",
     "uploadError": "{filename}: {message}",
     "deleted": "Document verwijderd",

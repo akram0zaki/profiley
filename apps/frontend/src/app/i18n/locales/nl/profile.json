@@ -21,7 +21,12 @@
     "location": "Locatie",
     "headline": "Professionele Titel",
     "bio": "Bio",
-    "shortBio": "Korte Bio"
+    "shortBio": "Korte Bio",
+    "fillFromCv": {
+      "label": "Vullen vanuit CV",
+      "loading": "CV wordt gelezen…",
+      "hint": "Vul deze velden automatisch in op basis van uw laatst geüploade CV. U kunt alles aanpassen vóór opslaan."
+    }
   },
   "skills": {
     "title": "Vaardigheden & Expertise",
@@ -63,6 +68,10 @@
     "profileUpdated": "Profiel bijgewerkt",
     "saveFailed": "Opslaan mislukt",
     "linkCopied": "Profiellink gekopieerd",
-    "copyFailed": "Kopiëren mislukt"
+    "copyFailed": "Kopiëren mislukt",
+    "cvFilled": "Ingevuld vanuit {filename}. Controleer de velden en klik op Wijzigingen Opslaan.",
+    "cvFillNoCv": "Nog geen verwerkt CV. Upload eerst een CV op de pagina Documenten.",
+    "cvFillEmpty": "Uw CV bevat geen leesbare tekst. Probeer een ander bestand.",
+    "cvFillFailed": "Kon uw CV niet lezen. Probeer het opnieuw."
   }
 }

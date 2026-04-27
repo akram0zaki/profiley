@@ -33,6 +33,7 @@
   "feedback": {
     "tooLarge": "{filename}: too large (max 10MB)",
     "unsupported": "{filename}: unsupported type ({mimeType})",
+    "legacyDoc": "{filename}: legacy .doc files aren't supported. Please save the document as .docx or PDF and try again.",
     "uploaded": "{filename} uploaded — processing in background",
     "uploadError": "{filename}: {message}",
     "deleted": "Document deleted",
