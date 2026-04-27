@@ -1,19 +1,24 @@
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import { Progress } from '../components/ui/progress';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Badge } from '../components/ui/badge';
-import { X } from 'lucide-react';
+import { Loader2, X } from 'lucide-react';
+import { api, ApiError } from '../../lib/api';
+import { toast } from 'sonner';
 
 const STEPS = ['Welcome', 'Profile Basics', 'Professional Info', 'Preferences', 'Complete'];
 
 export default function OnboardingPage() {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     headline: '',
@@ -46,7 +51,73 @@ export default function OnboardingPage() {
     });
   };
 
-  const nextStep = () => {
+  // Initialize an app_users row for newly authenticated users (idempotent).
+  useEffect(() => {
+    void api
+      .initializeUserProfile({
+        browserLocale: navigator.language,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        preferredLanguage: formData.preferredLanguage,
+      })
+      .catch(() => {
+        /* non-fatal: user may already exist or be unauthenticated */
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const submitOnboarding = async () => {
+    if (submitted) return;
+    setSubmitting(true);
+    try {
+      const answers = [
+        formData.strengths.length
+          ? { questionKey: 'strengths', answerJson: formData.strengths }
+          : null,
+        formData.preferredRoles.length
+          ? { questionKey: 'preferred_roles', answerJson: formData.preferredRoles }
+          : null,
+        formData.industries.length
+          ? { questionKey: 'industries', answerJson: formData.industries }
+          : null,
+        formData.seniority ? { questionKey: 'seniority', answerText: formData.seniority } : null,
+        formData.workingStyle
+          ? { questionKey: 'working_style', answerText: formData.workingStyle }
+          : null,
+      ].filter(Boolean) as Array<{
+        questionKey: string;
+        answerText?: string;
+        answerJson?: unknown;
+      }>;
+      await api.completeOnboarding({
+        answers,
+        profile: {
+          fullName: formData.fullName || undefined,
+          headline: formData.headline || undefined,
+          shortBio: formData.bio || undefined,
+          currentLocation: formData.location || undefined,
+          preferredLanguage: formData.preferredLanguage,
+          timezone: formData.timezone,
+        },
+      });
+      setSubmitted(true);
+      toast.success('Onboarding saved');
+    } catch (e) {
+      const msg = e instanceof ApiError ? e.message : 'Save failed';
+      toast.error(msg);
+      throw e;
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const nextStep = async () => {
+    if (currentStep === STEPS.length - 2) {
+      try {
+        await submitOnboarding();
+      } catch {
+        return;
+      }
+    }
     if (currentStep < STEPS.length - 1) {
       setCurrentStep(currentStep + 1);
     }
@@ -324,11 +395,14 @@ export default function OnboardingPage() {
             Previous
           </Button>
           {currentStep < STEPS.length - 1 ? (
-            <Button onClick={nextStep}>Next</Button>
+            <Button onClick={() => void nextStep()} disabled={submitting} className="gap-2">
+              {submitting && currentStep === STEPS.length - 2 ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : null}
+              {currentStep === STEPS.length - 2 ? 'Finish & Continue' : 'Next'}
+            </Button>
           ) : (
-            <Link to="/dashboard">
-              <Button>Go to Dashboard</Button>
-            </Link>
+            <Button onClick={() => navigate('/dashboard')}>Go to Dashboard</Button>
           )}
         </div>
       </div>

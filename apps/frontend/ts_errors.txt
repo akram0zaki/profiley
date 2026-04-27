@@ -1,0 +1,274 @@
+src/app/App.tsx(26,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/app-layout.tsx(1,37): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/app-layout.tsx(65,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/auth-guards.tsx(1,27): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/auth-guards.tsx(9,29): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/chat-interface.tsx(1,45): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/chat-interface.tsx(63,49): error TS7006: Parameter 's' implicitly has an 'any' type.
+src/app/components/chat-interface.tsx(77,18): error TS7006: Parameter 'prev' implicitly has an 'any' type.
+src/app/components/chat-interface.tsx(100,20): error TS7006: Parameter 'prev' implicitly has an 'any' type.
+src/app/components/chat-interface.tsx(115,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/chat-interface.tsx(118,24): error TS7006: Parameter 'message' implicitly has an 'any' type.
+src/app/components/chat-interface.tsx(158,45): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/app/components/chat-interface.tsx(158,48): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/app/components/chat-interface.tsx(219,24): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/components/simple-dropdown.tsx(1,56): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/simple-dropdown.tsx(29,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/theme-provider.tsx(1,64): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/theme-provider.tsx(60,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/avatar.tsx(3,24): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/avatar.tsx(13,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/badge.tsx(1,24): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/badge.tsx(38,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/button.tsx(1,24): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/button.tsx(50,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/card.tsx(1,24): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/card.tsx(7,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/card.tsx(7,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/card.tsx(20,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/card.tsx(33,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/card.tsx(43,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/card.tsx(53,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/card.tsx(66,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/card.tsx(76,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/dialog.tsx(3,24): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/dialog.tsx(12,10): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/dialog.tsx(68,11): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/dialog.tsx(68,42): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/dialog.tsx(77,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/dialog.tsx(87,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/input.tsx(1,24): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/input.tsx(7,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/input.tsx(7,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/label.tsx(3,24): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/label.tsx(13,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/progress.tsx(3,24): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/progress.tsx(14,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/select.tsx(3,24): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/select.tsx(16,10): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/select.tsx(119,7): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/select.tsx(123,7): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/separator.tsx(3,24): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/separator.tsx(15,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/sonner.tsx(10,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/switch.tsx(3,24): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/switch.tsx(13,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/table.tsx(3,24): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/table.tsx(9,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/table.tsx(9,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/table.tsx(13,7): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/table.tsx(18,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/table.tsx(24,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/table.tsx(34,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/table.tsx(44,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/table.tsx(57,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/table.tsx(70,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/table.tsx(83,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/table.tsx(99,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/components/ui/tabs.tsx(3,24): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/tabs.tsx(13,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/textarea.tsx(1,24): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/textarea.tsx(7,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/components/ui/textarea.tsx(7,5): error TS7026: JSX element implicitly has type 'any' because no interface 'JSX.IntrinsicElements' exists.
+src/app/contexts/language-context.tsx(1,75): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/contexts/language-context.tsx(33,12): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type 'Record<Language, Record<string, string>>'.
+src/app/contexts/language-context.tsx(39,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/admin.tsx(40,37): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/admin.tsx(180,39): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/app/pages/admin.tsx(182,23): error TS7006: Parameter 's' implicitly has an 'any' type.
+src/app/pages/admin.tsx(182,26): error TS7006: Parameter 'h' implicitly has an 'any' type.
+src/app/pages/admin.tsx(186,24): error TS7006: Parameter 's' implicitly has an 'any' type.
+src/app/pages/admin.tsx(186,27): error TS7006: Parameter 'h' implicitly has an 'any' type.
+src/app/pages/admin.tsx(186,83): error TS7006: Parameter 'h' implicitly has an 'any' type.
+src/app/pages/admin.tsx(191,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/admin.tsx(297,40): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/admin.tsx(305,40): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/admin.tsx(312,40): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/admin.tsx(367,37): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/app/pages/admin.tsx(427,36): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/app/pages/admin.tsx(440,41): error TS7006: Parameter 'v' implicitly has an 'any' type.
+src/app/pages/admin.tsx(447,38): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/app/pages/admin.tsx(448,35): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/app/pages/admin.tsx(499,36): error TS7006: Parameter 'h' implicitly has an 'any' type.
+src/app/pages/auth-callback.tsx(1,37): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/auth-callback.tsx(36,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/chat-preview.tsx(8,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/dashboard.tsx(20,37): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/dashboard.tsx(159,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/dashboard.tsx(280,34): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/app/pages/job-fit-preview.tsx(9,26): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/job-fit-preview.tsx(60,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/job-fit-preview.tsx(81,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/job-fit-preview.tsx(86,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/job-fit-preview.tsx(93,26): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/job-fit-preview.tsx(163,44): error TS7006: Parameter 's' implicitly has an 'any' type.
+src/app/pages/job-fit-preview.tsx(163,47): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/app/pages/job-fit-preview.tsx(184,39): error TS7006: Parameter 'g' implicitly has an 'any' type.
+src/app/pages/job-fit-preview.tsx(184,42): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/app/pages/job-fit-preview.tsx(203,56): error TS7006: Parameter 's' implicitly has an 'any' type.
+src/app/pages/job-fit-preview.tsx(203,59): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/app/pages/job-fit-preview.tsx(226,40): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/app/pages/job-fit-preview.tsx(226,43): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/app/pages/knowledge.tsx(6,46): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/knowledge.tsx(59,8): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/app/pages/knowledge.tsx(66,31): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/app/pages/knowledge.tsx(80,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/knowledge.tsx(130,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/knowledge.tsx(156,32): error TS7006: Parameter 'chunk' implicitly has an 'any' type.
+src/app/pages/landing.tsx(20,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/login.tsx(8,26): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/login.tsx(45,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/login.tsx(109,30): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/onboarding.tsx(8,37): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/onboarding.tsx(50,45): error TS7006: Parameter '_' implicitly has an 'any' type.
+src/app/pages/onboarding.tsx(50,48): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/app/pages/onboarding.tsx(133,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/onboarding.tsx(204,32): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/onboarding.tsx(213,32): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/onboarding.tsx(223,32): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/onboarding.tsx(232,32): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/onboarding.tsx(252,34): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/onboarding.tsx(253,36): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/onboarding.tsx(260,46): error TS7006: Parameter 'strength' implicitly has an 'any' type.
+src/app/pages/onboarding.tsx(260,56): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/app/pages/onboarding.tsx(275,37): error TS7006: Parameter 'value' implicitly has an 'any' type.
+src/app/pages/onboarding.tsx(297,32): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/onboarding.tsx(314,37): error TS7006: Parameter 'value' implicitly has an 'any' type.
+src/app/pages/profile.tsx(10,37): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/profile.tsx(81,11): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/app/pages/profile.tsx(94,63): error TS7006: Parameter 'x' implicitly has an 'any' type.
+src/app/pages/profile.tsx(111,16): error TS7006: Parameter 'f' implicitly has an 'any' type.
+src/app/pages/profile.tsx(187,7): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/profile.tsx(276,30): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/profile.tsx(284,30): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/profile.tsx(293,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/profile.tsx(302,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/profile.tsx(311,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/profile.tsx(327,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/profile.tsx(328,29): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/profile.tsx(338,28): error TS7006: Parameter 's' implicitly has an 'any' type.
+src/app/pages/profile.tsx(382,35): error TS7006: Parameter 'v' implicitly has an 'any' type.
+src/app/pages/profile.tsx(394,35): error TS7006: Parameter 'v' implicitly has an 'any' type.
+src/app/pages/profile.tsx(404,35): error TS7006: Parameter 'v' implicitly has an 'any' type.
+src/app/pages/profile.tsx(414,35): error TS7006: Parameter 'v' implicitly has an 'any' type.
+src/app/pages/public-profile.tsx(1,45): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/public-profile.tsx(236,7): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/public-profile.tsx(266,11): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/app/pages/public-profile.tsx(321,44): error TS7006: Parameter 's' implicitly has an 'any' type.
+src/app/pages/public-profile.tsx(330,76): error TS7006: Parameter 'v' implicitly has an 'any' type.
+src/app/pages/public-profile.tsx(353,30): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/public-profile.tsx(359,30): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/public-profile.tsx(365,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/public-profile.tsx(371,28): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/public-profile.tsx(430,34): error TS7006: Parameter 's' implicitly has an 'any' type.
+src/app/pages/public-profile.tsx(488,32): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/public-profile.tsx(493,32): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/public-profile.tsx(501,30): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/settings-ai.tsx(16,37): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/settings-ai.tsx(108,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/settings-ai.tsx(242,35): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/app/pages/settings-ai.tsx(243,45): error TS7006: Parameter 'c' implicitly has an 'any' type.
+src/app/pages/settings-avatar.tsx(12,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/settings.tsx(12,37): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/settings.tsx(71,7): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/settings.tsx(205,35): error TS7006: Parameter 'v' implicitly has an 'any' type.
+src/app/pages/settings.tsx(218,35): error TS7006: Parameter 'v' implicitly has an 'any' type.
+src/app/pages/settings.tsx(231,35): error TS7006: Parameter 'v' implicitly has an 'any' type.
+src/app/pages/settings.tsx(244,35): error TS7006: Parameter 'v' implicitly has an 'any' type.
+src/app/pages/uploads.tsx(7,45): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/uploads.tsx(101,21): error TS7006: Parameter 'curr' implicitly has an 'any' type.
+src/app/pages/uploads.tsx(102,40): error TS7006: Parameter 'd' implicitly has an 'any' type.
+src/app/pages/uploads.tsx(176,21): error TS7006: Parameter 'curr' implicitly has an 'any' type.
+src/app/pages/uploads.tsx(176,43): error TS7006: Parameter 'd' implicitly has an 'any' type.
+src/app/pages/uploads.tsx(215,67): error TS18046: 'a' is of type 'unknown'.
+src/app/pages/uploads.tsx(215,71): error TS18046: 'b' is of type 'unknown'.
+src/app/pages/uploads.tsx(216,44): error TS7006: Parameter 'd' implicitly has an 'any' type.
+src/app/pages/uploads.tsx(219,5): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/app/pages/uploads.tsx(235,24): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/pages/uploads.tsx(294,51): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/app/pages/uploads.tsx(327,33): error TS7006: Parameter 'doc' implicitly has an 'any' type.
+src/lib/api.ts(37,29): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/lib/api.ts(37,78): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/lib/auth.ts(1,37): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/lib/profile.ts(5,50): error TS7016: Could not find a declaration file for module 'react'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/index.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'
+src/lib/supabase.ts(3,25): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/lib/supabase.ts(4,30): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/lib/supabase.ts(5,15): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/lib/supabase.ts(20,44): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/main.tsx(2,30): error TS7016: Could not find a declaration file for module 'react-dom/client'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/client.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/react-dom` if it exists or add a new declaration (.d.ts) file containing `declare module 'react-dom/client';`
+src/main.tsx(3,19): error TS5097: An import path can only end with a '.tsx' extension when 'allowImportingTsExtensions' is enabled.
+src/main.tsx(4,10): error TS2882: Cannot find module or type declarations for side-effect import of './styles/index.css'.
+src/main.tsx(6,55): error TS7016: Could not find a declaration file for module 'react/jsx-runtime'. '/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react@18.3.1/node_modules/react/jsx-runtime.js' implicitly has an 'any' type.
+  If the 'react' package actually exposes this module, consider sending a pull request to amend 'https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react'

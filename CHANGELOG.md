@@ -94,6 +94,38 @@ provision and deploy.
   to chat.
 - `app/App.tsx` — routes wrapped in `<RequireAuth>` / `<RequireAdmin>`,
   `/auth/callback` route added.
+- `lib/profile.ts` — `useCurrentProfile()` + `updateProfile`,
+  `updatePreferences`, `updateAppUser`, `avatarPublicUrl` helpers
+  (direct supabase reads/writes under RLS).
+- Wired §A deferred frontend pages to live Supabase API and storage:
+  - `pages/dashboard.tsx` — aggregate counts (`recruiter_visits`,
+    `conversations`, `job_fit_analyses`, `uploaded_documents`,
+    `knowledge_chunks`) and recent `recruiter_events` feed.
+  - `pages/onboarding.tsx` — calls `initialize-user-profile` on mount
+    and `complete-onboarding` on step-3 finish; redirects to dashboard.
+  - `pages/profile.tsx` — bound to `profiles` + `profile_preferences`;
+    avatar upload to `avatars/{user.id}/avatar-*`; skills persisted
+    via `onboarding_answers`; share-link copy + publish toggle.
+  - `pages/uploads.tsx` — signed-URL flow (`create-upload-url` →
+    storage `uploadToSignedUrl` → `finalize-upload` with SHA-256);
+    polling for processing status; delete via `delete-document`.
+  - `pages/knowledge.tsx` — direct `knowledge_chunks` query with
+    document filename join, client-side filter, soft-delete aware.
+  - `pages/job-fit-preview.tsx` — owner-side preview calling
+    `analyze-job-fit` with current user's slug.
+  - `pages/public-profile.tsx` — `get-public-profile`, recruiter
+    tab-view tracking, owner-controlled chat / job-fit / contact tabs
+    with hCaptcha (`VITE_CAPTCHA_SITE_KEY`) for `submit-recruiter-contact`.
+  - `pages/settings.tsx` — language change via `update-user-locale`,
+    privacy switches via `profile_preferences`, public toggle via
+    `publish-profile`, sign-out.
+  - `pages/settings-ai.tsx` — read-only registry view (per-user model
+    overrides not yet supported); persona tone saved to
+    `profile_preferences.ai_persona_tone`.
+  - `pages/admin.tsx` — wired to `admin-list-models`,
+    `admin-toggle-model`, `admin-create-model`,
+    `admin-set-feature-model`, `admin-provider-health` with summary
+    stats and Add-Model dialog.
 
 ### Added — Infrastructure
 
@@ -108,9 +140,7 @@ provision and deploy.
 
 ### Known follow-ups (not blocking initial bring-up)
 
-- Wire remaining frontend pages against `lib/api.ts`: dashboard,
-  onboarding, uploads, knowledge, job-fit-preview, settings,
-  settings-ai, settings-avatar, admin (currently still scaffold UI from
-  the Figma import).
+- `pages/settings-avatar.tsx` left as the existing "coming soon"
+  stub — the avatar foundation feature flag is still off.
 - Add pgTAP RLS tests, k6 load tests, Sentry/PostHog instrumentation.
 - Full a11y audit (Phases 11–12 in [profiley-plan.md](docs/concept/profiley-plan.md)).

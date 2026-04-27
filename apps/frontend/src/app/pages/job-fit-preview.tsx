@@ -1,74 +1,64 @@
 import { AppLayout } from '../components/app-layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Progress } from '../components/ui/progress';
 import { Badge } from '../components/ui/badge';
 import { Separator } from '../components/ui/separator';
 import { useState } from 'react';
-import { Sparkles, TrendingUp, TrendingDown, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { Sparkles, TrendingUp, TrendingDown, AlertTriangle, CheckCircle2, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
+import { api, ApiError } from '../../lib/api';
+import { useCurrentProfile } from '../../lib/profile';
 
-const mockJobDescription = `Senior Full-Stack Engineer - AI Platform
-
-TechCorp is looking for a Senior Full-Stack Engineer to join our AI Platform team. You'll be working on building scalable AI services that serve millions of users.
-
-Requirements:
-• 5+ years of full-stack development experience
-• Expert knowledge of React, Node.js, and Python
-• Experience with cloud platforms (AWS/GCP)
-• Strong understanding of distributed systems
-• Experience with Kubernetes and Docker
-• AI/ML experience is a plus
-
-Nice to have:
-• Leadership and mentoring experience
-• Healthcare domain knowledge
-• Open source contributions`;
+type JobFitResult = {
+  fitBand: string;
+  fitScore: number;
+  strengths: string[];
+  gaps: string[];
+  risks: string[];
+  transferableStrengths: string[];
+  reasoningSummary: string;
+  confidenceLabel: string;
+  citations: Array<{ label: string; chunkId: string }>;
+  modelUsed?: string;
+};
 
 export default function JobFitPreviewPage() {
+  const { profile, loading } = useCurrentProfile();
+  const [jobTitle, setJobTitle] = useState('');
+  const [companyName, setCompanyName] = useState('');
   const [jobDescription, setJobDescription] = useState('');
   const [analyzing, setAnalyzing] = useState(false);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<JobFitResult | null>(null);
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
+    if (!profile?.slug) {
+      toast.error('Your profile is not ready yet');
+      return;
+    }
     setAnalyzing(true);
-    setTimeout(() => {
-      setResult({
-        fitScore: 87,
-        confidence: 'high',
-        strengths: [
-          '10+ years of full-stack development experience exceeds the 5-year requirement',
-          'Expert in React, Node.js, and Python - exact match with core requirements',
-          'Extensive cloud platform experience with both AWS and GCP certifications',
-          'Strong distributed systems background from building platforms for 10M+ users',
-          'Proven Kubernetes and Docker expertise in production environments',
-          'Direct AI/ML experience building AI-powered features',
-        ],
-        gaps: [
-          'No explicit healthcare domain knowledge mentioned in profile',
-        ],
-        transferableSkills: [
-          'Leadership experience mentoring 15+ engineers',
-          'Experience building scalable SaaS platforms (RepCue)',
-          'Strong DevOps and infrastructure background',
-        ],
-        risks: [
-          'Currently based in San Francisco, remote work preference not specified',
-          'May be overqualified for a Senior role given 10+ years experience',
-        ],
-      });
+    setResult(null);
+    try {
+      const res = (await api.analyzeJobFit({
+        slug: profile.slug,
+        jobDescription,
+        jobTitle: jobTitle || undefined,
+        companyName: companyName || undefined,
+      })) as JobFitResult;
+      setResult(res);
+    } catch (e) {
+      const msg = e instanceof ApiError ? e.message : 'Analysis failed';
+      toast.error(msg);
+    } finally {
       setAnalyzing(false);
-    }, 2000);
-  };
-
-  const loadExample = () => {
-    setJobDescription(mockJobDescription);
+    }
   };
 
   return (
     <AppLayout>
       <div className="max-w-4xl mx-auto space-y-6">
-        {/* Header */}
         <div>
           <h1 className="text-3xl font-bold">Job-Fit Analyzer</h1>
           <p className="text-muted-foreground">
@@ -76,7 +66,6 @@ export default function JobFitPreviewPage() {
           </p>
         </div>
 
-        {/* Input Section */}
         <Card>
           <CardHeader>
             <CardTitle>Job Description</CardTitle>
@@ -85,6 +74,18 @@ export default function JobFitPreviewPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
+            <div className="grid gap-4 md:grid-cols-2">
+              <Input
+                placeholder="Job title (optional)"
+                value={jobTitle}
+                onChange={(e) => setJobTitle(e.target.value)}
+              />
+              <Input
+                placeholder="Company name (optional)"
+                value={companyName}
+                onChange={(e) => setCompanyName(e.target.value)}
+              />
+            </div>
             <Textarea
               placeholder="Paste the job description here..."
               rows={12}
@@ -92,21 +93,29 @@ export default function JobFitPreviewPage() {
               onChange={(e) => setJobDescription(e.target.value)}
             />
             <div className="flex gap-2">
-              <Button onClick={handleAnalyze} disabled={!jobDescription.trim() || analyzing} className="gap-2">
-                <Sparkles className="h-4 w-4" />
-                {analyzing ? 'Analyzing...' : 'Analyze Job Fit'}
-              </Button>
-              <Button variant="outline" onClick={loadExample}>
-                Load Example
+              <Button
+                onClick={() => void handleAnalyze()}
+                disabled={!jobDescription.trim() || analyzing || loading || !profile?.slug}
+                className="gap-2"
+              >
+                {analyzing ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Sparkles className="h-4 w-4" />
+                )}
+                {analyzing ? 'Analyzing…' : 'Analyze Job Fit'}
               </Button>
             </div>
+            {!loading && !profile?.slug && (
+              <p className="text-xs text-muted-foreground">
+                Complete onboarding to enable job-fit analysis on your profile.
+              </p>
+            )}
           </CardContent>
         </Card>
 
-        {/* Results */}
         {result && (
           <div className="space-y-6">
-            {/* Overall Fit Score */}
             <Card className="border-purple-500/50 bg-gradient-to-br from-purple-500/5 to-blue-500/5">
               <CardHeader>
                 <div className="flex items-center justify-between">
@@ -114,8 +123,11 @@ export default function JobFitPreviewPage() {
                     <CardTitle>Overall Fit Score</CardTitle>
                     <CardDescription>Based on your profile and the job requirements</CardDescription>
                   </div>
-                  <Badge variant="secondary" className="bg-green-500/10 text-green-400 border-green-500/20">
-                    {result.confidence} confidence
+                  <Badge
+                    variant="secondary"
+                    className="bg-green-500/10 text-green-400 border-green-500/20"
+                  >
+                    {result.confidenceLabel} confidence
                   </Badge>
                 </div>
               </CardHeader>
@@ -127,56 +139,31 @@ export default function JobFitPreviewPage() {
                   <div className="flex-1">
                     <Progress value={result.fitScore} className="h-3" />
                     <p className="text-sm text-muted-foreground mt-2">
-                      {result.fitScore >= 80 && 'Excellent match'}
-                      {result.fitScore >= 60 && result.fitScore < 80 && 'Good match with some gaps'}
-                      {result.fitScore < 60 && 'Partial match'}
+                      {result.fitBand}
+                      {result.modelUsed ? ` — model: ${result.modelUsed}` : ''}
                     </p>
                   </div>
                 </div>
+                {result.reasoningSummary && (
+                  <p className="text-sm text-muted-foreground">{result.reasoningSummary}</p>
+                )}
               </CardContent>
             </Card>
 
-            {/* Strengths */}
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-green-400" />
-                  <CardTitle>Strengths</CardTitle>
-                </div>
-                <CardDescription>
-                  Why you're a strong match for this role
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {result.strengths.map((strength: string, i: number) => (
-                    <li key={i} className="flex gap-3">
-                      <TrendingUp className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">{strength}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Gaps */}
-            {result.gaps.length > 0 && (
+            {result.strengths?.length > 0 && (
               <Card>
                 <CardHeader>
                   <div className="flex items-center gap-2">
-                    <TrendingDown className="h-5 w-5 text-orange-400" />
-                    <CardTitle>Gaps to Address</CardTitle>
+                    <CheckCircle2 className="h-5 w-5 text-green-400" />
+                    <CardTitle>Strengths</CardTitle>
                   </div>
-                  <CardDescription>
-                    Areas where the job requirements don't fully match your profile
-                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3">
-                    {result.gaps.map((gap: string, i: number) => (
+                    {result.strengths.map((s, i) => (
                       <li key={i} className="flex gap-3">
-                        <AlertTriangle className="h-5 w-5 text-orange-400 flex-shrink-0 mt-0.5" />
-                        <span className="text-sm">{gap}</span>
+                        <TrendingUp className="h-5 w-5 text-green-400 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">{s}</span>
                       </li>
                     ))}
                   </ul>
@@ -184,46 +171,62 @@ export default function JobFitPreviewPage() {
               </Card>
             )}
 
-            {/* Transferable Skills */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Transferable Strengths</CardTitle>
-                <CardDescription>
-                  Relevant skills and experiences that add value
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {result.transferableSkills.map((skill: string, i: number) => (
-                    <li key={i} className="flex gap-3">
-                      <div className="h-5 w-5 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <div className="h-2 w-2 rounded-full bg-blue-400" />
-                      </div>
-                      <span className="text-sm">{skill}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+            {result.gaps?.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center gap-2">
+                    <TrendingDown className="h-5 w-5 text-orange-400" />
+                    <CardTitle>Gaps to Address</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-3">
+                    {result.gaps.map((g, i) => (
+                      <li key={i} className="flex gap-3">
+                        <AlertTriangle className="h-5 w-5 text-orange-400 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">{g}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            )}
 
-            {/* Risks */}
-            {result.risks.length > 0 && (
+            {result.transferableStrengths?.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Transferable Strengths</CardTitle>
+                  <CardDescription>Relevant skills and experiences that add value</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-3">
+                    {result.transferableStrengths.map((s, i) => (
+                      <li key={i} className="flex gap-3">
+                        <div className="h-5 w-5 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="h-2 w-2 rounded-full bg-blue-400" />
+                        </div>
+                        <span className="text-sm">{s}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            )}
+
+            {result.risks?.length > 0 && (
               <Card>
                 <CardHeader>
                   <div className="flex items-center gap-2">
                     <AlertTriangle className="h-5 w-5 text-yellow-400" />
                     <CardTitle>Potential Concerns</CardTitle>
                   </div>
-                  <CardDescription>
-                    Factors to consider or clarify during interviews
-                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3">
-                    {result.risks.map((risk: string, i: number) => (
+                    {result.risks.map((r, i) => (
                       <li key={i} className="flex gap-3">
                         <AlertTriangle className="h-5 w-5 text-yellow-400 flex-shrink-0 mt-0.5" />
-                        <span className="text-sm">{risk}</span>
+                        <span className="text-sm">{r}</span>
                       </li>
                     ))}
                   </ul>
@@ -233,11 +236,13 @@ export default function JobFitPreviewPage() {
 
             <Separator />
 
-            {/* Disclaimer */}
             <Card className="border-muted">
               <CardContent className="pt-6">
                 <p className="text-sm text-muted-foreground">
-                  <strong>Note:</strong> This AI-generated analysis is based solely on the candidate's submitted materials and is advisory only. It does not constitute a verified employment assessment. Actual job fit should be determined through comprehensive interviews and reference checks.
+                  <strong>Note:</strong> This AI-generated analysis is based solely on the candidate's
+                  submitted materials and is advisory only. It does not constitute a verified
+                  employment assessment. Actual job fit should be determined through comprehensive
+                  interviews and reference checks.
                 </p>
               </CardContent>
             </Card>

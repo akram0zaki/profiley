@@ -15,41 +15,167 @@ import {
   AlertCircle,
   Upload,
   ExternalLink,
+  Loader2,
 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useCurrentProfile } from '../../lib/profile';
+import { supabase } from '../../lib/supabase';
 
-const mockActivities = [
-  { id: 1, type: 'view', user: 'Sarah Chen', company: 'TechCorp', time: '2 hours ago' },
-  { id: 2, type: 'chat', user: 'Michael Rodriguez', company: 'StartupX', time: '5 hours ago' },
-  { id: 3, type: 'job-fit', user: 'Emma Wilson', company: 'BigTech Inc', time: '1 day ago' },
-  { id: 4, type: 'view', user: 'David Kim', company: 'Innovation Labs', time: '2 days ago' },
-  { id: 5, type: 'chat', user: 'Lisa Thompson', company: 'CloudSoft', time: '3 days ago' },
+type ActivityRow = {
+  id: string;
+  event_name: string;
+  payload: Record<string, unknown> | null;
+  created_at: string;
+};
+
+const PROFILE_FIELDS: Array<keyof Record<string, unknown>> = [
+  'full_name',
+  'headline',
+  'short_bio',
+  'long_bio',
+  'current_location',
+  'profile_photo_path',
 ];
 
 export default function DashboardPage() {
   const { t } = useLanguage();
-  const profileCompletion = 75;
+  const { appUser, profile, loading } = useCurrentProfile();
+  const [stats, setStats] = useState({
+    visits: 0,
+    conversations: 0,
+    jobFits: 0,
+    documents: 0,
+    chunks: 0,
+    completedDocs: 0,
+  });
+  const [activity, setActivity] = useState<ActivityRow[]>([]);
+  const [statsLoading, setStatsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!appUser || !profile) return;
+    let cancelled = false;
+    void (async () => {
+      setStatsLoading(true);
+      const profileId = profile.id;
+      const userId = appUser.id;
+      const [
+        visitsRes,
+        convosRes,
+        fitsRes,
+        docsRes,
+        completedDocsRes,
+        chunksRes,
+        eventsRes,
+      ] = await Promise.all([
+        supabase
+          .from('recruiter_visits')
+          .select('id', { count: 'exact', head: true })
+          .eq('profile_id', profileId),
+        supabase
+          .from('conversations')
+          .select('id', { count: 'exact', head: true })
+          .eq('profile_id', profileId),
+        supabase
+          .from('job_fit_analyses')
+          .select('id', { count: 'exact', head: true })
+          .eq('profile_id', profileId),
+        supabase
+          .from('uploaded_documents')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', userId),
+        supabase
+          .from('uploaded_documents')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', userId)
+          .eq('processing_status', 'completed'),
+        supabase
+          .from('knowledge_chunks')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', userId)
+          .is('deleted_at', null),
+        supabase
+          .from('recruiter_events')
+          .select('id, event_name, payload, created_at')
+          .eq('profile_id', profileId)
+          .order('created_at', { ascending: false })
+          .limit(10),
+      ]);
+      if (cancelled) return;
+      setStats({
+        visits: visitsRes.count ?? 0,
+        conversations: convosRes.count ?? 0,
+        jobFits: fitsRes.count ?? 0,
+        documents: docsRes.count ?? 0,
+        completedDocs: completedDocsRes.count ?? 0,
+        chunks: chunksRes.count ?? 0,
+      });
+      setActivity((eventsRes.data ?? []) as ActivityRow[]);
+      setStatsLoading(false);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [appUser, profile]);
+
+  const profileCompletion = profile
+    ? Math.round(
+        (PROFILE_FIELDS.filter((f) => Boolean((profile as any)[f])).length / PROFILE_FIELDS.length) *
+          100,
+      )
+    : 0;
+
+  const docProgress = stats.documents
+    ? Math.round((stats.completedDocs / stats.documents) * 100)
+    : 0;
+
+  const firstName = profile?.full_name?.split(' ')[0] ?? appUser?.email?.split('@')[0] ?? 'there';
+
+  const formatRelative = (iso: string): string => {
+    const diffMs = Date.now() - new Date(iso).getTime();
+    const m = Math.round(diffMs / 60000);
+    if (m < 1) return 'just now';
+    if (m < 60) return `${m} min ago`;
+    const h = Math.round(m / 60);
+    if (h < 24) return `${h} h ago`;
+    const d = Math.round(h / 24);
+    return `${d} day${d > 1 ? 's' : ''} ago`;
+  };
+
+  const eventLabel = (e: string) => {
+    if (e === 'profile_view') return 'View';
+    if (e === 'chat_started' || e === 'chat_message') return 'Chat';
+    if (e === 'job_fit_run' || e === 'job_fit_analyze') return 'Job-fit';
+    if (e === 'tab_view') return 'Tab view';
+    return e;
+  };
+
+  const eventIcon = (e: string) => {
+    if (e.startsWith('chat')) return <MessageSquare className="h-5 w-5 text-purple-400" />;
+    if (e.startsWith('job_fit')) return <Briefcase className="h-5 w-5 text-cyan-400" />;
+    return <Eye className="h-5 w-5 text-blue-400" />;
+  };
 
   return (
     <AppLayout>
       <div className="space-y-6">
-        {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold">{t('dashboard.title')}</h1>
             <p className="text-muted-foreground">
-              {t('dashboard.subtitle').replace('{name}', 'Akram')}
+              {t('dashboard.subtitle').replace('{name}', firstName)}
             </p>
           </div>
-          <Link to="/public/akram">
-            <Button className="gap-2">
-              <ExternalLink className="h-4 w-4" />
-              {t('dashboard.viewPublicProfile')}
-            </Button>
-          </Link>
+          {profile?.slug && (
+            <Link to={`/public/${profile.slug}`} target="_blank" rel="noreferrer">
+              <Button className="gap-2">
+                <ExternalLink className="h-4 w-4" />
+                {t('dashboard.viewPublicProfile')}
+              </Button>
+            </Link>
+          )}
         </div>
 
-        {/* Profile Completion Banner */}
-        {profileCompletion < 100 && (
+        {!loading && profileCompletion < 100 && (
           <Card className="border-blue-500/50 bg-blue-500/5">
             <CardContent className="pt-6">
               <div className="flex items-start gap-4">
@@ -58,7 +184,10 @@ export default function DashboardPage() {
                   <div>
                     <h3 className="font-medium">{t('dashboard.completeProfile')}</h3>
                     <p className="text-sm text-muted-foreground">
-                      {t('dashboard.profileProgress').replace('{percent}', profileCompletion.toString())}
+                      {t('dashboard.profileProgress').replace(
+                        '{percent}',
+                        profileCompletion.toString(),
+                      )}
                     </p>
                   </div>
                   <Progress value={profileCompletion} className="h-2" />
@@ -74,7 +203,6 @@ export default function DashboardPage() {
           </Card>
         )}
 
-        {/* Stats Grid */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -82,10 +210,8 @@ export default function DashboardPage() {
               <Eye className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">2,847</div>
-              <p className="text-xs text-muted-foreground">
-                <span className="text-green-400">+12%</span> {t('dashboard.stats.fromLastMonth')}
-              </p>
+              <div className="text-2xl font-bold">{stats.visits.toLocaleString()}</div>
+              <p className="text-xs text-muted-foreground">All time</p>
             </CardContent>
           </Card>
 
@@ -95,73 +221,88 @@ export default function DashboardPage() {
               <MessageSquare className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">184</div>
-              <p className="text-xs text-muted-foreground">
-                <span className="text-green-400">+23%</span> {t('dashboard.stats.fromLastMonth')}
-              </p>
+              <div className="text-2xl font-bold">{stats.conversations.toLocaleString()}</div>
+              <p className="text-xs text-muted-foreground">Total chat sessions</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">{t('dashboard.stats.jobFitAnalyses')}</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                {t('dashboard.stats.jobFitAnalyses')}
+              </CardTitle>
               <Briefcase className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">47</div>
-              <p className="text-xs text-muted-foreground">
-                <span className="text-green-400">+8%</span> {t('dashboard.stats.fromLastMonth')}
-              </p>
+              <div className="text-2xl font-bold">{stats.jobFits.toLocaleString()}</div>
+              <p className="text-xs text-muted-foreground">Analyses run</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">{t('dashboard.stats.engagementRate')}</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                {t('dashboard.stats.engagementRate')}
+              </CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">73%</div>
-              <p className="text-xs text-muted-foreground">
-                <span className="text-green-400">+5%</span> {t('dashboard.stats.fromLastMonth')}
-              </p>
+              <div className="text-2xl font-bold">
+                {stats.visits
+                  ? Math.round(
+                      ((stats.conversations + stats.jobFits) / stats.visits) * 100,
+                    )
+                  : 0}
+                %
+              </div>
+              <p className="text-xs text-muted-foreground">Visits → action</p>
             </CardContent>
           </Card>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
-          {/* Recent Activity */}
           <Card>
             <CardHeader>
               <CardTitle>{t('dashboard.recentActivity')}</CardTitle>
               <CardDescription>{t('dashboard.activitySubtitle')}</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {mockActivities.map((activity) => (
-                  <div key={activity.id} className="flex items-start gap-4 pb-4 border-b last:border-0 last:pb-0">
-                    <div className="h-10 w-10 rounded-full bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center flex-shrink-0">
-                      {activity.type === 'view' && <Eye className="h-5 w-5 text-blue-400" />}
-                      {activity.type === 'chat' && <MessageSquare className="h-5 w-5 text-purple-400" />}
-                      {activity.type === 'job-fit' && <Briefcase className="h-5 w-5 text-cyan-400" />}
+              {statsLoading ? (
+                <div className="flex items-center justify-center py-8 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin mr-2" /> Loading…
+                </div>
+              ) : activity.length === 0 ? (
+                <p className="text-sm text-muted-foreground py-6 text-center">
+                  No recruiter activity yet.
+                </p>
+              ) : (
+                <div className="space-y-4">
+                  {activity.map((a) => (
+                    <div
+                      key={a.id}
+                      className="flex items-start gap-4 pb-4 border-b last:border-0 last:pb-0"
+                    >
+                      <div className="h-10 w-10 rounded-full bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center flex-shrink-0">
+                        {eventIcon(a.event_name)}
+                      </div>
+                      <div className="flex-1 space-y-1">
+                        <p className="text-sm font-medium">
+                          {(a.payload as any)?.tab
+                            ? `Tab: ${(a.payload as any).tab}`
+                            : a.event_name.replace(/_/g, ' ')}
+                        </p>
+                        <p className="text-xs text-muted-foreground">{formatRelative(a.created_at)}</p>
+                      </div>
+                      <Badge variant="secondary" className="text-xs">
+                        {eventLabel(a.event_name)}
+                      </Badge>
                     </div>
-                    <div className="flex-1 space-y-1">
-                      <p className="text-sm font-medium">{activity.user}</p>
-                      <p className="text-sm text-muted-foreground">{activity.company}</p>
-                      <p className="text-xs text-muted-foreground">{activity.time}</p>
-                    </div>
-                    <Badge variant="secondary" className="text-xs">
-                      {activity.type === 'view' && t('dashboard.activity.viewed')}
-                      {activity.type === 'chat' && t('dashboard.activity.chatted')}
-                      {activity.type === 'job-fit' && t('dashboard.activity.jobFit')}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
 
-          {/* Quick Actions */}
           <Card>
             <CardHeader>
               <CardTitle>{t('dashboard.quickActions')}</CardTitle>
@@ -202,7 +343,6 @@ export default function DashboardPage() {
           </Card>
         </div>
 
-        {/* Knowledge Base Status */}
         <Card>
           <CardHeader>
             <CardTitle>{t('dashboard.knowledgeBase')}</CardTitle>
@@ -212,24 +352,37 @@ export default function DashboardPage() {
             <div className="grid gap-4 md:grid-cols-3">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">{t('dashboard.kb.documents')}</span>
-                  <span className="text-sm font-medium">8</span>
+                  <span className="text-sm text-muted-foreground">
+                    {t('dashboard.kb.documents')}
+                  </span>
+                  <span className="text-sm font-medium">{stats.documents}</span>
                 </div>
-                <Progress value={80} className="h-2" />
+                <Progress
+                  value={Math.min(100, stats.documents * 10)}
+                  className="h-2"
+                />
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">{t('dashboard.kb.chunks')}</span>
-                  <span className="text-sm font-medium">342</span>
+                  <span className="text-sm text-muted-foreground">
+                    {t('dashboard.kb.chunks')}
+                  </span>
+                  <span className="text-sm font-medium">{stats.chunks}</span>
                 </div>
-                <Progress value={90} className="h-2" />
+                <Progress value={Math.min(100, stats.chunks)} className="h-2" />
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">{t('dashboard.kb.processing')}</span>
-                  <span className="text-sm font-medium text-green-400">{t('dashboard.kb.complete')}</span>
+                  <span className="text-sm text-muted-foreground">
+                    {t('dashboard.kb.processing')}
+                  </span>
+                  <span className="text-sm font-medium text-green-400">
+                    {docProgress === 100
+                      ? t('dashboard.kb.complete')
+                      : `${docProgress}%`}
+                  </span>
                 </div>
-                <Progress value={100} className="h-2" />
+                <Progress value={docProgress} className="h-2" />
               </div>
             </div>
           </CardContent>

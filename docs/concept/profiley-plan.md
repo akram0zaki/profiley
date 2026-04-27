@@ -20,23 +20,24 @@ why they are stubs.
 
 ### A. Frontend pages still on Figma-imported mock data
 
-Each page renders correctly but uses local `useState` arrays / hardcoded
-strings instead of calling `apps/frontend/src/lib/api.ts`. The API client,
-auth, and edge functions they need are all live — wiring is mechanical.
+✅ **Completed.** All pages below have been wired against
+`apps/frontend/src/lib/api.ts` and direct supabase queries (under RLS) and
+deployed to `profiley-dev`. The historical mapping is preserved here for
+audit:
 
 | File | What's mocked today | What to wire it to |
 |------|---------------------|--------------------|
-| `apps/frontend/src/app/pages/dashboard.tsx` | Hardcoded counts, publish toggle is a no-op | `api.listUserDocuments`, `api.publishProfile`, `supabase.from('profiles').select(...)` |
-| `apps/frontend/src/app/pages/onboarding.tsx` | Wizard collects answers locally and never submits | `api.completeOnboarding({ answers, profile })` on the final step |
-| `apps/frontend/src/app/pages/uploads.tsx` | File picker is decorative | `api.createUploadUrl` → `PUT signedUrl` → `api.finalizeUpload`; poll `api.listUserDocuments` for `processing_status`; `api.deleteDocument` |
-| `apps/frontend/src/app/pages/knowledge.tsx` | Static chunk list | `supabase.from('knowledge_chunks').select(...)` (RLS scopes to current user); optional manual chunk add via direct insert |
-| `apps/frontend/src/app/pages/profile.tsx` | Edits to display data don't persist | `supabase.from('profiles').update(...)` + `api.publishProfile` for slug/visibility changes |
-| `apps/frontend/src/app/pages/job-fit-preview.tsx` | Returns hardcoded score | `api.analyzeJobFit({ slug, jobDescription })`; render the structured JSON |
-| `apps/frontend/src/app/pages/public-profile.tsx` | Hero block reads `mockProfile`; visit/contact aren't tracked | `api.getPublicProfile(slug)`, `api.trackRecruiterEvent` on mount, `api.submitRecruiterContact` on form submit. (Chat tab is already wired.) |
-| `apps/frontend/src/app/pages/settings.tsx` | Toggles don't persist | `supabase.from('profile_preferences').upsert(...)` |
-| `apps/frontend/src/app/pages/settings-ai.tsx` | Model selectors are decorative | Read defaults from `ai_provider_configs`; per-user overrides are P2 (table doesn't exist yet). For now, render read-only summary. |
-| `apps/frontend/src/app/pages/settings-avatar.tsx` | Pretends to upload an avatar | `api.createAvatarProfile` (returns 501 unless `ENABLE_AVATAR_FOUNDATION=true` — see §C) |
-| `apps/frontend/src/app/pages/admin.tsx` | All four tabs render mock rows | `api.adminListModels` / `adminSetFeatureModel` / `adminCreateModel` / `adminToggleModel`, `api.adminProviderHealth`, `api.adminListModeration` / `adminResolveModeration`, `api.adminListProfiles` / `adminForceUnpublish` / `adminRenameSlug` |
+| `apps/frontend/src/app/pages/dashboard.tsx` ✅ | Hardcoded counts, publish toggle is a no-op | `api.listUserDocuments`, `api.publishProfile`, `supabase.from('profiles').select(...)` |
+| `apps/frontend/src/app/pages/onboarding.tsx` ✅ | Wizard collects answers locally and never submits | `api.completeOnboarding({ answers, profile })` on the final step |
+| `apps/frontend/src/app/pages/uploads.tsx` ✅ | File picker is decorative | `api.createUploadUrl` → `PUT signedUrl` → `api.finalizeUpload`; poll `api.listUserDocuments` for `processing_status`; `api.deleteDocument` |
+| `apps/frontend/src/app/pages/knowledge.tsx` ✅ | Static chunk list | `supabase.from('knowledge_chunks').select(...)` (RLS scopes to current user); optional manual chunk add via direct insert |
+| `apps/frontend/src/app/pages/profile.tsx` ✅ | Edits to display data don't persist | `supabase.from('profiles').update(...)` + `api.publishProfile` for slug/visibility changes |
+| `apps/frontend/src/app/pages/job-fit-preview.tsx` ✅ | Returns hardcoded score | `api.analyzeJobFit({ slug, jobDescription })`; render the structured JSON |
+| `apps/frontend/src/app/pages/public-profile.tsx` ✅ | Hero block reads `mockProfile`; visit/contact aren't tracked | `api.getPublicProfile(slug)`, `api.trackRecruiterEvent` on mount, `api.submitRecruiterContact` on form submit. (Chat tab is already wired.) |
+| `apps/frontend/src/app/pages/settings.tsx` ✅ | Toggles don't persist | `supabase.from('profile_preferences').upsert(...)` |
+| `apps/frontend/src/app/pages/settings-ai.tsx` ✅ | Model selectors are decorative | Read defaults from `ai_provider_configs`; per-user overrides are P2 (table doesn't exist yet). For now, render read-only summary. |
+| `apps/frontend/src/app/pages/settings-avatar.tsx` ⏸ | Pretends to upload an avatar | `api.createAvatarProfile` (returns 501 unless `ENABLE_AVATAR_FOUNDATION=true` — see §C). Left as "coming soon" stub. |
+| `apps/frontend/src/app/pages/admin.tsx` ✅ | All four tabs render mock rows | `api.adminListModels` / `adminSetFeatureModel` / `adminCreateModel` / `adminToggleModel`, `api.adminProviderHealth`, `api.adminListModeration` / `adminResolveModeration`, `api.adminListProfiles` / `adminForceUnpublish` / `adminRenameSlug` |
 | `apps/frontend/src/app/pages/landing.tsx` | Marketing copy + fake testimonials | Optional — replace testimonials with `supabase.from('public_profile_view').select(...).limit(6)` for a "featured profiles" strip if desired |
 
 ### B. Edge functions that are real but have a deliberate `501` short-circuit

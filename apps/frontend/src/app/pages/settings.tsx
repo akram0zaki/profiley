@@ -7,24 +7,83 @@ import { Switch } from '../components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Separator } from '../components/ui/separator';
 import { Link } from 'react-router';
-import { Bot, Palette, Shield, Bell, User, ChevronRight } from 'lucide-react';
+import { Bot, User, ChevronRight, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { useEffect, useState } from 'react';
+import { useCurrentProfile, updatePreferences } from '../../lib/profile';
+import { api, ApiError } from '../../lib/api';
+import { signOut } from '../../lib/auth';
 
 export default function SettingsPage() {
-  const handleSave = () => {
-    toast.success('Settings saved successfully!');
+  const { appUser, profile, preferences, loading, reload } = useCurrentProfile();
+  const [language, setLanguage] = useState('en');
+  const [savingLocale, setSavingLocale] = useState(false);
+
+  useEffect(() => {
+    if (appUser?.preferred_language) setLanguage(appUser.preferred_language);
+  }, [appUser]);
+
+  const handleLanguageChange = async (next: string) => {
+    setLanguage(next);
+    setSavingLocale(true);
+    try {
+      await api.updateUserLocale({ preferredLanguage: next });
+      toast.success('Language preference saved');
+      await reload();
+    } catch (e) {
+      const msg = e instanceof ApiError ? e.message : 'Update failed';
+      toast.error(msg);
+    } finally {
+      setSavingLocale(false);
+    }
   };
+
+  const togglePref = async (
+    key:
+      | 'allow_public_chat'
+      | 'allow_job_fit_analysis'
+      | 'allow_contact_form'
+      | 'allow_document_citation',
+    value: boolean,
+  ) => {
+    if (!appUser) return;
+    try {
+      await updatePreferences(appUser.id, { [key]: value });
+      await reload();
+    } catch (e: any) {
+      toast.error(e?.message ?? 'Update failed');
+    }
+  };
+
+  const togglePublic = async (next: boolean) => {
+    try {
+      await api.publishProfile({ publicVisibility: next });
+      toast.success(next ? 'Profile published' : 'Profile unpublished');
+      await reload();
+    } catch (e) {
+      const msg = e instanceof ApiError ? e.message : 'Update failed';
+      toast.error(msg);
+    }
+  };
+
+  if (loading) {
+    return (
+      <AppLayout>
+        <div className="flex items-center justify-center py-24 text-muted-foreground">
+          <Loader2 className="h-6 w-6 animate-spin mr-2" /> Loading settings…
+        </div>
+      </AppLayout>
+    );
+  }
 
   return (
     <AppLayout>
       <div className="max-w-4xl mx-auto space-y-6">
-        {/* Header */}
         <div>
           <h1 className="text-3xl font-bold">Settings</h1>
           <p className="text-muted-foreground">Manage your account and preferences</p>
         </div>
 
-        {/* Quick Links */}
         <div className="grid gap-4 md:grid-cols-2">
           <Link to="/settings/ai">
             <Card className="cursor-pointer hover:border-purple-500/50 transition-colors">
@@ -61,36 +120,30 @@ export default function SettingsPage() {
           </Link>
         </div>
 
-        {/* Account Settings */}
         <Card>
           <CardHeader>
             <CardTitle>Account Information</CardTitle>
-            <CardDescription>Update your account details</CardDescription>
+            <CardDescription>Your authenticated account details</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" value="akram@example.com" disabled />
+              <Input id="email" type="email" value={appUser?.email ?? ''} disabled />
               <p className="text-xs text-muted-foreground">
                 Contact support to change your email address
               </p>
             </div>
             <div className="space-y-2">
               <Label htmlFor="timezone">Timezone</Label>
-              <Input
-                id="timezone"
-                value={Intl.DateTimeFormat().resolvedOptions().timeZone}
-                disabled
-              />
+              <Input id="timezone" value={appUser?.timezone ?? ''} disabled />
             </div>
             <div className="space-y-2">
               <Label htmlFor="locale">Browser Locale</Label>
-              <Input id="locale" value={navigator.language} disabled />
+              <Input id="locale" value={appUser?.browser_locale ?? ''} disabled />
             </div>
           </CardContent>
         </Card>
 
-        {/* Language & Region */}
         <Card>
           <CardHeader>
             <CardTitle>Language & Region</CardTitle>
@@ -99,7 +152,7 @@ export default function SettingsPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="preferredLanguage">Preferred Language</Label>
-              <Select defaultValue="en">
+              <Select value={language} onValueChange={handleLanguageChange} disabled={savingLocale}>
                 <SelectTrigger id="preferredLanguage">
                   <SelectValue />
                 </SelectTrigger>
@@ -120,11 +173,12 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
 
-        {/* Privacy Settings */}
         <Card>
           <CardHeader>
             <CardTitle>Privacy & Visibility</CardTitle>
-            <CardDescription>Control who can see your profile and interact with your AI</CardDescription>
+            <CardDescription>
+              Control who can see your profile and interact with your AI
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="flex items-center justify-between">
@@ -134,17 +188,22 @@ export default function SettingsPage() {
                   Make your profile visible to anyone with the link
                 </p>
               </div>
-              <Switch defaultChecked />
+              <Switch
+                checked={profile?.public_visibility ?? false}
+                onCheckedChange={togglePublic}
+                disabled={!profile}
+              />
             </div>
             <Separator />
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
                 <Label>Allow AI Chat</Label>
-                <p className="text-sm text-muted-foreground">
-                  Let visitors chat with your AI persona
-                </p>
+                <p className="text-sm text-muted-foreground">Let visitors chat with your AI persona</p>
               </div>
-              <Switch defaultChecked />
+              <Switch
+                checked={preferences?.allow_public_chat ?? true}
+                onCheckedChange={(v) => togglePref('allow_public_chat', v)}
+              />
             </div>
             <Separator />
             <div className="flex items-center justify-between">
@@ -154,7 +213,23 @@ export default function SettingsPage() {
                   Let recruiters analyze job descriptions against your profile
                 </p>
               </div>
-              <Switch defaultChecked />
+              <Switch
+                checked={preferences?.allow_job_fit_analysis ?? true}
+                onCheckedChange={(v) => togglePref('allow_job_fit_analysis', v)}
+              />
+            </div>
+            <Separator />
+            <div className="flex items-center justify-between">
+              <div className="space-y-0.5">
+                <Label>Allow Contact Form</Label>
+                <p className="text-sm text-muted-foreground">
+                  Let recruiters send you direct messages
+                </p>
+              </div>
+              <Switch
+                checked={preferences?.allow_contact_form ?? true}
+                onCheckedChange={(v) => togglePref('allow_contact_form', v)}
+              />
             </div>
             <Separator />
             <div className="flex items-center justify-between">
@@ -164,76 +239,39 @@ export default function SettingsPage() {
                   Display source references in AI responses
                 </p>
               </div>
-              <Switch defaultChecked />
+              <Switch
+                checked={preferences?.allow_document_citation ?? true}
+                onCheckedChange={(v) => togglePref('allow_document_citation', v)}
+              />
             </div>
           </CardContent>
         </Card>
 
-        {/* Notifications */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Notifications</CardTitle>
-            <CardDescription>Configure how you receive updates</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div className="space-y-0.5">
-                <Label>Email Notifications</Label>
-                <p className="text-sm text-muted-foreground">
-                  Receive email when recruiters view your profile
-                </p>
-              </div>
-              <Switch defaultChecked />
-            </div>
-            <Separator />
-            <div className="flex items-center justify-between">
-              <div className="space-y-0.5">
-                <Label>Chat Notifications</Label>
-                <p className="text-sm text-muted-foreground">
-                  Get notified when someone chats with your AI
-                </p>
-              </div>
-              <Switch defaultChecked />
-            </div>
-            <Separator />
-            <div className="flex items-center justify-between">
-              <div className="space-y-0.5">
-                <Label>Weekly Summary</Label>
-                <p className="text-sm text-muted-foreground">
-                  Receive a weekly activity report
-                </p>
-              </div>
-              <Switch defaultChecked />
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Danger Zone */}
         <Card className="border-destructive/50">
           <CardHeader>
-            <CardTitle className="text-destructive">Danger Zone</CardTitle>
-            <CardDescription>Irreversible actions</CardDescription>
+            <CardTitle className="text-destructive">Sign Out</CardTitle>
+            <CardDescription>End your current session</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center justify-between p-4 rounded-lg border border-destructive/50">
+          <CardContent>
+            <div className="flex items-center justify-between p-4 rounded-lg border">
               <div>
-                <p className="font-medium">Delete Account</p>
+                <p className="font-medium">Sign out of Profiley</p>
                 <p className="text-sm text-muted-foreground">
-                  Permanently delete your account and all data
+                  You will be redirected to the login page
                 </p>
               </div>
-              <Button variant="destructive" size="sm">
-                Delete
+              <Button
+                variant="destructive"
+                size="sm"
+                onClick={() => {
+                  void signOut();
+                }}
+              >
+                Sign Out
               </Button>
             </div>
           </CardContent>
         </Card>
-
-        {/* Save Button */}
-        <div className="flex justify-end gap-2">
-          <Button variant="outline">Cancel</Button>
-          <Button onClick={handleSave}>Save Changes</Button>
-        </div>
       </div>
     </AppLayout>
   );
