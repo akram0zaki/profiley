@@ -1,272 +1,248 @@
-# Profiley - AI Interactive CV Platform
+# Profiley
 
-A modern, futuristic web application for creating AI-powered professional profiles that replace traditional CVs with interactive, conversational experiences.
+Profiley is an AI interactive CV platform: a recruiter-facing public profile backed by Supabase, document ingestion, retrieval-augmented AI chat, structured job-fit analysis, and an admin-managed model registry.
 
-## Overview
+## Status
 
-Profiley enables professionals to create an AI persona that recruiters can chat with, analyze job fit, and explore their experience conversationally. All responses are evidence-based, grounded in uploaded documents and profile data.
+This repository is no longer a frontend-only prototype.
 
-## Features
+- Implemented: Supabase auth, Postgres schema, storage buckets, RLS, edge functions, document processing pipeline, pgvector-backed retrieval, public profiles, recruiter chat, job-fit analysis, admin model registry, and Cloudflare Pages deployment.
+- Deferred: live avatar generation, voice conversations, Apple OAuth, and per-user AI model overrides.
 
-### Core Features (MVP)
-- ✅ **Unified Authentication** - Google, Apple, and email magic link
-- ✅ **Profile Management** - Create and edit professional identity
-- ✅ **Document Upload** - CV, portfolio, and supporting files
-- ✅ **Knowledge Base** - Structured chunks with vector embeddings (UI only)
-- ✅ **AI Chat Interface** - Conversational AI persona (mock data)
-- ✅ **Job-Fit Analyzer** - Structured job matching analysis (mock data)
-- ✅ **Public Profile** - Recruiter-facing profile page
-- ✅ **Dashboard** - Analytics and activity tracking
-- ✅ **Settings** - Privacy, preferences, and AI configuration
-- ✅ **Admin Panel** - Model registry and feature assignments
+## Feature Status
 
-### Future Features
-- 🔜 **Live AI Avatar** - Video-based AI representation (Phase 3)
-- 🔜 **Voice Conversations** - Real-time voice chat with AI
-- 🔜 **Supabase Integration** - Backend, auth, storage, edge functions
-- 🔜 **Vector Search** - pgvector-powered RAG retrieval
-- 🔜 **AI Model Switching** - Pluggable providers per feature
+### Implemented now
+
+- ✅ Authentication: Google, GitHub, and email magic link.
+- ✅ Profile management: editable profile, preferences, visibility, and shareable public slug.
+- ✅ Document upload: signed upload URLs, storage, processing status, deletion, and knowledge chunk generation.
+- ✅ Knowledge base: direct chunk browsing plus retrieval over vectorized knowledge.
+- ✅ AI chat: recruiter-facing persona chat backed by edge functions and citations.
+- ✅ Job-fit analysis: structured analysis persisted to the database.
+- ✅ Public profile: live recruiter view, activity tracking, and gated contact/chat/job-fit features.
+- ✅ Dashboard: live analytics from recruiter visits, events, conversations, uploads, and job-fit runs.
+- ✅ Settings and admin: privacy controls, persona tone, model registry, feature-to-model assignment, and provider health.
+- ✅ Cloudflare Pages deployment: dev and prod workflows supported.
+
+### Still not implemented
+
+- 🔜 Live AI avatar generation.
+- 🔜 Real-time voice conversations with AI.
+- 🔜 Apple OAuth.
+- 🔜 Per-user model overrides.
+- 🔜 Full observability and test hardening (pgTAP, k6, Sentry/PostHog).
+
+## Clarifying the previously stale README items
+
+The following items are already implemented and should no longer be listed as future work:
+
+- Supabase integration.
+- Vector search / pgvector-backed retrieval.
+- AI model switching at the platform level.
+
+What remains true:
+
+- Voice conversations are still not implemented.
+- AI model switching is implemented for admin-managed per-feature assignments, not yet for per-user overrides.
 
 ## Technology Stack
 
-### Frontend (Current)
-- **React 18.3** - UI library
-- **React Router 7** - Client-side routing
-- **TypeScript** - Type safety
-- **Tailwind CSS v4** - Styling
-- **Radix UI** - Accessible component primitives
-- **Lucide React** - Icon library
-- **Sonner** - Toast notifications
+### Frontend
 
-### Backend (Planned - Not Implemented Yet)
-- **Supabase** - Postgres, Auth, Storage, Edge Functions
-- **pgvector** - Vector embeddings storage
-- **Cloudflare Pages** - Static hosting
-- **AI Providers** - OpenAI, Anthropic, Gemini (pluggable)
-- **Avatar Providers** - HeyGen, Synthesia (future)
+- React 18
+- React Router 7
+- TypeScript / TSX codebase
+- Vite 6
+- Tailwind CSS v4
+- Radix UI + shadcn/ui patterns
+- Sonner
+
+### Backend and infra
+
+- Supabase: Auth, Postgres, Storage, Edge Functions
+- pgvector: knowledge retrieval and RAG
+- Cloudflare Pages + Wrangler
+- Deno edge functions
+- OpenAI, Gemini, and Mistral provider routing via admin-managed configs
 
 ## Project Structure
 
-```
+```text
 apps/
-└── frontend/
-   ├── src/
-   │   ├── app/
-   │   │   ├── components/
-   │   │   │   ├── ui/              # shadcn/ui components
-   │   │   │   ├── app-layout.tsx   # Main app layout wrapper
-   │   │   │   ├── chat-interface.tsx  # Reusable chat component
-   │   │   │   └── theme-provider.tsx  # Dark mode provider
-   │   │   ├── pages/
-   │   │   │   ├── landing.tsx      # Public landing page
-   │   │   │   ├── login.tsx        # Authentication
-   │   │   │   ├── onboarding.tsx   # Multi-step onboarding
-   │   │   │   ├── dashboard.tsx    # User dashboard
-   │   │   │   ├── profile.tsx      # Profile editor
-   │   │   │   ├── uploads.tsx      # Document manager
-   │   │   │   ├── knowledge.tsx    # Knowledge base viewer
-   │   │   │   ├── chat-preview.tsx # Test AI chat
-   │   │   │   ├── job-fit-preview.tsx  # Test job analyzer
-   │   │   │   ├── public-profile.tsx   # Recruiter view
-   │   │   │   ├── settings.tsx     # General settings
-   │   │   │   ├── settings-ai.tsx  # AI model config
-   │   │   │   ├── settings-avatar.tsx  # Avatar settings
-   │   │   │   └── admin.tsx        # Admin panel
-   │   │   └── App.tsx              # Root component with router
-   │   ├── styles/
-   │   │   ├── index.css            # Global styles
-   │   │   ├── theme.css            # Design tokens
-   │   │   ├── fonts.css            # Font imports
-   │   │   └── tailwind.css         # Tailwind directives
-   │   └── imports/
-   │       └── profiley-prd.md      # Product requirements
-   ├── package.json
-   └── vite.config.ts
-
-docs/DESIGN_SYSTEM.md        # Complete design system guide
-README.md                    # This file
+   frontend/
+      src/
+         app/
+            components/
+            contexts/
+            pages/
+         lib/
+         styles/
+      functions/
+      package.json
+      vite.config.ts
+docs/
+   DESIGN_SYSTEM.md
+   concept/
+supabase/
+   functions/
+   migrations/
+README.md
 ```
 
-## Pages & Routes
+## Pages and Routes
 
-| Route | Page | Description |
-|-------|------|-------------|
-| `/` | Landing | Public landing page with features |
-| `/login` | Auth | Unified sign-in/sign-up |
-| `/onboarding` | Onboarding | Multi-step profile setup |
-| `/dashboard` | Dashboard | User home with analytics |
-| `/profile` | Profile Editor | Edit professional identity |
-| `/uploads` | Upload Manager | Document upload and processing |
-| `/knowledge` | Knowledge Base | View extracted chunks |
-| `/chat-preview` | Chat Preview | Test AI persona |
-| `/job-fit-preview` | Job Fit | Test job analyzer |
-| `/public/:username` | Public Profile | Recruiter-facing profile |
-| `/settings` | Settings | Account and preferences |
-| `/settings/ai` | AI Config | Model and persona settings |
-| `/settings/avatar` | Avatar | Future avatar setup |
-| `/admin` | Admin Panel | Model registry and health |
+| Route | Purpose |
+|---|---|
+| `/` | Marketing landing page |
+| `/login` | Sign-in with Google, GitHub, or magic link |
+| `/auth/callback` | OAuth / magic-link callback |
+| `/onboarding` | Multi-step profile setup persisted to Supabase |
+| `/dashboard` | Live owner dashboard |
+| `/profile` | Profile editor |
+| `/uploads` | Document upload and processing management |
+| `/knowledge` | Knowledge chunk browser |
+| `/chat-preview` | Owner-side chat preview |
+| `/job-fit-preview` | Owner-side job-fit preview |
+| `/public/:username` | Public recruiter-facing profile |
+| `/settings` | Account and privacy settings |
+| `/settings/ai` | Persona and model summary |
+| `/settings/avatar` | Placeholder for future avatar workflow |
+| `/admin` | Admin-only provider registry and health dashboard |
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 20+
+- pnpm 9+
+- A populated frontend env file:
+   - `apps/frontend/.env.development` for local/dev builds
+   - `apps/frontend/.env.production` for production builds
+- For Cloudflare deploys: `.github/.env.ci`
+- For Supabase CLI work: `supabase/.env`
+
+Install dependencies from the repo root:
+
+```bash
+pnpm install
+```
+
+### Run locally
+
+Start the frontend against the development environment:
+
+```bash
+pnpm dev
+```
+
+This runs the Vite app from `apps/frontend` and reads `apps/frontend/.env.development`.
+
+### Build
+
+Development build:
+
+```bash
+pnpm build
+```
+
+Production build:
+
+```bash
+pnpm build:prod
+```
+
+These scripts write the SPA build output to `apps/frontend/dist` using the matching Vite mode.
+
+### Deploy to Cloudflare Pages
+
+Development / dev Pages project:
+
+```bash
+pnpm deploy
+```
+
+Production / prod Pages project:
+
+```bash
+pnpm deploy:prod
+```
+
+These scripts:
+
+1. Source `.github/.env.ci`.
+2. Build the frontend with the matching mode.
+3. Deploy `apps/frontend/dist` with Wrangler to the configured Pages project.
+
+The deploy scripts expect these variables in `.github/.env.ci`:
+
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+- `CLOUDFLARE_PAGES_PROJECT_DEV`
+- `CLOUDFLARE_PAGES_PROJECT_PROD`
+
+### Supabase deployment notes
+
+Supabase is managed separately from the frontend deploy. Use the workspace files first, then push with the CLI.
+
+Development environment:
+
+```bash
+set -a && source supabase/.env && set +a
+supabase link --project-ref "$SUPABASE_PROJECT_REF_DEV"
+supabase db push --password "$SUPABASE_DB_PASSWORD_DEV"
+supabase secrets set --project-ref "$SUPABASE_PROJECT_REF_DEV" --env-file supabase/functions/.env.development
+```
+
+Production is the same flow with the `_PROD` variables and `supabase/functions/.env.production`.
+
+## Useful Scripts
+
+Run these from the repository root:
+
+- `pnpm dev`: run the frontend locally in development mode.
+- `pnpm build`: create a development build.
+- `pnpm build:prod`: create a production build.
+- `pnpm preview`: preview the built frontend package.
+- `pnpm deploy`: build and deploy to the dev Cloudflare Pages project.
+- `pnpm deploy:prod`: build and deploy to the prod Cloudflare Pages project.
+
+## Current State
+
+Implemented end-to-end:
+
+- Supabase-backed authentication and RLS-scoped data access.
+- Storage-backed document uploads and processing records.
+- Vector-backed retrieval for chat and job-fit flows.
+- Public profile publishing and recruiter event tracking.
+- Admin model configuration and feature assignment.
+- Dev deployment to Cloudflare Pages.
+
+Still intentionally deferred:
+
+- Avatar foundation and voice UX.
+- Per-user AI provider overrides.
+- Broader operational hardening and test coverage.
 
 ## Design System
 
-The complete design system is documented in `docs/DESIGN_SYSTEM.md`. Key highlights:
+The UI system is documented in `docs/DESIGN_SYSTEM.md`.
 
-### Visual Style
-- **Modern & Futuristic** - Clean with subtle tech aesthetics
-- **Dark Mode First** - Optimized for dark theme
-- **Gradient Accents** - Purple → Blue → Cyan gradients
-- **Glassmorphism** - Backdrop blur and transparency
-- **Mobile-First** - Responsive from 320px upward
-
-### Color Palette
-- **Primary Gradient**: Purple 500 → Blue 500
-- **Secondary Gradient**: Blue 500 → Cyan 500
-- **Success**: Green 400
-- **Warning**: Orange 400
-- **Error**: Destructive red
-- **AI Theme**: Purple 400
-
-### Component Library
-- Based on shadcn/ui with Radix UI primitives
-- Fully accessible and keyboard navigable
-- Consistent spacing and sizing
-- Dark mode support throughout
-
-## Current State (Static UI)
-
-This is a **frontend-only prototype** with:
-- ✅ Complete UI for all planned pages
-- ✅ Mock data for all features
-- ✅ Responsive design (mobile to desktop)
-- ✅ Dark mode support
-- ✅ Component library
-- ✅ Design system documentation
-
-**Not Yet Implemented:**
-- ❌ Supabase backend integration
-- ❌ Real authentication
-- ❌ Document processing pipeline
-- ❌ Vector database and RAG
-- ❌ AI model integration
-- ❌ Edge functions
-- ❌ Storage buckets with RLS
-
-## Next Steps (Backend Integration)
-
-To make this production-ready:
-
-1. **Connect Supabase**
-   - Set up Supabase project
-   - Configure authentication providers
-   - Create database schema (see PRD for full schema)
-   - Set up storage buckets with RLS
-
-2. **Implement Edge Functions**
-   - Document processing pipeline
-   - Embedding generation
-   - Chat persona endpoint
-   - Job-fit analyzer endpoint
-   - Knowledge retrieval
-
-3. **Add AI Providers**
-   - Chat: OpenAI GPT-4 or Claude
-   - Embeddings: OpenAI text-embedding-3-large
-   - STT: OpenAI Whisper
-   - TTS: ElevenLabs or OpenAI TTS
-
-4. **Vector Database**
-   - Enable pgvector extension
-   - Create vector storage tables
-   - Implement semantic search
-
-5. **Production Deployment**
-   - Deploy frontend to Cloudflare Pages
-   - Configure environment variables
-   - Set up CI/CD pipeline
-   - Monitor performance and errors
-
-## Development
-
-### Running Locally
-From the repository root:
-
-```bash
-pnpm install
-pnpm dev
-```
-
-Or run the frontend package directly:
-
-```bash
-cd apps/frontend
-pnpm install
-pnpm dev
-```
-
-### Key Files to Edit
-- `apps/frontend/src/app/pages/*.tsx` - Page components
-- `apps/frontend/src/app/components/*.tsx` - Reusable components
-- `apps/frontend/src/styles/theme.css` - Design tokens
-- `docs/DESIGN_SYSTEM.md` - Design documentation
-
-### Adding New Pages
-1. Create page component in `apps/frontend/src/app/pages/`
-2. Add route in `apps/frontend/src/app/App.tsx`
-3. Add navigation link in `apps/frontend/src/app/components/app-layout.tsx`
-
-### Styling Guidelines
-- Use Tailwind utility classes
-- Reference design tokens from `theme.css`
-- Follow patterns in `DESIGN_SYSTEM.md`
-- Mobile-first responsive approach
-
-## Mock Data
-
-All current data is static and defined in component files:
-
-- **Users**: `Akram Fares` (example user)
-- **Documents**: 5 mock uploaded files
-- **Knowledge Chunks**: Sample extracted content
-- **Analytics**: Simulated metrics
-- **Activities**: Mock recruiter interactions
-- **Job Fit**: Pre-defined analysis results
-
-Replace with real data once Supabase is integrated.
-
-## Privacy & Security Notes
-
-⚠️ **Important**: This prototype is designed for **demonstration purposes only**.
+## Security Notes
 
 For production use with real user data:
-- Implement proper authentication
-- Enforce Row-Level Security (RLS)
-- Use signed URLs for storage
-- Validate all user inputs
-- Implement rate limiting
-- Add CSRF protection
-- Encrypt sensitive data
-- Follow GDPR/privacy regulations
 
-## Design Inspirations
-
-- **Linear** - Clean SaaS aesthetic
-- **Vercel** - Gradient usage, typography
-- **Notion AI** - AI feature presentation
-- **Raycast** - Search-focused UI
-- **Arc Browser** - Futuristic touches
-
-## License
-
-This is a prototype for demonstration purposes.
+- Keep secrets in the gitignored env files documented in `AGENTS.md`.
+- Do not put secrets in `VITE_*` variables.
+- Keep Supabase changes in workspace files before applying them.
+- Preserve and test RLS policies when changing schema or queries.
 
 ## Credits
 
-- **Product Design**: Based on comprehensive PRD in `src/imports/profiley-prd.md`
-- **UI Components**: shadcn/ui with Radix UI
-- **Icons**: Lucide React
-- **Styling**: Tailwind CSS v4
+- Product requirements: `apps/frontend/src/imports/profiley-prd.md`
+- UI component foundations: Radix UI and shadcn/ui patterns
+- Styling: Tailwind CSS v4
 
 ---
 
-**Version**: 1.0 (UI Prototype)
-**Last Updated**: April 27, 2026
-**Status**: Ready for backend integration
+Last updated: April 27, 2026
+Status: active development, dev environment deployed

@@ -3,7 +3,15 @@
   "private": true,
   "scripts": {
     "dev": "pnpm --filter @profiley/frontend dev",
-    "build": "pnpm --filter @profiley/frontend build",
-    "preview": "pnpm --filter @profiley/frontend preview"
+    "build": "pnpm --filter @profiley/frontend build -- --mode=development",
+    "build:prod": "pnpm --filter @profiley/frontend build -- --mode=production",
+    "preview": "pnpm --filter @profiley/frontend preview",
+    "deploy": "sh -c 'set -a && . .github/.env.ci && set +a && pnpm --filter @profiley/frontend build -- --mode=development && cd apps/frontend && pnpm exec wrangler pages deploy dist --project-name=\"$CLOUDFLARE_PAGES_PROJECT_DEV\" --branch=main'",
+    "deploy:prod": "sh -c 'set -a && . .github/.env.ci && set +a && pnpm --filter @profiley/frontend build -- --mode=production && cd apps/frontend && pnpm exec wrangler pages deploy dist --project-name=\"$CLOUDFLARE_PAGES_PROJECT_PROD\" --branch=main'"
+  },
+  "pnpm": {
+    "overrides": {
+      "vite": "6.3.5"
+    }
   }
 }
