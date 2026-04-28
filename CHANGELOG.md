@@ -6,6 +6,18 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.1.0] - Unreleased
 
+### Added — Shareable AI pipeline diagrams
+
+- Added a new `docs/flows/` documentation set covering the two core Profiley
+  AI pipelines in both text and image form for external sharing.
+- `document-ingestion.mmd` / `.svg` / `.png` explain the upload,
+  extraction, chunking, embedding, and `knowledge_chunks` storage flow.
+- `persona-chat.mmd` / `.svg` / `.png` explain how `chat-persona` embeds the
+  visitor question, retrieves top matching chunks, builds prompt context, and
+  generates a grounded response with citations.
+- Added `docs/flows/README.md` with a concise narrative for both pipelines and
+  re-render commands for the Mermaid assets.
+
 ### Fixed — Missing bottom padding on info cards (Chat Preview & Job Fit)
 
 - Added `[&:last-child]:pb-6` to the reusable `CardHeader` component in `apps/frontend/src/app/components/ui/card.tsx` to fix visual alignment issues where cards exclusively containing a header had a large top margin but no bottom margin. This corrects the UI on the Chat Preview, Job Fit, and other places using the info-card pattern.

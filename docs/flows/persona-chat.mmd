@@ -1,0 +1,39 @@
+%% Profiley — AI Persona Chat (RAG) Pipeline
+%% Renders to docs/flows/persona-chat.svg / .png
+flowchart TD
+    V([Visitor asks a question<br/>on a public profile])
+    CP[chat-persona<br/><i>edge function</i>]
+    PV[(public_profile_view<br/>load by slug)]
+    RL{Rate limit<br/>per session · per IP}
+    MOD[OpenAI moderation<br/>omni-moderation-latest]
+    EMB[OpenAI embedding<br/>text-embedding-3-small]
+    RPC{{match_knowledge_chunks RPC<br/>cosine similarity · top 8}}
+    KC[(knowledge_chunks<br/>candidate's CV · bio · answers)]
+    BC[buildContext<br/>≤ 28k chars + citations]
+    LLM[OpenAI chat<br/>gpt-4o-mini · temp 0.4]
+    LOG[(conversations<br/>messages · ai_call_logs)]
+    OUT([Grounded answer<br/>+ citations])
+
+    V --> CP
+    CP -->|1 load profile| PV
+    CP -->|2 check| RL
+    CP -->|3 screen input| MOD
+    CP -->|4 embed question| EMB
+    EMB -->|query vector| RPC
+    RPC -->|5 search| KC
+    KC -->|top 8 chunks| BC
+    BC -->|6 system + user prompt| LLM
+    LLM -->|7 grounded answer| CP
+    CP -->|8 persist| LOG
+    CP --> OUT
+
+    classDef edge fill:#eef6ff,stroke:#3b82f6,color:#0b3d91,stroke-width:1.5px;
+    classDef db fill:#ecfdf5,stroke:#10b981,color:#064e3b,stroke-width:1.5px;
+    classDef ai fill:#f5f3ff,stroke:#8b5cf6,color:#3b0764,stroke-width:1.5px;
+    classDef proc fill:#fef9c3,stroke:#ca8a04,color:#713f12,stroke-width:1.5px;
+    classDef user fill:#fce7f3,stroke:#db2777,color:#831843,stroke-width:1.5px;
+    class V,OUT user;
+    class CP edge;
+    class PV,KC,LOG,RPC db;
+    class MOD,EMB,LLM ai;
+    class BC,RL proc;

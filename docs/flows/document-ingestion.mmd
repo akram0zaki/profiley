@@ -1,0 +1,46 @@
+%% Profiley — Document Ingestion & Embedding Pipeline
+%% Renders to docs/flows/document-ingestion.svg / .png
+flowchart TD
+    U([User uploads CV / docs])
+    SPA[Profiley SPA]
+    F1[create-upload-url<br/><i>edge function</i>]
+    B[(Supabase Storage<br/>user_uploads bucket)]
+    F2[finalize-upload<br/><i>edge function</i>]
+    T1[(uploaded_documents<br/>status: pending)]
+    CRON{{pg_cron job<br/>every minute}}
+    F3[process-document<br/><i>edge function</i>]
+    EX[Extract text<br/>unpdf · mammoth]
+    CH[Chunk text<br/>~3,200 chars · 400 overlap]
+    E[OpenAI<br/>text-embedding-3-small<br/>1,536-dim vectors]
+    T2[(knowledge_chunks<br/>pgvector · ivfflat cosine)]
+    DONE[(uploaded_documents<br/>status: completed)]
+
+    U --> SPA
+    SPA -->|1 request signed URL| F1
+    F1 -->|2 returns URL| SPA
+    SPA -->|3 PUT file| B
+    SPA -->|4 finalize| F2
+    F2 --> T1
+    T1 -.-> CRON
+    CRON -->|5 trigger| F3
+    F3 -->|6 download| B
+    F3 --> EX
+    EX --> CH
+    CH -->|7 batches of 32| E
+    E -->|8 embeddings| F3
+    F3 -->|9 insert| T2
+    F3 --> DONE
+
+    classDef edge fill:#eef6ff,stroke:#3b82f6,color:#0b3d91,stroke-width:1.5px;
+    classDef store fill:#fff7ed,stroke:#f97316,color:#7c2d12,stroke-width:1.5px;
+    classDef db fill:#ecfdf5,stroke:#10b981,color:#064e3b,stroke-width:1.5px;
+    classDef ai fill:#f5f3ff,stroke:#8b5cf6,color:#3b0764,stroke-width:1.5px;
+    classDef proc fill:#fef9c3,stroke:#ca8a04,color:#713f12,stroke-width:1.5px;
+    classDef user fill:#fce7f3,stroke:#db2777,color:#831843,stroke-width:1.5px;
+    class U user;
+    class SPA proc;
+    class F1,F2,F3 edge;
+    class B store;
+    class T1,T2,DONE,CRON db;
+    class E ai;
+    class EX,CH proc;
