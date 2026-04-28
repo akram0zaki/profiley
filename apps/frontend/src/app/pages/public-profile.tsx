@@ -190,6 +190,10 @@ export default function PublicProfilePage() {
 
   const handleContact = async () => {
     if (!profile) return;
+    if (contactMessage.trim().length < 10) {
+      toast.error(t('publicProfile.contact.messageTooShort'));
+      return;
+    }
     let captchaToken: string | undefined;
     if (CAPTCHA_SITE_KEY && window.hcaptcha && captchaWidgetId) {
       try {
@@ -372,6 +376,11 @@ export default function PublicProfilePage() {
                 value={contactMessage}
                 onChange={(e) => setContactMessage(e.target.value)}
               />
+              <p className="text-xs text-muted-foreground" aria-live="polite">
+                {contactMessage.trim().length < 10
+                  ? t('publicProfile.contact.messageHint', { count: 10 - contactMessage.trim().length })
+                  : '\u00a0'}
+              </p>
               {CAPTCHA_SITE_KEY && <div ref={captchaRef} />}
               <Button
                 onClick={() => void handleContact()}
@@ -379,7 +388,7 @@ export default function PublicProfilePage() {
                   contactSending ||
                   !contactName.trim() ||
                   !contactEmail.trim() ||
-                  !contactMessage.trim()
+                  contactMessage.trim().length < 10
                 }
                 className="gap-2"
               >

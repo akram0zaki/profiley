@@ -45,7 +45,9 @@
     "company": "Bedrijf (optioneel)",
     "message": "Uw bericht",
     "send": "Bericht Verzenden",
-    "captcha": "Voltooi de captcha"
+    "captcha": "Voltooi de captcha",
+    "messageHint": "Nog {count} teken(s) nodig",
+    "messageTooShort": "Uw bericht moet minimaal 10 tekens bevatten."
   },
   "footer": {
     "poweredBy": "Dit profiel wordt aangedreven door Profiley AI. Alle antwoorden zijn op bewijs gebaseerd en geverifieerd.",

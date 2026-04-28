@@ -45,7 +45,9 @@
     "company": "Company (optional)",
     "message": "Your message",
     "send": "Send Message",
-    "captcha": "Please complete the captcha"
+    "captcha": "Please complete the captcha",
+    "messageHint": "{count} more character(s) needed",
+    "messageTooShort": "Your message must be at least 10 characters."
   },
   "footer": {
     "poweredBy": "This profile is powered by Profiley AI. All responses are evidence-based and verified.",

@@ -45,7 +45,9 @@
     "company": "الشركة (اختياري)",
     "message": "رسالتك",
     "send": "إرسال الرسالة",
-    "captcha": "يرجى إكمال captcha"
+    "captcha": "يرجى إكمال captcha",
+    "messageHint": "يلزم {count} حرفًا إضافيًا",
+    "messageTooShort": "يجب ألا تقل رسالتك عن 10 أحرف."
   },
   "footer": {
     "poweredBy": "هذا الملف مدعوم بـ Profiley AI. جميع الردود مبنية على الأدلة وموثّقة.",
