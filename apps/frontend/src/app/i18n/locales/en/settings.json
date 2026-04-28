@@ -54,7 +54,7 @@
     "title": "Sign Out",
     "description": "End your current session",
     "button": "Sign out of Profiley",
-    "redirectNote": "You will be redirected to the login page"
+    "redirectNote": "You will be redirected to the landing page"
   },
   "feedback": {
     "languageSaved": "Language preference saved",

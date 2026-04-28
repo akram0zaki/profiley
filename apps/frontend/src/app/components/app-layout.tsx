@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { SimpleDropdown, SimpleDropdownItem, SimpleDropdownLabel, SimpleDropdownSeparator } from './simple-dropdown';
 import { useLanguage } from '../contexts/language-context';
 import { useTheme } from './theme-provider';
+import { signOutAndRedirect } from '../../lib/auth';
 import {
   LayoutDashboard,
   User,
@@ -40,7 +41,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    navigate('/login');
+    void signOutAndRedirect();
   };
 
   const navigation = [

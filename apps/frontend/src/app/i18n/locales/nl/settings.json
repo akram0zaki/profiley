@@ -54,7 +54,7 @@
     "title": "Uitloggen",
     "description": "Beëindig uw huidige sessie",
     "button": "Uitloggen bij Profiley",
-    "redirectNote": "U wordt doorgestuurd naar de inlogpagina"
+    "redirectNote": "U wordt doorgestuurd naar de landingspagina"
   },
   "feedback": {
     "languageSaved": "Taalvoorkeur opgeslagen",

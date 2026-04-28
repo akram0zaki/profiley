@@ -12,7 +12,7 @@ import { toast } from 'sonner';
 import { useEffect, useState } from 'react';
 import { useCurrentProfile, updatePreferences } from '../../lib/profile';
 import { api, ApiError } from '../../lib/api';
-import { signOut } from '../../lib/auth';
+import { signOutAndRedirect } from '../../lib/auth';
 import { useLanguage } from '../contexts/language-context';
 
 export default function SettingsPage() {
@@ -265,7 +265,7 @@ export default function SettingsPage() {
                 variant="destructive"
                 size="sm"
                 onClick={() => {
-                  void signOut();
+                  void signOutAndRedirect();
                 }}
               >
                 {t('settings.signOut.title')}

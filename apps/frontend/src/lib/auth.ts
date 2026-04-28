@@ -63,3 +63,11 @@ export async function signInWithProvider(provider: 'google' | 'github', redirect
 export async function signOut() {
   return supabase.auth.signOut();
 }
+
+export async function signOutAndRedirect(redirectTo = '/') {
+  const result = await signOut();
+  if (!result.error) {
+    window.location.assign(redirectTo);
+  }
+  return result;
+}

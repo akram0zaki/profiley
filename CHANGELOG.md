@@ -6,6 +6,14 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.1.0] - Unreleased
 
+### Fixed — Logout returns users to the landing page
+
+- Added a shared frontend logout helper so both the app navigation and
+  settings sign-out actions clear the Supabase session and redirect to `/`
+  instead of sending users to `/login`.
+- Updated the settings sign-out note in all supported locales to reflect the
+  landing-page redirect.
+
 ### Changed — GitHub Actions no longer run on `main` pushes
 
 - Removed the `push` trigger from `.github/workflows/ci.yml` and

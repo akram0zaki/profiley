@@ -16,7 +16,7 @@ vi.mock('../supabase', () => ({
   FUNCTIONS_BASE: 'http://test.local/functions/v1',
 }));
 
-import { signInWithEmail, signInWithProvider, signOut, useAuth } from '../auth';
+import { signInWithEmail, signInWithProvider, signOut, signOutAndRedirect, useAuth } from '../auth';
 
 describe('auth helpers', () => {
   it('signInWithEmail uses default redirect when none given', async () => {
@@ -50,6 +50,34 @@ describe('auth helpers', () => {
   it('signOut delegates to supabase.auth.signOut', async () => {
     await signOut();
     expect(mocks.signOut).toHaveBeenCalled();
+  });
+
+  it('signOutAndRedirect sends the user to the landing page after sign-out', async () => {
+    const assign = vi.fn();
+    mocks.signOut.mockResolvedValueOnce({ error: null });
+    Object.defineProperty(window, 'location', {
+      value: { assign, origin: 'https://app.example' },
+      writable: true,
+    });
+
+    await signOutAndRedirect();
+
+    expect(mocks.signOut).toHaveBeenCalled();
+    expect(assign).toHaveBeenCalledWith('/');
+  });
+
+  it('signOutAndRedirect does not redirect when sign-out fails', async () => {
+    const assign = vi.fn();
+    mocks.signOut.mockResolvedValueOnce({ error: new Error('boom') });
+    Object.defineProperty(window, 'location', {
+      value: { assign, origin: 'https://app.example' },
+      writable: true,
+    });
+
+    const result = await signOutAndRedirect();
+
+    expect(assign).not.toHaveBeenCalled();
+    expect(result.error).toBeInstanceOf(Error);
   });
 });
 
