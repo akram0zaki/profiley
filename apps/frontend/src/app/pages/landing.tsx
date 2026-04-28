@@ -20,7 +20,7 @@ export default function LandingPage() {
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-500/5">
       {/* Navigation */}
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between px-4 max-w-screen-xl">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4 max-w-screen-xl">
           <div className="flex items-center gap-2">
             <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
               <span className="text-xl font-bold text-white">P</span>
@@ -85,7 +85,7 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="container px-4 py-20 md:py-32 max-w-screen-xl">
+      <section className="container mx-auto px-4 py-20 md:py-32 max-w-screen-xl">
         <div className="flex flex-col items-center text-center gap-8">
           <Badge variant="secondary" className="gap-2 px-4 py-1">
             <Sparkles className="h-3 w-3" />
@@ -129,7 +129,7 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="container px-4 py-20 max-w-screen-xl">
+      <section className="container mx-auto px-4 py-20 max-w-screen-xl">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">{t('landing.features.title')}</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -213,7 +213,7 @@ export default function LandingPage() {
       </section>
 
       {/* How It Works */}
-      <section className="container px-4 py-20 max-w-screen-xl">
+      <section className="container mx-auto px-4 py-20 max-w-screen-xl">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">{t('landing.howItWorks.title')}</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -261,7 +261,7 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="container px-4 py-20 max-w-screen-xl">
+      <section className="container mx-auto px-4 py-20 max-w-screen-xl">
         <Card className="border-border/50 bg-gradient-to-br from-purple-500/10 to-blue-500/10 backdrop-blur">
           <CardContent className="p-12 text-center space-y-6">
             <h2 className="text-3xl md:text-5xl font-bold">{t('landing.cta.title')}</h2>
@@ -295,7 +295,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="border-t border-border/40 py-12">
-        <div className="container px-4 max-w-screen-xl">
+        <div className="container mx-auto px-4 max-w-screen-xl">
           <div className="flex flex-col gap-6">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex items-center gap-2">

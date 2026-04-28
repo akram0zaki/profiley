@@ -32,7 +32,7 @@ export function LegalLayout({ title, lead, children }: LegalLayoutProps) {
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-500/5">
       {/* Navigation */}
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between px-4 max-w-screen-xl">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4 max-w-screen-xl">
           <Link to="/" className="flex items-center gap-2">
             <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
               <span className="text-xl font-bold text-white">P</span>
@@ -79,7 +79,7 @@ export function LegalLayout({ title, lead, children }: LegalLayoutProps) {
       </header>
 
       {/* Content */}
-      <main className="container px-4 py-12 md:py-20 max-w-3xl">
+      <main className="container mx-auto px-4 py-12 md:py-20 max-w-3xl">
         <div className="mb-6">
           <Link to="/">
             <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground">
@@ -120,7 +120,7 @@ export function LegalLayout({ title, lead, children }: LegalLayoutProps) {
       </main>
 
       <footer className="border-t border-border/40 py-8 mt-12">
-        <div className="container px-4 max-w-screen-xl text-center">
+        <div className="container mx-auto px-4 max-w-screen-xl text-center">
           <p className="text-sm text-muted-foreground">{t('landing.footer.copyright')}</p>
         </div>
       </footer>

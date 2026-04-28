@@ -11,6 +11,14 @@ no Supabase project has been created yet. Follow
 [`docs/concept/profiley-init-guide.md`](docs/concept/profiley-init-guide.md) to
 provision and deploy.
 
+### Added — Site Logo Favicon
+
+- Created an SVG favicon (`favicon.svg`) that matches the site logo (purple-to-blue gradient stylized "P") and injected it into `apps/frontend/index.html`.
+
+### Fixed — Off-center layout containers
+
+- Fixed a visual bug on wide screens where content was left-aligned instead of centered. Added Tailwind's `mx-auto` directly to `className="container"` across the React front-end (e.g., landing page, dashboard layout, public profile, and legal pages).
+
 ### Changed — Primary domain is now `profiley.ai`
 
 - Replaced all `profiley.org` and placeholder `profiley.app` references with

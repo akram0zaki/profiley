@@ -56,7 +56,7 @@ export function AppLayout({ children }: AppLayoutProps) {
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/5">
       {/* Top Navigation */}
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 max-w-screen-2xl items-center px-4">
+        <div className="container mx-auto flex h-14 max-w-screen-2xl items-center px-4">
           <div className="flex items-center gap-6 flex-1">
             <Link to="/dashboard" className="flex items-center gap-2">
               <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
@@ -199,7 +199,7 @@ export function AppLayout({ children }: AppLayoutProps) {
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-border/40 bg-background/95 backdrop-blur">
-            <nav className="container px-4 py-4 space-y-1">
+            <nav className="container mx-auto px-4 py-4 space-y-1">
               {navigation.map((item) => {
                 const Icon = item.icon;
                 const isActive = location.pathname === item.href;
@@ -225,7 +225,7 @@ export function AppLayout({ children }: AppLayoutProps) {
       </header>
 
       {/* Main Content */}
-      <main className="container max-w-screen-2xl px-4 py-6">{children}</main>
+      <main className="container mx-auto max-w-screen-2xl px-4 py-6">{children}</main>
     </div>
   );
 }

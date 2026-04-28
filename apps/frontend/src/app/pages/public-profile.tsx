@@ -275,7 +275,7 @@ export default function PublicProfilePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-500/5">
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 items-center justify-between px-4 max-w-screen-xl">
+        <div className="container mx-auto flex h-14 items-center justify-between px-4 max-w-screen-xl">
           <Link to="/" className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
               <span className="font-bold text-white">P</span>
@@ -297,7 +297,7 @@ export default function PublicProfilePage() {
       </header>
 
       <section className="border-b border-border/40 bg-gradient-to-b from-purple-500/5 to-transparent">
-        <div className="container px-4 py-12 max-w-screen-xl">
+        <div className="container mx-auto px-4 py-12 max-w-screen-xl">
           <div className="flex flex-col md:flex-row gap-8 items-start">
             <Avatar className="h-32 w-32 border-4 border-background shadow-xl">
               {profile.photoUrl ? (
@@ -341,7 +341,7 @@ export default function PublicProfilePage() {
       </section>
 
       {showContact && profile.allow_contact_form && (
-        <section className="container px-4 max-w-screen-xl pt-6">
+        <section className="container mx-auto px-4 max-w-screen-xl pt-6">
           <Card>
             <CardHeader>
               <CardTitle>{t('publicProfile.contact.title')}</CardTitle>
@@ -395,7 +395,7 @@ export default function PublicProfilePage() {
         </section>
       )}
 
-      <section className="container px-4 py-8 max-w-screen-xl">
+      <section className="container mx-auto px-4 py-8 max-w-screen-xl">
         <Tabs value={activeTab} onValueChange={handleTabChange}>
           <TabsList className="grid w-full max-w-md grid-cols-3">
             <TabsTrigger value="about">{t('publicProfile.tabs.about')}</TabsTrigger>
@@ -563,7 +563,7 @@ export default function PublicProfilePage() {
       </section>
 
       <footer className="border-t border-border/40 py-8 mt-12">
-        <div className="container px-4 max-w-screen-xl">
+        <div className="container mx-auto px-4 max-w-screen-xl">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
               <Shield className="h-4 w-4 text-muted-foreground" />
