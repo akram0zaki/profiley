@@ -6,6 +6,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.1.0] - Unreleased
 
+### Fixed — Chat AI bot uses default avatar
+
+- The `ChatInterface` AI bot now dynamically displays the user's uploaded profile photo instead of a hardcoded default avatar.
+- Updated `ChatPreviewPage` and `PublicProfilePage` to pass the correct avatar URL into the chat interface.
+
 ### Added — Shareable AI pipeline diagrams
 
 - Added a new `docs/flows/` documentation set covering the two core Profiley

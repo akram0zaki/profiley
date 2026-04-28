@@ -467,6 +467,7 @@ export default function PublicProfilePage() {
                 profileSlug={profile.slug}
                 userName={t('publicProfile.chat.userName')}
                 botName={`${firstName} AI`}
+                botAvatar={profile.photoUrl || undefined}
                 placeholder={t('publicProfile.chat.placeholder')}
               />
             </Card>

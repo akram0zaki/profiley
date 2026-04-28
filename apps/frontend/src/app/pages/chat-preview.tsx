@@ -3,9 +3,11 @@ import { Card, CardDescription, CardHeader, CardTitle } from '../components/ui/c
 import { ChatInterface } from '../components/chat-interface';
 import { AlertCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/language-context';
+import { useCurrentProfile, avatarPublicUrl } from '../../lib/profile';
 
 export default function ChatPreviewPage() {
   const { t } = useLanguage();
+  const { profile } = useCurrentProfile();
   return (
     <AppLayout>
       <div className="max-w-4xl mx-auto space-y-6">
@@ -36,6 +38,7 @@ export default function ChatPreviewPage() {
             ownerMode
             userName={t('chatPreview.userName')}
             botName={t('chatPreview.botName')}
+            botAvatar={avatarPublicUrl(profile?.profile_photo_path ?? null) || undefined}
             placeholder={t('chatPreview.placeholder')}
           />
         </Card>

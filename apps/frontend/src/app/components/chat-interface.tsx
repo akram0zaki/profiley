@@ -21,6 +21,7 @@ interface ChatInterfaceProps {
   userAvatar?: string;
   userName?: string;
   botName?: string;
+  botAvatar?: string;
   placeholder?: string;
   /** When provided, calls public chat-persona endpoint. */
   profileSlug?: string;
@@ -32,6 +33,7 @@ export function ChatInterface({
   userAvatar = 'https://api.dicebear.com/7.x/avataaars/svg?seed=Recruiter',
   userName,
   botName,
+  botAvatar,
   placeholder,
   profileSlug,
   ownerMode,
@@ -128,7 +130,7 @@ export function ChatInterface({
             <Avatar className="h-8 w-8 flex-shrink-0">
               {message.role === 'assistant' ? (
                 <>
-                  <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=Akram" />
+                  <AvatarImage src={botAvatar || "https://api.dicebear.com/7.x/avataaars/svg?seed=Profiley"} />
                   <AvatarFallback>
                     <Bot className="h-4 w-4" />
                   </AvatarFallback>
@@ -185,7 +187,7 @@ export function ChatInterface({
         {isTyping && (
           <div className="flex gap-3">
             <Avatar className="h-8 w-8">
-              <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=Akram" />
+              <AvatarImage src={botAvatar || "https://api.dicebear.com/7.x/avataaars/svg?seed=Profiley"} />
               <AvatarFallback>
                 <Bot className="h-4 w-4" />
               </AvatarFallback>
