@@ -11,6 +11,17 @@ no Supabase project has been created yet. Follow
 [`docs/concept/profiley-init-guide.md`](docs/concept/profiley-init-guide.md) to
 provision and deploy.
 
+### Changed — Primary domain is now `profiley.ai`
+
+- Replaced all `profiley.org` and placeholder `profiley.app` references with
+  `profiley.ai` (and `dev.profiley.ai` for the dev environment) across env
+  files, env templates (`apps/frontend/.dev.vars.example`,
+  `supabase/functions/.env.example`), the recruiter email default in
+  `supabase/functions/submit-recruiter-contact/index.ts`, and the legal
+  contact email (`privacy@profiley.ai`) in all locale JSON files.
+- Supabase Auth Site URL and Redirect URLs were updated in the dashboard
+  for both prod and dev projects.
+
 ### Added — Mandatory legal documents (Terms, Privacy, Cookies)
 
 - New routes `/legal/terms`, `/legal/privacy`, and `/legal/cookies` rendered

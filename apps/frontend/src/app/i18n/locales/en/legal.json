@@ -6,7 +6,7 @@
     "name": "Akram Zaki",
     "role": "Sole operator (private individual)",
     "country": "The Netherlands",
-    "contactEmail": "privacy@profiley.app"
+    "contactEmail": "privacy@profiley.ai"
   },
   "footer": {
     "title": "Legal",
@@ -19,7 +19,7 @@
     "lead": "These Terms & Conditions govern your access to and use of Profiley. By creating an account or otherwise using the service, you agree to these terms.",
     "operator": {
       "title": "1. Service operator",
-      "body": "Profiley is operated as a personal project by Akram Zaki, a private individual residing in the Netherlands. References to “we”, “us”, or “Profiley” refer to this operator. You can reach us at privacy@profiley.app."
+      "body": "Profiley is operated as a personal project by Akram Zaki, a private individual residing in the Netherlands. References to “we”, “us”, or “Profiley” refer to this operator. You can reach us at privacy@profiley.ai."
     },
     "service": {
       "title": "2. The service",
@@ -71,7 +71,7 @@
     },
     "contact": {
       "title": "12. Contact",
-      "body": "Questions about these terms? Email privacy@profiley.app."
+      "body": "Questions about these terms? Email privacy@profiley.ai."
     }
   },
   "privacy": {
@@ -79,7 +79,7 @@
     "lead": "This Privacy Policy explains how Profiley processes your personal data in line with the EU General Data Protection Regulation (GDPR) and the Dutch implementing law (UAVG).",
     "controller": {
       "title": "1. Data controller",
-      "body": "The data controller for Profiley is Akram Zaki, a private individual residing in the Netherlands, acting in a personal capacity. Profiley is not large enough to require a Data Protection Officer under Article 37 GDPR. Privacy questions and rights requests can be sent to privacy@profiley.app."
+      "body": "The data controller for Profiley is Akram Zaki, a private individual residing in the Netherlands, acting in a personal capacity. Profiley is not large enough to require a Data Protection Officer under Article 37 GDPR. Privacy questions and rights requests can be sent to privacy@profiley.ai."
     },
     "scope": {
       "title": "2. Scope",
@@ -194,7 +194,7 @@
         "Withdraw consent at any time, without affecting prior processing (Art. 7);",
         "Lodge a complaint with the Dutch Data Protection Authority (Autoriteit Persoonsgegevens, www.autoriteitpersoonsgegevens.nl)."
       ],
-      "howToExercise": "Send rights requests to privacy@profiley.app from the email address linked to your account. We respond within one calendar month and may request reasonable proof of identity."
+      "howToExercise": "Send rights requests to privacy@profiley.ai from the email address linked to your account. We respond within one calendar month and may request reasonable proof of identity."
     },
     "security": {
       "title": "10. Security",
@@ -210,7 +210,7 @@
     },
     "contact": {
       "title": "13. Contact",
-      "body": "For privacy questions, rights requests, or concerns, contact privacy@profiley.app."
+      "body": "For privacy questions, rights requests, or concerns, contact privacy@profiley.ai."
     }
   },
   "cookies": {
@@ -276,7 +276,7 @@
     },
     "contact": {
       "title": "6. Contact",
-      "body": "Questions about cookies? Email privacy@profiley.app."
+      "body": "Questions about cookies? Email privacy@profiley.ai."
     }
   }
 }

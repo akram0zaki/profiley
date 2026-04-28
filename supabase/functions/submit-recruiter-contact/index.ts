@@ -122,7 +122,7 @@ Deno.serve(async (req) => {
     let deliveryError: string | null = "owner email missing";
     if (ownerEmail) {
       const fromName = Deno.env.get("RECRUITER_EMAIL_FROM_NAME") ?? "Profiley";
-      const fromEmail = Deno.env.get("RECRUITER_EMAIL_FROM") ?? "noreply@profiley.app";
+      const fromEmail = Deno.env.get("RECRUITER_EMAIL_FROM") ?? "noreply@profiley.ai";
       const r = await sendViaResend({
         to: ownerEmail,
         fromName,

@@ -6,7 +6,7 @@
     "name": "Akram Zaki",
     "role": "Enige beheerder (privépersoon)",
     "country": "Nederland",
-    "contactEmail": "privacy@profiley.app"
+    "contactEmail": "privacy@profiley.ai"
   },
   "footer": {
     "title": "Juridisch",
@@ -19,7 +19,7 @@
     "lead": "Deze Algemene Voorwaarden regelen uw toegang tot en gebruik van Profiley. Door een account aan te maken of de dienst te gebruiken, gaat u akkoord met deze voorwaarden.",
     "operator": {
       "title": "1. Beheerder van de dienst",
-      "body": "Profiley wordt als persoonlijk project beheerd door Akram Zaki, een privépersoon woonachtig in Nederland. Verwijzingen naar “wij”, “ons” of “Profiley” verwijzen naar deze beheerder. U kunt ons bereiken via privacy@profiley.app."
+      "body": "Profiley wordt als persoonlijk project beheerd door Akram Zaki, een privépersoon woonachtig in Nederland. Verwijzingen naar “wij”, “ons” of “Profiley” verwijzen naar deze beheerder. U kunt ons bereiken via privacy@profiley.ai."
     },
     "service": {
       "title": "2. De dienst",
@@ -71,7 +71,7 @@
     },
     "contact": {
       "title": "12. Contact",
-      "body": "Vragen over deze voorwaarden? Mail naar privacy@profiley.app."
+      "body": "Vragen over deze voorwaarden? Mail naar privacy@profiley.ai."
     }
   },
   "privacy": {
@@ -79,7 +79,7 @@
     "lead": "Dit Privacybeleid legt uit hoe Profiley uw persoonsgegevens verwerkt overeenkomstig de Algemene Verordening Gegevensbescherming (AVG) en de Uitvoeringswet AVG (UAVG).",
     "controller": {
       "title": "1. Verwerkingsverantwoordelijke",
-      "body": "De verwerkingsverantwoordelijke voor Profiley is Akram Zaki, een privépersoon woonachtig in Nederland, die in persoonlijke hoedanigheid optreedt. Profiley is niet groot genoeg om een Functionaris voor Gegevensbescherming te vereisen onder artikel 37 AVG. Privacyvragen en rechtenverzoeken kunnen worden gestuurd naar privacy@profiley.app."
+      "body": "De verwerkingsverantwoordelijke voor Profiley is Akram Zaki, een privépersoon woonachtig in Nederland, die in persoonlijke hoedanigheid optreedt. Profiley is niet groot genoeg om een Functionaris voor Gegevensbescherming te vereisen onder artikel 37 AVG. Privacyvragen en rechtenverzoeken kunnen worden gestuurd naar privacy@profiley.ai."
     },
     "scope": {
       "title": "2. Reikwijdte",
@@ -194,7 +194,7 @@
         "Toestemming op elk moment in te trekken, zonder eerdere verwerking aan te tasten (art. 7);",
         "Klacht in te dienen bij de Autoriteit Persoonsgegevens (www.autoriteitpersoonsgegevens.nl)."
       ],
-      "howToExercise": "Stuur rechtenverzoeken naar privacy@profiley.app vanaf het e-mailadres dat aan uw account is gekoppeld. Wij reageren binnen één kalendermaand en kunnen redelijke identiteitsbewijzen verlangen."
+      "howToExercise": "Stuur rechtenverzoeken naar privacy@profiley.ai vanaf het e-mailadres dat aan uw account is gekoppeld. Wij reageren binnen één kalendermaand en kunnen redelijke identiteitsbewijzen verlangen."
     },
     "security": {
       "title": "10. Beveiliging",
@@ -210,7 +210,7 @@
     },
     "contact": {
       "title": "13. Contact",
-      "body": "Neem voor privacyvragen, rechtenverzoeken of zorgen contact op via privacy@profiley.app."
+      "body": "Neem voor privacyvragen, rechtenverzoeken of zorgen contact op via privacy@profiley.ai."
     }
   },
   "cookies": {
@@ -276,7 +276,7 @@
     },
     "contact": {
       "title": "6. Contact",
-      "body": "Vragen over cookies? Mail naar privacy@profiley.app."
+      "body": "Vragen over cookies? Mail naar privacy@profiley.ai."
     }
   }
 }

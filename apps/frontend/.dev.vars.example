@@ -14,7 +14,7 @@ SUPABASE_URL=https://YOUR-PROJECT-REF.supabase.co
 SUPABASE_ANON_KEY=eyJhbGciOi...
 
 # --- Public origin for OG / canonical tags ---
-PUBLIC_APP_ORIGIN=https://profiley.app
+PUBLIC_APP_ORIGIN=https://profiley.ai
 
 # --- Optional: Cloudflare Image Resizing prefix for og:image ---
-CF_IMAGE_RESIZING_PREFIX=https://profiley.app/cdn-cgi/image
+CF_IMAGE_RESIZING_PREFIX=https://profiley.ai/cdn-cgi/image
