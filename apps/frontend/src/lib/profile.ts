@@ -90,6 +90,10 @@ export function useCurrentProfile() {
   useEffect(() => {
     if (authLoading) return;
     void reload();
+    
+    const handleUpdate = () => void reload();
+    window.addEventListener('profile-updated', handleUpdate);
+    return () => window.removeEventListener('profile-updated', handleUpdate);
   }, [authLoading, reload]);
 
   return { ...data, loading: authLoading || loading, error, reload };
@@ -98,6 +102,7 @@ export function useCurrentProfile() {
 export async function updateProfile(userId: string, patch: Partial<ProfileRow>) {
   const { error } = await supabase.from('profiles').update(patch).eq('user_id', userId);
   if (error) throw error;
+  window.dispatchEvent(new CustomEvent('profile-updated'));
 }
 
 export async function updatePreferences(userId: string, patch: Partial<PreferencesRow>) {
@@ -105,11 +110,13 @@ export async function updatePreferences(userId: string, patch: Partial<Preferenc
     .from('profile_preferences')
     .upsert({ user_id: userId, ...patch }, { onConflict: 'user_id' });
   if (error) throw error;
+  window.dispatchEvent(new CustomEvent('profile-updated'));
 }
 
 export async function updateAppUser(userId: string, patch: Partial<AppUserRow>) {
   const { error } = await supabase.from('app_users').update(patch).eq('id', userId);
   if (error) throw error;
+  window.dispatchEvent(new CustomEvent('profile-updated'));
 }
 
 // Returns a public storage URL for the avatar bucket path, or null.

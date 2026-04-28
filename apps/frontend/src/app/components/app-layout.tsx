@@ -40,7 +40,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   const { language, setLanguage, t } = useLanguage();
   const { theme, setTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { appUser } = useCurrentProfile();
+  const { appUser, profile } = useCurrentProfile();
 
   const handleLogout = () => {
     void signOutAndRedirect();
@@ -150,15 +150,15 @@ export function AppLayout({ children }: AppLayoutProps) {
               trigger={
                 <Button variant="ghost" className="relative h-9 w-9 rounded-full">
                   <Avatar className="h-9 w-9">
-                    <AvatarImage src={avatarPublicUrl(appUser?.profile_photo_path) ?? "https://api.dicebear.com/7.x/avataaars/svg?seed=Akram"} alt="User" />
-                    <AvatarFallback>{appUser?.full_name ? appUser.full_name.charAt(0).toUpperCase() : 'U'}</AvatarFallback>
+                    <AvatarImage src={avatarPublicUrl(profile?.profile_photo_path) ?? "https://api.dicebear.com/7.x/avataaars/svg?seed=Akram"} alt="User" />
+                    <AvatarFallback>{profile?.full_name ? profile.full_name.charAt(0).toUpperCase() : 'U'}</AvatarFallback>
                   </Avatar>
                 </Button>
               }
               className="w-56"
             >
               <div className="px-2 py-1.5">
-                <p className="text-sm font-medium">{appUser?.full_name || 'User'}</p>
+                <p className="text-sm font-medium">{profile?.full_name || 'User'}</p>
                 <p className="text-xs text-muted-foreground">{appUser?.email || ''}</p>
               </div>
               <SimpleDropdownSeparator />

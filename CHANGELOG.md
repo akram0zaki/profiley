@@ -9,7 +9,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed — Profile photo uploads fail to display
 
 - Made the `avatars` Storage bucket public so `supabase.storage.getPublicUrl()` can successfully serve uploaded profile photos.
-- Updated the header layout avatar (`AppLayout`) to use `useAppUser()` and dynamically display the uploaded profile photo instead of a hardcoded generic caricature.
+- Updated the header layout avatar (`AppLayout`) to use `useCurrentProfile()` and dynamically display the uploaded profile photo instead of a hardcoded generic caricature.
+- Added a `profile-updated` custom event to `updateProfile()`, `updatePreferences()`, and `updateAppUser()` in `lib/profile.ts` so `useCurrentProfile()` can instantly refresh and keep the header avatar in sync across navigation when changes are made.
 
 ### Fixed — Logout returns users to the landing page
 
