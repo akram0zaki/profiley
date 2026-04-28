@@ -331,8 +331,9 @@ Set repo secrets (Settings → Secrets and variables → Actions):
 | `CLOUDFLARE_PAGES_PROJECT_DEV` | Pages project name for the dev environment (e.g. `profiley-dev`) |
 | `CLOUDFLARE_PAGES_PROJECT_PROD` | Pages project name for the prod environment (e.g. `profiley`) |
 
-Push to `main` (or run `Deploy` manually) to apply migrations + deploy
-functions + publish the frontend.
+Run the `Deploy` workflow manually when you want to apply migrations,
+deploy functions, and publish the frontend. Commits to `main` no longer
+trigger GitHub Actions automatically.
 
 ---
 

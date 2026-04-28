@@ -6,6 +6,14 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.1.0] - Unreleased
 
+### Changed — GitHub Actions no longer run on `main` pushes
+
+- Removed the `push` trigger from `.github/workflows/ci.yml` and
+  `.github/workflows/deploy.yml`. Pull requests into `main` still run CI, and
+  production deploys remain available through the manual `Deploy` workflow.
+- Updated the init guide to reflect that deployments are now manual instead of
+  happening automatically on every commit to `main`.
+
 Initial backend + critical-path frontend wiring. Everything is workspace-only;
 no Supabase project has been created yet. Follow
 [`docs/concept/profiley-init-guide.md`](docs/concept/profiley-init-guide.md) to
