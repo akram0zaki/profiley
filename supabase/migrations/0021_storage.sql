@@ -5,7 +5,7 @@
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values
   ('user_uploads', 'user_uploads', false, 26214400, null),
-  ('avatars',      'avatars',      false,  5242880, array['image/png','image/jpeg','image/webp','image/gif']),
+  ('avatars',      'avatars',      true,   5242880, array['image/png','image/jpeg','image/webp','image/gif']),
   ('documents',    'documents',    false, 26214400, null)
 on conflict (id) do nothing;
 

@@ -6,6 +6,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.1.0] - Unreleased
 
+### Fixed — Profile photo uploads fail to display
+
+- Made the `avatars` Storage bucket public so `supabase.storage.getPublicUrl()` can successfully serve uploaded profile photos.
+- Updated the header layout avatar (`AppLayout`) to use `useAppUser()` and dynamically display the uploaded profile photo instead of a hardcoded generic caricature.
+
 ### Fixed — Logout returns users to the landing page
 
 - Added a shared frontend logout helper so both the app navigation and

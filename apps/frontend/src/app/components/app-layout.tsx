@@ -6,6 +6,7 @@ import { SimpleDropdown, SimpleDropdownItem, SimpleDropdownLabel, SimpleDropdown
 import { useLanguage } from '../contexts/language-context';
 import { useTheme } from './theme-provider';
 import { signOutAndRedirect } from '../../lib/auth';
+import { useAppUser, avatarPublicUrl } from '../../lib/profile';
 import {
   LayoutDashboard,
   User,
@@ -39,6 +40,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   const { language, setLanguage, t } = useLanguage();
   const { theme, setTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { appUser } = useAppUser();
 
   const handleLogout = () => {
     void signOutAndRedirect();
@@ -148,16 +150,16 @@ export function AppLayout({ children }: AppLayoutProps) {
               trigger={
                 <Button variant="ghost" className="relative h-9 w-9 rounded-full">
                   <Avatar className="h-9 w-9">
-                    <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=Akram" alt="User" />
-                    <AvatarFallback>AK</AvatarFallback>
+                    <AvatarImage src={avatarPublicUrl(appUser?.profile_photo_path) ?? "https://api.dicebear.com/7.x/avataaars/svg?seed=Akram"} alt="User" />
+                    <AvatarFallback>{appUser?.full_name ? appUser.full_name.charAt(0).toUpperCase() : 'U'}</AvatarFallback>
                   </Avatar>
                 </Button>
               }
               className="w-56"
             >
               <div className="px-2 py-1.5">
-                <p className="text-sm font-medium">Akram Fares</p>
-                <p className="text-xs text-muted-foreground">akram@example.com</p>
+                <p className="text-sm font-medium">{appUser?.full_name || 'User'}</p>
+                <p className="text-xs text-muted-foreground">{appUser?.email || ''}</p>
               </div>
               <SimpleDropdownSeparator />
               <SimpleDropdownItem onClick={() => navigate('/dashboard')}>
