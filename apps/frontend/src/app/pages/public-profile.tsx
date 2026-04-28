@@ -235,15 +235,15 @@ export default function PublicProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-muted-foreground">
-        <Loader2 className="h-6 w-6 animate-spin mr-2" /> {t('publicProfile.loading')}
+      <div className="flex-1 flex flex-col items-center justify-center text-muted-foreground">
+        <div><Loader2 className="h-6 w-6 animate-spin mr-2 inline" /> {t('publicProfile.loading')}</div>
       </div>
     );
   }
 
   if (error || !profile) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="flex-1 flex items-center justify-center px-4">
         <Card className="max-w-md w-full">
           <CardHeader>
             <div className="flex items-center gap-2">
@@ -273,7 +273,7 @@ export default function PublicProfilePage() {
   const firstName = displayName.split(' ')[0] ?? displayName;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-500/5">
+    <div className="flex-1 flex flex-col bg-gradient-to-br from-background via-background to-purple-500/5">
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-14 items-center justify-between px-4 max-w-screen-xl">
           <Link to="/" className="flex items-center gap-2">
@@ -561,24 +561,6 @@ export default function PublicProfilePage() {
           </TabsContent>
         </Tabs>
       </section>
-
-      <footer className="border-t border-border/40 py-8 mt-12">
-        <div className="container mx-auto px-4 max-w-screen-xl">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2">
-              <Shield className="h-4 w-4 text-muted-foreground" />
-              <p className="text-sm text-muted-foreground">
-                {t('publicProfile.footer.poweredBy')}
-              </p>
-            </div>
-            <Link to="/login">
-              <Button variant="outline" size="sm">
-                {t('publicProfile.footer.createCta')}
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

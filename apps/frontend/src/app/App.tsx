@@ -3,6 +3,7 @@ import { ThemeProvider } from './components/theme-provider';
 import { LanguageProvider } from './contexts/language-context';
 import { Toaster } from './components/ui/sonner';
 import { RequireAuth, RequireAdmin } from './components/auth-guards';
+import { Footer } from './components/footer';
 
 // Pages
 import LandingPage from './pages/landing';
@@ -29,27 +30,32 @@ export default function App() {
     <ThemeProvider defaultTheme="dark" storageKey="profiley-theme">
       <LanguageProvider>
         <BrowserRouter>
-          <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/auth/callback" element={<AuthCallbackPage />} />
-          <Route path="/onboarding" element={<RequireAuth><OnboardingPage /></RequireAuth>} />
-          <Route path="/dashboard" element={<RequireAuth><DashboardPage /></RequireAuth>} />
-          <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
-          <Route path="/uploads" element={<RequireAuth><UploadsPage /></RequireAuth>} />
-          <Route path="/knowledge" element={<RequireAuth><KnowledgePage /></RequireAuth>} />
-          <Route path="/chat-preview" element={<RequireAuth><ChatPreviewPage /></RequireAuth>} />
-          <Route path="/job-fit-preview" element={<RequireAuth><JobFitPreviewPage /></RequireAuth>} />
-          <Route path="/public/:username" element={<PublicProfilePage />} />
-          <Route path="/settings" element={<RequireAuth><SettingsPage /></RequireAuth>} />
-          <Route path="/settings/ai" element={<RequireAuth><SettingsAIPage /></RequireAuth>} />
-          <Route path="/settings/avatar" element={<RequireAuth><SettingsAvatarPage /></RequireAuth>} />
-          <Route path="/admin" element={<RequireAdmin><AdminPage /></RequireAdmin>} />
-          <Route path="/legal/terms" element={<TermsPage />} />
-          <Route path="/legal/privacy" element={<PrivacyPage />} />
-          <Route path="/legal/cookies" element={<CookiesPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+          <div className="flex flex-col min-h-screen w-full">
+            <main className="flex-1 flex flex-col">
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/auth/callback" element={<AuthCallbackPage />} />
+                <Route path="/onboarding" element={<RequireAuth><OnboardingPage /></RequireAuth>} />
+                <Route path="/dashboard" element={<RequireAuth><DashboardPage /></RequireAuth>} />
+                <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
+                <Route path="/uploads" element={<RequireAuth><UploadsPage /></RequireAuth>} />
+                <Route path="/knowledge" element={<RequireAuth><KnowledgePage /></RequireAuth>} />
+                <Route path="/chat-preview" element={<RequireAuth><ChatPreviewPage /></RequireAuth>} />
+                <Route path="/job-fit-preview" element={<RequireAuth><JobFitPreviewPage /></RequireAuth>} />
+                <Route path="/public/:username" element={<PublicProfilePage />} />
+                <Route path="/settings" element={<RequireAuth><SettingsPage /></RequireAuth>} />
+                <Route path="/settings/ai" element={<RequireAuth><SettingsAIPage /></RequireAuth>} />
+                <Route path="/settings/avatar" element={<RequireAuth><SettingsAvatarPage /></RequireAuth>} />
+                <Route path="/admin" element={<RequireAdmin><AdminPage /></RequireAdmin>} />
+                <Route path="/legal/terms" element={<TermsPage />} />
+                <Route path="/legal/privacy" element={<PrivacyPage />} />
+                <Route path="/legal/cookies" element={<CookiesPage />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
           <Toaster />
         </BrowserRouter>
       </LanguageProvider>

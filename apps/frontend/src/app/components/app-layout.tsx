@@ -6,7 +6,7 @@ import { SimpleDropdown, SimpleDropdownItem, SimpleDropdownLabel, SimpleDropdown
 import { useLanguage } from '../contexts/language-context';
 import { useTheme } from './theme-provider';
 import { signOutAndRedirect } from '../../lib/auth';
-import { useAppUser, avatarPublicUrl } from '../../lib/profile';
+import { useCurrentProfile, avatarPublicUrl } from '../../lib/profile';
 import {
   LayoutDashboard,
   User,
@@ -40,7 +40,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   const { language, setLanguage, t } = useLanguage();
   const { theme, setTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { appUser } = useAppUser();
+  const { appUser } = useCurrentProfile();
 
   const handleLogout = () => {
     void signOutAndRedirect();
@@ -56,7 +56,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/5">
+    <div className="flex-1 flex flex-col bg-gradient-to-br from-background via-background to-accent/5">
       {/* Top Navigation */}
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-14 max-w-screen-2xl items-center px-4">

@@ -29,7 +29,7 @@ export function LegalLayout({ title, lead, children }: LegalLayoutProps) {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-purple-500/5">
+    <div className="flex-1 flex flex-col bg-gradient-to-br from-background via-background to-purple-500/5">
       {/* Navigation */}
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-16 items-center justify-between px-4 max-w-screen-xl">
