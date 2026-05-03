@@ -6,6 +6,12 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.1.0] - Unreleased
 
+### Fixed — Legal footer navigation and AI settings visibility
+
+- Footer links to Terms, Privacy, and Cookies now reset the document scroll position to the top on route change so legal pages open from the beginning instead of preserving the prior page scroll.
+- Updated the frontend HTML title to `Profiley — Let Your Experience Speak`.
+- Removed the end-user `Custom System Prompt` block and limited the `Active Models` section in Settings → AI Configuration to admin users only.
+
 ### Fixed — Selective legal re-acceptance prompt
 
 - The legal acceptance screen now only prompts for the document whose version is stale instead of forcing users to re-check both Terms and Privacy when only one changed.

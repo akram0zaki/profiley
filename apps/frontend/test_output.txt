@@ -1,0 +1,87 @@
+
+ RUN  v2.1.9 /Users/akramzaki/Developer/workspace/profiley/apps/frontend
+
+stderr | src/app/pages/__tests__/legal.test.tsx > Landing footer legal links > resets scroll to the top when a legal link changes routes
+Error: Uncaught [Error: You cannot render a <Router> inside another <Router>. You should never have more than one in your app.]
+    at reportException (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/helpers/runtime-script-errors.js:66:24)
+    at innerInvokeEventListeners (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:353:9)
+    at invokeEventListeners (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+    at HTMLUnknownElementImpl._dispatch (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9)
+    at HTMLUnknownElementImpl.dispatchEvent (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:104:17)
+    at HTMLUnknownElement.dispatchEvent (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/generated/EventTarget.js:241:34)
+    at Object.invokeGuardedCallbackDev (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:4213:16)
+    at invokeGuardedCallback (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:4277:31)
+    at beginWork$1 (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:27490:7)
+    at performUnitOfWork (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:26599:12) Error: You cannot render a <Router> inside another <Router>. You should never have more than one in your app.
+    at invariant (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-router@7.13.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-router/dist/development/chunk-WICQJKU6.js:188:11)
+    at Router (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-router@7.13.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-router/dist/development/chunk-WICQJKU6.js:9343:3)
+    at renderWithHooks (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:15486:18)
+    at mountIndeterminateComponent (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:20103:13)
+    at beginWork (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:21626:16)
+    at HTMLUnknownElement.callCallback (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:4164:14)
+    at HTMLUnknownElement.callTheUserObjectsOperation (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/generated/EventListener.js:26:30)
+    at innerInvokeEventListeners (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:350:25)
+    at invokeEventListeners (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+    at HTMLUnknownElementImpl._dispatch (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9)
+Error: Uncaught [Error: You cannot render a <Router> inside another <Router>. You should never have more than one in your app.]
+    at reportException (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/helpers/runtime-script-errors.js:66:24)
+    at innerInvokeEventListeners (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:353:9)
+    at invokeEventListeners (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+    at HTMLUnknownElementImpl._dispatch (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9)
+    at HTMLUnknownElementImpl.dispatchEvent (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:104:17)
+    at HTMLUnknownElement.dispatchEvent (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/generated/EventTarget.js:241:34)
+    at Object.invokeGuardedCallbackDev (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:4213:16)
+    at invokeGuardedCallback (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:4277:31)
+    at beginWork$1 (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:27490:7)
+    at performUnitOfWork (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:26599:12) Error: You cannot render a <Router> inside another <Router>. You should never have more than one in your app.
+    at invariant (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-router@7.13.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-router/dist/development/chunk-WICQJKU6.js:188:11)
+    at Router (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-router@7.13.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-router/dist/development/chunk-WICQJKU6.js:9343:3)
+    at renderWithHooks (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:15486:18)
+    at mountIndeterminateComponent (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:20103:13)
+    at beginWork (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:21626:16)
+    at HTMLUnknownElement.callCallback (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:4164:14)
+    at HTMLUnknownElement.callTheUserObjectsOperation (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/generated/EventListener.js:26:30)
+    at innerInvokeEventListeners (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:350:25)
+    at invokeEventListeners (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+    at HTMLUnknownElementImpl._dispatch (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/jsdom@25.0.1/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9)
+The above error occurred in the <Router> component:
+
+    at Router (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-router@7.13.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-router/dist/development/chunk-WICQJKU6.js:9335:13)
+    at BrowserRouter (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-router@7.13.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-router/dist/development/chunk-HMDR2CVH.js:271:3)
+    at LanguageProvider (/Users/akramzaki/Developer/workspace/profiley/apps/frontend/src/app/contexts/language-context.tsx:21:29)
+    at ThemeProvider (/Users/akramzaki/Developer/workspace/profiley/apps/frontend/src/app/components/theme-provider.tsx:11:3)
+    at App
+    at Router (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-router@7.13.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-router/dist/development/chunk-WICQJKU6.js:9335:13)
+    at MemoryRouter (/Users/akramzaki/Developer/workspace/profiley/node_modules/.pnpm/react-router@7.13.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-router/dist/development/chunk-WICQJKU6.js:9251:3)
+    at LanguageProvider (/Users/akramzaki/Developer/workspace/profiley/apps/frontend/src/app/contexts/language-context.tsx:21:29)
+    at ThemeProvider (/Users/akramzaki/Developer/workspace/profiley/apps/frontend/src/app/components/theme-provider.tsx:11:3)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+ ❯ src/app/pages/__tests__/legal.test.tsx (8 tests | 1 failed) 104ms
+   × Landing footer legal links > resets scroll to the top when a legal link changes routes 10ms
+     → You cannot render a <Router> inside another <Router>. You should never have more than one in your app.
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/app/pages/__tests__/legal.test.tsx > Landing footer legal links > resets scroll to the top when a legal link changes routes
+Error: You cannot render a <Router> inside another <Router>. You should never have more than one in your app.
+ ❯ invariant ../../node_modules/.pnpm/react-router@7.13.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-router/dist/development/chunk-WICQJKU6.js:188:11
+ ❯ Router ../../node_modules/.pnpm/react-router@7.13.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/react-router/dist/development/chunk-WICQJKU6.js:9343:3
+ ❯ renderWithHooks ../../node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:15486:18
+ ❯ mountIndeterminateComponent ../../node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:20103:13
+ ❯ beginWork ../../node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:21626:16
+ ❯ beginWork$1 ../../node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:27465:14
+ ❯ performUnitOfWork ../../node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:26599:12
+ ❯ workLoopSync ../../node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:26505:5
+ ❯ renderRootSync ../../node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:26473:7
+ ❯ recoverFromConcurrentError ../../node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js:25889:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 7 passed (8)
+   Start at  20:12:19
+   Duration  994ms (transform 253ms, setup 91ms, collect 443ms, tests 104ms, environment 133ms, prepare 30ms)
+

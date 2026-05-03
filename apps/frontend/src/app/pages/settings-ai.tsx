@@ -15,6 +15,7 @@ import { Link } from 'react-router';
 import { ArrowLeft, Bot, Loader2, Save } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
+import { useAuth } from '../../lib/auth';
 import { useCurrentProfile, updatePreferences } from '../../lib/profile';
 import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../contexts/language-context';
@@ -44,6 +45,7 @@ const TONE_OPTIONS = [
 
 export default function SettingsAIPage() {
   const { t } = useLanguage();
+  const auth = useAuth();
   const { appUser, preferences, loading: profileLoading, reload } = useCurrentProfile();
   const [configs, setConfigs] = useState<ProviderConfig[]>([]);
   const [assignments, setAssignments] = useState<FeatureAssignment[]>([]);
@@ -106,6 +108,8 @@ export default function SettingsAIPage() {
     featureGrouped[a.capability].push(a);
   }
 
+  const isAdmin = auth.role === 'admin';
+
   return (
     <AppLayout>
       <div className="max-w-4xl mx-auto space-y-6">
@@ -148,16 +152,18 @@ export default function SettingsAIPage() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="space-y-2">
-              <Label>{t('settingsAi.customPrompt.title')}</Label>
-              <Textarea
-                rows={5}
-                placeholder={t('settingsAi.customPrompt.comingSoon')}
-                className="font-mono text-sm"
-                disabled
-              />
-              <p className="text-xs text-muted-foreground">{t('settingsAi.customPrompt.disabled')}</p>
-            </div>
+            {isAdmin ? (
+              <div className="space-y-2">
+                <Label>{t('settingsAi.customPrompt.title')}</Label>
+                <Textarea
+                  rows={5}
+                  placeholder={t('settingsAi.customPrompt.comingSoon')}
+                  className="font-mono text-sm"
+                  disabled
+                />
+                <p className="text-xs text-muted-foreground">{t('settingsAi.customPrompt.disabled')}</p>
+              </div>
+            ) : null}
             <div className="flex justify-end">
               <Button
                 onClick={() => void handleSaveTone()}
@@ -171,59 +177,61 @@ export default function SettingsAIPage() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <div className="flex items-center gap-2">
-              <Bot className="h-5 w-5 text-purple-400" />
-              <CardTitle>{t('settingsAi.activeModels.title')}</CardTitle>
-            </div>
-            <CardDescription>{t('settingsAi.activeModels.description')}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {loading ? (
-              <div className="flex items-center justify-center py-12 text-muted-foreground">
-                <Loader2 className="h-5 w-5 animate-spin mr-2" /> {t('settingsAi.activeModels.loading')}
+        {isAdmin ? (
+          <Card>
+            <CardHeader>
+              <div className="flex items-center gap-2">
+                <Bot className="h-5 w-5 text-purple-400" />
+                <CardTitle>{t('settingsAi.activeModels.title')}</CardTitle>
               </div>
-            ) : configs.length === 0 ? (
-              <p className="text-sm text-muted-foreground">{t('settingsAi.activeModels.empty')}</p>
-            ) : (
-              <div className="space-y-6">
-                {Object.entries(grouped).map(([capability, items]) => (
-                  <div key={capability} className="space-y-2">
-                    <h3 className="font-medium capitalize">{capability}</h3>
-                    <div className="space-y-2">
-                      {items.map((m) => (
-                        <div
-                          key={m.id}
-                          className="flex items-center justify-between p-3 rounded-lg border"
-                        >
-                          <div>
-                            <p className="font-medium">{m.display_name ?? m.model_key}</p>
-                            <p className="text-xs text-muted-foreground">
-                              {m.provider} · {m.model_key}
-                            </p>
+              <CardDescription>{t('settingsAi.activeModels.description')}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {loading ? (
+                <div className="flex items-center justify-center py-12 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin mr-2" /> {t('settingsAi.activeModels.loading')}
+                </div>
+              ) : configs.length === 0 ? (
+                <p className="text-sm text-muted-foreground">{t('settingsAi.activeModels.empty')}</p>
+              ) : (
+                <div className="space-y-6">
+                  {Object.entries(grouped).map(([capability, items]) => (
+                    <div key={capability} className="space-y-2">
+                      <h3 className="font-medium capitalize">{capability}</h3>
+                      <div className="space-y-2">
+                        {items.map((m) => (
+                          <div
+                            key={m.id}
+                            className="flex items-center justify-between p-3 rounded-lg border"
+                          >
+                            <div>
+                              <p className="font-medium">{m.display_name ?? m.model_key}</p>
+                              <p className="text-xs text-muted-foreground">
+                                {m.provider} · {m.model_key}
+                              </p>
+                            </div>
+                            <div className="flex gap-2">
+                              {m.is_default && (
+                                <Badge variant="secondary" className="text-xs">
+                                  {t('settingsAi.activeModels.default')}
+                                </Badge>
+                              )}
+                              {!m.is_active && (
+                                <Badge variant="outline" className="text-xs">
+                                  {t('settingsAi.activeModels.inactive')}
+                                </Badge>
+                              )}
+                            </div>
                           </div>
-                          <div className="flex gap-2">
-                            {m.is_default && (
-                              <Badge variant="secondary" className="text-xs">
-                                {t('settingsAi.activeModels.default')}
-                              </Badge>
-                            )}
-                            {!m.is_active && (
-                              <Badge variant="outline" className="text-xs">
-                                {t('settingsAi.activeModels.inactive')}
-                              </Badge>
-                            )}
-                          </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        ) : null}
 
         <Card>
           <CardHeader>

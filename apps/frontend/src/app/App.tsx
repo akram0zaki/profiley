@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
 import { ThemeProvider } from './components/theme-provider';
 import { LanguageProvider } from './contexts/language-context';
 import { Toaster } from './components/ui/sonner';
+import { ScrollToTop } from './components/scroll-to-top';
 import { RequireAppAccess, RequireAuth, RequireAdmin, RequireLegalAcceptance } from './components/auth-guards';
 import { Footer } from './components/footer';
 
@@ -31,6 +32,7 @@ export default function App() {
     <ThemeProvider defaultTheme="dark" storageKey="profiley-theme">
       <LanguageProvider>
         <BrowserRouter>
+          <ScrollToTop />
           <div className="flex flex-col min-h-screen w-full">
             <main className="flex-1 flex flex-col">
               <Routes>

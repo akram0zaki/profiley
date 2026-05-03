@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest';
-import { render, screen, within } from '@testing-library/react';
-import { MemoryRouter } from 'react-router';
+import { describe, expect, it, vi, beforeEach } from 'vitest';
+import { fireEvent, render, screen, within } from '@testing-library/react';
+import { MemoryRouter, Routes, Route, Link } from 'react-router';
 import { LanguageProvider } from '../../contexts/language-context';
 import { ThemeProvider } from '../../components/theme-provider';
 import { SUPPORTED_LANGUAGES } from '../../i18n/loader';
@@ -12,6 +12,7 @@ import PrivacyPage from '../privacy';
 import CookiesPage from '../cookies';
 import LandingPage from '../landing';
 import { Footer } from '../../components/footer';
+import { ScrollToTop } from '../../components/scroll-to-top';
 
 function renderWithProviders(ui: React.ReactElement, route = '/') {
   return render(
@@ -92,6 +93,39 @@ describe('Landing footer legal links', () => {
       'href',
       '/legal/cookies',
     );
+  });
+
+  beforeEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('resets scroll to the top when a legal link changes routes', async () => {
+    const scrollTo = vi.fn();
+    vi.stubGlobal('scrollTo', scrollTo);
+
+    render(
+      <ThemeProvider defaultTheme="dark" storageKey="profiley-theme-test">
+        <LanguageProvider>
+          <MemoryRouter initialEntries={['/']}>
+            <ScrollToTop />
+            <Routes>
+              <Route
+                path="/"
+                element={<Link to="/legal/privacy">Open privacy</Link>}
+              />
+              <Route path="/legal/privacy" element={<div>Privacy route</div>} />
+            </Routes>
+          </MemoryRouter>
+        </LanguageProvider>
+      </ThemeProvider>,
+    );
+
+    expect(scrollTo).toHaveBeenCalledTimes(1);
+
+    fireEvent.click(screen.getByRole('link', { name: 'Open privacy' }));
+
+    expect(scrollTo).toHaveBeenCalledTimes(2);
+    expect(scrollTo).toHaveBeenLastCalledWith({ top: 0, left: 0, behavior: 'auto' });
   });
 });
 
