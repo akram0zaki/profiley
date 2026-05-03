@@ -3,7 +3,9 @@
   "subtitle": "Test uw AI-persona en zie hoe recruiters met u zullen interacteren",
   "info": {
     "title": "Uw AI-Persona Testen",
-    "description": "Zo zal uw AI reageren op recruiterversvragen. De AI antwoordt alleen met informatie uit uw geüploade documenten en profielgegevens. Probeer te vragen over uw ervaring, vaardigheden of specifieke projecten."
+    "description": "Zo zal uw AI reageren op vragen van recruiters. Antwoorden worden gegenereerd uit uw geüploade documenten en profielgegevens, kunnen nog steeds onvolmaakt zijn en mogen niet als wervingsbeslissing worden gepresenteerd.",
+    "privacy": "Privacydetails",
+    "concerns": "Meld een zorg"
   },
   "userName": "U (Test)",
   "botName": "Uw AI-Persona",

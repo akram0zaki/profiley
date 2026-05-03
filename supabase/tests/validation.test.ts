@@ -1,5 +1,6 @@
 import { assert, assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts";
 import {
+  AcceptLegalDocumentsSchema,
   AdminCreateModelSchema,
   AdminSetFeatureModelSchema,
   AnalyzeJobFitSchema,
@@ -11,6 +12,7 @@ import {
   GetPublicProfileSchema,
   InitializeUserProfileSchema,
   PublishProfileSchema,
+  RequestAccountDeletionSchema,
   RESERVED_SLUGS,
   SubmitRecruiterContactSchema,
   TrackRecruiterEventSchema,
@@ -33,6 +35,38 @@ Deno.test("InitializeUserProfileSchema: accepts empty + restricts language enum"
 Deno.test("UpdateUserLocaleSchema: enforces enum + length caps", () => {
   assert(UpdateUserLocaleSchema.safeParse({ preferredLanguage: "nl" }).success);
   assert(!UpdateUserLocaleSchema.safeParse({ timezone: "x".repeat(65) }).success);
+});
+
+Deno.test("AcceptLegalDocumentsSchema: requires explicit acknowledgement and a known source", () => {
+  assert(
+    AcceptLegalDocumentsSchema.safeParse({
+      termsAccepted: true,
+      privacyAccepted: true,
+    }).success,
+  );
+  assert(!AcceptLegalDocumentsSchema.safeParse({ termsAccepted: true }).success);
+  assert(
+    !AcceptLegalDocumentsSchema.safeParse({
+      termsAccepted: true,
+      privacyAccepted: true,
+      acceptanceSource: "manual_admin_override",
+    }).success,
+  );
+});
+
+Deno.test("RequestAccountDeletionSchema: requires DELETE confirmation text and known source", () => {
+  assert(
+    RequestAccountDeletionSchema.safeParse({
+      confirmationText: "DELETE",
+    }).success,
+  );
+  assert(!RequestAccountDeletionSchema.safeParse({ confirmationText: "delete" }).success);
+  assert(
+    !RequestAccountDeletionSchema.safeParse({
+      confirmationText: "DELETE",
+      requestSource: "email",
+    }).success,
+  );
 });
 
 Deno.test("CompleteOnboardingSchema: requires question keys, caps answers at 50", () => {

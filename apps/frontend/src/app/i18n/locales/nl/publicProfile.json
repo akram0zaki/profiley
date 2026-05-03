@@ -1,6 +1,6 @@
 {
   "brand": "Profiley",
-  "verified": "AI-Geverifieerd Profiel",
+  "verified": "AI-ondersteund Profiel",
   "createCta": "Maak Uw Profiel",
   "loading": "Profiel laden…",
   "error": {
@@ -17,15 +17,27 @@
     "title": "Over",
     "skills": "Vaardigheden"
   },
+  "aiLinks": {
+    "privacy": "Privacydetails",
+    "concerns": "Meld een zorg"
+  },
   "chat": {
     "title": "Chat met de AI van {firstName}",
-    "description": "Deze AI kan vragen beantwoorden over de ervaring, vaardigheden en projecten van {firstName}. Alle antwoorden zijn gebaseerd op geverifieerde profielgegevens en geüploade documenten.",
+    "description": "Deze assistent beantwoordt vragen over de ervaring, vaardigheden en projecten van {firstName} op basis van de materialen die aan dit profiel zijn gekoppeld.",
+    "notice": {
+      "title": "AI-gegenereerde antwoorden",
+      "body": "Antwoorden worden gegenereerd op basis van de materialen van de profieleigenaar en kunnen onvolledig of onjuist zijn. Verifieer belangrijke beweringen rechtstreeks met de kandidaat."
+    },
     "userName": "U",
     "placeholder": "Vraag naar ervaring, vaardigheden, projecten of kwalificaties…"
   },
   "jobFit": {
     "title": "Functie-Match Analyse",
-    "description": "Plak een functiebeschrijving om direct een AI-aangedreven analyse te krijgen van hoe goed {firstName} bij de rol past.",
+    "description": "Plak een functiebeschrijving om een AI-gegenereerde vergelijking te krijgen van hoe goed de materialen van {firstName} bij de rol lijken te passen.",
+    "notice": {
+      "title": "Alleen ondersteunende analyse",
+      "body": "Deze score is een AI-gegenereerd hulpmiddel en geen geautomatiseerde wervingsbeslissing. Beoordeel het bewijs en gebruik menselijk oordeel voordat u handelt."
+    },
     "input": "Plak Functiebeschrijving",
     "jobTitle": "Functietitel (optioneel)",
     "company": "Bedrijfsnaam (optioneel)",
@@ -50,7 +62,7 @@
     "messageTooShort": "Uw bericht moet minimaal 10 tekens bevatten."
   },
   "footer": {
-    "poweredBy": "Dit profiel wordt aangedreven door Profiley AI. Alle antwoorden zijn op bewijs gebaseerd en geverifieerd.",
+    "poweredBy": "Dit profiel wordt aangedreven door Profiley AI. Antwoorden worden met AI gegenereerd op basis van de materialen van de eigenaar en moeten met de kandidaat worden gecontroleerd.",
     "createCta": "Maak Uw AI-Profiel"
   },
   "feedback": {

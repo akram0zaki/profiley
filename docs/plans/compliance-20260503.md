@@ -2,6 +2,21 @@
 
 Last updated: 2026-05-03
 
+## Execution status
+
+- `P0.1 Legal copy accuracy reset`: Completed
+- `P0.2 Acceptance capture and versioned legal acknowledgements`: Completed
+- `P0.3 Self-service deletion request with 30-day cancellation window`: Completed
+- `P0.4 Retention enforcement for app-controlled data`: Completed
+- `P0.5 DSAR minimum operational capability`: Completed
+- `P0.6 GDPR accountability pack as docs-as-code`: Completed
+- `P1.1 AI transparency UX at point of use`: Completed
+- `P1.2 Human oversight controls for recruiter-facing job-fit`: Completed
+- `P1.3 AI governance baseline documents`: Completed
+- `P1.4 Vendor and transfer representation cleanup`: Completed
+- `P1.5 Data export implementation`: Completed
+- `P2 hardening items`: Completed
+
 ## Purpose
 
 This plan turns the gaps identified in [docs/audits/compliance.md](../audits/compliance.md) into an implementation backlog that an AI agent can execute in the workspace.

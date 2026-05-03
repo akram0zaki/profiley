@@ -10,6 +10,7 @@ import { retrieveKnowledge } from "../_shared/rag/retrieveKnowledge.ts";
 import { buildContext } from "../_shared/rag/buildContext.ts";
 import { chat } from "../_shared/ai/capabilities/chat.ts";
 import { PERSONA_SYSTEM, personaUserMessage } from "../_shared/prompts/personaChat.ts";
+import { PERSONA_CHAT_PROMPT_VERSION } from "../_shared/prompts/versions.ts";
 import { detectLangSimple, pickLanguage } from "../_shared/utils/locale.ts";
 
 Deno.serve(async (req) => {
@@ -61,7 +62,17 @@ Deno.serve(async (req) => {
         { role: "system", content: sys },
         { role: "user", content: personaUserMessage(body.message, ctx.text || "(no excerpts)") },
       ],
-      { temperature: 0.4, maxTokens: 700, profileId: profile.id, userId: user.id },
+      {
+        temperature: 0.4,
+        maxTokens: 700,
+        profileId: profile.id,
+        userId: user.id,
+        promptVersion: PERSONA_CHAT_PROMPT_VERSION,
+        policyContext: {
+          audience: "owner_preview",
+          surface: "chat_preview",
+        },
+      },
     );
 
     if (conversationId) {

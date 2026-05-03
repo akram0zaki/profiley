@@ -4,6 +4,7 @@ import { getServiceClient } from "../_shared/db/serviceClient.ts";
 import { GetPublicProfileSchema } from "../_shared/validation/schemas.ts";
 import { trackEvent } from "../_shared/analytics/trackEvent.ts";
 import { visitorSessionFromHeader, clientIp, hashIp } from "../_shared/utils/rateLimit.ts";
+import { isPublicJobFitEnabled } from "../_shared/runtimeSettings.ts";
 
 Deno.serve(async (req) => {
   const pf = handlePreflight(req);
@@ -30,6 +31,7 @@ Deno.serve(async (req) => {
       .maybeSingle();
     if (error) throw error;
     if (!data) throw new AppError("PROFILE_NOT_FOUND", "Not found", 404);
+    const publicJobFitEnabled = await isPublicJobFitEnabled(supabase);
 
     // Resolve a public URL for the photo if present.
     let photoUrl: string | null = null;
@@ -58,7 +60,11 @@ Deno.serve(async (req) => {
       // ignore
     }
 
-    return respond(req, { ...data, photoUrl });
+    return respond(req, {
+      ...data,
+      allow_job_fit_analysis: Boolean(data.allow_job_fit_analysis) && publicJobFitEnabled,
+      photoUrl,
+    });
   } catch (err) {
     return respondError(req, err);
   }

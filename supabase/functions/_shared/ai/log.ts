@@ -17,6 +17,10 @@ export type CallLog = {
   requestId?: string;
   userId?: string | null;
   profileId?: string | null;
+  promptVersion?: string | null;
+  safetyFlagged?: boolean;
+  safetyCategories?: string[];
+  policyContext?: Record<string, unknown>;
 };
 
 export async function logCall(entry: CallLog): Promise<void> {
@@ -36,6 +40,10 @@ export async function logCall(entry: CallLog): Promise<void> {
       request_id: entry.requestId,
       user_id: entry.userId ?? null,
       profile_id: entry.profileId ?? null,
+      prompt_version: entry.promptVersion ?? null,
+      safety_flagged: entry.safetyFlagged ?? false,
+      safety_categories: entry.safetyCategories ?? [],
+      policy_context: entry.policyContext ?? {},
     });
   } catch {
     // Never fail the request because logging failed.

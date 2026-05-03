@@ -56,6 +56,43 @@
     "button": "Sign out of Profiley",
     "redirectNote": "You will be redirected to the landing page"
   },
+  "accountDeletion": {
+    "title": "Delete account",
+    "description": "Schedule permanent deletion of your account and app-controlled data.",
+    "warningTitle": "Danger zone",
+    "warningBody": "Deletion is not immediate. Profiley schedules it 30 days after your request so you have time to cancel it from Settings.",
+    "confirmLabel": "Type DELETE to confirm",
+    "confirmPlaceholder": "DELETE",
+    "confirmHint": "Submitting this request hides your public profile immediately and starts the 30-day grace period.",
+    "requestButton": "Schedule account deletion",
+    "requesting": "Scheduling deletion...",
+    "pendingTitle": "Deletion request pending",
+    "pendingDescription": "Your account is scheduled for permanent deletion unless you cancel this request before the deadline.",
+    "scheduledFor": "Scheduled deletion date: {date}",
+    "publicHiddenNote": "Your public profile is hidden during the grace period.",
+    "publicHiddenPending": "Your public profile was already hidden when this request was scheduled and remains unavailable during the grace period.",
+    "cancelButton": "Cancel deletion request",
+    "cancelling": "Cancelling request...",
+    "feedback": {
+      "scheduled": "Account deletion scheduled. You can cancel it from Settings during the next 30 days.",
+      "failed": "Could not schedule account deletion.",
+      "cancelled": "Account deletion request cancelled.",
+      "cancelFailed": "Could not cancel the deletion request.",
+      "confirmationRequired": "Type DELETE exactly to confirm the request."
+    }
+  },
+  "dataExport": {
+    "title": "Export your data",
+    "description": "Download the account data Profiley currently associates with you.",
+    "body": "The export is generated on demand as a machine-readable JSON bundle with a manifest and table data for your Profiley account, profile, documents, conversations, and related records.",
+    "button": "Download data export",
+    "exporting": "Preparing export...",
+    "hint": "If you also need stored document files or another privacy right, contact privacy@profiley.ai.",
+    "feedback": {
+      "ready": "Your data export is ready and has started downloading.",
+      "failed": "Could not prepare your data export."
+    }
+  },
   "feedback": {
     "languageSaved": "Language preference saved",
     "updateFailed": "Update failed"

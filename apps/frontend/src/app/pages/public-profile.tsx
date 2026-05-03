@@ -17,6 +17,7 @@ import {
   Sparkles,
   Loader2,
   AlertTriangle,
+  AlertCircle,
   Send,
 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -49,6 +50,41 @@ declare global {
 }
 
 const CAPTCHA_SITE_KEY = (import.meta as any).env?.VITE_CAPTCHA_SITE_KEY as string | undefined;
+
+function UsageNotice({
+  title,
+  body,
+  privacyLabel,
+  concernsLabel,
+}: {
+  title: string;
+  body: string;
+  privacyLabel: string;
+  concernsLabel: string;
+}) {
+  return (
+    <Card className="border-amber-500/40 bg-amber-500/5">
+      <CardHeader className="flex flex-row items-start gap-4">
+        <AlertCircle className="h-5 w-5 text-amber-500 mt-1 flex-shrink-0" />
+        <div className="space-y-1">
+          <CardTitle className="text-base">{title}</CardTitle>
+          <CardDescription>{body}</CardDescription>
+          <div className="flex flex-wrap gap-4 pt-2 text-xs">
+            <Link to="/legal/privacy" className="text-amber-700 underline underline-offset-4 dark:text-amber-300">
+              {privacyLabel}
+            </Link>
+            <a
+              href="mailto:privacy@profiley.ai"
+              className="text-amber-700 underline underline-offset-4 dark:text-amber-300"
+            >
+              {concernsLabel}
+            </a>
+          </div>
+        </div>
+      </CardHeader>
+    </Card>
+  );
+}
 
 export default function PublicProfilePage() {
   const { t } = useLanguage();
@@ -462,6 +498,13 @@ export default function PublicProfilePage() {
               </CardHeader>
             </Card>
 
+            <UsageNotice
+              title={t('publicProfile.chat.notice.title')}
+              body={t('publicProfile.chat.notice.body')}
+              privacyLabel={t('publicProfile.aiLinks.privacy')}
+              concernsLabel={t('publicProfile.aiLinks.concerns')}
+            />
+
             <Card className="h-[600px] flex flex-col">
               <ChatInterface
                 profileSlug={profile.slug}
@@ -485,6 +528,13 @@ export default function PublicProfilePage() {
                 </div>
               </CardHeader>
             </Card>
+
+            <UsageNotice
+              title={t('publicProfile.jobFit.notice.title')}
+              body={t('publicProfile.jobFit.notice.body')}
+              privacyLabel={t('publicProfile.aiLinks.privacy')}
+              concernsLabel={t('publicProfile.aiLinks.concerns')}
+            />
 
             <Card>
               <CardHeader>

@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "Last updated: 27 April 2026",
-  "effectiveDate": "Effective: 27 April 2026",
+  "lastUpdated": "Last updated: 3 May 2026",
+  "effectiveDate": "Effective: 3 May 2026",
   "backToHome": "Back to Home",
   "operator": {
     "name": "Akram Zaki",
@@ -13,6 +13,25 @@
     "terms": "Terms & Conditions",
     "privacy": "Privacy Policy",
     "cookies": "Cookie Policy"
+  },
+  "acceptance": {
+    "title": "Review the current legal documents",
+    "lead": "Before you can continue into the app, confirm that you have reviewed the current Terms & Conditions and Privacy Policy.",
+    "description": "Profiley stores the document versions, timestamps, and acknowledgement source so future support and audit checks can confirm which legal text you accepted.",
+    "versionNotice": "Current published versions: Terms {termsVersion}, Privacy {privacyVersion}.",
+    "termsLabel": "I have reviewed the Terms & Conditions (version {version}).",
+    "privacyLabel": "I have reviewed the Privacy Policy (version {version}).",
+    "links": {
+      "terms": "Open Terms & Conditions",
+      "privacy": "Open Privacy Policy",
+      "cookies": "Open Cookie Policy"
+    },
+    "help": "If you cannot review these documents in-app, contact privacy@profiley.ai from the email address linked to your account.",
+    "submit": "Accept and continue",
+    "submitting": "Saving acknowledgement...",
+    "required": "You must confirm both documents before continuing.",
+    "failed": "Could not save your acknowledgement. Please try again.",
+    "loading": "Loading legal acknowledgement"
   },
   "terms": {
     "title": "Terms & Conditions",
@@ -47,15 +66,15 @@
     },
     "ai": {
       "title": "6. AI-generated output",
-      "body": "Profiley uses third-party large language models to generate responses based on your uploaded materials. AI output may contain errors and should not be treated as legal, medical, financial, or career advice. You are responsible for reviewing the answers your AI persona provides on your public profile."
+      "body": "Profiley uses third-party large language models to generate responses based on your uploaded materials. AI output may contain errors and should not be treated as legal, medical, financial, or career advice. If recruiters or other visitors use AI-generated summaries or job-fit analyses from your profile, those outputs are informational assistance only and must not replace human review or hiring judgment. You are responsible for reviewing the answers your AI persona provides on your public profile."
     },
     "thirdParties": {
       "title": "7. Third-party services",
-      "body": "Profiley relies on third-party processors to deliver the service (hosting, AI inference, email, analytics). A complete list — including the data processed and the legal basis — is published in our Privacy Policy."
+      "body": "Profiley relies on third-party service providers to deliver the service, including hosting, authentication, file storage, AI inference, and site delivery. Our Privacy Policy lists the current providers, the categories of data they receive, and links to their public privacy materials."
     },
     "termination": {
       "title": "8. Termination",
-      "body": "You may delete your account at any time from the settings page. We may terminate or suspend your access if you breach these terms. Termination does not affect rights that accrued before termination. After deletion we retain backups and required logs only for the periods listed in the Privacy Policy."
+      "body": "You may request account deletion from the Settings page. Deletion is scheduled 30 days after your request, and you can cancel the request from Settings during that grace period. We may terminate or suspend your access if you breach these terms. Termination does not affect rights that accrued before termination. After deletion is processed, some backups and legally required records may remain for a limited period as described in the Privacy Policy."
     },
     "liability": {
       "title": "9. Limitation of liability",
@@ -113,17 +132,18 @@
     },
     "automatedDecisions": {
       "title": "5. AI processing and automated decisions",
-      "body": "AI features (persona chat, job-fit analyses, document extraction) are powered by third-party large language models. The output is informational and does not produce a legal or similarly significant effect on you under Article 22 GDPR; recruiters using your profile remain responsible for any hiring decision they make."
+      "body": "AI features (persona chat, job-fit analyses, document extraction) are powered by third-party large language models. The output is informational assistance and does not produce a legal or similarly significant effect on you under Article 22 GDPR. Recruiters and other visitors must make their own decisions and must not rely on AI output as the sole basis for hiring or similar evaluations."
     },
     "processors": {
       "title": "6. Recipients and processors",
-      "intro": "We share data only with vetted processors under written data-processing agreements. The table below lists every active third-party processor, the data they receive, and the purpose. Where a provider is outside the EEA, we rely on Standard Contractual Clauses (SCCs) and supplementary measures.",
+      "intro": "We use a small set of third-party providers to run Profiley. The table below describes what each provider does, the categories of data they may receive, and a public privacy or legal page you can review directly. References to provider safeguards are based on the provider's public documentation and standard online terms; this policy does not claim separate custom agreements unless stated elsewhere.",
       "columns": {
         "name": "Processor",
         "purpose": "Purpose",
         "data": "Data processed",
         "location": "Hosting region",
-        "transfer": "Transfer mechanism"
+        "transfer": "Public transfer note",
+        "policy": "Public policy"
       },
       "items": {
         "supabase": {
@@ -131,53 +151,101 @@
           "purpose": "Primary backend: Postgres database, authentication, file storage, edge functions, scheduled jobs, and audit logs.",
           "data": "All account, profile, uploaded document, conversation, voice (transient), and operational data described above.",
           "location": "EU (Frankfurt / Ireland project) for the production database; control-plane services run by Supabase Inc. in the USA.",
-          "transfer": "EU SCCs (controller-to-processor) signed via Supabase's DPA, plus encryption in transit and at rest."
+          "transfer": "Supabase's public privacy and DPA materials describe its hosting and transfer terms; Profiley configures EU-hosted infrastructure where available.",
+          "policyLabel": "Supabase Privacy Policy",
+          "policyUrl": "https://supabase.com/privacy"
         },
         "cloudflare": {
           "name": "Cloudflare (Cloudflare, Inc., USA)",
           "purpose": "DNS, CDN, DDoS protection, and hosting of the static frontend and Pages Functions used to render public profile metadata.",
           "data": "IP address, user agent, request URLs and headers, and the rendered profile content shown publicly.",
           "location": "Global edge network with EU data centres preferred for EU traffic.",
-          "transfer": "EU SCCs and the EU–US Data Privacy Framework where applicable."
+          "transfer": "Cloudflare publishes its privacy and data-protection terms; traffic may traverse Cloudflare's global network depending on the request path.",
+          "policyLabel": "Cloudflare Privacy Policy",
+          "policyUrl": "https://www.cloudflare.com/privacypolicy/"
         },
         "openai": {
           "name": "OpenAI (OpenAI, OpCo, USA)",
           "purpose": "Large language model inference for persona chat, embeddings used to retrieve your knowledge chunks, content moderation, speech-to-text transcription, and optional text-to-speech.",
           "data": "Prompts containing your name, profile excerpts, and relevant uploaded knowledge chunks; recruiter messages; transient voice clips; and the model's responses.",
           "location": "USA (with EU regional inference where available).",
-          "transfer": "EU SCCs via OpenAI's Data Processing Addendum. We use the API tier; OpenAI does not train its public models on this data per the API terms."
+          "transfer": "OpenAI publishes Europe privacy, API, and data-processing materials; Profiley relies on those public terms for current transfer and data-use commitments.",
+          "policyLabel": "OpenAI Europe Privacy Policy",
+          "policyUrl": "https://openai.com/policies/privacy-policy/"
         },
         "gemini": {
           "name": "Google AI / Gemini (Google Ireland Ltd. + Google LLC, USA)",
           "purpose": "Alternative large language model inference offered as a configurable provider for chat and structured analyses.",
           "data": "Same prompt content as listed for OpenAI when Gemini is selected as the active provider.",
           "location": "EU regional endpoints when available, otherwise USA.",
-          "transfer": "EU SCCs and the EU–US Data Privacy Framework via Google's Cloud DPA."
+          "transfer": "Google publishes privacy and cloud-processing terms; Profiley prefers regional endpoints when the selected service exposes them.",
+          "policyLabel": "Google Privacy Policy",
+          "policyUrl": "https://policies.google.com/privacy"
         },
         "mistral": {
           "name": "Mistral AI (Mistral AI SAS, France)",
           "purpose": "Alternative European large language model provider for chat and structured analyses.",
           "data": "Same prompt content as listed for OpenAI when Mistral is selected as the active provider.",
           "location": "EU (France).",
-          "transfer": "Processing remains within the EEA; no transfer mechanism required."
+          "transfer": "Mistral publishes public legal and privacy materials indicating EU-based operations; review the linked page for the current terms.",
+          "policyLabel": "Mistral Privacy Policy",
+          "policyUrl": "https://legal.mistral.ai/terms/privacy-policy"
+        },
+        "resend": {
+          "name": "Resend (Resend, Inc., USA)",
+          "purpose": "Transactional email delivery for sign-in links, product notices, and recruiter-contact forwarding.",
+          "data": "Recipient email address, message metadata, and the message content needed to deliver the email.",
+          "location": "USA.",
+          "transfer": "Resend publishes public privacy terms describing its email-processing role; Profiley relies on those public materials.",
+          "policyLabel": "Resend Privacy Policy",
+          "policyUrl": "https://resend.com/legal/privacy-policy"
+        },
+        "hcaptcha": {
+          "name": "hCaptcha (Intuition Machines, Inc., USA)",
+          "purpose": "Bot and abuse prevention on the public recruiter contact flow.",
+          "data": "Request metadata, browser/device signals, and challenge-response telemetry needed to score and verify requests.",
+          "location": "Global service operated from the USA.",
+          "transfer": "hCaptcha publishes public privacy terms for its challenge service; Profiley relies on those public materials for this anti-abuse control.",
+          "policyLabel": "hCaptcha Privacy Policy",
+          "policyUrl": "https://www.hcaptcha.com/privacy"
+        },
+        "githubOAuth": {
+          "name": "GitHub OAuth (GitHub, Inc., USA)",
+          "purpose": "Optional social sign-in provider when a user authenticates with GitHub.",
+          "data": "OAuth identity and account metadata returned during sign-in.",
+          "location": "USA.",
+          "transfer": "GitHub publishes a public privacy statement covering account and OAuth processing.",
+          "policyLabel": "GitHub Privacy Statement",
+          "policyUrl": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
+        },
+        "googleOAuth": {
+          "name": "Google OAuth (Google Ireland Ltd. + Google LLC, USA)",
+          "purpose": "Optional social sign-in provider when a user authenticates with Google.",
+          "data": "OAuth identity and account metadata returned during sign-in.",
+          "location": "EU / USA depending on Google's account infrastructure.",
+          "transfer": "Google publishes public privacy terms covering account and identity processing.",
+          "policyLabel": "Google Privacy Policy",
+          "policyUrl": "https://policies.google.com/privacy"
         }
       },
       "outro": "We do not sell your personal data and we do not share it with advertising networks."
     },
     "international": {
       "title": "7. International transfers",
-      "body": "Where data leaves the European Economic Area, we rely on the European Commission's Standard Contractual Clauses (2021/914) together with supplementary technical measures such as in-transit and at-rest encryption, access logging, and least-privilege secrets. Copies of the relevant SCCs are available on request."
+      "body": "Some providers used by Profiley may process data outside the European Economic Area. Where that happens, Profiley relies on the transfer safeguards and regional-processing options described in the provider's public terms and privacy materials, and configures EU-hosted or EU-regional services where available. Because this policy does not claim separate bespoke transfer agreements, review the linked vendor terms for the latest details."
     },
     "retention": {
       "title": "8. Retention",
       "intro": "We keep personal data only as long as necessary for the purpose for which it was collected:",
       "items": [
-        "Account, profile, and uploaded documents: until you delete them or close your account;",
-        "Conversation history and job-fit analyses: until you delete them or close your account;",
+        "Account, profile, and uploaded documents: while your account remains active, until you remove them, request account deletion, or we need to remove them to enforce our terms or legal obligations;",
+        "Conversation history: while your account remains active unless earlier removal is required for moderation, safety, or account deletion handling;",
+        "Job-fit analyses: up to 365 days from creation, or sooner if account deletion is processed;",
         "Voice recordings: deleted as soon as the transcript is produced (typically within minutes);",
-        "Operational and security logs: up to 90 days;",
-        "AI call logs (cost and abuse monitoring): up to 180 days;",
-        "Backups: rolling encrypted backups retained for up to 30 days after deletion;",
+        "Recruiter visit telemetry: up to 90 days;",
+        "Recruiter interaction analytics and AI call logs: up to 180 days;",
+        "Moderation and safety events: up to 365 days;",
+        "Backups: handled through provider-managed rolling backups; exact durations can vary by provider settings and are not guaranteed in this policy;",
         "Records required by law (e.g. financial records when applicable): the period imposed by Dutch law."
       ]
     },
@@ -194,7 +262,7 @@
         "Withdraw consent at any time, without affecting prior processing (Art. 7);",
         "Lodge a complaint with the Dutch Data Protection Authority (Autoriteit Persoonsgegevens, www.autoriteitpersoonsgegevens.nl)."
       ],
-      "howToExercise": "Send rights requests to privacy@profiley.ai from the email address linked to your account. We respond within one calendar month and may request reasonable proof of identity."
+      "howToExercise": "Send rights requests to privacy@profiley.ai from the email address linked to your account. You can request account deletion from Settings, where Profiley schedules deletion 30 days out and lets you cancel it during the grace period. You can also download the standard scope of your Profiley data from Settings as a structured JSON export. More complex rights requests, including requests for stored files or reviewed scope expansion, are still handled through email. We respond within one calendar month and may request reasonable proof of identity."
     },
     "security": {
       "title": "10. Security",

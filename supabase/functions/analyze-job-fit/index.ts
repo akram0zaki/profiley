@@ -9,9 +9,12 @@ import { rateLimit, visitorSessionFromHeader, clientIp, hashIp } from "../_share
 import { retrieveKnowledge } from "../_shared/rag/retrieveKnowledge.ts";
 import { buildContext } from "../_shared/rag/buildContext.ts";
 import { chatStructured } from "../_shared/ai/capabilities/chat.ts";
+import { moderate } from "../_shared/ai/capabilities/moderation.ts";
 import { JOB_FIT_JSON_SCHEMA, JOB_FIT_SYSTEM, jobFitUserMessage } from "../_shared/prompts/jobFit.ts";
+import { JOB_FIT_PROMPT_VERSION } from "../_shared/prompts/versions.ts";
 import { detectLangSimple, pickLanguage } from "../_shared/utils/locale.ts";
 import { loggerForRequest } from "../_shared/utils/logger.ts";
+import { isPublicJobFitEnabled } from "../_shared/runtimeSettings.ts";
 
 type JobFitResult = {
   fitBand: string;
@@ -40,6 +43,9 @@ Deno.serve(async (req) => {
       .eq("slug", body.slug)
       .maybeSingle();
     if (error || !profile) throw new AppError("PROFILE_NOT_FOUND", "Profile not found", 404);
+    if (!(await isPublicJobFitEnabled(supabase))) {
+      throw new AppError("JOB_FIT_GLOBALLY_DISABLED", "Job-fit analysis is currently unavailable", 403);
+    }
     if (!profile.allow_job_fit_analysis) {
       throw new AppError("JOB_FIT_DISABLED", "Owner disabled job-fit analysis", 403);
     }
@@ -55,6 +61,34 @@ Deno.serve(async (req) => {
       "en",
     ) as "en" | "nl" | "ar";
 
+    let safety = { flagged: false, categories: [] as string[] };
+    try {
+      const moderation = await moderate("job-fit-input", body.jobDescription, {
+        profileId: profile.id,
+        policyContext: {
+          audience: "public_recruiter",
+          surface: "job_fit",
+          stage: "input",
+        },
+      });
+      safety = { flagged: moderation.flagged, categories: moderation.categories };
+      if (moderation.flagged) {
+        await supabase.from("moderation_events").insert({
+          profile_id: profile.id,
+          event_type: "input_blocked",
+          input_excerpt: body.jobDescription.slice(0, 200),
+        });
+        throw new AppError("INPUT_BLOCKED", "Job description violates content policy", 400, {
+          categories: moderation.categories,
+        });
+      }
+    } catch (err) {
+      if (err instanceof AppError) throw err;
+      log.warn("moderation unavailable, fail-open", {
+        error: err instanceof Error ? err.message : String(err),
+      });
+    }
+
     const chunks = await retrieveKnowledge(profile.user_id, body.jobDescription, {
       onlyPublic: true,
       matchCount: 12,
@@ -69,7 +103,17 @@ Deno.serve(async (req) => {
         { role: "system", content: JOB_FIT_SYSTEM(language) },
         { role: "user", content: jobFitUserMessage(body.jobDescription, ctx.text || "(no excerpts)") },
       ],
-      { temperature: 0.1, maxTokens: 1500, profileId: profile.id },
+      {
+        temperature: 0.1,
+        maxTokens: 1500,
+        profileId: profile.id,
+        promptVersion: JOB_FIT_PROMPT_VERSION,
+        safety,
+        policyContext: {
+          audience: "public_recruiter",
+          surface: "job_fit",
+        },
+      },
     );
 
     const r = result.object;
@@ -90,6 +134,9 @@ Deno.serve(async (req) => {
       confidence_label: r.confidenceLabel,
       citations: r.citations ?? [],
       model_used: result.modelUsed,
+      prompt_version: JOB_FIT_PROMPT_VERSION,
+      safety_flagged: safety.flagged,
+      safety_categories: safety.categories,
     }).select("id").single();
 
     return respond(req, {

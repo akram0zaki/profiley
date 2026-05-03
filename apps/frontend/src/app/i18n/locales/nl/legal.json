@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "Laatst bijgewerkt: 27 april 2026",
-  "effectiveDate": "Van kracht: 27 april 2026",
+  "lastUpdated": "Laatst bijgewerkt: 3 mei 2026",
+  "effectiveDate": "Van kracht: 3 mei 2026",
   "backToHome": "Terug naar Home",
   "operator": {
     "name": "Akram Zaki",
@@ -13,6 +13,25 @@
     "terms": "Algemene Voorwaarden",
     "privacy": "Privacybeleid",
     "cookies": "Cookiebeleid"
+  },
+  "acceptance": {
+    "title": "Bekijk de huidige juridische documenten",
+    "lead": "Voordat u verder kunt in de app, moet u bevestigen dat u de huidige Algemene Voorwaarden en het Privacybeleid hebt bekeken.",
+    "description": "Profiley slaat documentversies, tijdstempels en de bron van uw bevestiging op zodat toekomstige support- en auditcontroles kunnen vaststellen welke juridische tekst u hebt geaccepteerd.",
+    "versionNotice": "Huidige gepubliceerde versies: Voorwaarden {termsVersion}, Privacy {privacyVersion}.",
+    "termsLabel": "Ik heb de Algemene Voorwaarden bekeken (versie {version}).",
+    "privacyLabel": "Ik heb het Privacybeleid bekeken (versie {version}).",
+    "links": {
+      "terms": "Open Algemene Voorwaarden",
+      "privacy": "Open Privacybeleid",
+      "cookies": "Open Cookiebeleid"
+    },
+    "help": "Als u deze documenten niet in de app kunt bekijken, neem dan contact op via privacy@profiley.ai vanaf het e-mailadres dat aan uw account is gekoppeld.",
+    "submit": "Accepteren en doorgaan",
+    "submitting": "Bevestiging opslaan...",
+    "required": "U moet beide documenten bevestigen voordat u verder kunt.",
+    "failed": "Uw bevestiging kon niet worden opgeslagen. Probeer het opnieuw.",
+    "loading": "Juridische bevestiging laden"
   },
   "terms": {
     "title": "Algemene Voorwaarden",
@@ -47,15 +66,15 @@
     },
     "ai": {
       "title": "6. AI-gegenereerde uitvoer",
-      "body": "Profiley gebruikt grote taalmodellen van derden om antwoorden te genereren op basis van uw geüploade materialen. AI-uitvoer kan fouten bevatten en mag niet worden beschouwd als juridisch, medisch, financieel of carrièreadvies. U bent verantwoordelijk voor het controleren van de antwoorden die uw AI-persona op uw openbare profiel geeft."
+      "body": "Profiley gebruikt grote taalmodellen van derden om antwoorden te genereren op basis van uw geüploade materialen. AI-uitvoer kan fouten bevatten en mag niet worden beschouwd als juridisch, medisch, financieel of carrièreadvies. Als recruiters of andere bezoekers AI-gegenereerde samenvattingen of functie-fitanalyses van uw profiel gebruiken, zijn die uitkomsten uitsluitend informatieve ondersteuning en mogen zij menselijke beoordeling of wervingsbeslissingen niet vervangen. U bent verantwoordelijk voor het controleren van de antwoorden die uw AI-persona op uw openbare profiel geeft."
     },
     "thirdParties": {
       "title": "7. Diensten van derden",
-      "body": "Profiley vertrouwt op verwerkers van derden om de dienst te leveren (hosting, AI-inferentie, e-mail, analyse). Een volledige lijst — inclusief de verwerkte gegevens en de rechtsgrondslag — staat in ons Privacybeleid."
+      "body": "Profiley vertrouwt op externe dienstverleners om de dienst te leveren, waaronder hosting, authenticatie, bestandsopslag, AI-inferentie en sitelevering. Ons Privacybeleid vermeldt de huidige providers, de categorieën gegevens die zij ontvangen en links naar hun openbare privacymaterialen."
     },
     "termination": {
       "title": "8. Beëindiging",
-      "body": "U kunt uw account op elk moment verwijderen via de instellingenpagina. Wij kunnen uw toegang beëindigen of opschorten als u deze voorwaarden schendt. Beëindiging tast geen rechten aan die vóór de beëindiging zijn ontstaan. Na verwijdering bewaren wij back-ups en wettelijk vereiste logs alleen voor de in het Privacybeleid vermelde periodes."
+      "body": "U kunt verwijdering van uw account aanvragen via de instellingenpagina. Verwijdering wordt 30 dagen na uw verzoek ingepland en u kunt het verzoek binnen die respijtperiode vanuit Instellingen annuleren. Wij kunnen uw toegang beëindigen of opschorten als u deze voorwaarden schendt. Beëindiging tast geen rechten aan die vóór de beëindiging zijn ontstaan. Nadat de verwijdering is verwerkt, kunnen sommige back-ups en wettelijk verplichte registraties nog gedurende een beperkte periode worden bewaard zoals beschreven in het Privacybeleid."
     },
     "liability": {
       "title": "9. Beperking van aansprakelijkheid",
@@ -113,17 +132,18 @@
     },
     "automatedDecisions": {
       "title": "5. AI-verwerking en geautomatiseerde besluiten",
-      "body": "AI-functies (persona-chat, functie-fitanalyses, documentextractie) worden aangedreven door grote taalmodellen van derden. De uitvoer is informatief en heeft geen rechtsgevolg of vergelijkbaar aanmerkelijk gevolg in de zin van artikel 22 AVG; recruiters die uw profiel gebruiken blijven verantwoordelijk voor elk wervingsbesluit dat zij nemen."
+      "body": "AI-functies (persona-chat, functie-fitanalyses, documentextractie) worden aangedreven door grote taalmodellen van derden. De uitvoer is informatieve ondersteuning en heeft geen rechtsgevolg of vergelijkbaar aanmerkelijk gevolg in de zin van artikel 22 AVG. Recruiters en andere bezoekers moeten hun eigen beoordeling maken en mogen AI-uitvoer niet als enige grondslag gebruiken voor wervings- of vergelijkbare evaluaties."
     },
     "processors": {
       "title": "6. Ontvangers en verwerkers",
-      "intro": "Wij delen gegevens uitsluitend met geverifieerde verwerkers onder schriftelijke verwerkersovereenkomsten. De onderstaande tabel vermeldt elke actieve externe verwerker, de gegevens die zij ontvangen en het doel. Voor providers buiten de EER vertrouwen wij op Standaardcontractbepalingen (SCC's) en aanvullende maatregelen.",
+      "intro": "Wij gebruiken een beperkte set externe providers om Profiley te laten werken. De onderstaande tabel beschrijft wat elke provider doet, welke categorieën gegevens deze kan ontvangen en naar welke openbare privacy- of juridische pagina u rechtstreeks kunt gaan. Verwijzingen naar waarborgen zijn gebaseerd op de openbare documentatie en standaard online voorwaarden van de provider; dit beleid claimt geen afzonderlijke maatwerkovereenkomsten tenzij elders vermeld.",
       "columns": {
         "name": "Verwerker",
         "purpose": "Doel",
         "data": "Verwerkte gegevens",
         "location": "Hostingregio",
-        "transfer": "Doorgiftemechanisme"
+        "transfer": "Openbare notitie over doorgifte",
+        "policy": "Openbaar beleid"
       },
       "items": {
         "supabase": {
@@ -131,53 +151,101 @@
           "purpose": "Primaire backend: Postgres-database, authenticatie, bestandsopslag, edge functions, geplande taken en auditlogs.",
           "data": "Alle hierboven beschreven account-, profiel-, geüploade document-, conversatie-, stem- (tijdelijk) en operationele gegevens.",
           "location": "EU (Frankfurt / Ierland) voor de productiedatabase; controlevlak van Supabase Inc. in de VS.",
-          "transfer": "EU-SCC's (controller-naar-processor) ondertekend via Supabase's DPA, plus encryptie tijdens transport en opslag."
+          "transfer": "De openbare privacy- en DPA-materialen van Supabase beschrijven de hosting- en doorgiftevoorwaarden; Profiley configureert EU-hosting waar mogelijk.",
+          "policyLabel": "Supabase Privacy Policy",
+          "policyUrl": "https://supabase.com/privacy"
         },
         "cloudflare": {
           "name": "Cloudflare (Cloudflare, Inc., VS)",
           "purpose": "DNS, CDN, DDoS-bescherming en hosting van de statische frontend en Pages Functions die metadata van openbare profielen renderen.",
           "data": "IP-adres, user agent, request-URL's en headers, en de openbaar getoonde profielinhoud.",
           "location": "Wereldwijd edgenetwerk met voorkeur voor EU-datacenters voor EU-verkeer.",
-          "transfer": "EU-SCC's en het EU–US Data Privacy Framework waar van toepassing."
+          "transfer": "Cloudflare publiceert privacy- en databeschermingsvoorwaarden; verkeer kan afhankelijk van het requestpad via het wereldwijde netwerk lopen.",
+          "policyLabel": "Cloudflare Privacy Policy",
+          "policyUrl": "https://www.cloudflare.com/privacypolicy/"
         },
         "openai": {
           "name": "OpenAI (OpenAI, OpCo, VS)",
           "purpose": "Inferentie van grote taalmodellen voor persona-chat, embeddings voor het ophalen van uw kennisfragmenten, contentmoderatie, spraak-naar-tekst en optioneel tekst-naar-spraak.",
           "data": "Prompts met uw naam, profielfragmenten en relevante geüploade kennisfragmenten; recruiterberichten; tijdelijke audiofragmenten; en de antwoorden van het model.",
           "location": "VS (met EU-regio-inferentie waar beschikbaar).",
-          "transfer": "EU-SCC's via OpenAI's Data Processing Addendum. Wij gebruiken de API; OpenAI traint zijn publieke modellen niet op deze gegevens volgens de API-voorwaarden."
+          "transfer": "OpenAI publiceert Europese privacy-, API- en verwerkingsmaterialen; Profiley vertrouwt op die openbare voorwaarden voor actuele doorgifte- en datagebruiksinformatie.",
+          "policyLabel": "OpenAI Europe Privacy Policy",
+          "policyUrl": "https://openai.com/policies/privacy-policy/"
         },
         "gemini": {
           "name": "Google AI / Gemini (Google Ireland Ltd. + Google LLC, VS)",
           "purpose": "Alternatieve inferentie van grote taalmodellen, configureerbaar voor chat en gestructureerde analyses.",
           "data": "Dezelfde promptinhoud als bij OpenAI wanneer Gemini de actieve provider is.",
           "location": "EU-endpoints waar beschikbaar, anders VS.",
-          "transfer": "EU-SCC's en het EU–US Data Privacy Framework via Google's Cloud DPA."
+          "transfer": "Google publiceert privacy- en cloudverwerkingstermen; Profiley verkiest regionale endpoints wanneer de gekozen dienst die aanbiedt.",
+          "policyLabel": "Google Privacy Policy",
+          "policyUrl": "https://policies.google.com/privacy"
         },
         "mistral": {
           "name": "Mistral AI (Mistral AI SAS, Frankrijk)",
           "purpose": "Alternatieve Europese aanbieder van grote taalmodellen voor chat en gestructureerde analyses.",
           "data": "Dezelfde promptinhoud als bij OpenAI wanneer Mistral de actieve provider is.",
           "location": "EU (Frankrijk).",
-          "transfer": "Verwerking blijft binnen de EER; geen doorgiftemechanisme nodig."
+          "transfer": "Mistral publiceert openbare juridische en privacy-materialen die op EU-gebaseerde activiteiten wijzen; raadpleeg de gelinkte pagina voor de actuele voorwaarden.",
+          "policyLabel": "Mistral Privacy Policy",
+          "policyUrl": "https://legal.mistral.ai/terms/privacy-policy"
+        },
+        "resend": {
+          "name": "Resend (Resend, Inc., VS)",
+          "purpose": "Transactionele e-maillevering voor inloglinks, productmeldingen en het doorsturen van recruiterberichten.",
+          "data": "E-mailadres van de ontvanger, berichtmetadata en de berichtinhoud die nodig is om de e-mail af te leveren.",
+          "location": "VS.",
+          "transfer": "Resend publiceert openbare privacyvoorwaarden over zijn rol als e-mailverwerker; Profiley baseert zich op die openbare documentatie.",
+          "policyLabel": "Resend Privacy Policy",
+          "policyUrl": "https://resend.com/legal/privacy-policy"
+        },
+        "hcaptcha": {
+          "name": "hCaptcha (Intuition Machines, Inc., VS)",
+          "purpose": "Bot- en misbruikpreventie op het openbare recruiter-contactformulier.",
+          "data": "Verzoekmetadata, browser-/apparaatsignalen en challenge-telemetrie die nodig zijn om verzoeken te beoordelen en te verifiëren.",
+          "location": "Wereldwijde dienst vanuit de VS.",
+          "transfer": "hCaptcha publiceert openbare privacyvoorwaarden voor de challengedienst; Profiley baseert zich op die openbare documentatie voor deze antimisbruikcontrole.",
+          "policyLabel": "hCaptcha Privacy Policy",
+          "policyUrl": "https://www.hcaptcha.com/privacy"
+        },
+        "githubOAuth": {
+          "name": "GitHub OAuth (GitHub, Inc., VS)",
+          "purpose": "Optionele social-loginprovider wanneer een gebruiker met GitHub inlogt.",
+          "data": "OAuth-identiteit en accountmetadata die tijdens het inloggen worden teruggegeven.",
+          "location": "VS.",
+          "transfer": "GitHub publiceert een openbare privacyverklaring voor account- en OAuth-verwerking.",
+          "policyLabel": "GitHub Privacy Statement",
+          "policyUrl": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
+        },
+        "googleOAuth": {
+          "name": "Google OAuth (Google Ireland Ltd. + Google LLC, VS)",
+          "purpose": "Optionele social-loginprovider wanneer een gebruiker met Google inlogt.",
+          "data": "OAuth-identiteit en accountmetadata die tijdens het inloggen worden teruggegeven.",
+          "location": "EU / VS afhankelijk van Google's accountinfrastructuur.",
+          "transfer": "Google publiceert openbare privacyvoorwaarden voor account- en identiteitsverwerking.",
+          "policyLabel": "Google Privacy Policy",
+          "policyUrl": "https://policies.google.com/privacy"
         }
       },
       "outro": "Wij verkopen uw persoonsgegevens niet en delen ze niet met advertentienetwerken."
     },
     "international": {
       "title": "7. Internationale doorgiften",
-      "body": "Wanneer gegevens de Europese Economische Ruimte verlaten, vertrouwen wij op de Standaardcontractbepalingen van de Europese Commissie (2021/914) gecombineerd met aanvullende technische maatregelen zoals encryptie tijdens transport en opslag, toegangslogging en least-privilege secrets. Kopieën van de relevante SCC's zijn op verzoek beschikbaar."
+      "body": "Sommige door Profiley gebruikte providers kunnen gegevens buiten de Europese Economische Ruimte verwerken. Waar dat gebeurt, vertrouwt Profiley op de doorgiftewaarborgen en regionale verwerkingsopties die in de openbare voorwaarden en privacydocumenten van de provider zijn beschreven, en configureren wij EU-hosting of EU-regionale services waar beschikbaar. Omdat dit beleid geen afzonderlijke maatwerkafspraken claimt, moet u de gelinkte leveranciersvoorwaarden raadplegen voor de meest actuele details."
     },
     "retention": {
       "title": "8. Bewaartermijnen",
       "intro": "Wij bewaren persoonsgegevens niet langer dan nodig voor het doel waarvoor ze zijn verzameld:",
       "items": [
-        "Account, profiel en geüploade documenten: tot u ze verwijdert of uw account sluit;",
-        "Conversatiegeschiedenis en functie-fitanalyses: tot u ze verwijdert of uw account sluit;",
+        "Account, profiel en geüploade documenten: zolang uw account actief blijft, totdat u ze verwijdert, accountverwijdering aanvraagt of wij gegevens moeten verwijderen om onze voorwaarden of wettelijke verplichtingen na te leven;",
+        "Conversatiegeschiedenis: zolang uw account actief blijft, tenzij eerdere verwijdering nodig is voor moderatie, veiligheid of accountverwijdering;",
+        "Functie-fitanalyses: maximaal 365 dagen na aanmaak, of eerder als accountverwijdering wordt verwerkt;",
         "Stemopnames: verwijderd zodra de transcriptie is gemaakt (doorgaans binnen enkele minuten);",
-        "Operationele en beveiligingslogs: tot 90 dagen;",
-        "AI-aanroeplogs (kosten- en misbruikmonitoring): tot 180 dagen;",
-        "Back-ups: roterende, versleutelde back-ups bewaard tot 30 dagen na verwijdering;",
+        "Recruiter-bezoektelemetrie: maximaal 90 dagen;",
+        "Recruiter-interactieanalyse en AI-aanroeplogs: maximaal 180 dagen;",
+        "Moderatie- en veiligheidsgebeurtenissen: maximaal 365 dagen;",
+        "Back-ups: beheerd via provider-gestuurde roterende back-ups; exacte termijnen kunnen per providerinstelling verschillen en worden in dit beleid niet gegarandeerd;",
         "Wettelijk vereiste registraties (bijv. financiële administratie indien van toepassing): de door Nederlands recht voorgeschreven termijn."
       ]
     },
@@ -194,7 +262,7 @@
         "Toestemming op elk moment in te trekken, zonder eerdere verwerking aan te tasten (art. 7);",
         "Klacht in te dienen bij de Autoriteit Persoonsgegevens (www.autoriteitpersoonsgegevens.nl)."
       ],
-      "howToExercise": "Stuur rechtenverzoeken naar privacy@profiley.ai vanaf het e-mailadres dat aan uw account is gekoppeld. Wij reageren binnen één kalendermaand en kunnen redelijke identiteitsbewijzen verlangen."
+      "howToExercise": "Stuur rechtenverzoeken naar privacy@profiley.ai vanaf het e-mailadres dat aan uw account is gekoppeld. U kunt accountverwijdering aanvragen via Instellingen; Profiley plant de verwijdering dan 30 dagen vooruit en laat u deze tijdens de respijtperiode annuleren. U kunt vanuit Instellingen ook de standaardscope van uw Profiley-gegevens downloaden als gestructureerde JSON-export. Complexere rechtenverzoeken, waaronder verzoeken om opgeslagen bestanden of een uitgebreidere beoordeelde scope, worden nog steeds via e-mail afgehandeld. Wij reageren binnen één kalendermaand en kunnen redelijke identiteitsbewijzen verlangen."
     },
     "security": {
       "title": "10. Beveiliging",

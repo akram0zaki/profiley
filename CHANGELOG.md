@@ -6,6 +6,28 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.1.0] - Unreleased
 
+### Fixed — Selective legal re-acceptance prompt
+
+- The legal acceptance screen now only prompts for the document whose version is stale instead of forcing users to re-check both Terms and Privacy when only one changed.
+- Added a focused frontend test covering the partial re-acceptance flow.
+
+### Added — Compliance feature validation plan
+
+- Added `docs/testing/features/compliance-20260503-test-plan.md`, a comprehensive execution checklist for validating the completed compliance rollout end to end.
+- The plan covers automated regressions, manual browser flows, scheduler-backed deletion and retention jobs, DSAR/export operations, AI transparency checks, and documentation consistency review with per-case status tracking.
+
+### Added — Compliance controls, runbooks, and governance baseline
+
+- Implemented versioned legal acceptance with a dedicated acceptance gate, shared legal-version constants, persistence tests, and protected-route enforcement.
+- Added a Settings account-deletion flow with a 30-day grace period, cancellation support, and scheduled backend processing for due deletions.
+- Added enforced retention support for recruiter telemetry, moderation events, AI call logs, and job-fit analyses, plus the retention matrix and runtime wiring for scheduled purge processing.
+- Added a self-service Settings export flow backed by the new `export-user-data` edge function, plus updated DSAR/export documentation under [docs/compliance](docs/compliance).
+- Added the GDPR accountability pack under [docs/compliance](docs/compliance), including ROPA, lawful bases, DPIA, security measures, incident response, vendor register, and international transfers notes.
+- Added recruiter-facing AI transparency notices, human-oversight guidance, and AI governance documents for intended use, prohibited use, risk monitoring, incident handling, evaluation, and operator literacy.
+- Added P2 hardening controls for recruiter-facing AI: prompt-versioned audit logs, structured safety metadata, evaluation fixtures, response/case templates for privacy requests, and a runtime setting that can disable public job-fit globally.
+- Added migration `0033_backfill_runtime_function_urls.sql` so environments with an existing `process_document_url` can backfill the newer cron target URLs through repo-managed SQL instead of ad hoc remote updates.
+- Expanded the public privacy-policy processor table and related legal tests so the documented processor footprint matches the vendors currently evidenced in the repo.
+
 ### Added — GDPR and EU AI Act compliance audit
 
 - Added [docs/audits/compliance.md](docs/audits/compliance.md), an evidence-based repository audit of Profiley's current GDPR and EU AI Act posture.

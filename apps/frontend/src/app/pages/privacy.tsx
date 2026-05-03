@@ -1,4 +1,5 @@
 import { useLanguage } from '../contexts/language-context';
+import enLegal from '../i18n/locales/en/legal.json';
 import {
   Table,
   TableBody,
@@ -9,7 +10,7 @@ import {
 } from '../components/ui/table';
 import { LegalLayout, LegalSection, LegalList } from './legal-layout';
 
-const PROCESSOR_IDS = ['supabase', 'cloudflare', 'openai', 'gemini', 'mistral'] as const;
+const PROCESSOR_IDS = Object.keys(enLegal.privacy.processors.items);
 
 export default function PrivacyPage() {
   const { t, tList } = useLanguage();
@@ -52,6 +53,7 @@ export default function PrivacyPage() {
                 <TableHead>{t(`${ns}.processors.columns.data`)}</TableHead>
                 <TableHead>{t(`${ns}.processors.columns.location`)}</TableHead>
                 <TableHead>{t(`${ns}.processors.columns.transfer`)}</TableHead>
+                <TableHead>{t(`${ns}.processors.columns.policy`)}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -71,6 +73,16 @@ export default function PrivacyPage() {
                   </TableCell>
                   <TableCell className="align-top text-muted-foreground">
                     {t(`${ns}.processors.items.${id}.transfer`)}
+                  </TableCell>
+                  <TableCell className="align-top text-muted-foreground">
+                    <a
+                      href={t(`${ns}.processors.items.${id}.policyUrl`)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline underline-offset-4 hover:text-foreground"
+                    >
+                      {t(`${ns}.processors.items.${id}.policyLabel`)}
+                    </a>
                   </TableCell>
                 </TableRow>
               ))}

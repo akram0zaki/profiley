@@ -123,25 +123,32 @@ supabase login
 supabase link --project-ref <YOUR_PROJECT_REF>
 ```
 
-Apply all 24 migrations:
+Apply all workspace migrations:
 
 ```bash
 supabase db push --password '<DB_PASSWORD>'
 ```
 
 Set the runtime settings that `pg_cron` reads when calling
-`process-document`. Run this SQL in the Supabase SQL editor after migrations
+`process-document` and `process-account-deletions`. Run this SQL in the Supabase SQL editor after migrations
 have been applied:
 
 ```sql
 insert into public.runtime_settings (key, value)
 values
   ('process_document_url', 'https://<YOUR_PROJECT_REF>.supabase.co/functions/v1/process-document'),
+  ('account_deletions_url', 'https://<YOUR_PROJECT_REF>.supabase.co/functions/v1/process-account-deletions'),
+  ('retention_purge_url', 'https://<YOUR_PROJECT_REF>.supabase.co/functions/v1/process-retention-purge'),
+  ('public_job_fit_enabled', 'true'),
   ('cron_secret', '<CRON_SECRET>')
 on conflict (key) do update
 set value = excluded.value,
     updated_at = timezone('utc', now());
 ```
+
+Use `public_job_fit_enabled = 'false'` to disable public recruiter job-fit analysis globally without changing each profile.
+
+If `process_document_url` is already set, migration `0033_backfill_runtime_function_urls.sql` can derive `account_deletions_url` and `retention_purge_url` automatically. Keep the manual SQL above for first-time environment bootstrap where no function URL rows exist yet.
 
 > Migration `0024_runtime_settings.sql` stores these in
 > `public.runtime_settings` because Supabase-managed Postgres can reject
@@ -214,8 +221,10 @@ done
 
 `--no-verify-jwt` is required because public endpoints (`get-public-profile`,
 `track-recruiter-event`, `submit-recruiter-contact`, `chat-persona`) handle
-unauthenticated callers; authenticated endpoints validate the JWT manually via
-`requireUser()`.
+unauthenticated callers, and cron-driven endpoints such as
+`process-document` and `process-account-deletions` authenticate with
+`X-Cron-Secret` instead of a JWT. Authenticated endpoints validate the JWT
+manually via `requireUser()`.
 
 ---
 

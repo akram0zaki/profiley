@@ -11,6 +11,12 @@
     "analyzing": "Analyzing…",
     "completeOnboarding": "Complete onboarding to enable job-fit analysis on your profile."
   },
+  "notice": {
+    "title": "AI-generated assistance",
+    "body": "This tool produces an assistive comparison based on your profile and the pasted role description. The output can be imperfect and should not be used as an automated hiring or employment decision.",
+    "privacy": "Privacy details",
+    "concerns": "Raise a concern"
+  },
   "result": {
     "title": "Overall Fit Score",
     "subtitle": "Based on your profile and the job requirements",
@@ -21,7 +27,7 @@
     "transferableSubtitle": "Relevant skills and experiences that add value",
     "concerns": "Potential Concerns"
   },
-  "disclaimer": "Note: This AI-generated analysis is based solely on the candidate's submitted materials and is advisory only. It does not constitute a verified employment assessment. Actual job fit should be determined through comprehensive interviews and reference checks.",
+  "disclaimer": "Note: This AI-generated analysis is based solely on the candidate's submitted materials and is advisory only. It does not constitute a verified employment assessment. Actual job fit should be determined through comprehensive interviews, reference checks, and human judgment.",
   "feedback": {
     "analysisFailed": "Analysis failed"
   }

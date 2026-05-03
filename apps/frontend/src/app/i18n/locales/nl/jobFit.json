@@ -11,6 +11,12 @@
     "analyzing": "Analyseren…",
     "completeOnboarding": "Voltooi onboarding om functie-match analyse op uw profiel in te schakelen."
   },
+  "notice": {
+    "title": "AI-gegenereerde ondersteuning",
+    "body": "Deze tool geeft een ondersteunende vergelijking op basis van uw profiel en de geplakte functiebeschrijving. De uitkomst kan onvolledig of onjuist zijn en mag niet worden gebruikt als geautomatiseerde wervings- of arbeidsbeslissing.",
+    "privacy": "Privacydetails",
+    "concerns": "Meld een zorg"
+  },
   "result": {
     "title": "Algemene Match-Score",
     "subtitle": "Gebaseerd op uw profiel en de functievereisten",
@@ -21,7 +27,7 @@
     "transferableSubtitle": "Relevante vaardigheden en ervaringen die waarde toevoegen",
     "concerns": "Mogelijke Zorgen"
   },
-  "disclaimer": "Opmerking: Deze AI-gegenereerde analyse is uitsluitend gebaseerd op de door de kandidaat ingediende materialen en is alleen adviserend. Het vormt geen geverifieerde werkgelegenheidsbeoordeling. De werkelijke geschiktheid moet worden bepaald via uitgebreide interviews en referentiecontroles.",
+  "disclaimer": "Opmerking: Deze AI-gegenereerde analyse is uitsluitend gebaseerd op de door de kandidaat ingediende materialen en is alleen adviserend. Het vormt geen geverifieerde werkgelegenheidsbeoordeling. De werkelijke geschiktheid moet worden bepaald via uitgebreide interviews, referentiecontroles en menselijk oordeel.",
   "feedback": {
     "analysisFailed": "Analyse mislukt"
   }

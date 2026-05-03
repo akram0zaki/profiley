@@ -14,6 +14,17 @@ export type AppUserRow = {
   timezone: string | null;
   onboarding_completed: boolean;
   role: string;
+  terms_accepted_at: string | null;
+  privacy_accepted_at: string | null;
+  terms_version: string | null;
+  privacy_version: string | null;
+  terms_acceptance_source: string | null;
+  privacy_acceptance_source: string | null;
+  deletion_requested_at: string | null;
+  deletion_scheduled_for: string | null;
+  deletion_cancelled_at: string | null;
+  deletion_request_source: string | null;
+  deletion_restore_public_visibility: boolean | null;
 };
 
 export type ProfileRow = {

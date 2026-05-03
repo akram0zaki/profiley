@@ -7,6 +7,7 @@ import { Progress } from '../components/ui/progress';
 import { Badge } from '../components/ui/badge';
 import { Separator } from '../components/ui/separator';
 import { useState } from 'react';
+import { Link } from 'react-router';
 import { Sparkles, TrendingUp, TrendingDown, AlertTriangle, CheckCircle2, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { api, ApiError } from '../../lib/api';
@@ -67,6 +68,24 @@ export default function JobFitPreviewPage() {
             {t('jobFit.subtitle')}
           </p>
         </div>
+
+        <Card className="border-amber-500/40 bg-amber-500/5">
+          <CardHeader>
+            <CardTitle>{t('jobFit.notice.title')}</CardTitle>
+            <CardDescription>{t('jobFit.notice.body')}</CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-wrap gap-4 pt-0 text-sm">
+            <Link to="/legal/privacy" className="text-amber-700 underline underline-offset-4 dark:text-amber-300">
+              {t('jobFit.notice.privacy')}
+            </Link>
+            <a
+              href="mailto:privacy@profiley.ai"
+              className="text-amber-700 underline underline-offset-4 dark:text-amber-300"
+            >
+              {t('jobFit.notice.concerns')}
+            </a>
+          </CardContent>
+        </Card>
 
         <Card>
           <CardHeader>

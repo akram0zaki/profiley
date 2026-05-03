@@ -14,6 +14,8 @@ import { useCurrentProfile, updatePreferences } from '../../lib/profile';
 import { api, ApiError } from '../../lib/api';
 import { signOutAndRedirect } from '../../lib/auth';
 import { useLanguage } from '../contexts/language-context';
+import { AccountDeletionCard } from '../components/account-deletion-card';
+import { AccountDataExportCard } from '../components/account-data-export-card';
 
 export default function SettingsPage() {
   const { t, setLanguage: setUiLanguage } = useLanguage();
@@ -273,6 +275,10 @@ export default function SettingsPage() {
             </div>
           </CardContent>
         </Card>
+
+        <AccountDeletionCard appUser={appUser} profile={profile} reload={reload} />
+
+        <AccountDataExportCard />
       </div>
     </AppLayout>
   );

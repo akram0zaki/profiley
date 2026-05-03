@@ -11,6 +11,7 @@ import TermsPage from '../terms';
 import PrivacyPage from '../privacy';
 import CookiesPage from '../cookies';
 import LandingPage from '../landing';
+import { Footer } from '../../components/footer';
 
 function renderWithProviders(ui: React.ReactElement, route = '/') {
   return render(
@@ -45,10 +46,16 @@ describe('Legal pages', () => {
     expect(screen.getAllByText(/Autoriteit Persoonsgegevens/).length).toBeGreaterThan(0);
 
     // Each processor named in the locale must appear in the rendered table.
-    for (const id of ['supabase', 'cloudflare', 'openai', 'gemini', 'mistral'] as const) {
-      const processor =
-        enLegal.privacy.processors.items[id as keyof typeof enLegal.privacy.processors.items];
-      expect(screen.getByText(processor.name)).toBeInTheDocument();
+    for (const processor of Object.values(enLegal.privacy.processors.items)) {
+      const nameCell = screen.getByText(processor.name);
+      expect(nameCell).toBeInTheDocument();
+      const row = nameCell.closest('tr');
+      expect(row).not.toBeNull();
+      expect(
+        within(row as HTMLTableRowElement).getByRole('link', {
+          name: processor.policyLabel,
+        }),
+      ).toHaveAttribute('href', processor.policyUrl);
     }
   });
 
@@ -64,7 +71,12 @@ describe('Legal pages', () => {
 
 describe('Landing footer legal links', () => {
   it('exposes the three mandatory legal documents', () => {
-    renderWithProviders(<LandingPage />);
+    renderWithProviders(
+      <>
+        <LandingPage />
+        <Footer />
+      </>,
+    );
     const footers = screen.getAllByRole('contentinfo');
     const footer = footers[footers.length - 1];
     const nav = within(footer).getByRole('navigation', { name: enLegal.footer.title });

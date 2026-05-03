@@ -27,6 +27,9 @@ export async function chat(
     requestId?: string;
     userId?: string | null;
     profileId?: string | null;
+    promptVersion?: string | null;
+    safety?: { flagged: boolean; categories: string[] };
+    policyContext?: Record<string, unknown>;
   } = {},
 ) {
   const resolved = await resolveModel(featureKey, "chat");
@@ -50,6 +53,10 @@ export async function chat(
       requestId: opts.requestId,
       userId: opts.userId ?? null,
       profileId: opts.profileId ?? null,
+      promptVersion: opts.promptVersion ?? null,
+      safetyFlagged: opts.safety?.flagged ?? false,
+      safetyCategories: opts.safety?.categories ?? [],
+      policyContext: opts.policyContext ?? {},
     });
     return out;
   } catch (err) {
@@ -64,6 +71,10 @@ export async function chat(
       requestId: opts.requestId,
       userId: opts.userId ?? null,
       profileId: opts.profileId ?? null,
+      promptVersion: opts.promptVersion ?? null,
+      safetyFlagged: opts.safety?.flagged ?? false,
+      safetyCategories: opts.safety?.categories ?? [],
+      policyContext: opts.policyContext ?? {},
     });
     throw err;
   }
@@ -77,6 +88,9 @@ export async function chatStructured<T>(
     requestId?: string;
     userId?: string | null;
     profileId?: string | null;
+    promptVersion?: string | null;
+    safety?: { flagged: boolean; categories: string[] };
+    policyContext?: Record<string, unknown>;
   } = {},
 ) {
   const resolved = await resolveModel(featureKey, "chat");
@@ -100,6 +114,10 @@ export async function chatStructured<T>(
       requestId: opts.requestId,
       userId: opts.userId ?? null,
       profileId: opts.profileId ?? null,
+      promptVersion: opts.promptVersion ?? null,
+      safetyFlagged: opts.safety?.flagged ?? false,
+      safetyCategories: opts.safety?.categories ?? [],
+      policyContext: opts.policyContext ?? {},
     });
     return out;
   } catch (err) {
@@ -114,6 +132,10 @@ export async function chatStructured<T>(
       requestId: opts.requestId,
       userId: opts.userId ?? null,
       profileId: opts.profileId ?? null,
+      promptVersion: opts.promptVersion ?? null,
+      safetyFlagged: opts.safety?.flagged ?? false,
+      safetyCategories: opts.safety?.categories ?? [],
+      policyContext: opts.policyContext ?? {},
     });
     throw err;
   }

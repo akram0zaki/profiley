@@ -3,7 +3,9 @@
   "subtitle": "Test your AI persona and see how recruiters will interact with you",
   "info": {
     "title": "Testing Your AI Persona",
-    "description": "This is how your AI will respond to recruiter questions. The AI only answers using information from your uploaded documents and profile data. Try asking about your experience, skills, or specific projects."
+    "description": "This is how your AI will respond to recruiter questions. Answers are generated from your uploaded documents and profile data, may still be imperfect, and should not be framed as hiring decisions.",
+    "privacy": "Privacy details",
+    "concerns": "Raise a concern"
   },
   "userName": "You (Testing)",
   "botName": "Your AI Persona",

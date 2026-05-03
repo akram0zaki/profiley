@@ -9,6 +9,26 @@ export type Envelope<T> = {
   meta?: Record<string, unknown>;
 };
 
+export type UserDataExportBundle = {
+  manifest: {
+    exportedAt: string;
+    profileyVersion: string;
+    subjectUserId: string;
+    deliveryMode: 'self_service_download';
+    format: 'json_bundle';
+    tables: string[];
+    tableCounts: Record<string, number>;
+    storageArtifacts: Array<{
+      kind: 'profile_photo' | 'uploaded_document';
+      bucket: 'avatars' | 'documents';
+      path: string;
+      sourceTable: 'profiles' | 'uploaded_documents';
+      sourceId: string | null;
+    }>;
+  };
+  tables: Record<string, Array<Record<string, unknown>>>;
+};
+
 const AUTH_SESSION_WAIT_MS = 750;
 
 let _visitorSessionId: string | null = null;
@@ -122,6 +142,24 @@ export const api = {
   updateUserLocale: (b: { browserLocale?: string; timezone?: string; preferredLanguage?: string }) =>
     callFn('update-user-locale', b),
   completeOnboarding: (b: unknown) => callFn('complete-onboarding', b),
+  acceptLegalDocuments: (b: {
+    termsAccepted: true;
+    privacyAccepted: true;
+    acceptanceSource?: 'in_app_gate';
+  }) =>
+    callFn<{
+      acceptedNow: boolean;
+      termsVersion: string;
+      privacyVersion: string;
+      appUser: Record<string, unknown>;
+    }>('accept-legal-documents', b),
+  exportUserData: () => callFn<UserDataExportBundle>('export-user-data', {}),
+  requestAccountDeletion: (b: {
+    confirmationText: 'DELETE';
+    requestSource?: 'settings';
+  }) => callFn<{ alreadyScheduled: boolean; scheduledFor: string | null }>('request-account-deletion', b),
+  cancelAccountDeletion: () =>
+    callFn<{ cancelled: boolean; pending: boolean }>('cancel-account-deletion', {}),
   publishProfile: (b: { publicVisibility: boolean }) => callFn('publish-profile', b),
   updateProfileSlug: (b: { newSlug: string }) =>
     callFn<{ id: string; slug: string; changed: boolean }>('update-profile-slug', b),

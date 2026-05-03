@@ -1,6 +1,6 @@
 {
   "brand": "Profiley",
-  "verified": "AI-Verified Profile",
+  "verified": "AI-Assisted Profile",
   "createCta": "Create Your Profile",
   "loading": "Loading profile…",
   "error": {
@@ -17,15 +17,27 @@
     "title": "About",
     "skills": "Skills"
   },
+  "aiLinks": {
+    "privacy": "Privacy details",
+    "concerns": "Raise a concern"
+  },
   "chat": {
     "title": "Chat with {firstName}'s AI",
-    "description": "This AI can answer questions about {firstName}'s experience, skills, and projects. All responses are based on verified profile data and uploaded documents.",
+    "description": "This assistant answers questions about {firstName}'s experience, skills, and projects using the materials attached to this profile.",
+    "notice": {
+      "title": "AI-generated answers",
+      "body": "Responses are generated from the profile owner's materials and may be incomplete or wrong. Verify important claims with the candidate directly."
+    },
     "userName": "You",
     "placeholder": "Ask about experience, skills, projects, or qualifications…"
   },
   "jobFit": {
     "title": "Job-Fit Analysis",
-    "description": "Paste a job description to get an instant AI-powered analysis of how well {firstName} matches the role.",
+    "description": "Paste a job description to get an AI-generated comparison of how well {firstName}'s materials appear to match the role.",
+    "notice": {
+      "title": "Assistive analysis only",
+      "body": "This score is an AI-generated aid, not an automated hiring decision. Review the evidence and apply human judgment before acting on it."
+    },
     "input": "Paste Job Description",
     "jobTitle": "Job title (optional)",
     "company": "Company name (optional)",
@@ -50,7 +62,7 @@
     "messageTooShort": "Your message must be at least 10 characters."
   },
   "footer": {
-    "poweredBy": "This profile is powered by Profiley AI. All responses are evidence-based and verified.",
+    "poweredBy": "This profile is powered by Profiley AI. Responses are AI-generated from the owner's materials and should be checked with the candidate.",
     "createCta": "Create Your AI Profile"
   },
   "feedback": {

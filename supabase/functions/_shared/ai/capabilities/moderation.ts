@@ -5,7 +5,12 @@ import { logCall } from "../log.ts";
 export async function moderate(
   featureKey: string,
   text: string,
-  opts: { requestId?: string; userId?: string | null } = {},
+  opts: {
+    requestId?: string;
+    userId?: string | null;
+    profileId?: string | null;
+    policyContext?: Record<string, unknown>;
+  } = {},
 ) {
   const resolved = await resolveModel(featureKey, "moderation");
   const start = Date.now();
@@ -20,6 +25,10 @@ export async function moderate(
       fallbackTriggered: resolved.fallbackTriggered,
       requestId: opts.requestId,
       userId: opts.userId ?? null,
+      profileId: opts.profileId ?? null,
+      safetyFlagged: out.flagged,
+      safetyCategories: out.categories,
+      policyContext: opts.policyContext ?? {},
     });
     return out;
   } catch (err) {
@@ -33,6 +42,8 @@ export async function moderate(
       fallbackTriggered: resolved.fallbackTriggered,
       requestId: opts.requestId,
       userId: opts.userId ?? null,
+      profileId: opts.profileId ?? null,
+      policyContext: opts.policyContext ?? {},
     });
     // Fail-open on moderation outage; let caller decide.
     throw err;

@@ -11,6 +11,7 @@ import { buildContext } from "../_shared/rag/buildContext.ts";
 import { chat } from "../_shared/ai/capabilities/chat.ts";
 import { moderate } from "../_shared/ai/capabilities/moderation.ts";
 import { PERSONA_SYSTEM, personaUserMessage } from "../_shared/prompts/personaChat.ts";
+import { PERSONA_CHAT_PROMPT_VERSION } from "../_shared/prompts/versions.ts";
 import { detectLangSimple, pickLanguage } from "../_shared/utils/locale.ts";
 import { loggerForRequest } from "../_shared/utils/logger.ts";
 
@@ -38,9 +39,20 @@ Deno.serve(async (req) => {
     await rateLimit({ key: `chat:session:${profile.id}:${session}`, windowSeconds: 3600, max: 20 });
     await rateLimit({ key: `chat:ip:${profile.id}:${ipHash}`, windowSeconds: 3600, max: 60 });
 
+    let safety = { flagged: false, categories: [] as string[] };
+
     // Moderation (input).
     try {
-      const m = await moderate("chat-input", body.message, { userId: null });
+      const m = await moderate("chat-input", body.message, {
+        userId: null,
+        profileId: profile.id,
+        policyContext: {
+          audience: "public_recruiter",
+          surface: "chat",
+          stage: "input",
+        },
+      });
+      safety = { flagged: m.flagged, categories: m.categories };
       if (m.flagged) {
         await supabase.from("moderation_events").insert({
           profile_id: profile.id,
@@ -51,7 +63,9 @@ Deno.serve(async (req) => {
       }
     } catch (e) {
       if (e instanceof AppError) throw e;
-      log.warn("moderation unavailable, fail-open", e);
+      log.warn("moderation unavailable, fail-open", {
+        error: e instanceof Error ? e.message : String(e),
+      });
     }
 
     // Pick language: explicit > detected > profile fallback.
@@ -99,7 +113,17 @@ Deno.serve(async (req) => {
         { role: "system", content: sys },
         { role: "user", content: userMsg },
       ],
-      { temperature: 0.4, maxTokens: 700, profileId: profile.id },
+      {
+        temperature: 0.4,
+        maxTokens: 700,
+        profileId: profile.id,
+        promptVersion: PERSONA_CHAT_PROMPT_VERSION,
+        safety,
+        policyContext: {
+          audience: "public_recruiter",
+          surface: "chat",
+        },
+      },
     );
 
     // Persist assistant message.

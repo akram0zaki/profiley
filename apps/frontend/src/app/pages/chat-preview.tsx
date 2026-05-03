@@ -1,6 +1,7 @@
 import { AppLayout } from '../components/app-layout';
 import { Card, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { ChatInterface } from '../components/chat-interface';
+import { Link } from 'react-router';
 import { AlertCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/language-context';
 import { useCurrentProfile, avatarPublicUrl } from '../../lib/profile';
@@ -28,6 +29,17 @@ export default function ChatPreviewPage() {
               <CardDescription>
                 {t('chatPreview.info.description')}
               </CardDescription>
+              <div className="flex flex-wrap gap-4 pt-2 text-xs">
+                <Link to="/legal/privacy" className="text-blue-700 underline underline-offset-4 dark:text-blue-300">
+                  {t('chatPreview.info.privacy')}
+                </Link>
+                <a
+                  href="mailto:privacy@profiley.ai"
+                  className="text-blue-700 underline underline-offset-4 dark:text-blue-300"
+                >
+                  {t('chatPreview.info.concerns')}
+                </a>
+              </div>
             </div>
           </CardHeader>
         </Card>

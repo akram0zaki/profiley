@@ -182,6 +182,33 @@ describe('callFn', () => {
     expect(freshVsi()).toBe(id);
     expect(localStorage.getItem('profiley-visitor-session')).toBe(id);
   });
+
+  it('uses the export-user-data endpoint for self-service exports', async () => {
+    const { api } = await import('../api');
+    fetchMock.mockResolvedValue(
+      jsonResponse({
+        success: true,
+        data: {
+          manifest: {
+            exportedAt: '2026-05-03T12:00:00.000Z',
+            profileyVersion: 'self-service-export-v1',
+            subjectUserId: 'user-1',
+            deliveryMode: 'self_service_download',
+            format: 'json_bundle',
+            tables: [],
+            tableCounts: {},
+            storageArtifacts: [],
+          },
+          tables: {},
+        },
+        error: null,
+      }),
+    );
+
+    await api.exportUserData();
+
+    expect(fetchMock.mock.calls[0][0]).toBe('http://test.local/functions/v1/export-user-data');
+  });
 });
 
 describe('ApiError', () => {

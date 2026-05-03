@@ -56,6 +56,43 @@
     "button": "Uitloggen bij Profiley",
     "redirectNote": "U wordt doorgestuurd naar de landingspagina"
   },
+  "accountDeletion": {
+    "title": "Account verwijderen",
+    "description": "Plan de permanente verwijdering van uw account en door de app beheerde gegevens.",
+    "warningTitle": "Gevarenzone",
+    "warningBody": "Verwijdering gebeurt niet direct. Profiley plant deze 30 dagen na uw verzoek zodat u deze in Instellingen nog kunt annuleren.",
+    "confirmLabel": "Typ DELETE om te bevestigen",
+    "confirmPlaceholder": "DELETE",
+    "confirmHint": "Door dit verzoek in te dienen wordt uw openbare profiel direct verborgen en start de respijtperiode van 30 dagen.",
+    "requestButton": "Accountverwijdering plannen",
+    "requesting": "Verwijdering plannen...",
+    "pendingTitle": "Verwijderingsverzoek in behandeling",
+    "pendingDescription": "Uw account is gepland voor permanente verwijdering tenzij u dit verzoek vóór de deadline annuleert.",
+    "scheduledFor": "Geplande verwijderdatum: {date}",
+    "publicHiddenNote": "Uw openbare profiel is verborgen tijdens de respijtperiode.",
+    "publicHiddenPending": "Uw openbare profiel was al verborgen toen dit verzoek werd ingepland en blijft tijdens de respijtperiode onbeschikbaar.",
+    "cancelButton": "Verwijderingsverzoek annuleren",
+    "cancelling": "Verzoek annuleren...",
+    "feedback": {
+      "scheduled": "Accountverwijdering gepland. U kunt deze de komende 30 dagen vanuit Instellingen annuleren.",
+      "failed": "Accountverwijdering kon niet worden gepland.",
+      "cancelled": "Verwijderingsverzoek geannuleerd.",
+      "cancelFailed": "Het verwijderingsverzoek kon niet worden geannuleerd.",
+      "confirmationRequired": "Typ exact DELETE om het verzoek te bevestigen."
+    }
+  },
+  "dataExport": {
+    "title": "Uw gegevens exporteren",
+    "description": "Download de accountgegevens die Profiley momenteel aan u koppelt.",
+    "body": "De export wordt op aanvraag samengesteld als een machineleesbare JSON-bundel met een manifest en tabelgegevens voor uw Profiley-account, profiel, documenten, gesprekken en gerelateerde records.",
+    "button": "Gegevensexport downloaden",
+    "exporting": "Export voorbereiden...",
+    "hint": "Neem contact op met privacy@profiley.ai als u ook opgeslagen documentbestanden of een ander privacyrecht nodig hebt.",
+    "feedback": {
+      "ready": "Uw gegevensexport is klaar en wordt nu gedownload.",
+      "failed": "De gegevensexport kon niet worden voorbereid."
+    }
+  },
   "feedback": {
     "languageSaved": "Taalvoorkeur opgeslagen",
     "updateFailed": "Bijwerken mislukt"

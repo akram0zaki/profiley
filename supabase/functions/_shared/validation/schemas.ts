@@ -17,6 +17,17 @@ export const UpdateUserLocaleSchema = z.object({
   preferredLanguage: z.enum(["en", "nl", "ar"]).optional(),
 });
 
+export const AcceptLegalDocumentsSchema = z.object({
+  termsAccepted: z.literal(true),
+  privacyAccepted: z.literal(true),
+  acceptanceSource: z.enum(["in_app_gate"]).default("in_app_gate"),
+});
+
+export const RequestAccountDeletionSchema = z.object({
+  confirmationText: z.literal("DELETE"),
+  requestSource: z.enum(["settings"]).default("settings"),
+});
+
 export const CompleteOnboardingSchema = z.object({
   answers: z.array(
     z.object({
