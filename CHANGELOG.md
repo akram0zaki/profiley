@@ -6,6 +6,17 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.1.0] - Unreleased
 
+### Added — GDPR and EU AI Act compliance audit
+
+- Added [docs/audits/compliance.md](docs/audits/compliance.md), an evidence-based repository audit of Profiley's current GDPR and EU AI Act posture.
+- Documented current strengths, direct policy-to-product mismatches, unverified legal and operational dependencies, and the highest-priority remediation items.
+
+### Added — Compliance implementation plan
+
+- Added [docs/plans/compliance-20260503.md](docs/plans/compliance-20260503.md), a comprehensive P0/P1/P2 execution plan to address the GDPR and EU AI Act gaps identified in the compliance audit.
+- The plan is agent-oriented and includes fixed operator decisions, file-level implementation targets, acceptance criteria, validation scope, and required docs-as-code deliverables.
+- Expanded the plan with a strict step-by-step P0 execution checklist so another AI agent can implement the compliance critical path sequentially, with validation gates and exit criteria.
+
 ### Fixed — Chat AI bot uses default avatar
 
 - The `ChatInterface` AI bot now dynamically displays the user's uploaded profile photo instead of a hardcoded default avatar.
