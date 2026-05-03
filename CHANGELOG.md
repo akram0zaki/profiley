@@ -6,6 +6,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.1.0] - Unreleased
 
+### Fixed — Chat greeting uses the profile owner name
+
+- Updated the chat opening message to introduce the assistant as the AI avatar of the profile owner instead of a generic AI persona label.
+- Wired the public-profile and owner-preview chat surfaces to pass the owner name into the shared chat component, and added focused frontend coverage for the greeting update.
+
 ### Fixed — Legal footer navigation and AI settings visibility
 
 - Footer links to Terms, Privacy, and Cookies now reset the document scroll position to the top on route change so legal pages open from the beginning instead of preserving the prior page scroll.

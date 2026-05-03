@@ -1,5 +1,5 @@
 {
-  "greeting": "Hallo! Ik ben {botName}, een AI-persona. Stel mij vragen over ervaring, vaardigheden, projecten of kwalificaties.",
+  "greeting": "Hallo! Ik ben de AI-avatar van {profileName}. Stel mij vragen over ervaring, vaardigheden, projecten of kwalificaties.",
   "placeholder": "Vraag mij iets over mijn ervaring, vaardigheden of projecten…",
   "rateLimit": "Te veel berichten — wacht een minuut voordat u opnieuw verzendt.",
   "errors": {

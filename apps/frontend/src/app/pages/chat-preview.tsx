@@ -50,6 +50,7 @@ export default function ChatPreviewPage() {
             ownerMode
             userName={t('chatPreview.userName')}
             botName={t('chatPreview.botName')}
+            profileName={profile?.full_name ?? profile?.slug ?? undefined}
             botAvatar={avatarPublicUrl(profile?.profile_photo_path ?? null) || undefined}
             placeholder={t('chatPreview.placeholder')}
           />

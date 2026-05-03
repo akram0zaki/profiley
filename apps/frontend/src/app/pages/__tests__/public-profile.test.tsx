@@ -35,8 +35,12 @@ vi.mock('../../../lib/supabase', () => ({
   },
 }));
 
+const chatInterfaceMock = vi.fn(({ profileName }: { profileName?: string }) => (
+  <div>Chat interface mock for {profileName ?? 'unknown'}</div>
+));
+
 vi.mock('../../components/chat-interface', () => ({
-  ChatInterface: () => <div>Chat interface mock</div>,
+  ChatInterface: (props: { profileName?: string }) => chatInterfaceMock(props),
 }));
 
 function renderPage() {
@@ -85,6 +89,7 @@ describe('PublicProfilePage AI disclosures', () => {
     await waitFor(() => {
       expect(screen.getByText('AI-generated answers')).toBeInTheDocument();
     });
+    expect(screen.getByText('Chat interface mock for Test User')).toBeInTheDocument();
     expect(
       screen.getByText(/verify important claims with the candidate directly/i),
     ).toBeInTheDocument();

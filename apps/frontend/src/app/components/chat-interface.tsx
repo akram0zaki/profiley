@@ -21,6 +21,7 @@ interface ChatInterfaceProps {
   userAvatar?: string;
   userName?: string;
   botName?: string;
+  profileName?: string;
   botAvatar?: string;
   placeholder?: string;
   /** When provided, calls public chat-persona endpoint. */
@@ -33,6 +34,7 @@ export function ChatInterface({
   userAvatar = 'https://api.dicebear.com/7.x/avataaars/svg?seed=Recruiter',
   userName,
   botName,
+  profileName,
   botAvatar,
   placeholder,
   profileSlug,
@@ -41,12 +43,17 @@ export function ChatInterface({
   const { t } = useLanguage();
   const resolvedUserName = userName ?? 'Recruiter';
   const resolvedBotName = botName ?? 'Profiley AI';
+  const resolvedProfileName = profileName ?? resolvedBotName;
   const resolvedPlaceholder = placeholder ?? t('chat.placeholder');
+  const greeting = t('chat.greeting', {
+    botName: resolvedBotName,
+    profileName: resolvedProfileName,
+  });
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
       role: 'assistant',
-      content: t('chat.greeting', { botName: resolvedBotName }),
+      content: greeting,
       timestamp: new Date(),
     },
   ]);
@@ -70,6 +77,17 @@ export function ChatInterface({
     const t = setInterval(() => setCooldownSec((s) => (s && s > 1 ? s - 1 : null)), 1000);
     return () => clearInterval(t);
   }, [cooldownSec]);
+
+  useEffect(() => {
+    setMessages((prev) => {
+      if (prev.length !== 1) return prev;
+      const [initialMessage] = prev;
+      if (!initialMessage || initialMessage.role !== 'assistant' || initialMessage.content === greeting) {
+        return prev;
+      }
+      return [{ ...initialMessage, content: greeting }];
+    });
+  }, [greeting]);
 
   const handleSend = async () => {
     if (!input.trim() || isTyping) return;
