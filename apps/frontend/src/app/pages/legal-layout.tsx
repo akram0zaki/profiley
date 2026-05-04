@@ -4,11 +4,13 @@ import { Languages, Sun, Moon, Check, Shield, ArrowLeft } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import {
-  SimpleDropdown,
-  SimpleDropdownItem,
-  SimpleDropdownLabel,
-  SimpleDropdownSeparator,
-} from '../components/simple-dropdown';
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../components/ui/dropdown-menu';
 import { useLanguage } from '../contexts/language-context';
 import { useTheme } from '../components/theme-provider';
 
@@ -46,34 +48,33 @@ export function LegalLayout({ title, lead, children }: LegalLayoutProps) {
               variant="ghost"
               size="icon"
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              aria-label="Toggle theme"
+              aria-label={t('a11y.toggleTheme')}
+              aria-pressed={theme === 'dark'}
             >
               {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
-            <SimpleDropdown
-              trigger={
-                <Button variant="ghost" size="sm" className="gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="gap-2" aria-label={t('a11y.selectLanguage')}>
                   <Languages className="h-4 w-4" />
                   <span className="text-sm hidden sm:inline">
                     {LANGUAGES.find((l) => l.code === language)?.code.toUpperCase()}
                   </span>
                 </Button>
-              }
-              className="w-48"
-            >
-              <SimpleDropdownLabel>{t('nav.language')}</SimpleDropdownLabel>
-              <SimpleDropdownSeparator />
-              {LANGUAGES.map((lang) => (
-                <SimpleDropdownItem key={lang.code} onClick={() => setLanguage(lang.code)}>
-                  <div className="flex flex-col flex-1">
-                    <span>{lang.nativeName}</span>
-                  </div>
-                  {language === lang.code && (
-                    <Check className="h-4 w-4 text-primary mx-2" />
-                  )}
-                </SimpleDropdownItem>
-              ))}
-            </SimpleDropdown>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-48" align="end">
+                <DropdownMenuLabel>{t('nav.language')}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {LANGUAGES.map((lang) => (
+                  <DropdownMenuItem key={lang.code} onClick={() => setLanguage(lang.code)}>
+                    <span className="flex-1">{lang.nativeName}</span>
+                    {language === lang.code && (
+                      <Check className="h-4 w-4" />
+                    )}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </nav>
         </div>
       </header>

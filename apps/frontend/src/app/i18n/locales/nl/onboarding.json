@@ -1,6 +1,9 @@
 {
   "title": "Maak Uw AI-Profiel",
   "stepLabel": "Stap {step} van {total}: {stepName}",
+  "progressAria": "Voortgang onboarding",
+  "progressValue": "{value}% voltooid van {max}%",
+  "stepsAria": "Onboarding stappen",
   "steps": {
     "welcome": "Welkom",
     "basics": "Profielbasis",

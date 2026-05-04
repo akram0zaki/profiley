@@ -1,6 +1,9 @@
 {
   "title": "Create Your AI Profile",
   "stepLabel": "Step {step} of {total}: {stepName}",
+  "progressAria": "Onboarding progress",
+  "progressValue": "{value}% complete out of {max}%",
+  "stepsAria": "Onboarding steps",
   "steps": {
     "welcome": "Welcome",
     "basics": "Profile Basics",

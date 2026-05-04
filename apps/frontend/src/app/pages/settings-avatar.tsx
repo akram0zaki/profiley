@@ -7,9 +7,11 @@ import { Badge } from '../components/ui/badge';
 import { Link } from 'react-router';
 import { ArrowLeft, Upload, Video, Sparkles } from 'lucide-react';
 import { useLanguage } from '../contexts/language-context';
+import { useDocumentTitle } from '../hooks/use-document-title';
 
 export default function SettingsAvatarPage() {
   const { t } = useLanguage();
+  useDocumentTitle(t('settingsAvatar.title'));
   return (
     <AppLayout>
       <div className="max-w-4xl mx-auto space-y-6">

@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { api, ApiError } from '../../lib/api';
 import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../contexts/language-context';
+import { useDocumentTitle } from '../hooks/use-document-title';
 
 type DocRow = {
   id: string;
@@ -56,6 +57,7 @@ async function sha256Hex(buf: ArrayBuffer): Promise<string> {
 
 export default function UploadsPage() {
   const { t } = useLanguage();
+  useDocumentTitle(t('uploads.title'));
   const [documents, setDocuments] = useState<DocRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [chunkCounts, setChunkCounts] = useState<Record<string, number>>({});
@@ -306,6 +308,7 @@ export default function UploadsPage() {
                 className="gap-2"
                 disabled={Boolean(uploading)}
                 onClick={() => inputRef.current?.click()}
+                aria-label={t('uploads.drop.selectFilesAria')}
               >
                 {uploading ? (
                   <Loader2 className="h-4 w-4 animate-spin" />

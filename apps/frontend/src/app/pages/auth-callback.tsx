@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router';
 import { supabase } from '../../lib/supabase';
 import { api } from '../../lib/api';
 import { useLanguage } from '../contexts/language-context';
+import { useDocumentTitle } from '../hooks/use-document-title';
 
 export default function AuthCallbackPage() {
   const { t } = useLanguage();
+  useDocumentTitle('Profiley');
   const nav = useNavigate();
   const [error, setError] = useState<string | null>(null);
 

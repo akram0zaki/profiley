@@ -21,5 +21,15 @@
     "german": "الألمانية",
     "chinese": "الصينية",
     "japanese": "اليابانية"
+  },
+  "a11y": {
+    "skipToContent": "تخطي إلى المحتوى الرئيسي",
+    "toggleTheme": "تبديل المظهر",
+    "switchToLight": "التبديل إلى الوضع الفاتح",
+    "switchToDark": "التبديل إلى الوضع الداكن",
+    "selectLanguage": "اختيار اللغة",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة",
+    "userMenu": "قائمة المستخدم"
   }
 }

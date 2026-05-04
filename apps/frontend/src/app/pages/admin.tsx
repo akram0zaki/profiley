@@ -41,6 +41,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { api, ApiError } from '../../lib/api';
 import { useLanguage } from '../contexts/language-context';
+import { useDocumentTitle } from '../hooks/use-document-title';
 
 type ProviderConfig = {
   id: string;
@@ -74,6 +75,7 @@ const CAPABILITIES = ['chat', 'embeddings', 'moderation', 'stt', 'tts'];
 
 export default function AdminPage() {
   const { t } = useLanguage();
+  useDocumentTitle(t('admin.title'));
   const [configs, setConfigs] = useState<ProviderConfig[]>([]);
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [health, setHealth] = useState<HealthRow[]>([]);

@@ -2,6 +2,13 @@
   "greeting": "Hello! I'm the AI Avatar of {profileName}. Ask me about experience, skills, projects, or qualifications.",
   "placeholder": "Ask me anything about my experience, skills, or projects…",
   "rateLimit": "Too many messages — please wait a minute before sending again.",
+  "conversationAria": "Chat conversation",
+  "inputAria": "Type your message",
+  "sendAria": "Send message",
+  "typingAria": "AI is typing",
+  "citationsAria": "Source citations",
+  "citationLabel": "Citation",
+  "chunkLabel": "Chunk",
   "errors": {
     "noResponse": "Failed to get a response",
     "cooldown": "Cooldown: {seconds}s"

@@ -21,5 +21,15 @@
     "german": "German",
     "chinese": "Chinese",
     "japanese": "Japanese"
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content",
+    "toggleTheme": "Toggle theme",
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode",
+    "selectLanguage": "Select language",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "userMenu": "User menu"
   }
 }

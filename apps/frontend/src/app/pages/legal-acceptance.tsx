@@ -14,9 +14,11 @@ import {
 } from '../../lib/legal';
 import { useCurrentProfile } from '../../lib/profile';
 import { useLanguage } from '../contexts/language-context';
+import { useDocumentTitle } from '../hooks/use-document-title';
 
 export default function LegalAcceptancePage() {
   const { t } = useLanguage();
+  useDocumentTitle(t('legal.acceptance.title'));
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { appUser, loading, reload } = useCurrentProfile();

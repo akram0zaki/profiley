@@ -8,6 +8,7 @@ import { Progress } from '../components/ui/progress';
 import { useEffect, useState } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Badge } from '../components/ui/badge';
+import { useDocumentTitle } from '../hooks/use-document-title';
 import { Loader2, X } from 'lucide-react';
 import { api, ApiError } from '../../lib/api';
 import { toast } from 'sonner';
@@ -15,6 +16,7 @@ import { useLanguage } from '../contexts/language-context';
 
 export default function OnboardingPage() {
   const { t } = useLanguage();
+  useDocumentTitle(t('onboarding.title'));
   const STEPS = [
     t('onboarding.steps.welcome'),
     t('onboarding.steps.basics'),
@@ -154,10 +156,20 @@ export default function OnboardingPage() {
 
         {/* Progress */}
         <div className="space-y-2">
-          <Progress value={progress} className="h-2" />
-          <div className="flex justify-between text-xs text-muted-foreground">
+          <Progress
+            value={progress}
+            className="h-2"
+            aria-label={t('onboarding.progressAria')}
+            getValueLabel={(value, max) => t('onboarding.progressValue', { value, max })}
+          />
+          <div className="flex justify-between text-xs text-muted-foreground" role="list" aria-label={t('onboarding.stepsAria')}>
             {STEPS.map((step, i) => (
-              <span key={step} className={i === currentStep ? 'text-foreground font-medium' : ''}>
+              <span
+                key={step}
+                role="listitem"
+                aria-current={i === currentStep ? 'step' : undefined}
+                className={i === currentStep ? 'text-foreground font-medium' : ''}
+              >
                 {step}
               </span>
             ))}

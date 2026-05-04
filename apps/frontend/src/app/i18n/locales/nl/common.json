@@ -21,5 +21,15 @@
     "german": "Duits",
     "chinese": "Chinees",
     "japanese": "Japans"
+  },
+  "a11y": {
+    "skipToContent": "Ga naar hoofdinhoud",
+    "toggleTheme": "Thema wisselen",
+    "switchToLight": "Schakel naar lichte modus",
+    "switchToDark": "Schakel naar donkere modus",
+    "selectLanguage": "Selecteer taal",
+    "openMenu": "Menu openen",
+    "closeMenu": "Menu sluiten",
+    "userMenu": "Gebruikersmenu"
   }
 }

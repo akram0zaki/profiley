@@ -19,6 +19,7 @@ import {
 import { api, ApiError } from '../../lib/api';
 import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../contexts/language-context';
+import { useDocumentTitle } from '../hooks/use-document-title';
 
 const SKILLS_QUESTION_KEY = 'skills';
 
@@ -28,6 +29,7 @@ const SLUG_REGEX = /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
 
 export default function ProfilePage() {
   const { t } = useLanguage();
+  useDocumentTitle(t('profile.title'));
   const { appUser, profile, preferences, loading, error, reload } = useCurrentProfile();
 
   const [form, setForm] = useState({

@@ -1,4 +1,5 @@
 import { useLanguage } from '../contexts/language-context';
+import { useDocumentTitle } from '../hooks/use-document-title';
 import enLegal from '../i18n/locales/en/legal.json';
 import {
   Table,
@@ -14,6 +15,7 @@ const PROCESSOR_IDS = Object.keys(enLegal.privacy.processors.items);
 
 export default function PrivacyPage() {
   const { t, tList } = useLanguage();
+  useDocumentTitle(t('legal.privacy.title'));
   const ns = 'legal.privacy';
 
   return (

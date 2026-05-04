@@ -10,6 +10,7 @@
     "differentCategories": "Different categories"
   },
   "searchPlaceholder": "Search your knowledge base…",
+  "searchAria": "Search knowledge base",
   "list": {
     "title": "Knowledge Chunks",
     "description": "Semantic chunks extracted from your documents for AI retrieval",

@@ -13,6 +13,8 @@ import { toast } from 'sonner';
 import { api, ApiError } from '../../lib/api';
 import { useCurrentProfile } from '../../lib/profile';
 import { useLanguage } from '../contexts/language-context';
+import { Label } from '../components/ui/label';
+import { useDocumentTitle } from '../hooks/use-document-title';
 
 type JobFitResult = {
   fitBand: string;
@@ -29,6 +31,7 @@ type JobFitResult = {
 
 export default function JobFitPreviewPage() {
   const { t } = useLanguage();
+  useDocumentTitle(t('jobFit.title'));
   const { profile, loading } = useCurrentProfile();
   const [jobTitle, setJobTitle] = useState('');
   const [companyName, setCompanyName] = useState('');
@@ -96,23 +99,35 @@ export default function JobFitPreviewPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
-              <Input
-                placeholder={t('jobFit.input.jobTitle')}
-                value={jobTitle}
-                onChange={(e) => setJobTitle(e.target.value)}
-              />
-              <Input
-                placeholder={t('jobFit.input.company')}
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
+              <div className="space-y-2">
+                <Label htmlFor="job-fit-title">{t('jobFit.input.jobTitle')}</Label>
+                <Input
+                  id="job-fit-title"
+                  placeholder={t('jobFit.input.jobTitlePlaceholder')}
+                  value={jobTitle}
+                  onChange={(e) => setJobTitle(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="job-fit-company">{t('jobFit.input.company')}</Label>
+                <Input
+                  id="job-fit-company"
+                  placeholder={t('jobFit.input.companyPlaceholder')}
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="job-fit-description">{t('jobFit.input.description')}</Label>
+              <Textarea
+                id="job-fit-description"
+                placeholder={t('jobFit.input.placeholder')}
+                rows={12}
+                value={jobDescription}
+                onChange={(e) => setJobDescription(e.target.value)}
               />
             </div>
-            <Textarea
-              placeholder={t('jobFit.input.placeholder')}
-              rows={12}
-              value={jobDescription}
-              onChange={(e) => setJobDescription(e.target.value)}
-            />
             <div className="flex gap-2">
               <Button
                 onClick={() => void handleAnalyze()}

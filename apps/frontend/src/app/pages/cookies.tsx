@@ -1,4 +1,5 @@
 import { useLanguage } from '../contexts/language-context';
+import { useDocumentTitle } from '../hooks/use-document-title';
 import {
   Table,
   TableBody,
@@ -13,6 +14,7 @@ const COOKIE_IDS = ['auth', 'language', 'theme', 'cf'] as const;
 
 export default function CookiesPage() {
   const { t, tList } = useLanguage();
+  useDocumentTitle(t('legal.cookies.title'));
   const ns = 'legal.cookies';
 
   return (

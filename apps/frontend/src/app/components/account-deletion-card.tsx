@@ -131,8 +131,9 @@ export function AccountDeletionCard({ appUser, profile, reload }: Props) {
                 onChange={(event) => setConfirmationText(event.target.value)}
                 placeholder={t('settings.accountDeletion.confirmPlaceholder')}
                 autoComplete="off"
+                aria-describedby="deletion-confirmation-hint"
               />
-              <p className="text-sm text-muted-foreground">
+              <p id="deletion-confirmation-hint" className="text-sm text-muted-foreground">
                 {t('settings.accountDeletion.confirmHint')}
               </p>
             </div>

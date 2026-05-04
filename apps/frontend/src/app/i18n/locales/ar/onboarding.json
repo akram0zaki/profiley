@@ -1,6 +1,9 @@
 {
   "title": "أنشئ ملفك الذكي",
   "stepLabel": "الخطوة {step} من {total}: {stepName}",
+  "progressAria": "تقدم الإعداد",
+  "progressValue": "{value}% مكتمل من {max}%",
+  "stepsAria": "خطوات الإعداد",
   "steps": {
     "welcome": "مرحبًا",
     "basics": "أساسيات الملف",

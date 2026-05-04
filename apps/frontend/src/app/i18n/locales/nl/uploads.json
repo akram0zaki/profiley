@@ -5,6 +5,7 @@
     "title": "Sleep bestanden hierheen",
     "subtitle": "of klik om door uw computer te bladeren",
     "choose": "Kies Bestanden",
+    "selectFilesAria": "Selecteer bestanden om te uploaden",
     "supported": "Ondersteund: PDF, DOCX, TXT, MD. Max 10 MB per bestand.",
     "uploading": "{filename} uploaden…"
   },

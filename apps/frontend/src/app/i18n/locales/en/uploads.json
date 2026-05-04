@@ -5,6 +5,7 @@
     "title": "Drag and drop files here",
     "subtitle": "or click to browse your computer",
     "choose": "Choose Files",
+    "selectFilesAria": "Select files to upload",
     "supported": "Supported: PDF, DOCX, TXT, MD. Max 10MB per file.",
     "uploading": "Uploading {filename}…"
   },

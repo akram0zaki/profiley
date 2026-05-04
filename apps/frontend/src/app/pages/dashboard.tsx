@@ -20,6 +20,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useCurrentProfile } from '../../lib/profile';
 import { supabase } from '../../lib/supabase';
+import { useDocumentTitle } from '../hooks/use-document-title';
 
 type ActivityRow = {
   id: string;
@@ -39,6 +40,7 @@ const PROFILE_FIELDS: Array<keyof Record<string, unknown>> = [
 
 export default function DashboardPage() {
   const { t } = useLanguage();
+  useDocumentTitle(t('dashboard.title'));
   const { appUser, profile, loading } = useCurrentProfile();
   const [stats, setStats] = useState({
     visits: 0,

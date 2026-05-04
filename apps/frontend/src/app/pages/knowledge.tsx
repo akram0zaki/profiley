@@ -8,6 +8,7 @@ import { useCurrentProfile } from '../../lib/profile';
 import { supabase } from '../../lib/supabase';
 import { toast } from 'sonner';
 import { useLanguage } from '../contexts/language-context';
+import { useDocumentTitle } from '../hooks/use-document-title';
 
 type Chunk = {
   id: string;
@@ -21,6 +22,7 @@ type Chunk = {
 
 export default function KnowledgePage() {
   const { t } = useLanguage();
+  useDocumentTitle(t('knowledge.title'));
   const { appUser, loading: authLoading } = useCurrentProfile();
   const [chunks, setChunks] = useState<Chunk[]>([]);
   const [loading, setLoading] = useState(true);
@@ -124,12 +126,13 @@ export default function KnowledgePage() {
         <Card>
           <CardContent className="pt-6">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" aria-hidden="true" />
               <Input
                 placeholder={t('knowledge.searchPlaceholder')}
                 className="pl-10"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                aria-label={t('knowledge.searchAria')}
               />
             </div>
           </CardContent>

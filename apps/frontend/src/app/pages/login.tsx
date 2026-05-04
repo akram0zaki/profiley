@@ -8,9 +8,11 @@ import { Mail, Chrome, Github } from 'lucide-react';
 import { useState } from 'react';
 import { signInWithEmail, signInWithProvider } from '../../lib/auth';
 import { useLanguage } from '../contexts/language-context';
+import { useDocumentTitle } from '../hooks/use-document-title';
 
 export default function LoginPage() {
   const { t } = useLanguage();
+  useDocumentTitle(t('login.header.title'));
   const [email, setEmail] = useState('');
   const [magicLinkSent, setMagicLinkSent] = useState(false);
   const [error, setError] = useState<string | null>(null);

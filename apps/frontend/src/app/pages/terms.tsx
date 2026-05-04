@@ -1,9 +1,11 @@
 import { useLanguage } from '../contexts/language-context';
+import { useDocumentTitle } from '../hooks/use-document-title';
 import { LegalLayout, LegalSection, LegalList } from './legal-layout';
 
 export default function TermsPage() {
   const { t, tList } = useLanguage();
   const ns = 'legal.terms';
+  useDocumentTitle(t(`${ns}.title`));
 
   return (
     <LegalLayout title={t(`${ns}.title`)} lead={t(`${ns}.lead`)}>

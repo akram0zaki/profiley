@@ -6,6 +6,26 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.1.0] - Unreleased
 
+### Added — WCAG 2.2 AA accessibility audit and remediation
+
+- Added [docs/audits/a11y-20260504.md](docs/audits/a11y-20260504.md), a comprehensive 19-item accessibility audit report covering all frontend pages, components, styles, and UI patterns against WCAG 2.2 Level AA.
+- Implemented fixes for all 19 findings across 40+ files:
+  - **Skip-to-content link** — new `SkipLink` component as the first focusable element, `id="main-content"` on `<main>`.
+  - **Page title management** — `useDocumentTitle` hook created and applied to all 18 page components so `document.title` updates on every route change.
+  - **Focus management on SPA navigation** — `ScrollToTop` now moves keyboard focus to `<main>` after route transitions.
+  - **SimpleDropdown replaced with Radix DropdownMenu** — removed the inaccessible custom dropdown in `app-layout.tsx`, `landing.tsx`, and `legal-layout.tsx` in favor of the existing Radix UI dropdown with full keyboard and ARIA support.
+  - **Icon-only button labels** — added `aria-label` to theme toggles, mobile menu, language selector, user menu, chat send, and file upload buttons; added `aria-pressed` on theme toggles and `aria-expanded` on mobile menu.
+  - **Color contrast** — darkened `--muted-foreground` in both light mode (`#59596b`, ≈5.5:1) and dark mode (`oklch(0.645 0 0)`, ≈6:1) to meet WCAG AA 4.5:1 minimum for normal text.
+  - **Reduced motion** — added `@media (prefers-reduced-motion: reduce)` rule to disable all animations and transitions when the user's OS preference is set.
+  - **Chat screen-reader announcements** — message list uses `role="log"` with `aria-live="polite"`; citations use `aria-label` instead of `title`; errors use `role="alert"`; cooldowns use `role="status"`.
+  - **Form labels** — added visible `<Label>` components to job-fit inputs (title, company, description); added `aria-label` to knowledge search and file upload buttons.
+  - **Progress bar** — exposed `aria-label`, `aria-labelledby`, and `getValueLabel` props; applied labels to onboarding progress.
+  - **Toast accessibility** — configured sonner `Toaster` with `role="status"`, `aria-live="polite"`, and close button.
+  - **Loading states** — auth guards now render an accessible spinner with `role="status"` instead of returning `null`.
+  - **Onboarding stepper** — added `role="list"`, `role="listitem"`, and `aria-current="step"` semantics.
+  - **Account deletion** — linked confirmation input to its hint via `aria-describedby`.
+- Added 23 new i18n keys across all 3 supported languages (English, Dutch, Arabic) covering a11y labels, chat announcements, onboarding progress, and form placeholders.
+
 ### Fixed — Chat greeting uses the profile owner name
 
 - Updated the chat opening message to introduce the assistant as the AI avatar of the profile owner instead of a generic AI persona label.

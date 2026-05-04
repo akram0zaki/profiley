@@ -5,9 +5,11 @@ import { Link } from 'react-router';
 import { AlertCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/language-context';
 import { useCurrentProfile, avatarPublicUrl } from '../../lib/profile';
+import { useDocumentTitle } from '../hooks/use-document-title';
 
 export default function ChatPreviewPage() {
   const { t } = useLanguage();
+  useDocumentTitle(t('chatPreview.title'));
   const { profile } = useCurrentProfile();
   return (
     <AppLayout>

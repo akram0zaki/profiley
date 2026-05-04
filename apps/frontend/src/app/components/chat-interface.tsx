@@ -139,7 +139,13 @@ export function ChatInterface({
   return (
     <div className="flex flex-col h-full">
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto space-y-4 p-4">
+      <div
+        className="flex-1 overflow-y-auto space-y-4 p-4"
+        role="log"
+        aria-live="polite"
+        aria-relevant="additions"
+        aria-label={t('chat.conversationAria')}
+      >
         {messages.map((message) => (
           <div
             key={message.id}
@@ -179,11 +185,11 @@ export function ChatInterface({
               >
                 <p className="text-sm leading-relaxed">{message.content}</p>
                 {message.citations && message.citations.length > 0 && (
-                  <div className="mt-2 flex flex-wrap gap-1">
+                  <div className="mt-2 flex flex-wrap gap-1" aria-label={t('chat.citationsAria')}>
                     {message.citations.map((c, i) => (
                       <span
                         key={c.chunkId}
-                        title={`chunk ${c.chunkId}`}
+                        aria-label={`${t('chat.citationLabel')} ${i + 1}: ${t('chat.chunkLabel')} ${c.chunkId}`}
                         className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
                       >
                         ref #{i + 1}
@@ -203,7 +209,7 @@ export function ChatInterface({
         ))}
 
         {isTyping && (
-          <div className="flex gap-3">
+          <div className="flex gap-3" aria-label={t('chat.typingAria')}>
             <Avatar className="h-8 w-8">
               <AvatarImage src={botAvatar || "https://api.dicebear.com/7.x/avataaars/svg?seed=Profiley"} />
               <AvatarFallback>
@@ -226,10 +232,10 @@ export function ChatInterface({
       {/* Input */}
       <div className="border-t border-border/40 p-4 bg-background/95 backdrop-blur">
         {error && (
-          <div className="mb-2 text-xs text-destructive">{error}</div>
+          <div className="mb-2 text-xs text-destructive" role="alert">{error}</div>
         )}
         {cooldownSec && (
-          <div className="mb-2 text-xs text-amber-500">{t('chat.errors.cooldown', { seconds: cooldownSec })}</div>
+          <div className="mb-2 text-xs text-amber-500" role="status">{t('chat.errors.cooldown', { seconds: cooldownSec })}</div>
         )}
         <form
           onSubmit={(e) => {
@@ -244,8 +250,9 @@ export function ChatInterface({
             onChange={(e) => setInput(e.target.value)}
             className="flex-1"
             disabled={!!cooldownSec}
+            aria-label={t('chat.inputAria')}
           />
-          <Button type="submit" size="icon" disabled={!input.trim() || isTyping || !!cooldownSec}>
+          <Button type="submit" size="icon" disabled={!input.trim() || isTyping || !!cooldownSec} aria-label={t('chat.sendAria')}>
             <Send className="h-4 w-4" />
           </Button>
         </form>

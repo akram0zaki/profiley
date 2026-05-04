@@ -10,6 +10,7 @@
     "differentCategories": "Verschillende categorieën"
   },
   "searchPlaceholder": "Doorzoek uw kennisbank…",
+  "searchAria": "Doorzoek kennisbank",
   "list": {
     "title": "Kennisfragmenten",
     "description": "Semantische fragmenten geëxtraheerd uit uw documenten voor AI-retrieval",

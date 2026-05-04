@@ -3,9 +3,17 @@ import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { Sparkles, Bot, Shield, Zap, Globe, Users, ArrowRight, Check, Languages, Sun, Moon } from 'lucide-react';
-import { SimpleDropdown, SimpleDropdownItem, SimpleDropdownLabel, SimpleDropdownSeparator } from '../components/simple-dropdown';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../components/ui/dropdown-menu';
 import { useLanguage } from '../contexts/language-context';
 import { useTheme } from '../components/theme-provider';
+import { useDocumentTitle } from '../hooks/use-document-title';
 
 const languages = [
   { code: 'en' as const, nativeName: 'English' },
@@ -16,6 +24,7 @@ const languages = [
 export default function LandingPage() {
   const { language, setLanguage, t } = useLanguage();
   const { theme, setTheme } = useTheme();
+  useDocumentTitle(t('landing.brand'));
   return (
     <div className="flex-1 flex flex-col bg-gradient-to-br from-background via-background to-purple-500/5">
       {/* Navigation */}
@@ -35,6 +44,8 @@ export default function LandingPage() {
               variant="ghost"
               size="icon"
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              aria-label={t('a11y.toggleTheme')}
+              aria-pressed={theme === 'dark'}
             >
               {theme === 'dark' ? (
                 <Sun className="h-5 w-5" />
@@ -44,33 +55,31 @@ export default function LandingPage() {
             </Button>
 
             {/* Language Selector */}
-            <SimpleDropdown
-              trigger={
-                <Button variant="ghost" size="sm" className="gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="gap-2" aria-label={t('a11y.selectLanguage')}>
                   <Languages className="h-4 w-4" />
                   <span className="text-sm hidden sm:inline">
                     {languages.find((l) => l.code === language)?.code.toUpperCase()}
                   </span>
                 </Button>
-              }
-              className="w-48"
-            >
-              <SimpleDropdownLabel>{t('nav.language')}</SimpleDropdownLabel>
-              <SimpleDropdownSeparator />
-              {languages.map((lang) => (
-                <SimpleDropdownItem
-                  key={lang.code}
-                  onClick={() => setLanguage(lang.code)}
-                >
-                  <div className="flex flex-col flex-1">
-                    <span>{lang.nativeName}</span>
-                  </div>
-                  {language === lang.code && (
-                    <Check className="h-4 w-4 text-primary mx-2" />
-                  )}
-                </SimpleDropdownItem>
-              ))}
-            </SimpleDropdown>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-48" align="end">
+                <DropdownMenuLabel>{t('nav.language')}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {languages.map((lang) => (
+                  <DropdownMenuItem
+                    key={lang.code}
+                    onClick={() => setLanguage(lang.code)}
+                  >
+                    <span className="flex-1">{lang.nativeName}</span>
+                    {language === lang.code && (
+                      <Check className="h-4 w-4" />
+                    )}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <Link to="/login">
               <Button variant="ghost">{t('landing.nav.signIn')}</Button>

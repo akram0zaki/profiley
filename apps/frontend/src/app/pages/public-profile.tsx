@@ -24,6 +24,7 @@ import { toast } from 'sonner';
 import { api, ApiError } from '../../lib/api';
 import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../contexts/language-context';
+import { useDocumentTitle } from '../hooks/use-document-title';
 
 type PublicProfile = {
   id: string;
@@ -89,6 +90,7 @@ function UsageNotice({
 export default function PublicProfilePage() {
   const { t } = useLanguage();
   const { username } = useParams();
+  useDocumentTitle(username ? `${username} — ${t('publicProfile.title')}` : t('publicProfile.title'));
   const [activeTab, setActiveTab] = useState('about');
   const [profile, setProfile] = useState<PublicProfile | null>(null);
   const [loading, setLoading] = useState(true);

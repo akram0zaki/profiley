@@ -2,6 +2,13 @@
   "greeting": "Hallo! Ik ben de AI-avatar van {profileName}. Stel mij vragen over ervaring, vaardigheden, projecten of kwalificaties.",
   "placeholder": "Vraag mij iets over mijn ervaring, vaardigheden of projecten…",
   "rateLimit": "Te veel berichten — wacht een minuut voordat u opnieuw verzendt.",
+  "conversationAria": "Chatgesprek",
+  "inputAria": "Typ uw bericht",
+  "sendAria": "Verstuur bericht",
+  "typingAria": "AI is aan het typen",
+  "citationsAria": "Bronvermeldingen",
+  "citationLabel": "Bronvermelding",
+  "chunkLabel": "Chunk",
   "errors": {
     "noResponse": "Geen antwoord ontvangen",
     "cooldown": "Cooldown: {seconds}s"

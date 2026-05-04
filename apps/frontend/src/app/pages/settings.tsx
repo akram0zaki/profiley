@@ -16,9 +16,11 @@ import { signOutAndRedirect } from '../../lib/auth';
 import { useLanguage } from '../contexts/language-context';
 import { AccountDeletionCard } from '../components/account-deletion-card';
 import { AccountDataExportCard } from '../components/account-data-export-card';
+import { useDocumentTitle } from '../hooks/use-document-title';
 
 export default function SettingsPage() {
   const { t, setLanguage: setUiLanguage } = useLanguage();
+  useDocumentTitle(t('settings.title'));
   const { appUser, profile, preferences, loading, reload } = useCurrentProfile();
   const [language, setLanguage] = useState('en');
   const [savingLocale, setSavingLocale] = useState(false);

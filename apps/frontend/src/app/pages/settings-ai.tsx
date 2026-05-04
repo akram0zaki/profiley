@@ -19,6 +19,7 @@ import { useAuth } from '../../lib/auth';
 import { useCurrentProfile, updatePreferences } from '../../lib/profile';
 import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../contexts/language-context';
+import { useDocumentTitle } from '../hooks/use-document-title';
 
 type ProviderConfig = {
   id: string;
@@ -45,6 +46,7 @@ const TONE_OPTIONS = [
 
 export default function SettingsAIPage() {
   const { t } = useLanguage();
+  useDocumentTitle(t('settingsAi.title'));
   const auth = useAuth();
   const { appUser, preferences, loading: profileLoading, reload } = useCurrentProfile();
   const [configs, setConfigs] = useState<ProviderConfig[]>([]);
