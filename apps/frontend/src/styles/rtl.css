@@ -133,21 +133,24 @@
   justify-content: flex-end;
 }
 
-/* Fix gradient directions */
+/* Fix gradient directions — Tailwind v4 stores direction in --tw-gradient-position,
+   not in background-image. Overriding background-image with a direction argument
+   produces invalid CSS because --tw-gradient-stops already includes the direction
+   as its first value, e.g. "to bottom right in oklab, <color-stops>". */
 [dir="rtl"] .bg-gradient-to-r {
-  background-image: linear-gradient(to left, var(--tw-gradient-stops));
+  --tw-gradient-position: to left in oklab;
 }
 
 [dir="rtl"] .bg-gradient-to-l {
-  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  --tw-gradient-position: to right in oklab;
 }
 
 [dir="rtl"] .bg-gradient-to-br {
-  background-image: linear-gradient(to bottom left, var(--tw-gradient-stops));
+  --tw-gradient-position: to bottom left in oklab;
 }
 
 [dir="rtl"] .bg-gradient-to-bl {
-  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+  --tw-gradient-position: to bottom right in oklab;
 }
 
 /* Table RTL support */

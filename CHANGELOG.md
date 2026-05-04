@@ -4,7 +4,13 @@ All notable changes to Profiley are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.0] - Unreleased
+## 2026-05-04
+
+### Fixed — Logo gradient missing in RTL (Arabic) mode
+
+- Fixed a regression where the Profiley "P" logo lost its purple-to-blue gradient background in Arabic (RTL) mode. Tailwind v4 changed how gradients are implemented: the direction is now set via the `--tw-gradient-position` CSS variable, not in `background-image`. The RTL CSS now correctly overrides `--tw-gradient-position` for `.bg-gradient-to-br` and related classes, restoring the logo's appearance in RTL layouts.
+
+## 2026-05-03 - Initial Release
 
 ### Added — WCAG 2.2 AA accessibility audit and remediation
 
