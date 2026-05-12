@@ -67,6 +67,10 @@ describe('PublicProfilePage AI disclosures', () => {
       short_bio: 'Short bio',
       long_bio: 'Long bio',
       current_location: 'Amsterdam',
+      social_links: {
+        linkedin: 'https://www.linkedin.com/in/test-user',
+        discord: 'test-user#1234',
+      },
       profile_photo_path: null,
       photoUrl: null,
       allow_public_chat: true,
@@ -82,6 +86,13 @@ describe('PublicProfilePage AI disclosures', () => {
     await waitFor(() => {
       expect(screen.getByText('Test User')).toBeInTheDocument();
     });
+
+    expect(screen.getByText('Profiles & Links')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'in/test-user' })).toHaveAttribute(
+      'href',
+      'https://www.linkedin.com/in/test-user',
+    );
+    expect(screen.getByText('test-user#1234')).toBeInTheDocument();
 
     expect(screen.getByText('AI-Assisted Profile')).toBeInTheDocument();
 

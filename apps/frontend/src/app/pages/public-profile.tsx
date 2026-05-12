@@ -22,6 +22,13 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { api, ApiError } from '../../lib/api';
+import {
+  SOCIAL_PLATFORMS,
+  SOCIAL_PLATFORM_META,
+  socialLinkDisplayValue,
+  socialLinkHref,
+  type SocialLinks,
+} from '../../lib/social-links';
 import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../contexts/language-context';
 import { useDocumentTitle } from '../hooks/use-document-title';
@@ -35,6 +42,7 @@ type PublicProfile = {
   short_bio: string | null;
   long_bio: string | null;
   current_location: string | null;
+  social_links: SocialLinks | null;
   profile_photo_path: string | null;
   photoUrl: string | null;
   allow_public_chat: boolean;
@@ -305,6 +313,11 @@ export default function PublicProfilePage() {
   }
 
   const displayName = profile.full_name ?? profile.slug;
+  const publicSocialLinks = SOCIAL_PLATFORMS.flatMap((platform) => {
+    const value = profile.social_links?.[platform];
+    if (!value) return [];
+    return [{ platform, value, href: socialLinkHref(value) }];
+  });
   const initials = displayName
     .split(/\s+/)
     .map((p) => p[0])
@@ -466,6 +479,34 @@ export default function PublicProfilePage() {
                   <p className="leading-relaxed whitespace-pre-wrap">
                     {profile.long_bio ?? profile.short_bio}
                   </p>
+                </CardContent>
+              </Card>
+            )}
+            {publicSocialLinks.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>{t('publicProfile.about.links')}</CardTitle>
+                </CardHeader>
+                <CardContent className="grid gap-3 sm:grid-cols-2">
+                  {publicSocialLinks.map(({ platform, value, href }) => (
+                    <div key={platform} className="rounded-lg border p-3">
+                      <p className="text-sm font-medium">{SOCIAL_PLATFORM_META[platform].label}</p>
+                      {href ? (
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-1 block text-sm text-primary underline underline-offset-4"
+                        >
+                          {socialLinkDisplayValue(platform, value)}
+                        </a>
+                      ) : (
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          {socialLinkDisplayValue(platform, value)}
+                        </p>
+                      )}
+                    </div>
+                  ))}
                 </CardContent>
               </Card>
             )}

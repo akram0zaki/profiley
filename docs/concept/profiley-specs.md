@@ -87,6 +87,7 @@ Pages Functions render server-side `<head>` for `/public/:slug` (title, descript
 
 ### 3.1 Editable fields (`/profile`)
 - Identity: `full_name`*, `headline`, `short_bio`, `long_bio`, `current_location`, `profile_photo_path`.
+- Structured links: canonical `social_links` entries for supported public profiles (`linkedin`, `github`, `twitter`, `reddit`, `discord`, `instagram`, `tiktok`, `youtube`) plus per-platform public visibility flags.
 - Skills: tag list (chips) — stored as JSON in `onboarding_answers` under key `skills` for MVP; promotable to a typed table later.
 - Visibility toggle (`public_visibility`).
 - Slug (read-only after first change; admin override).
@@ -95,7 +96,7 @@ Pages Functions render server-side `<head>` for `/public/:slug` (title, descript
 Weighted: name 10, headline 10, bio 15, photo 10, ≥1 processed document 25, onboarding answers 20, ≥1 successful preview chat 10. Surface as percentage on `/dashboard`.
 
 ### 3.3 Public payload (`get-public-profile`)
-Returns sanitized projection: `slug`, `full_name`, `headline`, `short_bio`, `recruiter_intro`, `persona_style`, `profile_photo_path` (signed URL), `highlights` (top strengths from onboarding), `accent_color`, `theme_name`, capabilities flags (`allow_public_chat`, `allow_job_fit_analysis`, contact form enabled).
+Returns sanitized projection: `slug`, `full_name`, `headline`, `short_bio`, `recruiter_intro`, `persona_style`, `profile_photo_path` (signed URL), visibility-filtered `social_links`, `highlights` (top strengths from onboarding), `accent_color`, `theme_name`, capabilities flags (`allow_public_chat`, `allow_job_fit_analysis`, contact form enabled).
 
 ---
 
@@ -132,10 +133,11 @@ Returns sanitized projection: `slug`, `full_name`, `headline`, `short_bio`, `rec
 2. **Extract text**: PDF (`pdf-parse` deno port or `unpdf`), DOCX (`mammoth`), txt/md verbatim. Update `extracted_text_status`.
 3. **Normalize**: collapse whitespace, strip footers; preserve section headings.
 4. **Detect language** (`franc` or LLM call) → store on `document_extractions.language`.
-5. **Structure**: ask the chat capability (cheap model) to emit a JSON skeleton `{ experience[], projects[], education[], skills[], certifications[] }` → store in `document_extractions.extraction_json`.
-6. **Chunk**: semantic chunker, 700–1000 tokens per chunk, 100-token overlap; tag each with `source_kind` (`cv`, `portfolio`, `paste`, `note`, `extracted_section`).
-7. **Embed** chunks via embedding capability; insert `knowledge_chunks` rows with `embedding vector(1536)`.
-8. Mark `processing_status = 'completed'` (or `failed` with retry counter; max 3 retries, then `error_quarantined`).
+5. **Extract structured public links**: detect canonical social/profile URLs or handles (`linkedin`, `github`, `twitter`, `reddit`, `discord`, `instagram`, `tiktok`, `youtube`) and merge newly discovered values into `profiles.social_links`.
+6. **Structure**: ask the chat capability (cheap model) to emit a JSON skeleton `{ experience[], projects[], education[], skills[], certifications[] }` → store in `document_extractions.extraction_json`.
+7. **Chunk**: semantic chunker, 700–1000 tokens per chunk, 100-token overlap; tag each with `source_kind` (`cv`, `portfolio`, `paste`, `note`, `extracted_section`).
+8. **Embed** chunks via embedding capability; insert `knowledge_chunks` rows with `embedding vector(1536)`.
+9. Mark `processing_status = 'completed'` (or `failed` with retry counter; max 3 retries, then `error_quarantined`).
 
 ### 5.4 Knowledge view (`/knowledge`)
 - Cards per chunk: source filename, section label, language, confidence, token count, created_at.

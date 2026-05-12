@@ -6,6 +6,12 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## 2026-05-04
 
+### Added — Structured social links with per-platform public visibility
+
+- Uploaded document ingestion now detects supported social/profile links and IDs (`linkedin`, `github`, `twitter`, `reddit`, `discord`, `instagram`, `tiktok`, `youtube`) and stores canonical values on the owner profile without overwriting existing entries.
+- The profile editor now exposes those structured fields directly, lets the owner review or edit each value, and adds a per-platform switch to decide whether it appears on the public profile.
+- Public profile payloads and the recruiter-facing profile page now only expose social links whose per-platform visibility switch is enabled.
+
 ### Fixed — Logo gradient missing in RTL (Arabic) mode
 
 - Fixed a regression where the Profiley "P" logo lost its purple-to-blue gradient background in Arabic (RTL) mode. Tailwind v4 changed how gradients are implemented: the direction is now set via the `--tw-gradient-position` CSS variable, not in `background-image`. The RTL CSS now correctly overrides `--tw-gradient-position` for `.bg-gradient-to-br` and related classes, restoring the logo's appearance in RTL layouts.

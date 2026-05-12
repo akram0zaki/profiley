@@ -22,6 +22,7 @@ import {
 } from "../_shared/prompts/profileExtract.ts";
 import { detectLangSimple, pickLanguage } from "../_shared/utils/locale.ts";
 import { loggerForRequest } from "../_shared/utils/logger.ts";
+import { extractSocialLinksFromSources, type SocialLinks } from "../_shared/profile/socialLinks.ts";
 
 const MAX_TOTAL_CHARS = 30_000;
 const MAX_PER_CV_CHARS = 12_000;
@@ -34,6 +35,7 @@ type ExtractedProfile = {
   shortBio: string;
   longBio: string;
   skills: string[];
+  socialLinks?: SocialLinks;
 };
 
 Deno.serve(async (req) => {
@@ -132,11 +134,13 @@ Deno.serve(async (req) => {
     );
 
     const r = result.object;
+    const socialLinks = extractSocialLinksFromSources(sources);
     const primaryDoc = docs[0] as DocRow;
     log.info("extracted", {
       primaryDocumentId: primaryDoc.id,
       cvCount: sources.length,
       skills: r.skills?.length ?? 0,
+      socialPlatforms: Object.keys(socialLinks),
     });
 
     return respond(req, {
@@ -152,6 +156,7 @@ Deno.serve(async (req) => {
         shortBio: r.shortBio ?? "",
         longBio: r.longBio ?? "",
         skills: Array.isArray(r.skills) ? r.skills.filter((s) => typeof s === "string" && s.trim().length > 0) : [],
+        socialLinks,
       },
       modelUsed: result.modelUsed,
     });

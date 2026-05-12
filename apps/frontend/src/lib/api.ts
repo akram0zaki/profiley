@@ -1,6 +1,7 @@
 // Typed client wrappers for our Supabase edge functions.
 
 import { FUNCTIONS_BASE, supabase } from './supabase';
+import type { SocialLinks } from './social-links';
 
 export type Envelope<T> = {
   success: boolean;
@@ -182,6 +183,7 @@ export const api = {
         shortBio: string;
         longBio: string;
         skills: string[];
+        socialLinks: SocialLinks;
       };
       modelUsed: string;
     }>('extract-profile-from-cv', b),

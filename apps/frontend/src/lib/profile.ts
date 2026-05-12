@@ -5,6 +5,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { supabase } from './supabase';
 import { useAuth } from './auth';
+import type { SocialLinks, SocialVisibilityMap } from './social-links';
 
 export type AppUserRow = {
   id: string;
@@ -37,6 +38,7 @@ export type ProfileRow = {
   long_bio: string | null;
   current_location: string | null;
   profile_photo_path: string | null;
+  social_links: SocialLinks | null;
   public_visibility: boolean;
   recruiter_intro: string | null;
   persona_style: string | null;
@@ -50,6 +52,7 @@ export type PreferencesRow = {
   allow_job_fit_analysis: boolean;
   allow_document_citation: boolean;
   allow_contact_form: boolean;
+  public_social_visibility: SocialVisibilityMap | null;
   ai_persona_tone: string | null;
   model_chat_override: string | null;
   model_stt_override: string | null;

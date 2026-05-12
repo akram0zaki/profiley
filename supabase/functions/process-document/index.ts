@@ -12,6 +12,12 @@ import { detectLangSimple } from "../_shared/utils/locale.ts";
 import { chunkText } from "../_shared/rag/chunkText.ts";
 import { embedBatch } from "../_shared/ai/capabilities/embeddings.ts";
 import { loggerForRequest } from "../_shared/utils/logger.ts";
+import {
+  mergeSocialLinks,
+  extractSocialLinks,
+  SOCIAL_PLATFORMS,
+  type SocialLinks,
+} from "../_shared/profile/socialLinks.ts";
 
 Deno.serve(async (req) => {
   const pf = handlePreflight(req);
@@ -61,6 +67,30 @@ Deno.serve(async (req) => {
         language,
       });
 
+      const extractedSocialLinks = extractSocialLinks(text);
+      if (SOCIAL_PLATFORMS.some((platform) => extractedSocialLinks[platform])) {
+        const { data: profileRow } = await supabase
+          .from("profiles")
+          .select("id, social_links")
+          .eq("user_id", doc.user_id)
+          .maybeSingle();
+
+        if (profileRow?.id) {
+          const currentSocialLinks = (profileRow.social_links ?? {}) as SocialLinks;
+          const mergedSocialLinks = mergeSocialLinks(currentSocialLinks, extractedSocialLinks);
+          const changed = SOCIAL_PLATFORMS.some(
+            (platform) => mergedSocialLinks[platform] !== currentSocialLinks[platform],
+          );
+
+          if (changed) {
+            await supabase
+              .from("profiles")
+              .update({ social_links: mergedSocialLinks, updated_at: new Date().toISOString() })
+              .eq("id", profileRow.id);
+          }
+        }
+      }
+
       // Chunk + embed in batches.
       const chunks = chunkText(text);
       if (chunks.length === 0) {
@@ -97,8 +127,16 @@ Deno.serve(async (req) => {
         updated_at: new Date().toISOString(),
       }).eq("id", doc.id);
 
-      log.info("processed", { documentId: doc.id, chunks: inserted.length });
-      return respond(req, { documentId: doc.id, chunks: inserted.length });
+      log.info("processed", {
+        documentId: doc.id,
+        chunks: inserted.length,
+        extractedSocialPlatforms: SOCIAL_PLATFORMS.filter((platform) => extractedSocialLinks[platform]),
+      });
+      return respond(req, {
+        documentId: doc.id,
+        chunks: inserted.length,
+        socialLinks: extractedSocialLinks,
+      });
     } catch (procErr) {
       const retry = (doc.retry_count ?? 0) + 1;
       const status = retry >= 3 ? "failed" : "pending";
@@ -111,7 +149,7 @@ Deno.serve(async (req) => {
       throw procErr;
     }
   } catch (err) {
-    log.error("failed", err);
+    log.error("failed", { error: err instanceof Error ? err.message : String(err) });
     return respondError(req, err);
   }
 });

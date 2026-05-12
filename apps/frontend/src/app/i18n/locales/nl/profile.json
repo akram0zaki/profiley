@@ -35,6 +35,13 @@
     "add": "Toevoegen",
     "empty": "Nog geen vaardigheden. Voeg er hierboven enkele toe."
   },
+  "social": {
+    "title": "Links & Sociale Profielen",
+    "description": "We vullen deze automatisch in wanneer geüploade documenten ze bevatten. Controleer elke waarde voordat u opslaat of deelt.",
+    "hint": "Plak een profiel-URL of gebruikersnaam.",
+    "publicLabel": "Openbaar tonen",
+    "publicHint": "Alleen zichtbaar op uw openbare profiel wanneer deze schakelaar aan staat."
+  },
   "publicSettings": {
     "title": "Openbare Profielinstellingen",
     "description": "Bepaal wat recruiters kunnen zien en doen",
@@ -79,6 +86,7 @@
     "slugTaken": "Die gebruikersnaam is al in gebruik",
     "slugFormat": "Gebruik kleine letters, cijfers of koppeltekens (geen koppelteken aan begin of einde).",
     "slugLength": "Gebruikersnaam moet 3–40 tekens lang zijn.",
+    "socialInvalid": "{platform} moet een geldige profiel-URL of gebruikersnaam zijn.",
     "cvFilled": "Ingevuld vanuit {filename}. Controleer de velden en klik op Wijzigingen Opslaan.",
     "cvFillNoCv": "Nog geen verwerkt CV. Upload eerst een CV op de pagina Documenten.",
     "cvFillEmpty": "Uw CV bevat geen leesbare tekst. Probeer een ander bestand.",

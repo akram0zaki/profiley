@@ -40,6 +40,7 @@ function renderCard(appUserOverrides: Record<string, unknown> = {}, profileOverr
     long_bio: null,
     current_location: null,
     profile_photo_path: null,
+    social_links: {},
     public_visibility: false,
     recruiter_intro: null,
     persona_style: null,

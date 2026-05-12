@@ -18,6 +18,14 @@ import {
 } from '../../lib/profile';
 import { api, ApiError } from '../../lib/api';
 import { supabase } from '../../lib/supabase';
+import {
+  SOCIAL_PLATFORMS,
+  SOCIAL_PLATFORM_META,
+  normalizeSocialLinks,
+  type SocialLinks,
+  type SocialPlatform,
+  type SocialVisibilityMap,
+} from '../../lib/social-links';
 import { useLanguage } from '../contexts/language-context';
 import { useDocumentTitle } from '../hooks/use-document-title';
 
@@ -42,6 +50,8 @@ export default function ProfilePage() {
   });
   const [skills, setSkills] = useState<string[]>([]);
   const [newSkill, setNewSkill] = useState('');
+  const [socialLinks, setSocialLinks] = useState<SocialLinks>({});
+  const [socialVisibility, setSocialVisibility] = useState<SocialVisibilityMap>({});
   const [saving, setSaving] = useState(false);
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
   const [fillingFromCv, setFillingFromCv] = useState(false);
@@ -61,8 +71,13 @@ export default function ProfilePage() {
         photoPath: profile.profile_photo_path,
       });
       setSlugDraft(profile.slug ?? '');
+      setSocialLinks(profile.social_links ?? {});
     }
   }, [profile]);
+
+  useEffect(() => {
+    setSocialVisibility(preferences?.public_social_visibility ?? {});
+  }, [preferences]);
 
   useEffect(() => {
     let cancelled = false;
@@ -135,6 +150,9 @@ export default function ProfilePage() {
           return [...prev, ...additions];
         });
       }
+      if (p.socialLinks && Object.keys(p.socialLinks).length > 0) {
+        setSocialLinks((prev) => ({ ...prev, ...p.socialLinks }));
+      }
       toast.success(
         t('profile.feedback.cvFilled', { filename: res.sourceFilename }),
       );
@@ -181,12 +199,28 @@ export default function ProfilePage() {
     if (!appUser) return;
     setSaving(true);
     try {
+      const { normalized: normalizedSocialLinks, invalidPlatform } = normalizeSocialLinks(socialLinks);
+      if (invalidPlatform) {
+        toast.error(
+          t('profile.feedback.socialInvalid', { platform: SOCIAL_PLATFORM_META[invalidPlatform].label }),
+        );
+        return;
+      }
+
+      const normalizedSocialVisibility = Object.fromEntries(
+        SOCIAL_PLATFORMS.map((platform) => [
+          platform,
+          Boolean(normalizedSocialLinks[platform]) && Boolean(socialVisibility[platform]),
+        ]),
+      ) as SocialVisibilityMap;
+
       await updateProfile(appUser.id, {
         full_name: form.fullName || appUser.email,
         headline: form.headline || null,
         short_bio: form.shortBio || null,
         long_bio: form.longBio || null,
         current_location: form.location || null,
+        social_links: normalizedSocialLinks,
       });
       await supabase.from('onboarding_answers').upsert(
         {
@@ -198,6 +232,9 @@ export default function ProfilePage() {
         },
         { onConflict: 'user_id,question_key' },
       );
+      await updatePreferences(appUser.id, {
+        public_social_visibility: normalizedSocialVisibility,
+      });
       toast.success(t('profile.feedback.profileUpdated'));
       await reload();
     } catch (e: any) {
@@ -249,6 +286,13 @@ export default function ProfilePage() {
     return null;
   })();
   const slugDirty = profile ? slugDraft.trim().toLowerCase() !== (profile.slug ?? '') : false;
+
+  const updateSocialLink = (platform: SocialPlatform, value: string) => {
+    setSocialLinks((prev) => ({ ...prev, [platform]: value }));
+    if (!value.trim()) {
+      setSocialVisibility((prev) => ({ ...prev, [platform]: false }));
+    }
+  };
 
   const handleSaveSlug = async () => {
     if (!profile || savingSlug) return;
@@ -465,6 +509,48 @@ export default function ProfilePage() {
                 <p className="text-sm text-muted-foreground">{t('profile.skills.empty')}</p>
               )}
             </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('profile.social.title')}</CardTitle>
+            <CardDescription>{t('profile.social.description')}</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {SOCIAL_PLATFORMS.map((platform) => {
+              const value = socialLinks[platform] ?? '';
+              return (
+                <div key={platform} className="rounded-lg border p-4">
+                  <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+                    <div className="space-y-2">
+                      <Label htmlFor={`social-${platform}`}>{SOCIAL_PLATFORM_META[platform].label}</Label>
+                      <Input
+                        id={`social-${platform}`}
+                        value={value}
+                        placeholder={SOCIAL_PLATFORM_META[platform].example}
+                        onChange={(e) => updateSocialLink(platform, e.target.value)}
+                        autoCapitalize="none"
+                        autoCorrect="off"
+                        spellCheck={false}
+                      />
+                      <p className="text-xs text-muted-foreground">{t('profile.social.hint')}</p>
+                    </div>
+                    <div className="flex items-center justify-between gap-3 rounded-md border px-3 py-2 md:min-w-52">
+                      <div>
+                        <p className="text-sm font-medium">{t('profile.social.publicLabel')}</p>
+                        <p className="text-xs text-muted-foreground">{t('profile.social.publicHint')}</p>
+                      </div>
+                      <Switch
+                        checked={Boolean(socialVisibility[platform])}
+                        onCheckedChange={(checked) => setSocialVisibility((prev) => ({ ...prev, [platform]: checked }))}
+                        disabled={!value.trim()}
+                      />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </CardContent>
         </Card>
 

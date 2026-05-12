@@ -35,6 +35,13 @@
     "add": "Add",
     "empty": "No skills yet. Add a few above."
   },
+  "social": {
+    "title": "Links & Social Profiles",
+    "description": "We auto-fill these when uploaded documents include them. Review each value before you save or share it.",
+    "hint": "Paste a profile URL or handle.",
+    "publicLabel": "Show publicly",
+    "publicHint": "Only visible on your public profile when this switch is on."
+  },
   "publicSettings": {
     "title": "Public Profile Settings",
     "description": "Control what recruiters can see and do",
@@ -79,6 +86,7 @@
     "slugTaken": "That username is already taken",
     "slugFormat": "Use lowercase letters, digits, or hyphens (no leading or trailing hyphen).",
     "slugLength": "Username must be 3–40 characters long.",
+    "socialInvalid": "{platform} must be a valid profile URL or handle.",
     "cvFilled": "Filled from {filename}. Review the fields and click Save Changes.",
     "cvFillNoCv": "No processed CV yet. Upload a CV on the Documents page first.",
     "cvFillEmpty": "Your CV has no extractable text. Try a different file.",
