@@ -17,7 +17,7 @@ export default defineConfig({
     environment: 'jsdom',
     css: false,
     setupFiles: ['./test/setup.ts'],
-    include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    include: ['src/**/*.{test,spec}.{ts,tsx}', 'test/functions/**/*.test.ts'],
     env: {
       VITE_SUPABASE_URL: 'http://localhost:54321',
       VITE_SUPABASE_PUBLISHABLE_KEY: 'test-anon-key',

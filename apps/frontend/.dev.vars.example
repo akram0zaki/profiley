@@ -17,4 +17,7 @@ SUPABASE_ANON_KEY=eyJhbGciOi...
 PUBLIC_APP_ORIGIN=https://profiley.ai
 
 # --- Optional: Cloudflare Image Resizing prefix for og:image ---
+# Shrinks avatars to a 600x600 JPEG so WhatsApp shows the thumbnail.
+# Only set this once Images → Transformations is enabled on the zone with
+# supabase.co allowed as a source; otherwise og:image points at a 404.
 CF_IMAGE_RESIZING_PREFIX=https://profiley.ai/cdn-cgi/image
