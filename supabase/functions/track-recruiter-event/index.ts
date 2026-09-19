@@ -19,7 +19,7 @@ Deno.serve(async (req) => {
       .maybeSingle();
     if (!profile) throw new AppError("PROFILE_NOT_FOUND", "Profile not found", 404);
 
-    const session = body.visitorSessionId ?? visitorSessionFromHeader(req);
+    const session = body.visitorSessionId ?? await visitorSessionFromHeader(req);
     await supabase.from("recruiter_events").insert({
       profile_id: profile.id,
       event_name: body.eventName,

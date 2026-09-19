@@ -6,6 +6,20 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## 2026-09-19
 
+### Fixed — Edge function type checking and visitor session ids
+
+- `deno check` passed on none of 17 edge function entrypoints; CI had never run before the first PR. All 40 entrypoints now type-check.
+- `visitorSessionFromHeader()` is async but was called without `await` in five functions, so a `Promise` was written as `visitor_session_id` on recruiter visits, events, chat, and job-fit rows.
+- `Logger` methods now accept `unknown` extras (call sites pass caught errors directly) and normalize them, keeping `Error` message and stack, which spreading dropped.
+- Row shapes from runtime-built select strings are asserted, since postgrest-js can only infer them from literal selects.
+- `mammoth` and `unpdf` are imported with `?no-dts` to stop their bundled type declarations pulling in `@types/node`.
+
+### Added — CI checks run locally on push
+
+- `pnpm run ci` runs the full CI suite (`ci:build`, `ci:edge`, `pnpm test`); `.githooks/pre-push` runs it on every push and `pnpm install` enables the hook path.
+- CI and the hook share `scripts/ci-edge-check.sh`, which runs from `supabase/` so Deno does not resolve the root `package.json`.
+- CI pins Deno to v2.x (matching local) and gains a `test` job; it previously ran no tests.
+
 ### Added — CV document-kind backfill (0036)
 
 - `0035` defaults pre-existing `uploaded_documents` rows to `supporting_document`, which gates public chat and job-fit analysis off for profiles whose CV was uploaded earlier. `0036` re-classifies completed documents whose filename looks like a CV/resume.

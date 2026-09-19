@@ -25,7 +25,7 @@ Deno.serve(async (req) => {
     const body = await parseJsonBody(req, RejectProfileAnswerDraftSchema);
     const supabase = getServiceClient();
 
-    const rowQuery = supabase.from("onboarding_answers") as {
+    const rowQuery = supabase.from("onboarding_answers") as unknown as {
       select: (columns: string) => {
         eq: (column: string, value: unknown) => {
           eq: (column: string, value: unknown) => {
@@ -70,7 +70,7 @@ Deno.serve(async (req) => {
       return respond(req, { answer, restored: true });
     }
 
-    const deleteAnswerQuery = supabase.from("onboarding_answers") as {
+    const deleteAnswerQuery = supabase.from("onboarding_answers") as unknown as {
       delete: () => {
         eq: (column: string, value: unknown) => {
           eq: (column: string, value: unknown) => {
@@ -86,7 +86,7 @@ Deno.serve(async (req) => {
       .eq("question_key", body.questionKey);
     if (deleteError) throw deleteError;
 
-    const deleteChunksQuery = supabase.from("knowledge_chunks") as {
+    const deleteChunksQuery = supabase.from("knowledge_chunks") as unknown as {
       delete: () => {
         eq: (column: string, value: unknown) => {
           eq: (column: string, value: unknown) => {

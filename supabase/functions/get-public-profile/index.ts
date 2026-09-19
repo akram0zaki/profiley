@@ -50,7 +50,7 @@ Deno.serve(async (req) => {
 
     // Best-effort visit log.
     try {
-      const session = visitorSessionFromHeader(req);
+      const session = await visitorSessionFromHeader(req);
       await supabase.from("recruiter_visits").insert({
         profile_id: data.id,
         visitor_session_id: session,

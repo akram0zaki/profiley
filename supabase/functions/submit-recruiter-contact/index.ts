@@ -84,7 +84,7 @@ Deno.serve(async (req) => {
     if (!profile) throw new AppError("PROFILE_NOT_FOUND", "Profile not found", 404);
     if (!profile.allow_contact_form) throw new AppError("CONTACT_DISABLED", "Owner disabled contact form", 403);
 
-    const session = body.visitorSessionId ?? visitorSessionFromHeader(req);
+    const session = body.visitorSessionId ?? await visitorSessionFromHeader(req);
     const ip = clientIp(req) ?? "unknown";
     const ipH = hashIp(ip);
     await rateLimit({ key: `contact:session:${profile.id}:${session}`, windowSeconds: 86400, max: 3 });

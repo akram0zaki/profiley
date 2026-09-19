@@ -1,6 +1,10 @@
 import { requireUser } from "../_shared/auth/requireUser.ts";
 import { getServiceClient } from "../_shared/db/serviceClient.ts";
-import { buildDeletionRequestUpdate, hasPendingDeletion } from "../_shared/accountDeletion.ts";
+import {
+  type AccountDeletionState,
+  buildDeletionRequestUpdate,
+  hasPendingDeletion,
+} from "../_shared/accountDeletion.ts";
 import { AppError, respond, respondError } from "../_shared/utils/errors.ts";
 import { loggerForRequest } from "../_shared/utils/logger.ts";
 import { handlePreflight } from "../_shared/utils/cors.ts";
@@ -30,11 +34,14 @@ Deno.serve(async (req) => {
     const supabase = getServiceClient();
     const nowIso = new Date().toISOString();
 
-    const { data: appUser, error: appUserError } = await supabase
+    // SELECT_COLUMNS is built at runtime, so postgrest-js cannot infer the row
+    // shape from the select string; assert it instead.
+    const { data: appUserRow, error: appUserError } = await supabase
       .from("app_users")
       .select(SELECT_COLUMNS)
       .eq("id", user.id)
       .maybeSingle();
+    const appUser = appUserRow as AccountDeletionState | null;
 
     if (appUserError) throw appUserError;
     if (!appUser) {
@@ -62,12 +69,13 @@ Deno.serve(async (req) => {
       Boolean(profile?.public_visibility),
     );
 
-    const { data: updated, error: updateError } = await supabase
+    const { data: updatedRow, error: updateError } = await supabase
       .from("app_users")
       .update({ ...update, last_seen_at: nowIso })
       .eq("id", user.id)
       .select(SELECT_COLUMNS)
       .single();
+    const updated = updatedRow as unknown as AccountDeletionState;
 
     if (updateError) throw updateError;
 

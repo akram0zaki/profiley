@@ -54,7 +54,7 @@ Deno.serve(async (req) => {
       throw new AppError("PROCESSED_CV_REQUIRED", "Public job-fit analysis requires at least one processed CV", 403);
     }
 
-    const session = body.visitorSessionId ?? visitorSessionFromHeader(req);
+    const session = body.visitorSessionId ?? await visitorSessionFromHeader(req);
     const ipHash = hashIp(clientIp(req) ?? "unknown");
     await rateLimit({ key: `jobfit:session:${profile.id}:${session}`, windowSeconds: 3600, max: 5 });
     await rateLimit({ key: `jobfit:ip:${profile.id}:${ipHash}`, windowSeconds: 3600, max: 15 });

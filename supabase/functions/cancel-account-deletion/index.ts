@@ -1,6 +1,7 @@
 import { requireUser } from "../_shared/auth/requireUser.ts";
 import { getServiceClient } from "../_shared/db/serviceClient.ts";
 import {
+  type AccountDeletionState,
   buildDeletionCancellationUpdate,
   hasPendingDeletion,
   isDeletionDue,
@@ -31,11 +32,14 @@ Deno.serve(async (req) => {
     const supabase = getServiceClient();
     const nowIso = new Date().toISOString();
 
-    const { data: appUser, error: appUserError } = await supabase
+    // SELECT_COLUMNS is built at runtime, so postgrest-js cannot infer the row
+    // shape from the select string; assert it instead.
+    const { data: appUserRow, error: appUserError } = await supabase
       .from("app_users")
       .select(SELECT_COLUMNS)
       .eq("id", user.id)
       .maybeSingle();
+    const appUser = appUserRow as AccountDeletionState | null;
 
     if (appUserError) throw appUserError;
     if (!appUser) {

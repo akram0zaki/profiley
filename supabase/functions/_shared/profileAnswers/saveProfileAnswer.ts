@@ -47,7 +47,8 @@ export async function saveProfileAnswer(opts: {
   userId: string;
   input: PersistedAnswerInput;
   embedFeatureKey?: string;
-  log?: { warn: (message: string, error: unknown) => void };
+  // Structurally compatible with Logger from ../utils/logger.ts.
+  log?: { warn: (message: string, extra?: unknown) => void };
 }) {
   const { supabase, userId, input } = opts;
   const now = new Date().toISOString();

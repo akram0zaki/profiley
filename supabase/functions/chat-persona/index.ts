@@ -38,7 +38,7 @@ Deno.serve(async (req) => {
     }
 
     // Rate limits.
-    const session = body.visitorSessionId ?? visitorSessionFromHeader(req);
+    const session = body.visitorSessionId ?? await visitorSessionFromHeader(req);
     const ipHash = hashIp(clientIp(req) ?? "unknown");
     await rateLimit({ key: `chat:session:${profile.id}:${session}`, windowSeconds: 3600, max: 20 });
     await rateLimit({ key: `chat:ip:${profile.id}:${ipHash}`, windowSeconds: 3600, max: 60 });
