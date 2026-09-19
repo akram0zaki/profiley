@@ -253,7 +253,9 @@ link; you should land on `/dashboard` and a row should appear in `profiles`.
    - `VITE_SUPABASE_PUBLISHABLE_KEY`
    - `SUPABASE_URL` (used by `functions/public/[slug].ts`)
    - `SUPABASE_ANON_KEY` (same — used by the Pages Function)
-   - `PUBLIC_SITE_URL=https://<your-domain>`
+   - `PUBLIC_APP_ORIGIN=https://<your-domain>`
+   - `CF_IMAGE_RESIZING_PREFIX=https://<your-domain>/cdn-cgi/image` (optional;
+     only once Image Transformations is enabled — see below)
 4. Commit `apps/frontend/functions/public/[slug].ts` is automatically picked up
    by Pages Functions and runs on every `/public/<slug>` request, injecting
    `<title>`, OG tags, and JSON-LD before serving the SPA shell.
@@ -321,8 +323,34 @@ dashboard once:
   paste keys from `apps/frontend/.prod.vars` into the **Production**
   environment of that project.
 
+Or upload them from the CLI (stored as encrypted vars on the Production
+environment):
+
+```bash
+set -a && source .github/.env.ci && set +a
+cd apps/frontend
+pnpm exec wrangler pages secret bulk .dev.vars  --project-name="$CLOUDFLARE_PAGES_PROJECT_DEV"
+pnpm exec wrangler pages secret bulk .prod.vars --project-name="$CLOUDFLARE_PAGES_PROJECT_PROD"
+```
+
+Vars only apply to **new** deployments — redeploy the frontend afterwards.
+
 The `.prod.vars` / `.dev.vars` files are read **only** by `wrangler pages
 dev` for local preview — they are not uploaded by `wrangler pages deploy`.
+
+Without these vars, `functions/public/[slug].ts` serves the bare SPA shell
+and shared profile links show the generic "Profiley — Let Your Experience
+Speak" preview with no thumbnail. To verify a deploy:
+
+```bash
+curl -s -A "facebookexternalhit/1.1" https://profiley.ai/public/<slug> | grep og:
+```
+
+**Link-preview thumbnails (optional but recommended):** avatars are stored
+at full resolution and WhatsApp skips previews for large images. Enable
+Cloudflare → the zone → Images → **Transformations**, allow
+`*.supabase.co` as a source origin, then set `CF_IMAGE_RESIZING_PREFIX` so
+`og:image` is served as a 600×600 JPEG.
 
 ### Or use the GitHub Actions deploy workflow
 

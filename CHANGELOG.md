@@ -4,6 +4,40 @@ All notable changes to Profiley are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2026-09-19
+
+### Added — CV document-kind backfill (0036)
+
+- `0035` defaults pre-existing `uploaded_documents` rows to `supporting_document`, which gates public chat and job-fit analysis off for profiles whose CV was uploaded earlier. `0036` re-classifies completed documents whose filename looks like a CV/resume.
+
+### Fixed — Link previews for public profile links
+
+- `functions/public/[slug].ts` now logs instead of silently failing when `SUPABASE_URL` / `SUPABASE_ANON_KEY` are missing on the Pages project, reads `PUBLIC_APP_ORIGIN` (the name used by `.dev.vars` / `.prod.vars`; `PUBLIC_SITE_URL` still works), and routes `og:image` through `CF_IMAGE_RESIZING_PREFIX` as a 600×600 JPEG when configured.
+- Added `og:site_name`, `og:image:*`, canonical, and `twitter:*` tags, and escaped `<` inside the JSON-LD block.
+- Added Vitest coverage for the Pages Function under `apps/frontend/test/functions/`.
+- Documented uploading the Pages runtime vars with `wrangler pages secret bulk` and enabling Cloudflare Image Transformations for thumbnails.
+
+### Changed — Deployment documentation
+
+- Expanded the `README.md` Deployment section into an ordered dev (staging) / prod runbook: environment matrix, backend-before-frontend ordering, the deploy-all-edge-functions loop with `--no-verify-jwt`, the prod-only GitHub Actions workflow, and the working-tree caveat for local deploys.
+- Added a link-first "Deploying" section to `AGENTS.md` with the deploy order and the rule that prod deploys and migration pushes need explicit user approval.
+
+## 2026-05-13
+
+### Added — Onboarding rework, interview answers, and CV-gated public AI
+
+- Reworked first-run activation so `/onboarding` is now a lightweight quick-start surface with CV upload and an explicit skip path backed by `activation_completed_at`, while core authenticated routes no longer depend on `onboarding_completed`.
+- Updated the dashboard, chat preview, and job-fit preview to use processed-CV readiness messaging and quick-start re-entry instead of the old onboarding gate.
+- Added a dedicated `/interview-answers` route as the only authoring surface for structured interview answers, with shared question-set metadata, manual-answer defaults, and profile/dashboard entry points.
+- Added AI-assisted interview-answer drafting with explicit approve and reject flows so generated answers remain `draft` + `private` until the user confirms them.
+- Centralized profile-answer persistence so manual and AI-assisted answers share version increments, freshness metadata, and knowledge-chunk sync rules.
+- Updated public profile capability flags and public AI endpoints so recruiter-facing chat and job-fit analysis are disabled until the candidate has at least one successfully processed CV.
+
+### Added — i18n missing-key scan task
+
+- Added `pnpm i18n:scan` to compare every non-English locale namespace against the canonical English JSON files and exit non-zero when translations are missing.
+- Added `pnpm i18n:scan --list` to print the exact missing keys and missing namespace files so localization gaps can be fixed before release.
+
 ## 2026-05-04
 
 ### Added — Structured social links with per-platform public visibility
