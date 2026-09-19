@@ -33,6 +33,8 @@ and [`supabase.instructions.md`](.github/instructions/supabase.instructions.md).
 - `pnpm test:frontend`: run Vitest once.
 - `pnpm test:edge`: run Deno tests in `supabase/tests/`.
 - `pnpm build` / `pnpm build:prod`: build the SPA with explicit Vite mode.
+- `pnpm run ci`: run every CI check (build, `deno check`, tests). The
+  `.githooks/pre-push` hook runs this on push; `pnpm install` enables it.
 
 ## Deploying
 

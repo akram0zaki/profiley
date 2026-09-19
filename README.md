@@ -210,8 +210,28 @@ Run from the repository root:
 | `pnpm build` / `pnpm build:prod` | Build the SPA in development / production mode |
 | `pnpm preview` | Preview the built frontend bundle |
 | `pnpm test` | Run frontend and edge tests |
+| `pnpm run ci` | Run every CI check locally (build + `deno check` + tests) |
+| `pnpm run ci:edge` | Type-check every edge function, as CI does |
 | `pnpm run deploy` | Build and deploy to the dev Cloudflare Pages project |
 | `pnpm deploy:prod` | Build and deploy to the prod Cloudflare Pages project |
+
+### CI checks on push
+
+`pnpm install` points `core.hooksPath` at `.githooks`, whose `pre-push` hook
+runs `pnpm run ci` — the same three checks GitHub Actions runs on a PR, so a
+push fails locally instead of on the PR:
+
+1. `ci:build` — production build of the SPA
+2. `ci:edge` — `deno check` on every `supabase/functions/*/index.ts`
+3. `pnpm test` — Vitest plus Deno tests
+
+Both the hook and the workflow call `scripts/ci-edge-check.sh`, so there is one
+definition of the edge check. It runs from `supabase/`: from the repo root Deno
+resolves the root `package.json` and fails on missing npm type packages.
+
+Skip the hook for a single push with `git push --no-verify`. If hooks are not
+active (a clone that never ran `pnpm install`), enable them with
+`git config core.hooksPath .githooks`.
 
 ## Deployment
 

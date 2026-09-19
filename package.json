@@ -3,6 +3,10 @@
   "private": true,
   "license": "AGPL-3.0-or-later",
   "scripts": {
+    "prepare": "git config core.hooksPath .githooks || true",
+    "ci": "pnpm run ci:build && pnpm run ci:edge && pnpm test",
+    "ci:build": "pnpm --filter @profiley/frontend build",
+    "ci:edge": "sh scripts/ci-edge-check.sh",
     "dev": "pnpm --filter @profiley/frontend dev",
     "build": "pnpm --filter @profiley/frontend exec vite build --mode development",
     "build:prod": "pnpm --filter @profiley/frontend exec vite build --mode production",
