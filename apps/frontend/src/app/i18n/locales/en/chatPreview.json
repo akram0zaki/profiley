@@ -7,6 +7,12 @@
     "privacy": "Privacy details",
     "concerns": "Raise a concern"
   },
+  "emptyState": {
+    "title": "Upload a processed CV first",
+    "description": "Chat preview becomes available after at least one CV finishes processing. Supporting documents alone do not unlock it.",
+    "quickStart": "Open Quick Start",
+    "uploads": "Open Uploads"
+  },
   "userName": "You (Testing)",
   "botName": "Your AI Persona",
   "placeholder": "Test a question (e.g., 'What is your experience with AI?')"

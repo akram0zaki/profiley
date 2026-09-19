@@ -1,88 +1,40 @@
 {
-  "title": "Maak Uw AI-Profiel",
-  "stepLabel": "Stap {step} van {total}: {stepName}",
-  "progressAria": "Voortgang onboarding",
-  "progressValue": "{value}% voltooid van {max}%",
-  "stepsAria": "Onboarding stappen",
-  "steps": {
-    "welcome": "Welkom",
-    "basics": "Profielbasis",
-    "professional": "Professionele Info",
-    "preferences": "Voorkeuren",
-    "complete": "Voltooid"
+  "title": "Snelle start",
+  "badge": "Snelle start",
+  "headline": "Maak uw AI-profiel in enkele minuten",
+  "subtitle": "Upload uw CV om sneller sterkere AI-antwoorden te ontgrendelen, of sla dit nu over en verken eerst het product.",
+  "card": {
+    "title": "Begin met uw CV",
+    "description": "Een verwerkt CV is de snelste manier om AI-chat en functie-matchanalyse te ontgrendelen. U kunt later altijd terugkomen via het dashboard."
   },
-  "welcome": {
-    "title": "Welkom bij Profiley!",
-    "intro": "Laten we uw AI-aangedreven professionele profiel opzetten. Dit duurt slechts enkele minuten.",
-    "youWillDo": "Wat u gaat doen:",
-    "items": {
-      "basics": "Stel uw basisprofielinformatie in",
-      "professional": "Definieer uw professionele sterke punten en doelen",
-      "preferences": "Configureer taal- en tijdzonevoorkeuren",
-      "documents": "Upload uw CV en ondersteunende documenten"
-    },
-    "captured": "Uw gegevens zijn vastgelegd vanuit uw browser:",
-    "locale": "Locale:",
-    "timezone": "Tijdzone:"
+  "benefits": {
+    "cvTitle": "Ontgrendel AI op basis van uw CV",
+    "cvBody": "Zodra uw CV is verwerkt, kan Profiley recruitersvragen beantwoorden met onderbouwde voorbeelden uit uw ervaring.",
+    "fastTitle": "Sla de lange setup over",
+    "fastBody": "Er is hier geen verplichte vragenlijst meer. Upload één keer of sla het voorlopig over en ga verder.",
+    "returnTitle": "Altijd opnieuw openen",
+    "returnBody": "Snelle start blijft beschikbaar vanaf het dashboard, zodat u later een CV kunt uploaden of vernieuwen zonder iets te resetten."
   },
-  "basics": {
-    "title": "Profielbasis",
-    "description": "Vertel ons over uzelf",
-    "fullName": "Volledige Naam",
-    "fullNamePlaceholder": "Akram Fares",
-    "headline": "Professionele Titel",
-    "headlinePlaceholder": "Senior Software Engineer | AI & Cloud-architectuur",
-    "bio": "Korte Bio",
-    "bioPlaceholder": "Vertel recruiters over uw achtergrond en wat u uniek maakt…",
-    "location": "Locatie (Optioneel)",
-    "locationPlaceholder": "Amsterdam, NL"
+  "browserInfo": {
+    "title": "We hebben uw browserinstellingen al vastgelegd",
+    "description": "Locale: {locale} | Tijdzone: {timezone}"
   },
-  "professional": {
-    "title": "Professionele Informatie",
-    "description": "Help AI uw expertise te begrijpen",
-    "strengths": "Sterke Punten",
-    "strengthsPlaceholder": "Voeg een sterk punt toe (bijv. Full-Stack Development)",
-    "add": "Toevoegen",
-    "seniority": "Senioriteitsniveau",
-    "seniorityPlaceholder": "Selecteer senioriteitsniveau",
-    "seniorityLevels": {
-      "junior": "Junior (0-2 jaar)",
-      "mid": "Mid-Level (3-5 jaar)",
-      "senior": "Senior (6-10 jaar)",
-      "staff": "Staff/Principal (10+ jaar)",
-      "lead": "Lead/Manager",
-      "executive": "Executive"
-    },
-    "workingStyle": "Werkstijl",
-    "workingStylePlaceholder": "Beschrijf hoe u graag werkt (op afstand, hybride, samenwerkend, enz.)"
+  "actions": {
+    "uploadCv": "CV uploaden",
+    "uploading": "CV uploaden…",
+    "skip": "Voor nu overslaan",
+    "skipping": "Overslaan…",
+    "uploadFileAria": "Kies een CV-bestand om te uploaden"
   },
-  "preferences": {
-    "title": "Taal- en Regiovoorkeuren",
-    "description": "Configureer hoe uw AI-persona communiceert",
-    "language": "Voorkeurstaal",
-    "timezone": "Tijdzone",
-    "timezoneAuto": "Automatisch gedetecteerd vanuit uw browser",
-    "browserLocale": "Browser Locale"
-  },
-  "complete": {
-    "title": "Profiel Aangemaakt!",
-    "description": "Uw basisprofiel is ingesteld. Upload vervolgens uw CV en documenten om uw AI-kennisbank te voltooien.",
-    "nextSteps": "Volgende Stappen:",
-    "items": {
-      "upload": "Upload uw CV en portfoliodocumenten",
-      "review": "Bekijk uw openbare profielpagina",
-      "test": "Test uw AI-persona in chatvoorbeeld",
-      "share": "Deel uw profiellink met recruiters"
-    }
-  },
-  "nav": {
-    "previous": "Vorige",
-    "finish": "Voltooien & Doorgaan",
-    "next": "Volgende",
-    "goDashboard": "Ga naar Dashboard"
-  },
+  "supported": "Ondersteund: PDF, DOCX, TXT, MD. Max 10MB.",
+  "dashboardLink": "Direct naar dashboard",
   "feedback": {
-    "saved": "Onboarding opgeslagen",
-    "saveFailed": "Opslaan mislukt"
+    "uploaded": "{filename} geüpload. De CV-verwerking gaat verder op de achtergrond.",
+    "uploadFailed": "CV-upload mislukt.",
+    "skipped": "Snelle start overgeslagen. U kunt altijd terugkomen via het dashboard.",
+    "skipFailed": "Snelle start kon nu niet worden overgeslagen.",
+    "tooLarge": "{filename}: te groot (max 10MB)",
+    "unsupported": "{filename}: niet ondersteund type ({mimeType})",
+    "legacyDoc": "{filename}: oude .doc-bestanden worden niet ondersteund. Sla het document op als .docx of PDF en probeer het opnieuw."
   }
 }

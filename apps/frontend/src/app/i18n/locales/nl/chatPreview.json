@@ -7,6 +7,12 @@
     "privacy": "Privacydetails",
     "concerns": "Meld een zorg"
   },
+  "emptyState": {
+    "title": "Upload eerst een verwerkt CV",
+    "description": "Chatvoorbeeld wordt beschikbaar zodra minstens één CV volledig is verwerkt. Alleen ondersteunende documenten zijn niet genoeg.",
+    "quickStart": "Open snelle start",
+    "uploads": "Open uploads"
+  },
   "userName": "U (Test)",
   "botName": "Uw AI-Persona",
   "placeholder": "Test een vraag (bijv. 'Wat is uw ervaring met AI?')"

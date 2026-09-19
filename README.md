@@ -210,26 +210,43 @@ Run from the repository root:
 | `pnpm build` / `pnpm build:prod` | Build the SPA in development / production mode |
 | `pnpm preview` | Preview the built frontend bundle |
 | `pnpm test` | Run frontend and edge tests |
-| `pnpm deploy` | Build and deploy to the dev Cloudflare Pages project |
+| `pnpm run ci` | Run every CI check locally (build + `deno check` + tests) |
+| `pnpm run ci:edge` | Type-check every edge function, as CI does |
+| `pnpm run deploy` | Build and deploy to the dev Cloudflare Pages project |
 | `pnpm deploy:prod` | Build and deploy to the prod Cloudflare Pages project |
+
+### CI checks on push
+
+`pnpm install` points `core.hooksPath` at `.githooks`, whose `pre-push` hook
+runs `pnpm run ci` — the same three checks GitHub Actions runs on a PR, so a
+push fails locally instead of on the PR:
+
+1. `ci:build` — production build of the SPA
+2. `ci:edge` — `deno check` on every `supabase/functions/*/index.ts`
+3. `pnpm test` — Vitest plus Deno tests
+
+Both the hook and the workflow call `scripts/ci-edge-check.sh`, so there is one
+definition of the edge check. It runs from `supabase/`: from the repo root Deno
+resolves the root `package.json` and fails on missing npm type packages.
+
+Skip the hook for a single push with `git push --no-verify`. If hooks are not
+active (a clone that never ran `pnpm install`), enable them with
+`git config core.hooksPath .githooks`.
 
 ## Deployment
 
-### Frontend → Cloudflare Pages
+There are two environments, each a Supabase project paired with a Cloudflare Pages project:
 
-```bash
-pnpm deploy        # dev project
-pnpm deploy:prod   # prod project
-```
+| Environment | Supabase project | Pages project | Vite mode | Edge secrets file |
+|---|---|---|---|---|
+| dev (staging) | `$SUPABASE_PROJECT_REF_DEV` | `$CLOUDFLARE_PAGES_PROJECT_DEV` (e.g. `profiley-dev`) | `development` | `supabase/functions/.env.development` |
+| prod | `$SUPABASE_PROJECT_REF_PROD` | `$CLOUDFLARE_PAGES_PROJECT_PROD` (e.g. `profiley`) | `production` | `supabase/functions/.env.production` |
 
-Each deploy script sources `.github/.env.ci`, builds with the matching Vite mode, and publishes `apps/frontend/dist` via Wrangler. Required variables in `.github/.env.ci`:
+**Always deploy the backend before the frontend**, so the new UI never calls functions or columns that are not there yet. Run `pnpm test` first.
 
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_ACCOUNT_ID`
-- `CLOUDFLARE_PAGES_PROJECT_DEV`
-- `CLOUDFLARE_PAGES_PROJECT_PROD`
+> Local deploys ship your **working tree**, not git — uncommitted changes and untracked migrations are included. The GitHub Actions workflow only deploys what is pushed to `main`.
 
-### Backend → Supabase
+### 1. Backend → Supabase
 
 Schema and edge functions are managed entirely through workspace files (`supabase/migrations/*.sql` and `supabase/functions/<name>/index.ts`) — never via the dashboard.
 
@@ -240,16 +257,46 @@ set -a && source supabase/.env && set +a
 supabase link --project-ref "$SUPABASE_PROJECT_REF_DEV"
 supabase db push --password "$SUPABASE_DB_PASSWORD_DEV"
 
-# Edge function secrets
+# Edge function secrets (idempotent)
 supabase secrets set \
   --project-ref "$SUPABASE_PROJECT_REF_DEV" \
   --env-file supabase/functions/.env.development
 
-# Edge functions
-supabase functions deploy <name> --project-ref "$SUPABASE_PROJECT_REF_DEV"
+# Edge functions (all of them)
+for fn in supabase/functions/*/; do
+  name=$(basename "$fn")
+  [[ "$name" == "_shared" ]] && continue
+  supabase functions deploy "$name" --project-ref "$SUPABASE_PROJECT_REF_DEV" --no-verify-jwt
+done
 ```
 
-Use the corresponding `_PROD` variables and `supabase/functions/.env.production` for production. Full deploy checklist: [`docs/concept/profiley-init-guide.md`](docs/concept/profiley-init-guide.md).
+For production, use the `_PROD` variables and `supabase/functions/.env.production`.
+
+`--no-verify-jwt` is required: public and cron-driven functions receive no JWT, and authenticated ones validate it themselves via `requireUser()`. Do not run `supabase login` — the CLI authenticates with the `SUPABASE_ACCESS_TOKEN` in `supabase/.env`.
+
+### 2. Frontend → Cloudflare Pages
+
+```bash
+pnpm run deploy    # dev (staging) project — plain `pnpm deploy` is a pnpm built-in and fails
+pnpm deploy:prod   # prod project
+```
+
+Each deploy script sources `.github/.env.ci`, builds with the matching Vite mode (reading `apps/frontend/.env.development` or `.env.production`), and publishes `apps/frontend/dist` via Wrangler. Required variables in `.github/.env.ci`:
+
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+- `CLOUDFLARE_PAGES_PROJECT_DEV`
+- `CLOUDFLARE_PAGES_PROJECT_PROD`
+
+The Pages Functions runtime variables (`SUPABASE_URL`, `SUPABASE_ANON_KEY`, `PUBLIC_APP_ORIGIN`) are set once per Pages project in the Cloudflare dashboard; `wrangler pages deploy` does not upload them.
+
+### Alternative for prod: GitHub Actions
+
+The manual `deploy` workflow ([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)) is **prod-only**: it pushes migrations, deploys every edge function, then builds and publishes the frontend. Trigger it from the Actions tab or with `gh workflow run deploy.yml`. It never runs on push, does not sync edge function secrets, and needs the repo secrets listed in the init guide.
+
+### After deploying
+
+Run the smoke test in [`docs/concept/profiley-init-guide.md`](docs/concept/profiley-init-guide.md) §8. The same guide covers first-time setup (creating the Pages projects, auth providers, cron secret) and the full deploy checklist.
 
 ## Documentation
 

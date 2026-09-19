@@ -11,6 +11,7 @@ import { Footer } from './components/footer';
 import LandingPage from './pages/landing';
 import LoginPage from './pages/login';
 import OnboardingPage from './pages/onboarding';
+import InterviewAnswersPage from './pages/interview-answers';
 import DashboardPage from './pages/dashboard';
 import ProfilePage from './pages/profile';
 import UploadsPage from './pages/uploads';
@@ -43,6 +44,7 @@ export default function App() {
                 <Route path="/auth/callback" element={<AuthCallbackPage />} />
                 <Route path="/legal/acceptance" element={<RequireAuth><LegalAcceptancePage /></RequireAuth>} />
                 <Route path="/onboarding" element={<RequireLegalAcceptance><OnboardingPage /></RequireLegalAcceptance>} />
+                <Route path="/interview-answers" element={<RequireAppAccess><InterviewAnswersPage /></RequireAppAccess>} />
                 <Route path="/dashboard" element={<RequireAppAccess><DashboardPage /></RequireAppAccess>} />
                 <Route path="/profile" element={<RequireAppAccess><ProfilePage /></RequireAppAccess>} />
                 <Route path="/uploads" element={<RequireAppAccess><UploadsPage /></RequireAppAccess>} />

@@ -15,7 +15,7 @@ Deno.serve(async (req) => {
     const { data, error } = await supabase
       .from("uploaded_documents")
       .select(
-        "id, original_filename, mime_type, file_size, processing_status, extracted_text_status, retry_count, last_error, created_at, updated_at",
+        "id, original_filename, document_kind, mime_type, file_size, processing_status, extracted_text_status, retry_count, last_error, created_at, updated_at",
       )
       .eq("user_id", user.id)
       .order("created_at", { ascending: false })

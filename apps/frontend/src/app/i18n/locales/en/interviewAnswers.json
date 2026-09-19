@@ -1,0 +1,86 @@
+{
+  "title": "Interview Answers",
+  "subtitle": "Write the answers your AI persona should rely on when recruiters ask about your background and preferences.",
+  "badge": "Profile training",
+  "progress": "{count} of {total} prompts answered",
+  "emptyState": "Start with the prompts below. Saved answers become available to your AI persona immediately, and AI drafts stay private until you approve them.",
+  "visibilityHint": "Confirmed answers are indexed for your AI persona. Only answers marked Public Profile are reused on public surfaces.",
+  "fields": {
+    "answer": "Your answer",
+    "visibility": "Who can use this answer",
+    "aiNotes": "Notes for the AI drafter"
+  },
+  "aiAssist": {
+    "title": "AI-assisted drafting",
+    "description": "Share bullet points, examples, or rough notes. The AI will turn them into a private draft that you still need to approve.",
+    "notesPlaceholder": "Example: Mention a project, the impact you had, and what you want recruiters to understand.",
+    "notesHint": "Add at least 20 characters so the AI has enough context.",
+    "followUp": "Suggested follow-up: {question}"
+  },
+  "visibility": {
+    "avatarQueryable": "AI persona only",
+    "publicProfile": "AI persona + public profile",
+    "private": "Keep private"
+  },
+  "status": {
+    "saved": "Saved",
+    "draft": "Draft",
+    "pending": "Unsaved changes",
+    "draftNeedsApproval": "Draft saved privately until you approve it",
+    "readyForAvatar": "Ready for your AI persona"
+  },
+  "meta": {
+    "version": "Version {version}",
+    "reviewBy": "Review by {date}",
+    "reviewOverdue": "Review overdue since {date}",
+    "captureMethodForm": "Source: manual form",
+    "captureMethodChat": "Source: AI-assisted draft"
+  },
+  "actions": {
+    "saveAnswer": "Save answer",
+    "generateDraft": "Draft with AI",
+    "approveDraft": "Approve draft",
+    "rejectDraft": "Reject draft",
+    "backToProfile": "Back to profile",
+    "backToDashboard": "Back to dashboard"
+  },
+  "feedback": {
+    "saved": "Interview answer saved",
+    "saveFailed": "Could not save the interview answer.",
+    "draftGenerated": "Private AI draft created",
+    "generateFailed": "Could not generate the AI draft.",
+    "draftApproved": "AI draft approved",
+    "approveFailed": "Could not approve the AI draft.",
+    "draftRejected": "AI draft rejected",
+    "rejectFailed": "Could not reject the AI draft."
+  },
+  "sets": {
+    "jobSearch": {
+      "title": "Job search essentials",
+      "description": "A reusable set of answers for the questions recruiters and hiring managers ask most often.",
+      "estimatedTime": "About 10 minutes for a first pass.",
+      "questions": {
+        "skills": {
+          "prompt": "Which skills and areas of expertise should your AI emphasize?",
+          "helper": "List the tools, domains, or specialties you want recruiters to hear first.",
+          "placeholder": "Example: Product strategy, stakeholder alignment, SQL, experimentation, React, accessibility"
+        },
+        "strengths": {
+          "prompt": "What professional strengths make you effective?",
+          "helper": "Focus on patterns you can back up with examples.",
+          "placeholder": "Example: I turn ambiguous requirements into clear delivery plans and keep teams aligned when priorities shift."
+        },
+        "workingStyle": {
+          "prompt": "How do you prefer to work with a team?",
+          "helper": "Mention communication style, ownership, and the environments where you do your best work.",
+          "placeholder": "Example: I like a fast feedback loop, written decisions, and enough autonomy to move work forward without waiting on constant approvals."
+        },
+        "targetRoles": {
+          "prompt": "What roles or opportunities are you targeting next?",
+          "helper": "Be specific enough to guide job-fit analysis and recruiter conversations.",
+          "placeholder": "Example: Senior product roles focused on AI workflows, marketplace operations, or growth systems in remote-first teams."
+        }
+      }
+    }
+  }
+}

@@ -11,8 +11,13 @@
     "description": "Job description",
     "placeholder": "Paste the job description here…",
     "analyze": "Analyze Job Fit",
-    "analyzing": "Analyzing…",
-    "completeOnboarding": "Complete onboarding to enable job-fit analysis on your profile."
+    "analyzing": "Analyzing…"
+  },
+  "emptyState": {
+    "title": "Upload and process a CV first",
+    "description": "Job-fit analysis becomes available after at least one CV finishes processing. Supporting documents alone do not unlock it.",
+    "quickStart": "Open Quick Start",
+    "uploads": "Open Uploads"
   },
   "notice": {
     "title": "AI-generated assistance",

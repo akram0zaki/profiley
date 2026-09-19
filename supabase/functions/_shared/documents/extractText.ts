@@ -1,7 +1,7 @@
 // Document text extraction (PDF / DOCX / TXT / MD).
 
-import * as mammoth from "https://esm.sh/mammoth@1.8.0?bundle";
-import { extractText as unpdfExtractText, getDocumentProxy } from "https://esm.sh/unpdf@0.12.1";
+import * as mammoth from "https://esm.sh/mammoth@1.8.0?bundle&no-dts";
+import { extractText as unpdfExtractText, getDocumentProxy } from "https://esm.sh/unpdf@0.12.1?no-dts";
 
 export async function extractText(
   data: Uint8Array,

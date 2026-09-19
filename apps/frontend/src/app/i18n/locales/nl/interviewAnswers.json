@@ -1,0 +1,86 @@
+{
+  "title": "Interviewantwoorden",
+  "subtitle": "Schrijf de antwoorden waarop uw AI-persona moet steunen wanneer recruiters vragen stellen over uw achtergrond en voorkeuren.",
+  "badge": "AI-profieltraining",
+  "progress": "{count} van {total} vragen beantwoord",
+  "emptyState": "Begin met de vragen hieronder. Opgeslagen antwoorden zijn direct beschikbaar voor uw AI-persona en AI-concepten blijven privé tot u ze goedkeurt.",
+  "visibilityHint": "Bevestigde antwoorden worden geïndexeerd voor uw AI-persona. Alleen antwoorden met Openbaar profiel worden hergebruikt op publieke oppervlakken.",
+  "fields": {
+    "answer": "Uw antwoord",
+    "visibility": "Wie mag dit antwoord gebruiken",
+    "aiNotes": "Notities voor de AI-opsteller"
+  },
+  "aiAssist": {
+    "title": "AI-ondersteund opstellen",
+    "description": "Deel steekwoorden, voorbeelden of ruwe notities. De AI zet ze om in een privéconcept dat u nog moet goedkeuren.",
+    "notesPlaceholder": "Voorbeeld: noem een project, de impact die u had en wat recruiters moeten onthouden.",
+    "notesHint": "Voeg minstens 20 tekens toe zodat de AI genoeg context heeft.",
+    "followUp": "Voorgestelde vervolgvraag: {question}"
+  },
+  "visibility": {
+    "avatarQueryable": "Alleen AI-persona",
+    "publicProfile": "AI-persona + openbaar profiel",
+    "private": "Privé houden"
+  },
+  "status": {
+    "saved": "Opgeslagen",
+    "draft": "Concept",
+    "pending": "Niet-opgeslagen wijzigingen",
+    "draftNeedsApproval": "Concept privé opgeslagen tot u het goedkeurt",
+    "readyForAvatar": "Klaar voor uw AI-persona"
+  },
+  "meta": {
+    "version": "Versie {version}",
+    "reviewBy": "Beoordeel vóór {date}",
+    "reviewOverdue": "Beoordeling achterstallig sinds {date}",
+    "captureMethodForm": "Bron: handmatig formulier",
+    "captureMethodChat": "Bron: AI-concept"
+  },
+  "actions": {
+    "saveAnswer": "Antwoord opslaan",
+    "generateDraft": "Concept met AI",
+    "approveDraft": "Concept goedkeuren",
+    "rejectDraft": "Concept afwijzen",
+    "backToProfile": "Terug naar profiel",
+    "backToDashboard": "Terug naar dashboard"
+  },
+  "feedback": {
+    "saved": "Interviewantwoord opgeslagen",
+    "saveFailed": "Het interviewantwoord kon niet worden opgeslagen.",
+    "draftGenerated": "Privé AI-concept gemaakt",
+    "generateFailed": "Het AI-concept kon niet worden gemaakt.",
+    "draftApproved": "AI-concept goedgekeurd",
+    "approveFailed": "Het AI-concept kon niet worden goedgekeurd.",
+    "draftRejected": "AI-concept afgewezen",
+    "rejectFailed": "Het AI-concept kon niet worden afgewezen."
+  },
+  "sets": {
+    "jobSearch": {
+      "title": "Essentials voor de zoektocht naar werk",
+      "description": "Een herbruikbare set antwoorden voor de vragen die recruiters en hiring managers het vaakst stellen.",
+      "estimatedTime": "Ongeveer 10 minuten voor een eerste versie.",
+      "questions": {
+        "skills": {
+          "prompt": "Welke vaardigheden en expertisegebieden moet uw AI benadrukken?",
+          "helper": "Noem de tools, domeinen of specialisaties die recruiters als eerste moeten horen.",
+          "placeholder": "Voorbeeld: Productstrategie, stakeholderafstemming, SQL, experimenteren, React, toegankelijkheid"
+        },
+        "strengths": {
+          "prompt": "Welke professionele sterke punten maken u effectief?",
+          "helper": "Richt u op patronen die u met voorbeelden kunt onderbouwen.",
+          "placeholder": "Voorbeeld: Ik vertaal onduidelijke vereisten naar heldere uitvoeringsplannen en houd teams op één lijn wanneer prioriteiten verschuiven."
+        },
+        "workingStyle": {
+          "prompt": "Hoe werkt u het liefst samen met een team?",
+          "helper": "Noem uw communicatiestijl, eigenaarschap en de omgevingen waarin u het beste presteert.",
+          "placeholder": "Voorbeeld: Ik werk graag met een snelle feedbacklus, vastgelegde besluiten en genoeg autonomie om werk vooruit te helpen zonder op constante goedkeuringen te wachten."
+        },
+        "targetRoles": {
+          "prompt": "Op welke rollen of kansen richt u zich hierna?",
+          "helper": "Wees specifiek genoeg om job-fit-analyse en recruiter-gesprekken te sturen.",
+          "placeholder": "Voorbeeld: Senior productrollen rond AI-workflows, marketplace operations of groeisystemen in remote-first teams."
+        }
+      }
+    }
+  }
+}

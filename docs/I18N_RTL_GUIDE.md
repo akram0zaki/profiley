@@ -121,8 +121,9 @@ Each JSON file owns the namespace prefix derived from its filename, e.g.
    ```
 
 2. **Mirror the key in every other locale.** Missing keys silently fall back to
-   English at runtime — there is no compile-time validation that locales are
-   in sync.
+   English at runtime. Before shipping, run `pnpm i18n:scan --list` to report
+   any locale keys or namespace files that are still missing relative to
+   English.
 
 3. **Use `t()` in the component.**
 
@@ -170,6 +171,7 @@ Run with:
 
 ```bash
 pnpm --filter @profiley/frontend test
+pnpm i18n:scan --list
 ```
 
 ## Troubleshooting
@@ -177,8 +179,10 @@ pnpm --filter @profiley/frontend test
 ### Text Not Translating
 
 1. Confirm the dotted key exists in `locales/en/<namespace>.json`.
-2. Confirm the component imports and calls `useLanguage()`.
-3. `translate()` returns the raw key when no English fallback exists — that is
+2. Run `pnpm i18n:scan --list` to see whether the target locale is missing the
+   namespace file or any nested keys.
+3. Confirm the component imports and calls `useLanguage()`.
+4. `translate()` returns the raw key when no English fallback exists — that is
    the most common indicator of a typo.
 
 ### Layout Not Flipping in Arabic

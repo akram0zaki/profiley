@@ -5,6 +5,7 @@ import { GetPublicProfileSchema } from "../_shared/validation/schemas.ts";
 import { trackEvent } from "../_shared/analytics/trackEvent.ts";
 import { visitorSessionFromHeader, clientIp, hashIp } from "../_shared/utils/rateLimit.ts";
 import { isPublicJobFitEnabled } from "../_shared/runtimeSettings.ts";
+import { hasProcessedCv, resolvePublicAiCapabilities } from "../_shared/readiness/processedCv.ts";
 
 Deno.serve(async (req) => {
   const pf = handlePreflight(req);
@@ -32,6 +33,13 @@ Deno.serve(async (req) => {
     if (error) throw error;
     if (!data) throw new AppError("PROFILE_NOT_FOUND", "Not found", 404);
     const publicJobFitEnabled = await isPublicJobFitEnabled(supabase);
+    const processedCvReady = await hasProcessedCv(supabase, data.user_id);
+    const capabilities = resolvePublicAiCapabilities({
+      allowPublicChat: Boolean(data.allow_public_chat),
+      allowJobFitAnalysis: Boolean(data.allow_job_fit_analysis),
+      processedCvReady,
+      publicJobFitEnabled,
+    });
 
     // Resolve a public URL for the photo if present.
     let photoUrl: string | null = null;
@@ -42,7 +50,7 @@ Deno.serve(async (req) => {
 
     // Best-effort visit log.
     try {
-      const session = visitorSessionFromHeader(req);
+      const session = await visitorSessionFromHeader(req);
       await supabase.from("recruiter_visits").insert({
         profile_id: data.id,
         visitor_session_id: session,
@@ -62,7 +70,9 @@ Deno.serve(async (req) => {
 
     return respond(req, {
       ...data,
-      allow_job_fit_analysis: Boolean(data.allow_job_fit_analysis) && publicJobFitEnabled,
+      allow_public_chat: capabilities.allowPublicChat,
+      allow_job_fit_analysis: capabilities.allowJobFitAnalysis,
+      processed_cv_ready: processedCvReady,
       photoUrl,
     });
   } catch (err) {

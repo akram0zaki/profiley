@@ -5,7 +5,12 @@ import {
   respond,
   respondError,
 } from "../_shared/utils/errors.ts";
-import { buildLegalAcceptancePatch, CURRENT_PRIVACY_VERSION, CURRENT_TERMS_VERSION } from "../_shared/legal.ts";
+import {
+  type AppUserLegalState,
+  buildLegalAcceptancePatch,
+  CURRENT_PRIVACY_VERSION,
+  CURRENT_TERMS_VERSION,
+} from "../_shared/legal.ts";
 import { loggerForRequest } from "../_shared/utils/logger.ts";
 import { handlePreflight } from "../_shared/utils/cors.ts";
 import { parseJsonBody } from "../_shared/validation/parse.ts";
@@ -35,11 +40,14 @@ Deno.serve(async (req) => {
     const body = await parseJsonBody(req, AcceptLegalDocumentsSchema);
     const supabase = getServiceClient();
 
-    const { data: existing, error: existingError } = await supabase
+    // LEGAL_SELECT is built at runtime, so postgrest-js cannot infer the row
+    // shape from the select string; assert it instead.
+    const { data: existingRow, error: existingError } = await supabase
       .from("app_users")
       .select(LEGAL_SELECT)
       .eq("id", user.id)
       .maybeSingle();
+    const existing = existingRow as AppUserLegalState | null;
 
     if (existingError) throw existingError;
     if (!existing) {
@@ -63,7 +71,7 @@ Deno.serve(async (req) => {
         .single();
 
       if (updateError) throw updateError;
-      current = updated;
+      current = updated as unknown as AppUserLegalState;
     }
 
     log.info("accepted", {

@@ -26,13 +26,18 @@ Deno.serve(async (req) => {
     if (body.answers.length > 0) {
       const rows = body.answers.map((a) => ({
         user_id: user.id,
+        question_set_key: "legacy_onboarding",
         question_key: a.questionKey,
         answer_text: a.answerText ?? null,
         answer_json: a.answerJson ?? null,
+        capture_method: "form",
+        visibility: "avatar_queryable",
+        review_state: "confirmed",
+        approved_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       }));
       const { error: aErr } = await supabase.from("onboarding_answers")
-        .upsert(rows, { onConflict: "user_id,question_key" });
+        .upsert(rows, { onConflict: "user_id,question_set_key,question_key" });
       if (aErr) throw aErr;
     }
 
@@ -51,12 +56,14 @@ Deno.serve(async (req) => {
       const { error: uErr } = await supabase.from("app_users").update({
         preferred_language: body.profile.preferredLanguage,
         timezone: body.profile.timezone,
+        activation_completed_at: new Date().toISOString(),
         onboarding_completed: true,
         last_seen_at: new Date().toISOString(),
       }).eq("id", user.id);
       if (uErr) throw uErr;
     } else {
       await supabase.from("app_users").update({
+        activation_completed_at: new Date().toISOString(),
         onboarding_completed: true,
         last_seen_at: new Date().toISOString(),
       }).eq("id", user.id);

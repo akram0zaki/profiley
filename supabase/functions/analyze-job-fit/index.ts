@@ -15,6 +15,7 @@ import { JOB_FIT_PROMPT_VERSION } from "../_shared/prompts/versions.ts";
 import { detectLangSimple, pickLanguage } from "../_shared/utils/locale.ts";
 import { loggerForRequest } from "../_shared/utils/logger.ts";
 import { isPublicJobFitEnabled } from "../_shared/runtimeSettings.ts";
+import { hasProcessedCv } from "../_shared/readiness/processedCv.ts";
 
 type JobFitResult = {
   fitBand: string;
@@ -49,8 +50,11 @@ Deno.serve(async (req) => {
     if (!profile.allow_job_fit_analysis) {
       throw new AppError("JOB_FIT_DISABLED", "Owner disabled job-fit analysis", 403);
     }
+    if (!(await hasProcessedCv(supabase, profile.user_id))) {
+      throw new AppError("PROCESSED_CV_REQUIRED", "Public job-fit analysis requires at least one processed CV", 403);
+    }
 
-    const session = body.visitorSessionId ?? visitorSessionFromHeader(req);
+    const session = body.visitorSessionId ?? await visitorSessionFromHeader(req);
     const ipHash = hashIp(clientIp(req) ?? "unknown");
     await rateLimit({ key: `jobfit:session:${profile.id}:${session}`, windowSeconds: 3600, max: 5 });
     await rateLimit({ key: `jobfit:ip:${profile.id}:${ipHash}`, windowSeconds: 3600, max: 15 });

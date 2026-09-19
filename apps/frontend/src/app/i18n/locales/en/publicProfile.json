@@ -13,6 +13,10 @@
     "chat": "AI Chat",
     "jobFit": "Job Fit"
   },
+  "aiUnavailable": {
+    "title": "AI features are unavailable for this profile right now",
+    "description": "Public AI chat and job-fit analysis stay disabled until this profile has at least one successfully processed CV."
+  },
   "about": {
     "title": "About",
     "skills": "Skills",

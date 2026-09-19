@@ -21,7 +21,7 @@ import {
   Send,
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { api, ApiError } from '../../lib/api';
+import { api, ApiError, type PublicProfileData } from '../../lib/api';
 import {
   SOCIAL_PLATFORMS,
   SOCIAL_PLATFORM_META,
@@ -33,24 +33,7 @@ import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../contexts/language-context';
 import { useDocumentTitle } from '../hooks/use-document-title';
 
-type PublicProfile = {
-  id: string;
-  user_id: string;
-  slug: string;
-  full_name: string | null;
-  headline: string | null;
-  short_bio: string | null;
-  long_bio: string | null;
-  current_location: string | null;
-  social_links: SocialLinks | null;
-  profile_photo_path: string | null;
-  photoUrl: string | null;
-  allow_public_chat: boolean;
-  allow_job_fit_analysis: boolean;
-  allow_contact_form: boolean;
-  seo_title?: string | null;
-  seo_description?: string | null;
-};
+type PublicProfile = PublicProfileData & { social_links: SocialLinks | null };
 
 declare global {
   interface Window {
@@ -133,15 +116,15 @@ export default function PublicProfilePage() {
         const data = (await api.getPublicProfile(username)) as PublicProfile;
         if (cancelled) return;
         setProfile(data);
-        // Load public skills (onboarding answers tagged public).
+        // Load public skills from legacy onboarding chunks and the new profile-answer chunks.
         const { data: skillsRow } = await supabase
           .from('knowledge_chunks')
           .select('content')
           .eq('user_id', data.user_id)
-          .eq('source_kind', 'onboarding')
+          .in('source_kind', ['onboarding', 'profile_answer'])
           .contains('metadata', { public: true } as any)
           .limit(100);
-        // Best-effort: pull "skills:" line from onboarding chunks.
+        // Best-effort: pull the public skills answer from indexed chunks.
         if (!cancelled && Array.isArray(skillsRow)) {
           const acc: string[] = [];
           for (const r of skillsRow) {
@@ -468,6 +451,18 @@ export default function PublicProfilePage() {
               {t('publicProfile.tabs.jobFit')}
             </TabsTrigger>
           </TabsList>
+
+          {!profile.processed_cv_ready && (
+            <Card className="mt-6 border-amber-500/40 bg-amber-500/5">
+              <CardHeader className="flex flex-row items-start gap-4">
+                <AlertCircle className="h-5 w-5 text-amber-500 mt-1 flex-shrink-0" />
+                <div className="space-y-1">
+                  <CardTitle className="text-base">{t('publicProfile.aiUnavailable.title')}</CardTitle>
+                  <CardDescription>{t('publicProfile.aiUnavailable.description')}</CardDescription>
+                </div>
+              </CardHeader>
+            </Card>
+          )}
 
           <TabsContent value="about" className="space-y-6 mt-6">
             {(profile.short_bio || profile.long_bio) && (
