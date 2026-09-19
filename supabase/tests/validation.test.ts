@@ -1,21 +1,31 @@
 import { assert, assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts";
 import {
   AcceptLegalDocumentsSchema,
+  ActivationCompletionSourceSchema,
   AdminCreateModelSchema,
   AdminSetFeatureModelSchema,
   AnalyzeJobFitSchema,
   ChatPersonaSchema,
+  CompleteActivationSchema,
   CompleteOnboardingSchema,
   CreateUploadUrlSchema,
+  DocumentKindSchema,
+  GenerateProfileAnswerDraftSchema,
   ExtractProfileFromCvSchema,
   FinalizeUploadSchema,
   GetPublicProfileSchema,
   InitializeUserProfileSchema,
+  ApproveProfileAnswerDraftSchema,
+  ProfileAnswerCaptureMethodSchema,
+  ProfileAnswerReviewStateSchema,
+  ProfileAnswerVisibilitySchema,
   PublishProfileSchema,
   RequestAccountDeletionSchema,
   RESERVED_SLUGS,
   SubmitRecruiterContactSchema,
   TrackRecruiterEventSchema,
+  UpsertProfileAnswerSchema,
+  RejectProfileAnswerDraftSchema,
   UpdateProfileSlugSchema,
   UpdateUserLocaleSchema,
 } from "../functions/_shared/validation/schemas.ts";
@@ -69,6 +79,29 @@ Deno.test("RequestAccountDeletionSchema: requires DELETE confirmation text and k
   );
 });
 
+Deno.test("Activation and metadata enums: accept supported onboarding rework values", () => {
+  assert(ActivationCompletionSourceSchema.safeParse("skip").success);
+  assert(!ActivationCompletionSourceSchema.safeParse("wizard_complete").success);
+
+  assert(DocumentKindSchema.safeParse("cv").success);
+  assert(!DocumentKindSchema.safeParse("cover_letter").success);
+
+  assert(ProfileAnswerCaptureMethodSchema.safeParse("chat").success);
+  assert(!ProfileAnswerCaptureMethodSchema.safeParse("voice_transcript").success);
+
+  assert(ProfileAnswerVisibilitySchema.safeParse("avatar_queryable").success);
+  assert(!ProfileAnswerVisibilitySchema.safeParse("team_only").success);
+
+  assert(ProfileAnswerReviewStateSchema.safeParse("confirmed").success);
+  assert(!ProfileAnswerReviewStateSchema.safeParse("approved").success);
+});
+
+Deno.test("CompleteActivationSchema: only accepts skip and cv_upload", () => {
+  assert(CompleteActivationSchema.safeParse({ completionSource: "skip" }).success);
+  assert(CompleteActivationSchema.safeParse({ completionSource: "cv_upload" }).success);
+  assert(!CompleteActivationSchema.safeParse({ completionSource: "manual" }).success);
+});
+
 Deno.test("CompleteOnboardingSchema: requires question keys, caps answers at 50", () => {
   const ok = CompleteOnboardingSchema.safeParse({
     answers: [{ questionKey: "name", answerText: "Alice" }],
@@ -120,13 +153,20 @@ Deno.test("UpdateProfileSlugSchema: rejects reserved slugs (case-insensitive)", 
 
 Deno.test("CreateUploadUrlSchema: defaults bucket to user_uploads, restricts enum", () => {
   const r = CreateUploadUrlSchema.safeParse({ filename: "cv.pdf", mimeType: "application/pdf" });
-  assert(r.success && r.data.bucket === "user_uploads");
+  assert(r.success && r.data.bucket === "user_uploads" && r.data.documentKind === "supporting_document");
   assert(!CreateUploadUrlSchema.safeParse({ filename: "", mimeType: "application/pdf" }).success);
   assert(
     !CreateUploadUrlSchema.safeParse({
       filename: "a.pdf",
       mimeType: "application/pdf",
       bucket: "evil",
+    }).success,
+  );
+  assert(
+    CreateUploadUrlSchema.safeParse({
+      filename: "cv.pdf",
+      mimeType: "application/pdf",
+      documentKind: "cv",
     }).success,
   );
 });
@@ -139,6 +179,7 @@ Deno.test("FinalizeUploadSchema: 25MB upper bound + sha256 length", () => {
       path: "u/1.pdf",
       originalFilename: "1.pdf",
       fileSize: max,
+      documentKind: "cv",
     }).success,
   );
   assert(
@@ -147,6 +188,7 @@ Deno.test("FinalizeUploadSchema: 25MB upper bound + sha256 length", () => {
       path: "u/1.pdf",
       originalFilename: "1.pdf",
       fileSize: max + 1,
+      documentKind: "cv",
     }).success,
   );
   assert(
@@ -156,6 +198,74 @@ Deno.test("FinalizeUploadSchema: 25MB upper bound + sha256 length", () => {
       originalFilename: "1.pdf",
       fileSize: 10,
       checksumSha256: "deadbeef", // wrong length
+      documentKind: "cv",
+    }).success,
+  );
+});
+
+Deno.test("UpsertProfileAnswerSchema: enforces question-set metadata and answer defaults", () => {
+  const ok = UpsertProfileAnswerSchema.safeParse({
+    questionSetKey: "job_search_v1",
+    questionKey: "strengths",
+    answerText: "I build clear systems and unblock teams.",
+    captureMethod: "form",
+    visibility: "avatar_queryable",
+    reviewState: "confirmed",
+  });
+  assert(ok.success);
+  assertEquals(ok.data?.version, 1);
+
+  assert(
+    !UpsertProfileAnswerSchema.safeParse({
+      questionKey: "strengths",
+      answerText: "Missing question set key",
+      captureMethod: "form",
+      visibility: "avatar_queryable",
+      reviewState: "confirmed",
+    }).success,
+  );
+});
+
+Deno.test("AI draft schemas: enforce draft generation, approval, and rejection payloads", () => {
+  assert(
+    GenerateProfileAnswerDraftSchema.safeParse({
+      questionSetKey: "job_search_v1",
+      questionKey: "strengths",
+      questionPrompt: "What professional strengths make you effective?",
+      sourceNotes: "I unblock teams quickly, write clear plans, and help people make tradeoffs.",
+      language: "en",
+    }).success,
+  );
+  assert(
+    !GenerateProfileAnswerDraftSchema.safeParse({
+      questionSetKey: "job_search_v1",
+      questionKey: "strengths",
+      questionPrompt: "Too short",
+      sourceNotes: "too short",
+    }).success,
+  );
+
+  assert(
+    ApproveProfileAnswerDraftSchema.safeParse({
+      questionSetKey: "job_search_v1",
+      questionKey: "strengths",
+      answerText: "I create clarity around ambiguous work.",
+      visibility: "public_profile",
+    }).success,
+  );
+  assert(
+    !ApproveProfileAnswerDraftSchema.safeParse({
+      questionSetKey: "job_search_v1",
+      questionKey: "strengths",
+      answerText: "x",
+      visibility: "team_only",
+    }).success,
+  );
+
+  assert(
+    RejectProfileAnswerDraftSchema.safeParse({
+      questionSetKey: "job_search_v1",
+      questionKey: "strengths",
     }).success,
   );
 });

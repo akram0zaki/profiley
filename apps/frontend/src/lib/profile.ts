@@ -13,6 +13,7 @@ export type AppUserRow = {
   preferred_language: string | null;
   browser_locale: string | null;
   timezone: string | null;
+  activation_completed_at: string | null;
   onboarding_completed: boolean;
   role: string;
   terms_accepted_at: string | null;
@@ -64,6 +65,32 @@ export type CurrentProfileBundle = {
   appUser: AppUserRow | null;
   profile: ProfileRow | null;
   preferences: PreferencesRow | null;
+};
+
+export type DocumentKind = 'cv' | 'supporting_document';
+
+export type ProfileAnswerCaptureMethod = 'form' | 'chat' | 'imported';
+
+export type ProfileAnswerVisibility = 'private' | 'avatar_queryable' | 'public_profile';
+
+export type ProfileAnswerReviewState = 'draft' | 'confirmed' | 'stale';
+
+export type ProfileAnswerRow = {
+  id: string;
+  user_id: string;
+  question_set_key: string;
+  question_key: string;
+  answer_text: string | null;
+  answer_summary: string | null;
+  answer_json: unknown;
+  capture_method: ProfileAnswerCaptureMethod;
+  visibility: ProfileAnswerVisibility;
+  review_state: ProfileAnswerReviewState;
+  approved_at: string | null;
+  version: number;
+  stale_after_at: string | null;
+  created_at: string;
+  updated_at: string;
 };
 
 export function useCurrentProfile() {

@@ -2,15 +2,19 @@ import { AppLayout } from '../components/app-layout';
 import { Card, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { ChatInterface } from '../components/chat-interface';
 import { Link } from 'react-router';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Upload } from 'lucide-react';
 import { useLanguage } from '../contexts/language-context';
 import { useCurrentProfile, avatarPublicUrl } from '../../lib/profile';
+import { useProcessedCvReadiness } from '../../lib/cv-readiness';
 import { useDocumentTitle } from '../hooks/use-document-title';
+import { Button } from '../components/ui/button';
+import { CardContent } from '../components/ui/card';
 
 export default function ChatPreviewPage() {
   const { t } = useLanguage();
   useDocumentTitle(t('chatPreview.title'));
   const { profile } = useCurrentProfile();
+  const { hasProcessedCv, loading } = useProcessedCvReadiness();
   return (
     <AppLayout>
       <div className="max-w-4xl mx-auto space-y-6">
@@ -46,17 +50,45 @@ export default function ChatPreviewPage() {
           </CardHeader>
         </Card>
 
-        {/* Chat Card */}
-        <Card className="h-[600px] flex flex-col">
-          <ChatInterface
-            ownerMode
-            userName={t('chatPreview.userName')}
-            botName={t('chatPreview.botName')}
-            profileName={profile?.full_name ?? profile?.slug ?? undefined}
-            botAvatar={avatarPublicUrl(profile?.profile_photo_path ?? null) || undefined}
-            placeholder={t('chatPreview.placeholder')}
-          />
-        </Card>
+        {loading ? (
+          <Card>
+            <CardContent className="pt-6 text-sm text-muted-foreground">
+              {t('dashboard.loading')}
+            </CardContent>
+          </Card>
+        ) : !hasProcessedCv ? (
+          <Card className="border-amber-500/40 bg-amber-500/5">
+            <CardHeader>
+              <CardTitle>{t('chatPreview.emptyState.title')}</CardTitle>
+              <CardDescription>{t('chatPreview.emptyState.description')}</CardDescription>
+            </CardHeader>
+            <CardContent className="flex flex-wrap gap-3 pt-0">
+              <Link to="/onboarding">
+                <Button className="gap-2">
+                  <Upload className="h-4 w-4" />
+                  {t('chatPreview.emptyState.quickStart')}
+                </Button>
+              </Link>
+              <Link to="/uploads">
+                <Button variant="outline" className="gap-2">
+                  <Upload className="h-4 w-4" />
+                  {t('chatPreview.emptyState.uploads')}
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+        ) : (
+          <Card className="h-[600px] flex flex-col">
+            <ChatInterface
+              ownerMode
+              userName={t('chatPreview.userName')}
+              botName={t('chatPreview.botName')}
+              profileName={profile?.full_name ?? profile?.slug ?? undefined}
+              botAvatar={avatarPublicUrl(profile?.profile_photo_path ?? null) || undefined}
+              placeholder={t('chatPreview.placeholder')}
+            />
+          </Card>
+        )}
       </div>
     </AppLayout>
   );

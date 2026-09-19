@@ -27,9 +27,17 @@
   },
   "quickActions": "Quick Actions",
   "quickActionsSubtitle": "Manage and optimize your profile",
+  "cvReadiness": {
+    "title": "Upload and process a CV to unlock AI tools",
+    "description": "AI chat and job-fit analysis stay blocked until at least one CV finishes processing successfully.",
+    "openQuickStart": "Open Quick Start",
+    "openUploads": "Open Uploads"
+  },
   "action": {
     "editProfile": "Edit Profile Information",
     "uploadDocs": "Upload New Documents",
+    "quickStart": "Open Quick Start",
+    "interviewAnswers": "Open Interview Answers",
     "testPersona": "Test AI Persona",
     "testJobFit": "Test Job-Fit Analyzer",
     "configureAI": "Configure AI Settings"

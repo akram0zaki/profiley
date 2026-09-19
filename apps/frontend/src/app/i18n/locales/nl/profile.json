@@ -6,7 +6,7 @@
   "loading": "Profiel laden…",
   "notReady": {
     "title": "Profiel niet gereed",
-    "description": "We konden uw profiel nog niet vinden. Voltooi eerst de onboarding."
+    "description": "We konden uw profiel nog niet vinden. Rond het inloggen af en probeer het opnieuw."
   },
   "photo": {
     "title": "Profielfoto",
@@ -28,12 +28,12 @@
       "hint": "Vul deze velden automatisch in op basis van uw laatst geüploade CV. U kunt alles aanpassen vóór opslaan."
     }
   },
-  "skills": {
-    "title": "Vaardigheden & Expertise",
-    "description": "Belangrijkste vaardigheden die uw professionele identiteit definiëren",
-    "placeholder": "Voeg een vaardigheid toe (bijv. React, Python, AI/ML)",
-    "add": "Toevoegen",
-    "empty": "Nog geen vaardigheden. Voeg er hierboven enkele toe."
+  "interviewAnswers": {
+    "title": "Interviewantwoorden",
+    "description": "Houd uw AI-persona actueel met gestructureerde antwoorden over uw sterke punten, doelen en werkstijl.",
+    "progress": "{count} van {total} interviewvragen beantwoord",
+    "empty": "Nog geen interviewantwoorden opgeslagen.",
+    "open": "Open interviewantwoorden"
   },
   "social": {
     "title": "Links & Sociale Profielen",

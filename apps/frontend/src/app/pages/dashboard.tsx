@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useCurrentProfile } from '../../lib/profile';
+import { useProcessedCvReadiness } from '../../lib/cv-readiness';
 import { supabase } from '../../lib/supabase';
 import { useDocumentTitle } from '../hooks/use-document-title';
 
@@ -42,6 +43,7 @@ export default function DashboardPage() {
   const { t } = useLanguage();
   useDocumentTitle(t('dashboard.title'));
   const { appUser, profile, loading } = useCurrentProfile();
+  const { hasProcessedCv, loading: cvReadinessLoading } = useProcessedCvReadiness();
   const [stats, setStats] = useState({
     visits: 0,
     conversations: 0,
@@ -205,6 +207,36 @@ export default function DashboardPage() {
           </Card>
         )}
 
+        {!loading && !cvReadinessLoading && !hasProcessedCv && (
+          <Card className="border-amber-500/50 bg-amber-500/5">
+            <CardContent className="pt-6">
+              <div className="flex items-start gap-4">
+                <AlertCircle className="h-5 w-5 text-amber-400 mt-0.5" />
+                <div className="flex-1 space-y-3">
+                  <div>
+                    <h3 className="font-medium">{t('dashboard.cvReadiness.title')}</h3>
+                    <p className="text-sm text-muted-foreground">{t('dashboard.cvReadiness.description')}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    <Link to="/onboarding">
+                      <Button size="sm" className="gap-2">
+                        <Upload className="h-4 w-4" />
+                        {t('dashboard.cvReadiness.openQuickStart')}
+                      </Button>
+                    </Link>
+                    <Link to="/uploads">
+                      <Button size="sm" variant="outline" className="gap-2">
+                        <Upload className="h-4 w-4" />
+                        {t('dashboard.cvReadiness.openUploads')}
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -321,6 +353,18 @@ export default function DashboardPage() {
                 <Button variant="outline" className="w-full justify-start gap-2">
                   <Upload className="h-4 w-4" />
                   {t('dashboard.action.uploadDocs')}
+                </Button>
+              </Link>
+              <Link to="/onboarding" className="block">
+                <Button variant="outline" className="w-full justify-start gap-2">
+                  <Upload className="h-4 w-4" />
+                  {t('dashboard.action.quickStart')}
+                </Button>
+              </Link>
+              <Link to="/interview-answers" className="block">
+                <Button variant="outline" className="w-full justify-start gap-2">
+                  <MessageSquare className="h-4 w-4" />
+                  {t('dashboard.action.interviewAnswers')}
                 </Button>
               </Link>
               <Link to="/chat-preview" className="block">

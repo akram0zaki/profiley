@@ -26,6 +26,7 @@ Deno.serve(async (req) => {
       storage_bucket: body.bucket,
       storage_path: body.path,
       original_filename: body.originalFilename,
+      document_kind: body.documentKind,
       mime_type: body.mimeType,
       file_size: body.fileSize,
       checksum_sha256: body.checksumSha256,

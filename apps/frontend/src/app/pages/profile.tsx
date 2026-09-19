@@ -1,14 +1,14 @@
 import { AppLayout } from '../components/app-layout';
+import { InterviewAnswersSummaryCard } from '../components/interview-answers-summary-card';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
-import { Badge } from '../components/ui/badge';
 import { Switch } from '../components/ui/switch';
 import { useEffect, useState } from 'react';
-import { Save, Upload, X, Loader2, Sparkles } from 'lucide-react';
+import { Save, Upload, Loader2, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   useCurrentProfile,
@@ -18,6 +18,7 @@ import {
 } from '../../lib/profile';
 import { api, ApiError } from '../../lib/api';
 import { supabase } from '../../lib/supabase';
+import { INTERVIEW_QUESTION_SETS, JOB_SEARCH_QUESTION_SET_KEY } from '../../lib/interview-question-sets';
 import {
   SOCIAL_PLATFORMS,
   SOCIAL_PLATFORM_META,
@@ -28,8 +29,6 @@ import {
 } from '../../lib/social-links';
 import { useLanguage } from '../contexts/language-context';
 import { useDocumentTitle } from '../hooks/use-document-title';
-
-const SKILLS_QUESTION_KEY = 'skills';
 
 // Mirrors `SLUG_REGEX` in supabase/functions/_shared/validation/schemas.ts.
 // Lowercase letters, digits, internal hyphens; no leading/trailing hyphen.
@@ -48,8 +47,7 @@ export default function ProfilePage() {
     location: '',
     photoPath: null as string | null,
   });
-  const [skills, setSkills] = useState<string[]>([]);
-  const [newSkill, setNewSkill] = useState('');
+  const [answeredInterviewQuestions, setAnsweredInterviewQuestions] = useState<string[]>([]);
   const [socialLinks, setSocialLinks] = useState<SocialLinks>({});
   const [socialVisibility, setSocialVisibility] = useState<SocialVisibilityMap>({});
   const [saving, setSaving] = useState(false);
@@ -85,19 +83,17 @@ export default function ProfilePage() {
     void (async () => {
       const { data, error } = await supabase
         .from('onboarding_answers')
-        .select('answer_json,answer_text')
+        .select('question_key, answer_text')
         .eq('user_id', appUser.id)
-        .eq('question_key', SKILLS_QUESTION_KEY)
-        .maybeSingle();
+        .eq('question_set_key', JOB_SEARCH_QUESTION_SET_KEY)
+        .in('question_key', interviewQuestionSet.questions.map((question) => question.key));
       if (cancelled || error) return;
-      if (data) {
-        const json = data.answer_json as unknown;
-        if (Array.isArray(json)) {
-          setSkills(json.filter((s) => typeof s === 'string') as string[]);
-        } else if (typeof data.answer_text === 'string' && data.answer_text) {
-          setSkills(data.answer_text.split(',').map((s) => s.trim()).filter(Boolean));
-        }
-      }
+      setAnsweredInterviewQuestions(
+        (data ?? [])
+          .filter((row) => typeof row.answer_text === 'string' && row.answer_text.trim())
+          .map((row) => row.question_key)
+          .filter((value): value is string => Boolean(value)),
+      );
     })();
     return () => {
       cancelled = true;
@@ -113,15 +109,6 @@ export default function ProfilePage() {
     .join('')
     .toUpperCase();
 
-  const addSkill = () => {
-    const s = newSkill.trim();
-    if (!s || skills.includes(s)) return;
-    setSkills([...skills, s]);
-    setNewSkill('');
-  };
-
-  const removeSkill = (s: string) => setSkills(skills.filter((x) => x !== s));
-
   const handleFillFromCv = async () => {
     if (!appUser || fillingFromCv) return;
     setFillingFromCv(true);
@@ -136,20 +123,6 @@ export default function ProfilePage() {
         shortBio: p.shortBio?.trim() || f.shortBio,
         longBio: p.longBio?.trim() || f.longBio,
       }));
-      if (Array.isArray(p.skills) && p.skills.length > 0) {
-        setSkills((prev) => {
-          const seen = new Set(prev.map((s) => s.toLowerCase()));
-          const additions: string[] = [];
-          for (const s of p.skills) {
-            const v = s.trim();
-            if (!v) continue;
-            if (seen.has(v.toLowerCase())) continue;
-            seen.add(v.toLowerCase());
-            additions.push(v);
-          }
-          return [...prev, ...additions];
-        });
-      }
       if (p.socialLinks && Object.keys(p.socialLinks).length > 0) {
         setSocialLinks((prev) => ({ ...prev, ...p.socialLinks }));
       }
@@ -222,16 +195,6 @@ export default function ProfilePage() {
         current_location: form.location || null,
         social_links: normalizedSocialLinks,
       });
-      await supabase.from('onboarding_answers').upsert(
-        {
-          user_id: appUser.id,
-          question_key: SKILLS_QUESTION_KEY,
-          answer_json: skills,
-          answer_text: skills.join(', '),
-          updated_at: new Date().toISOString(),
-        },
-        { onConflict: 'user_id,question_key' },
-      );
       await updatePreferences(appUser.id, {
         public_social_visibility: normalizedSocialVisibility,
       });
@@ -478,39 +441,7 @@ export default function ProfilePage() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('profile.skills.title')}</CardTitle>
-            <CardDescription>{t('profile.skills.description')}</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex gap-2">
-              <Input
-                placeholder={t('profile.skills.placeholder')}
-                value={newSkill}
-                onChange={(e) => setNewSkill(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    addSkill();
-                  }
-                }}
-              />
-              <Button onClick={addSkill}>{t('profile.skills.add')}</Button>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {skills.map((s) => (
-                <Badge key={s} variant="secondary" className="gap-1 py-1 px-3">
-                  {s}
-                  <X className="h-3 w-3 cursor-pointer" onClick={() => removeSkill(s)} />
-                </Badge>
-              ))}
-              {skills.length === 0 && (
-                <p className="text-sm text-muted-foreground">{t('profile.skills.empty')}</p>
-              )}
-            </div>
-          </CardContent>
-        </Card>
+        <InterviewAnswersSummaryCard answeredQuestionKeys={answeredInterviewQuestions} />
 
         <Card>
           <CardHeader>

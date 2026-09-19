@@ -11,8 +11,13 @@
     "description": "Functiebeschrijving",
     "placeholder": "Plak hier de functiebeschrijving…",
     "analyze": "Analyseer Functie-Match",
-    "analyzing": "Analyseren…",
-    "completeOnboarding": "Voltooi onboarding om functie-match analyse op uw profiel in te schakelen."
+    "analyzing": "Analyseren…"
+  },
+  "emptyState": {
+    "title": "Upload en verwerk eerst een CV",
+    "description": "Functie-matchanalyse wordt beschikbaar nadat minstens één CV is verwerkt. Alleen ondersteunende documenten zijn niet genoeg.",
+    "quickStart": "Open snelle start",
+    "uploads": "Open uploads"
   },
   "notice": {
     "title": "AI-gegenereerde ondersteuning",

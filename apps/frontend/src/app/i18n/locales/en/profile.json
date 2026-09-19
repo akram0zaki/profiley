@@ -6,7 +6,7 @@
   "loading": "Loading profile…",
   "notReady": {
     "title": "Profile not ready",
-    "description": "We couldn't find your profile yet. Please complete onboarding first."
+    "description": "We couldn't find your profile yet. Please finish sign-in and try again."
   },
   "photo": {
     "title": "Profile Photo",
@@ -28,12 +28,12 @@
       "hint": "Auto-fill these fields from your most recent uploaded CV. You can edit anything before saving."
     }
   },
-  "skills": {
-    "title": "Skills & Expertise",
-    "description": "Key skills that define your professional identity",
-    "placeholder": "Add a skill (e.g., React, Python, AI/ML)",
-    "add": "Add",
-    "empty": "No skills yet. Add a few above."
+  "interviewAnswers": {
+    "title": "Interview Answers",
+    "description": "Keep your AI persona current with structured answers about your strengths, goals, and working style.",
+    "progress": "{count} of {total} interview prompts answered",
+    "empty": "No interview answers saved yet.",
+    "open": "Open Interview Answers"
   },
   "social": {
     "title": "Links & Social Profiles",

@@ -14,6 +14,7 @@ import { PERSONA_SYSTEM, personaUserMessage } from "../_shared/prompts/personaCh
 import { PERSONA_CHAT_PROMPT_VERSION } from "../_shared/prompts/versions.ts";
 import { detectLangSimple, pickLanguage } from "../_shared/utils/locale.ts";
 import { loggerForRequest } from "../_shared/utils/logger.ts";
+import { hasProcessedCv } from "../_shared/readiness/processedCv.ts";
 
 Deno.serve(async (req) => {
   const pf = handlePreflight(req);
@@ -32,6 +33,9 @@ Deno.serve(async (req) => {
       .maybeSingle();
     if (pErr || !profile) throw new AppError("PROFILE_NOT_FOUND", "Profile not found", 404);
     if (!profile.allow_public_chat) throw new AppError("CHAT_DISABLED", "Owner has disabled public chat", 403);
+    if (!(await hasProcessedCv(supabase, profile.user_id))) {
+      throw new AppError("PROCESSED_CV_REQUIRED", "Public chat requires at least one processed CV", 403);
+    }
 
     // Rate limits.
     const session = body.visitorSessionId ?? visitorSessionFromHeader(req);

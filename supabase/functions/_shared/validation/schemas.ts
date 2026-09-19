@@ -28,6 +28,20 @@ export const RequestAccountDeletionSchema = z.object({
   requestSource: z.enum(["settings"]).default("settings"),
 });
 
+export const ActivationCompletionSourceSchema = z.enum(["skip", "cv_upload"]);
+
+export const DocumentKindSchema = z.enum(["cv", "supporting_document"]);
+
+export const ProfileAnswerCaptureMethodSchema = z.enum(["form", "chat", "imported"]);
+
+export const ProfileAnswerVisibilitySchema = z.enum(["private", "avatar_queryable", "public_profile"]);
+
+export const ProfileAnswerReviewStateSchema = z.enum(["draft", "confirmed", "stale"]);
+
+export const CompleteActivationSchema = z.object({
+  completionSource: ActivationCompletionSourceSchema,
+});
+
 export const CompleteOnboardingSchema = z.object({
   answers: z.array(
     z.object({
@@ -84,6 +98,7 @@ export const CreateUploadUrlSchema = z.object({
   filename: z.string().min(1).max(255),
   mimeType: z.string().min(1).max(120),
   bucket: z.enum(["user_uploads", "avatars", "documents"]).default("user_uploads"),
+  documentKind: DocumentKindSchema.default("supporting_document"),
 });
 
 export const FinalizeUploadSchema = z.object({
@@ -93,6 +108,7 @@ export const FinalizeUploadSchema = z.object({
   mimeType: z.string().max(120).optional(),
   fileSize: z.number().int().positive().max(26214400),
   checksumSha256: z.string().length(64).optional(),
+  documentKind: DocumentKindSchema.default("supporting_document"),
 });
 
 export const ProcessDocumentSchema = z.object({
@@ -179,4 +195,41 @@ export const CreateAvatarProfileSchema = z.object({
   sourcePhotoPath: z.string().min(1).max(512),
   voiceProvider: z.string().max(40).optional(),
   voiceModel: z.string().max(120).optional(),
+});
+
+export const UpsertProfileAnswerSchema = z.object({
+  questionSetKey: z.string().min(1).max(80),
+  questionKey: z.string().min(1).max(80),
+  answerText: z.string().min(1).max(4000),
+  answerSummary: z.string().max(500).nullable().optional(),
+  captureMethod: ProfileAnswerCaptureMethodSchema,
+  visibility: ProfileAnswerVisibilitySchema,
+  reviewState: ProfileAnswerReviewStateSchema,
+  version: z.number().int().min(1).default(1),
+  staleAfterAt: z.string().datetime().nullable().optional(),
+});
+
+export const GenerateProfileAnswerDraftSchema = z.object({
+  questionSetKey: z.string().min(1).max(80),
+  questionKey: z.string().min(1).max(80),
+  questionPrompt: z.string().min(1).max(240),
+  questionHelper: z.string().max(400).nullable().optional(),
+  sourceNotes: z.string().min(20).max(4000),
+  currentAnswerText: z.string().max(4000).nullable().optional(),
+  language: z.enum(["en", "nl", "ar"]).optional(),
+});
+
+export const ApproveProfileAnswerDraftSchema = z.object({
+  questionSetKey: z.string().min(1).max(80),
+  questionKey: z.string().min(1).max(80),
+  answerText: z.string().min(1).max(4000),
+  answerSummary: z.string().max(500).nullable().optional(),
+  visibility: ProfileAnswerVisibilitySchema.default("avatar_queryable"),
+  version: z.number().int().min(1).optional(),
+  staleAfterAt: z.string().datetime().nullable().optional(),
+});
+
+export const RejectProfileAnswerDraftSchema = z.object({
+  questionSetKey: z.string().min(1).max(80),
+  questionKey: z.string().min(1).max(80),
 });

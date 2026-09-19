@@ -3,6 +3,75 @@
 import { FUNCTIONS_BASE, supabase } from './supabase';
 import type { SocialLinks } from './social-links';
 
+export type ActivationCompletionSource = 'skip' | 'cv_upload';
+
+export type DocumentKind = 'cv' | 'supporting_document';
+
+export type ProfileAnswerCaptureMethod = 'form' | 'chat' | 'imported';
+
+export type ProfileAnswerVisibility = 'private' | 'avatar_queryable' | 'public_profile';
+
+export type ProfileAnswerReviewState = 'draft' | 'confirmed' | 'stale';
+
+export type ProfileAnswerRecord = {
+  id: string;
+  question_key: string;
+  answer_text: string;
+  answer_summary: string | null;
+  visibility: ProfileAnswerVisibility;
+  review_state: ProfileAnswerReviewState;
+  capture_method: ProfileAnswerCaptureMethod;
+  version: number;
+  stale_after_at: string | null;
+  updated_at: string;
+};
+
+export type ProfileAnswerUpsertInput = {
+  questionSetKey: string;
+  questionKey: string;
+  answerText: string;
+  answerSummary?: string | null;
+  captureMethod: ProfileAnswerCaptureMethod;
+  visibility: ProfileAnswerVisibility;
+  reviewState: ProfileAnswerReviewState;
+  version?: number;
+  staleAfterAt?: string | null;
+};
+
+export type UserDocumentRow = {
+  id: string;
+  original_filename: string;
+  document_kind: DocumentKind;
+  mime_type: string | null;
+  file_size: number | null;
+  processing_status: string;
+  extracted_text_status: string;
+  retry_count: number;
+  last_error: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type PublicProfileData = {
+  id: string;
+  user_id: string;
+  slug: string;
+  full_name: string | null;
+  headline: string | null;
+  short_bio: string | null;
+  long_bio: string | null;
+  current_location: string | null;
+  social_links: SocialLinks | null;
+  profile_photo_path: string | null;
+  photoUrl: string | null;
+  allow_public_chat: boolean;
+  allow_job_fit_analysis: boolean;
+  allow_contact_form: boolean;
+  processed_cv_ready: boolean;
+  seo_title?: string | null;
+  seo_description?: string | null;
+};
+
 export type Envelope<T> = {
   success: boolean;
   data: T | null;
@@ -159,15 +228,46 @@ export const api = {
     confirmationText: 'DELETE';
     requestSource?: 'settings';
   }) => callFn<{ alreadyScheduled: boolean; scheduledFor: string | null }>('request-account-deletion', b),
+  completeActivation: (b: { completionSource: ActivationCompletionSource }) => callFn<{ activationCompletedAt: string }>('complete-activation', b),
+  upsertProfileAnswer: (b: ProfileAnswerUpsertInput) =>
+    callFn<{ answer: ProfileAnswerRecord }>('upsert-profile-answer', b),
+  generateProfileAnswerDraft: (b: {
+    questionSetKey: string;
+    questionKey: string;
+    questionPrompt: string;
+    questionHelper?: string | null;
+    sourceNotes: string;
+    currentAnswerText?: string | null;
+    language?: 'en' | 'nl' | 'ar';
+  }) => callFn<{ answer: ProfileAnswerRecord; modelUsed: string; followUpQuestion: string | null }>('generate-profile-answer-draft', b),
+  approveProfileAnswerDraft: (b: {
+    questionSetKey: string;
+    questionKey: string;
+    answerText: string;
+    answerSummary?: string | null;
+    visibility: ProfileAnswerVisibility;
+    version?: number;
+    staleAfterAt?: string | null;
+  }) => callFn<{ answer: ProfileAnswerRecord }>('approve-profile-answer-draft', b),
+  rejectProfileAnswerDraft: (b: { questionSetKey: string; questionKey: string }) =>
+    callFn<{ answer: ProfileAnswerRecord | null; restored: boolean }>('reject-profile-answer-draft', b),
   cancelAccountDeletion: () =>
     callFn<{ cancelled: boolean; pending: boolean }>('cancel-account-deletion', {}),
   publishProfile: (b: { publicVisibility: boolean }) => callFn('publish-profile', b),
   updateProfileSlug: (b: { newSlug: string }) =>
     callFn<{ id: string; slug: string; changed: boolean }>('update-profile-slug', b),
-  createUploadUrl: (b: { filename: string; mimeType: string; bucket?: 'user_uploads' | 'avatars' | 'documents' }) =>
-    callFn<{ bucket: string; path: string; signedUrl: string; token: string }>('create-upload-url', b),
-  finalizeUpload: (b: unknown) => callFn<{ documentId: string }>('finalize-upload', b),
-  listUserDocuments: () => callFn<{ documents: any[] }>('list-user-documents', {}, { method: 'POST' }),
+  createUploadUrl: (b: { filename: string; mimeType: string; bucket?: 'user_uploads' | 'avatars' | 'documents'; documentKind?: DocumentKind }) =>
+    callFn<{ bucket: string; path: string; documentKind: DocumentKind; signedUrl: string; token: string }>('create-upload-url', b),
+  finalizeUpload: (b: {
+    bucket: 'user_uploads' | 'avatars' | 'documents';
+    path: string;
+    originalFilename: string;
+    mimeType?: string;
+    fileSize: number;
+    checksumSha256?: string;
+    documentKind?: DocumentKind;
+  }) => callFn<{ documentId: string }>('finalize-upload', b),
+  listUserDocuments: () => callFn<{ documents: UserDocumentRow[] }>('list-user-documents', {}, { method: 'POST' }),
   deleteDocument: (b: { documentId: string }) => callFn('delete-document', b),
   extractProfileFromCv: (b: { documentId?: string; language?: 'en' | 'nl' | 'ar' } = {}) =>
     callFn<{
@@ -190,7 +290,7 @@ export const api = {
   testPersonaChat: (b: unknown) => callFn<{ conversationId: string | null; message: string; citations: any[]; modelUsed: string; language: string }>('test-persona-chat', b),
   chatPersona: (b: unknown) => callFn<{ conversationId: string | null; message: string; citations: any[]; modelUsed: string; language: string }>('chat-persona', b, { auth: false }),
   analyzeJobFit: (b: unknown) => callFn<any>('analyze-job-fit', b, { auth: false }),
-  getPublicProfile: (slug: string) => callFn<any>('get-public-profile', { slug }, { method: 'GET', auth: false }),
+  getPublicProfile: (slug: string) => callFn<PublicProfileData>('get-public-profile', { slug }, { method: 'GET', auth: false }),
   trackRecruiterEvent: (b: unknown) => callFn('track-recruiter-event', b, { auth: false }),
   submitRecruiterContact: (b: unknown) => callFn('submit-recruiter-contact', b, { auth: false }),
   adminListModels: () => callFn<{ configs: any[]; assignments: any[] }>('admin-list-models', {}, { method: 'POST' }),

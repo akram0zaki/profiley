@@ -8,10 +8,11 @@ import { Badge } from '../components/ui/badge';
 import { Separator } from '../components/ui/separator';
 import { useState } from 'react';
 import { Link } from 'react-router';
-import { Sparkles, TrendingUp, TrendingDown, AlertTriangle, CheckCircle2, Loader2 } from 'lucide-react';
+import { Sparkles, TrendingUp, TrendingDown, AlertTriangle, CheckCircle2, Loader2, Upload } from 'lucide-react';
 import { toast } from 'sonner';
 import { api, ApiError } from '../../lib/api';
 import { useCurrentProfile } from '../../lib/profile';
+import { useProcessedCvReadiness } from '../../lib/cv-readiness';
 import { useLanguage } from '../contexts/language-context';
 import { Label } from '../components/ui/label';
 import { useDocumentTitle } from '../hooks/use-document-title';
@@ -33,6 +34,7 @@ export default function JobFitPreviewPage() {
   const { t } = useLanguage();
   useDocumentTitle(t('jobFit.title'));
   const { profile, loading } = useCurrentProfile();
+  const { hasProcessedCv, loading: cvReadinessLoading } = useProcessedCvReadiness();
   const [jobTitle, setJobTitle] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [jobDescription, setJobDescription] = useState('');
@@ -41,7 +43,7 @@ export default function JobFitPreviewPage() {
 
   const handleAnalyze = async () => {
     if (!profile?.slug) {
-      toast.error(t('jobFit.input.completeOnboarding'));
+      toast.error(t('jobFit.feedback.analysisFailed'));
       return;
     }
     setAnalyzing(true);
@@ -90,65 +92,89 @@ export default function JobFitPreviewPage() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('jobFit.input.title')}</CardTitle>
-            <CardDescription>
-              {t('jobFit.input.description')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="job-fit-title">{t('jobFit.input.jobTitle')}</Label>
-                <Input
-                  id="job-fit-title"
-                  placeholder={t('jobFit.input.jobTitlePlaceholder')}
-                  value={jobTitle}
-                  onChange={(e) => setJobTitle(e.target.value)}
-                />
+        {cvReadinessLoading ? (
+          <Card>
+            <CardContent className="pt-6 text-sm text-muted-foreground">
+              {t('dashboard.loading')}
+            </CardContent>
+          </Card>
+        ) : !hasProcessedCv ? (
+          <Card className="border-amber-500/40 bg-amber-500/5">
+            <CardHeader>
+              <CardTitle>{t('jobFit.emptyState.title')}</CardTitle>
+              <CardDescription>{t('jobFit.emptyState.description')}</CardDescription>
+            </CardHeader>
+            <CardContent className="flex flex-wrap gap-3 pt-0">
+              <Link to="/onboarding">
+                <Button className="gap-2">
+                  <Upload className="h-4 w-4" />
+                  {t('jobFit.emptyState.quickStart')}
+                </Button>
+              </Link>
+              <Link to="/uploads">
+                <Button variant="outline" className="gap-2">
+                  <Upload className="h-4 w-4" />
+                  {t('jobFit.emptyState.uploads')}
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+        ) : (
+          <Card>
+            <CardHeader>
+              <CardTitle>{t('jobFit.input.title')}</CardTitle>
+              <CardDescription>
+                {t('jobFit.input.description')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="job-fit-title">{t('jobFit.input.jobTitle')}</Label>
+                  <Input
+                    id="job-fit-title"
+                    placeholder={t('jobFit.input.jobTitlePlaceholder')}
+                    value={jobTitle}
+                    onChange={(e) => setJobTitle(e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="job-fit-company">{t('jobFit.input.company')}</Label>
+                  <Input
+                    id="job-fit-company"
+                    placeholder={t('jobFit.input.companyPlaceholder')}
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
+                  />
+                </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="job-fit-company">{t('jobFit.input.company')}</Label>
-                <Input
-                  id="job-fit-company"
-                  placeholder={t('jobFit.input.companyPlaceholder')}
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
+                <Label htmlFor="job-fit-description">{t('jobFit.input.description')}</Label>
+                <Textarea
+                  id="job-fit-description"
+                  placeholder={t('jobFit.input.placeholder')}
+                  rows={12}
+                  value={jobDescription}
+                  onChange={(e) => setJobDescription(e.target.value)}
                 />
               </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="job-fit-description">{t('jobFit.input.description')}</Label>
-              <Textarea
-                id="job-fit-description"
-                placeholder={t('jobFit.input.placeholder')}
-                rows={12}
-                value={jobDescription}
-                onChange={(e) => setJobDescription(e.target.value)}
-              />
-            </div>
-            <div className="flex gap-2">
-              <Button
-                onClick={() => void handleAnalyze()}
-                disabled={!jobDescription.trim() || analyzing || loading || !profile?.slug}
-                className="gap-2"
-              >
-                {analyzing ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <Sparkles className="h-4 w-4" />
-                )}
-                {analyzing ? t('jobFit.input.analyzing') : t('jobFit.input.analyze')}
-              </Button>
-            </div>
-            {!loading && !profile?.slug && (
-              <p className="text-xs text-muted-foreground">
-                {t('jobFit.input.completeOnboarding')}
-              </p>
-            )}
-          </CardContent>
-        </Card>
+              <div className="flex gap-2">
+                <Button
+                  onClick={() => void handleAnalyze()}
+                  disabled={!jobDescription.trim() || analyzing || loading || !profile?.slug}
+                  className="gap-2"
+                >
+                  {analyzing ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Sparkles className="h-4 w-4" />
+                  )}
+                  {analyzing ? t('jobFit.input.analyzing') : t('jobFit.input.analyze')}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {result && (
           <div className="space-y-6">

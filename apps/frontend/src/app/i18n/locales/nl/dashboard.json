@@ -27,9 +27,17 @@
   },
   "quickActions": "Snelle Acties",
   "quickActionsSubtitle": "Beheer en optimaliseer uw profiel",
+  "cvReadiness": {
+    "title": "Upload en verwerk een CV om AI-tools te ontgrendelen",
+    "description": "AI-chat en functie-matchanalyse blijven geblokkeerd totdat minstens één CV succesvol is verwerkt.",
+    "openQuickStart": "Open snelle start",
+    "openUploads": "Open uploads"
+  },
   "action": {
     "editProfile": "Bewerk Profielinformatie",
     "uploadDocs": "Upload Nieuwe Documenten",
+    "quickStart": "Open snelle start",
+    "interviewAnswers": "Open interviewantwoorden",
     "testPersona": "Test AI-Persona",
     "testJobFit": "Test Functie-Match Analysator",
     "configureAI": "Configureer AI-Instellingen"

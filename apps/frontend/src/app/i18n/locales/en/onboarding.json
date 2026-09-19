@@ -1,88 +1,40 @@
 {
-  "title": "Create Your AI Profile",
-  "stepLabel": "Step {step} of {total}: {stepName}",
-  "progressAria": "Onboarding progress",
-  "progressValue": "{value}% complete out of {max}%",
-  "stepsAria": "Onboarding steps",
-  "steps": {
-    "welcome": "Welcome",
-    "basics": "Profile Basics",
-    "professional": "Professional Info",
-    "preferences": "Preferences",
-    "complete": "Complete"
+  "title": "Quick Start",
+  "badge": "Quick start",
+  "headline": "Create your AI profile in minutes",
+  "subtitle": "Upload your CV to unlock stronger AI answers sooner, or skip and explore the product first.",
+  "card": {
+    "title": "Start with your CV",
+    "description": "A processed CV is the fastest way to unlock AI chat and job-fit analysis. You can always come back later from the dashboard."
   },
-  "welcome": {
-    "title": "Welcome to Profiley!",
-    "intro": "Let's set up your AI-powered professional profile. This will only take a few minutes.",
-    "youWillDo": "What you'll do:",
-    "items": {
-      "basics": "Set up your basic profile information",
-      "professional": "Define your professional strengths and goals",
-      "preferences": "Configure language and timezone preferences",
-      "documents": "Upload your CV and supporting documents"
-    },
-    "captured": "Your data is captured from your browser:",
-    "locale": "Locale:",
-    "timezone": "Timezone:"
+  "benefits": {
+    "cvTitle": "Unlock CV-based AI",
+    "cvBody": "Once your CV finishes processing, Profiley can answer recruiter questions with grounded evidence from your experience.",
+    "fastTitle": "Skip the long setup",
+    "fastBody": "There is no mandatory questionnaire here anymore. Upload once or skip for now and keep moving.",
+    "returnTitle": "Re-open anytime",
+    "returnBody": "Quick start stays available from the dashboard, so you can upload or refresh your CV later without resetting anything."
   },
-  "basics": {
-    "title": "Profile Basics",
-    "description": "Tell us about yourself",
-    "fullName": "Full Name",
-    "fullNamePlaceholder": "Akram Fares",
-    "headline": "Professional Headline",
-    "headlinePlaceholder": "Senior Software Engineer | AI & Cloud Architecture",
-    "bio": "Short Bio",
-    "bioPlaceholder": "Tell recruiters about your background and what makes you unique…",
-    "location": "Location (Optional)",
-    "locationPlaceholder": "San Francisco, CA"
+  "browserInfo": {
+    "title": "We already captured your browser settings",
+    "description": "Locale: {locale} | Timezone: {timezone}"
   },
-  "professional": {
-    "title": "Professional Information",
-    "description": "Help AI understand your expertise",
-    "strengths": "Key Strengths",
-    "strengthsPlaceholder": "Add a strength (e.g., Full-Stack Development)",
-    "add": "Add",
-    "seniority": "Seniority Level",
-    "seniorityPlaceholder": "Select seniority level",
-    "seniorityLevels": {
-      "junior": "Junior (0-2 years)",
-      "mid": "Mid-Level (3-5 years)",
-      "senior": "Senior (6-10 years)",
-      "staff": "Staff/Principal (10+ years)",
-      "lead": "Lead/Manager",
-      "executive": "Executive"
-    },
-    "workingStyle": "Working Style",
-    "workingStylePlaceholder": "Describe how you prefer to work (remote, hybrid, collaborative, etc.)"
+  "actions": {
+    "uploadCv": "Upload CV",
+    "uploading": "Uploading CV…",
+    "skip": "Skip for now",
+    "skipping": "Skipping…",
+    "uploadFileAria": "Choose a CV file to upload"
   },
-  "preferences": {
-    "title": "Language & Regional Preferences",
-    "description": "Configure how your AI persona interacts",
-    "language": "Preferred Language",
-    "timezone": "Timezone",
-    "timezoneAuto": "Automatically detected from your browser",
-    "browserLocale": "Browser Locale"
-  },
-  "complete": {
-    "title": "Profile Created!",
-    "description": "Your basic profile is set up. Next, upload your CV and documents to complete your AI knowledge base.",
-    "nextSteps": "Next Steps:",
-    "items": {
-      "upload": "Upload your CV and portfolio documents",
-      "review": "Review your public profile page",
-      "test": "Test your AI persona in chat preview",
-      "share": "Share your profile link with recruiters"
-    }
-  },
-  "nav": {
-    "previous": "Previous",
-    "finish": "Finish & Continue",
-    "next": "Next",
-    "goDashboard": "Go to Dashboard"
-  },
+  "supported": "Supported: PDF, DOCX, TXT, MD. Max 10MB.",
+  "dashboardLink": "Go straight to dashboard",
   "feedback": {
-    "saved": "Onboarding saved",
-    "saveFailed": "Save failed"
+    "uploaded": "{filename} uploaded. CV processing will continue in the background.",
+    "uploadFailed": "CV upload failed.",
+    "skipped": "Quick start skipped. You can return from the dashboard anytime.",
+    "skipFailed": "Could not skip quick start right now.",
+    "tooLarge": "{filename}: too large (max 10MB)",
+    "unsupported": "{filename}: unsupported type ({mimeType})",
+    "legacyDoc": "{filename}: legacy .doc files are not supported. Please save the document as .docx or PDF and try again."
   }
 }

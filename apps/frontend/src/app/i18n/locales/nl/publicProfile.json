@@ -13,6 +13,10 @@
     "chat": "AI Chat",
     "jobFit": "Functie Match"
   },
+  "aiUnavailable": {
+    "title": "AI-functies zijn momenteel niet beschikbaar voor dit profiel",
+    "description": "Openbare AI-chat en functie-matchanalyse blijven uitgeschakeld totdat dit profiel ten minste één succesvol verwerkt CV heeft."
+  },
   "about": {
     "title": "Over",
     "skills": "Vaardigheden",

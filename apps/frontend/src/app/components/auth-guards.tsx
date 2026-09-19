@@ -54,9 +54,6 @@ export function RequireAppAccess({ children }: { children: ReactNode }) {
   if (!hasAcceptedCurrentLegalVersions(appUser)) {
     return <Navigate to={legalRedirect(loc.pathname)} replace />;
   }
-  if (!appUser.onboarding_completed) {
-    return <Navigate to="/onboarding" replace />;
-  }
   return <>{children}</>;
 }
 

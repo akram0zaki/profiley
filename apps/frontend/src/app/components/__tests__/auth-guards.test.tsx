@@ -28,6 +28,7 @@ function acceptedAppUser(overrides: Record<string, unknown> = {}) {
     preferred_language: 'en',
     browser_locale: 'en-US',
     timezone: 'Europe/Amsterdam',
+    activation_completed_at: '2026-05-03T10:00:00.000Z',
     onboarding_completed: true,
     role: 'user',
     terms_accepted_at: '2026-05-03T10:00:00.000Z',
@@ -71,10 +72,10 @@ describe('auth guards', () => {
     expect(screen.getByText('Legal acceptance route')).toBeInTheDocument();
   });
 
-  it('redirects accepted but non-onboarded users to onboarding', () => {
+  it('allows accepted users through the protected gate even when onboarding is incomplete', () => {
     useAuthMock.mockReturnValue({ loading: false, session: { access_token: 'jwt' }, role: 'user' });
     useCurrentProfileMock.mockReturnValue({
-      appUser: acceptedAppUser({ onboarding_completed: false }),
+      appUser: acceptedAppUser({ activation_completed_at: null, onboarding_completed: false }),
       loading: false,
     });
 
@@ -85,7 +86,7 @@ describe('auth guards', () => {
       </RequireAppAccess>,
     );
 
-    expect(screen.getByText('Onboarding route')).toBeInTheDocument();
+    expect(screen.getByText('Protected content')).toBeInTheDocument();
   });
 
   it('allows accepted and onboarded users through the protected gate', () => {

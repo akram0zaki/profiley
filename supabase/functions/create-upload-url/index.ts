@@ -48,6 +48,7 @@ Deno.serve(async (req) => {
     return respond(req, {
       bucket: body.bucket,
       path,
+      documentKind: body.documentKind,
       signedUrl: data.signedUrl,
       token: (data as any).token,
     });

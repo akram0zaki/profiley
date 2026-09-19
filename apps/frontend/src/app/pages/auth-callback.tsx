@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { supabase } from '../../lib/supabase';
 import { api } from '../../lib/api';
+import { hasAcceptedCurrentLegalVersions } from '../../lib/legal';
+import type { AppUserRow } from '../../lib/profile';
 import { useLanguage } from '../contexts/language-context';
 import { useDocumentTitle } from '../hooks/use-document-title';
 
@@ -30,8 +32,33 @@ export default function AuthCallbackPage() {
         console.warn('initialize-user-profile failed:', e);
       }
       const params = new URLSearchParams(window.location.search);
-      const dest = params.get('redirect') ?? '/dashboard';
-      nav(dest, { replace: true });
+      const requestedDest = params.get('redirect') ?? '/dashboard';
+
+      try {
+        const { data: appUser, error: appUserError } = await supabase
+          .from('app_users')
+          .select('*')
+          .eq('id', session.user.id)
+          .maybeSingle();
+
+        if (appUserError) {
+          throw appUserError;
+        }
+
+        const nextDestination = (appUser as AppUserRow | null)?.activation_completed_at
+          ? requestedDest
+          : '/onboarding';
+
+        if (!hasAcceptedCurrentLegalVersions(appUser as AppUserRow | null)) {
+          nav(`/legal/acceptance?redirect=${encodeURIComponent(nextDestination)}`, { replace: true });
+          return;
+        }
+
+        nav(nextDestination, { replace: true });
+      } catch (profileError) {
+        console.warn('app_users lookup failed:', profileError);
+        nav(requestedDest, { replace: true });
+      }
     })();
     return () => { cancelled = true; };
   }, [nav, t]);

@@ -12,6 +12,10 @@ vi.mock('../../../lib/profile', () => ({
   useCurrentProfile: () => ({ profile: { slug: 'test-user' }, loading: false }),
 }));
 
+vi.mock('../../../lib/cv-readiness', () => ({
+  useProcessedCvReadiness: () => ({ hasProcessedCv: false, loading: false }),
+}));
+
 vi.mock('../../../lib/api', () => ({
   api: {
     analyzeJobFit: vi.fn(),
@@ -38,5 +42,7 @@ describe('JobFitPreviewPage AI notice', () => {
       'href',
       'mailto:privacy@profiley.ai',
     );
+    expect(screen.getByText('Upload and process a CV first')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Open Quick Start' })).toHaveAttribute('href', '/onboarding');
   });
 });
