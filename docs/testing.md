@@ -57,8 +57,10 @@ README's "Still not implemented" section.
   TanStack-style data hooks, and shadcn primitives; covering them without an
   e2e harness produces brittle tests. We plan to add Playwright for the high-
   value flows (login → onboarding → upload → publish → public chat).
-- **Postgres migrations + RLS**. Targeted for pgTAP once a fixture seeder
-  exists.
+- **Postgres migrations + RLS** (behaviour). Targeted for pgTAP once a
+  fixture seeder exists. Until then, `supabase/tests/rlsMigrations.test.ts`
+  statically checks that every public table enables RLS and that the anon
+  table-level read policies on `profiles` / `public_pages` stay dropped.
 - **Load / soak**. Targeted for k6 once SLOs are formalised.
 
 The `package.json` exposes `test:frontend:coverage` so you can spot regressions
