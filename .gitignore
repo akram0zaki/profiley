@@ -94,3 +94,7 @@ apps/frontend/public/locales/*/bundled.json
 repcue-release-key.jks
 apps/frontend/android/gradle.properties
 
+
+# Local tool output dumps
+test_output.txt
+ts_errors.txt
