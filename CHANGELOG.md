@@ -6,6 +6,16 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## 2026-11-24
 
+### Fixed — Deploy workflow and runbook for Supabase CLI v3
+
+- `deploy.yml` installed `version: latest`, which is now CLI v3. In v3, `db push` without `--remote` targets the local stack, hosted changes need `--yes`, and the `[inbucket]` config section stops `db` commands loading, so the next prod deploy would have failed at the schema step. The workflow now pins CLI 3.4.0 and uses `--remote=<ref> --yes`.
+- Renamed `[inbucket]` to `[local_smtp]` and the deprecated `[auth.email|sms] enable_signup` keys to `enabled` (same behaviour) in `supabase/config.toml`.
+- README, init guide, and `supabase.instructions.md` use `--remote="$SUPABASE_PROJECT_REF_<ENV>"` instead of `supabase link` / `--project-ref` / `--db-url`; the init guide now requires CLI ≥ 3.4.
+
+### Removed — Stale local output dumps
+
+- Deleted `apps/frontend/test_output.txt` and `ts_errors.txt` and ignored both names.
+
 ### Security — Close direct anonymous reads of public profiles (0037)
 
 - Dropped the `anyone_reads_public_profile` RLS policy on `profiles`. It let anyone with the anon key read every column of a public profile via PostgREST, including `social_links` the owner had hidden through `public_social_visibility`. Public profile data is served only through `public_profile_view` by the edge functions.

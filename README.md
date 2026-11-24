@@ -253,20 +253,19 @@ Schema and edge functions are managed entirely through workspace files (`supabas
 ```bash
 set -a && source supabase/.env && set +a
 
-# Schema
-supabase link --project-ref "$SUPABASE_PROJECT_REF_DEV"
-supabase db push --password "$SUPABASE_DB_PASSWORD_DEV"
+# Schema (Supabase CLI v3: --remote targets the hosted project; without it, commands hit the local stack)
+supabase db push --remote="$SUPABASE_PROJECT_REF_DEV" --password "$SUPABASE_DB_PASSWORD_DEV"
 
 # Edge function secrets (idempotent)
 supabase secrets set \
-  --project-ref "$SUPABASE_PROJECT_REF_DEV" \
+  --remote="$SUPABASE_PROJECT_REF_DEV" \
   --env-file supabase/functions/.env.development
 
 # Edge functions (all of them)
 for fn in supabase/functions/*/; do
   name=$(basename "$fn")
   [[ "$name" == "_shared" ]] && continue
-  supabase functions deploy "$name" --project-ref "$SUPABASE_PROJECT_REF_DEV" --no-verify-jwt
+  supabase functions deploy "$name" --remote="$SUPABASE_PROJECT_REF_DEV" --no-verify-jwt
 done
 ```
 
