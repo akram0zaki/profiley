@@ -17,7 +17,7 @@ files and re-deploy.
 | Tool | Why | Install |
 |------|-----|---------|
 | Node ≥ 20 + pnpm ≥ 9 | Frontend build, monorepo workspace | `corepack enable && corepack prepare pnpm@9 --activate` |
-| Supabase CLI ≥ 1.200 | Push migrations, deploy edge functions | `brew install supabase/tap/supabase` |
+| Supabase CLI ≥ 3.4 | Push migrations, deploy edge functions | `brew install supabase/tap/supabase` |
 | Deno ≥ 1.45 | Type-check edge functions locally | `brew install deno` |
 | Wrangler ≥ 3 | Cloudflare Pages deploy + Functions preview | `pnpm dlx wrangler --version` |
 | GitHub CLI (optional) | Set repo secrets quickly | `brew install gh` |
@@ -116,17 +116,14 @@ cp .github/.env.ci.example                     .github/.env.ci
 
 ## 4. Provision Supabase from the workspace
 
-Link the local repo to your project once:
+Apply all workspace migrations. The CLI authenticates with
+`SUPABASE_ACCESS_TOKEN` from `supabase/.env`, so no `supabase login` or `link`
+is needed. In CLI v3, `db push` targets the local stack unless you pass
+`--remote`:
 
 ```bash
-supabase login
-supabase link --project-ref <YOUR_PROJECT_REF>
-```
-
-Apply all workspace migrations:
-
-```bash
-supabase db push --password '<DB_PASSWORD>'
+set -a && source supabase/.env && set +a
+supabase db push --remote="$SUPABASE_PROJECT_REF_DEV" --password "$SUPABASE_DB_PASSWORD_DEV"
 ```
 
 Set the runtime settings that `pg_cron` reads when calling
@@ -197,12 +194,12 @@ Push every secret from the matching env file to the right project (idempotent):
 ```bash
 # Dev
 supabase secrets set \
-  --project-ref "$SUPABASE_PROJECT_REF_DEV" \
+  --remote="$SUPABASE_PROJECT_REF_DEV" \
   --env-file supabase/functions/.env.development
 
 # Prod
 supabase secrets set \
-  --project-ref "$SUPABASE_PROJECT_REF_PROD" \
+  --remote="$SUPABASE_PROJECT_REF_PROD" \
   --env-file supabase/functions/.env.production
 ```
 
@@ -215,7 +212,7 @@ Deploy every function (the deploy workflow does this in CI; locally):
 for fn in supabase/functions/*/; do
   name=$(basename "$fn")
   [[ "$name" == "_shared" ]] && continue
-  supabase functions deploy "$name" --project-ref "$SUPABASE_PROJECT_REF_DEV" --no-verify-jwt
+  supabase functions deploy "$name" --remote="$SUPABASE_PROJECT_REF_DEV" --no-verify-jwt
 done
 ```
 
