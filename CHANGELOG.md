@@ -4,6 +4,15 @@ All notable changes to Profiley are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2026-11-24
+
+### Security — Close direct anonymous reads of public profiles (0037)
+
+- Dropped the `anyone_reads_public_profile` RLS policy on `profiles`. It let anyone with the anon key read every column of a public profile via PostgREST, including `social_links` the owner had hidden through `public_social_visibility`. Public profile data is served only through `public_profile_view` by the edge functions.
+- Dropped `anyone_reads_public_pages` on `public_pages`; nothing reads it anonymously and its visibility check depended on the removed policy.
+- Enabled RLS (no policies) on `runtime_settings` as defence in depth on top of the existing privilege revoke.
+- Added `supabase/tests/rlsMigrations.test.ts`, which fails if a public table is created without enabling RLS or the anon read policies come back.
+
 ## 2026-09-19
 
 ### Fixed — Edge function type checking and visitor session ids
